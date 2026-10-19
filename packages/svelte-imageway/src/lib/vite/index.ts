@@ -1,3 +1,4 @@
+import { PIPELINE_REVISION } from '../version.js';
 import type { Plugin, ResolvedConfig } from 'vite';
 import { relative, join } from 'node:path';
 import { defineConfig } from '../core/config.js';
@@ -95,7 +96,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       await Promise.all(variants.map(async ({ format, width }) => {
           const request: ImageRequest = { key: 'import', ...directives.transforms, w: width, q: directives.quality };
           // Exact requested widths/qualities belong to build configuration, not dynamic URL ladders.
-          const digest = hash(`${hash(source)}:${JSON.stringify(request)}:${format}:${JSON.stringify(sharp.versions)}`);
+          const digest = hash(`${hash(source)}:${JSON.stringify(request)}:${format}:${PIPELINE_REVISION}:${JSON.stringify(sharp.versions)}`);
           let url: string;
           const run = async () => {
             if (format !== 'svg') return exactProcessor.process(source, request, format);

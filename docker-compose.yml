@@ -1,0 +1,35 @@
+services:
+  imageway:
+    build:
+      context: .
+      dockerfile: packages/edge/Dockerfile
+    environment:
+      IMAGEWAY_PUBLIC_SOURCES: "true"
+    volumes:
+      - ./examples/node/static:/sources:ro
+      - imageway-cache:/cache
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 128
+    mem_limit: 1g
+    cpus: 2
+    init: true
+  proxy:
+    build:
+      context: .
+      dockerfile: packages/edge/Dockerfile.proxy
+    user: "1000:1000"
+    ports: ["127.0.0.1:8788:8080"]
+    volumes:
+      - ./packages/edge/Caddyfile:/etc/caddy/Caddyfile:ro
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    depends_on:
+      imageway:
+        condition: service_healthy
+volumes:
+  imageway-cache:

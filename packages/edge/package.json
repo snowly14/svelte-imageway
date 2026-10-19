@@ -1,0 +1,13 @@
+{
+  "name": "@imageway/edge-service",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dry-run": "wrangler deploy --dry-run",
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "svelte-imageway": "workspace:*"
+  }
+}

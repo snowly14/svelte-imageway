@@ -69,6 +69,10 @@
     "./config": {
       "types": "./dist/core/config.d.ts",
       "default": "./dist/core/config.js"
+    },
+    "./edge": {
+      "types": "./dist/edge/index.d.ts",
+      "default": "./dist/edge/index.js"
     }
   },
   "peerDependencies": {

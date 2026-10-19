@@ -1,0 +1,10 @@
+.git
+.local
+**/node_modules
+**/.svelte-kit
+**/.wrangler
+**/build
+**/dist-ssr
+coverage
+outputs
+.env*

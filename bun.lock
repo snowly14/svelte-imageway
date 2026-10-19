@@ -65,6 +65,12 @@
         "svelte-imageway": "workspace:*",
       },
     },
+    "packages/edge": {
+      "name": "@imageway/edge-service",
+      "dependencies": {
+        "svelte-imageway": "workspace:*",
+      },
+    },
     "packages/svelte-imageway": {
       "name": "svelte-imageway",
       "version": "0.1.0",
@@ -197,6 +203,8 @@
     "@humanwhocodes/module-importer": ["@humanwhocodes/module-importer@1.0.1", "", {}, "sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA=="],
 
     "@humanwhocodes/retry": ["@humanwhocodes/retry@0.4.3", "", {}, "sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ=="],
+
+    "@imageway/edge-service": ["@imageway/edge-service@workspace:packages/edge"],
 
     "@imageway/example-basic": ["@imageway/example-basic@workspace:examples/basic"],
 

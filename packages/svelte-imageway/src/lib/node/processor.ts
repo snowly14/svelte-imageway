@@ -1,3 +1,4 @@
+import { PIPELINE_REVISION } from '../version.js';
 import { defaults } from '../core/config.js';
 import { cacheIdentity, normalizeRequest } from '../core/url.js';
 import type { ImageConfig, ImageRequest, OutputFormat } from '../core/types.js';
@@ -25,7 +26,7 @@ export class ImageProcessor {
   async process(data: Uint8Array, input: ImageRequest, format: OutputFormat): Promise<ProcessedImage> {
     const request = normalizeRequest(input, this.config);
     const sharp = await loadSharp();
-    const key = hash(`${hash(data)}:${cacheIdentity(request, format, JSON.stringify(sharp.versions), this.config)}`);
+    const key = hash(`${hash(data)}:${cacheIdentity(request, format, PIPELINE_REVISION + JSON.stringify(sharp.versions), this.config)}`);
     return this.flight.run(key, async () => {
       const cached = this.memory.get(key) ?? await this.disk.get(key);
       if (cached) {

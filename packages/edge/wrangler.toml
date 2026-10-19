@@ -1,0 +1,30 @@
+name = "svelte-imageway-edge"
+main = "worker.ts"
+compatibility_date = "2026-10-19"
+
+[vars]
+SOURCE_PREFIX = "images/"
+PUBLIC_SOURCES = "true"
+LOCAL_OFFLINE = "true"
+MAX_REQUESTS_PER_MINUTE = "1000"
+MAX_TRANSFORMS_PER_HOUR = "10000"
+MAX_TRANSFORMS_PER_MONTH = "4000"
+
+[images]
+binding = "IMAGES"
+
+[[r2_buckets]]
+binding = "ORIGINALS"
+bucket_name = "imageway-originals"
+
+[[r2_buckets]]
+binding = "VARIANTS"
+bucket_name = "imageway-variants"
+
+[[durable_objects.bindings]]
+name = "BUDGET"
+class_name = "ImageBudget"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ImageBudget"]

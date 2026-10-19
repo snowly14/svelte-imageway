@@ -1,0 +1,4 @@
+FROM caddy:2.10-alpine
+# The proxy listens on 8080 and needs no privileged-port file capability.
+RUN setcap -r /usr/bin/caddy
+USER 1000:1000

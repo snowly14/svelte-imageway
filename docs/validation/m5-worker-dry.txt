@@ -1,0 +1,18 @@
+
+ ⛅️ wrangler 4.151.2
+────────────────────
+Total Upload: 29.26 KiB / gzip: 9.55 KiB
+Your Worker has access to the following bindings:
+Binding                                                Resource
+env.BUDGET (ImageBudget)                               Durable Object
+env.ORIGINALS (imageway-originals)                     R2 Bucket
+env.VARIANTS (imageway-variants)                       R2 Bucket
+env.IMAGES                                             Images
+env.SOURCE_PREFIX ("images/")                          Environment Variable
+env.PUBLIC_SOURCES ("true")                            Environment Variable
+env.LOCAL_OFFLINE ("true")                             Environment Variable
+env.MAX_REQUESTS_PER_MINUTE ("1000")                   Environment Variable
+env.MAX_TRANSFORMS_PER_HOUR ("10000")                  Environment Variable
+env.MAX_TRANSFORMS_PER_MONTH ("4000")                  Environment Variable
+
+--dry-run: exiting now.

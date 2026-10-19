@@ -15,3 +15,6 @@ dist-ssr/
 build/
 .vercel/
 .netlify/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
