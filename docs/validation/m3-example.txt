@@ -1,0 +1,33 @@
+$ bun run --filter @imageway/example-components build && bun run --filter @imageway/example-components build:ssr && bun scripts/render-example.ts
+@imageway/example-components build: 12:45:13 AM [vite-plugin-svelte] no Svelte config found at /Users/gastonhardy/Developer/projects/open-source/svelte-imageway/examples/components - using default configuration.
+@imageway/example-components build: vite v8.3.4 building client environment for production...
+@imageway/example-components build: transforming...
+@imageway/example-components build: ✓ 128 modules transformed.
+@imageway/example-components build: rendering chunks...
+@imageway/example-components build: computing gzip size...
+@imageway/example-components build: dist/index.html                                                                        0.37 kB │ gzip:  0.27 kB
+@imageway/example-components build: dist/imageway/cb0cf649bddd667d94ca098000d8589fdb005bebfc9416218a6af58075f6d2f0.webp    1.39 kB
+@imageway/example-components build: dist/imageway/bf9a853d07c310118c664f5b52b7483c9b12d4f3a3c9847ec4a9efe9e0b6a9f3.avif    5.09 kB
+@imageway/example-components build: dist/imageway/cd0b7f00f9557151ba86f27816cd90b8196bdd32c0ec4ec79d348bcef81ef554.webp   14.48 kB
+@imageway/example-components build: dist/imageway/375c112658b9d8c1c0cdd428056afcc3c9f8227420695b9e3aabc27336fdb9f6.png    16.44 kB
+@imageway/example-components build: dist/imageway/9517dab20e58b11370bb7488c4ae9cc1448a41ce865193a211bcd07cb2367680.avif   42.88 kB
+@imageway/example-components build: dist/imageway/710d7f0f3fe115b2bb3a0dfc5ffb11fcdffc982b6e1221ba539577cf159ced10.webp   71.53 kB
+@imageway/example-components build: dist/imageway/1df5a1587b54f6854fcae1f2abaf982f5a57dc08a329bd51b11f2f6057474f5a.png    97.28 kB
+@imageway/example-components build: dist/imageway/bf926631774538eb6dd4167a50c5512ca3932ed0f4dfdb91e951ef76eb2ff1f2.avif  134.91 kB
+@imageway/example-components build: dist/imageway/085dcb81ae5b04b65c8e4870cdfd35e9138a265b10936ad842a69a4213de9741.png   246.64 kB
+@imageway/example-components build: dist/assets/index-CwFh_9iL.css                                                         0.53 kB │ gzip:  0.30 kB
+@imageway/example-components build: dist/assets/index-DdBoPKF8.js                                                         57.29 kB │ gzip: 22.79 kB
+@imageway/example-components build:
+@imageway/example-components build: ✓ built in 128ms
+@imageway/example-components build: Exited with code 0
+@imageway/example-components build:ssr: 12:45:13 AM [vite-plugin-svelte] no Svelte config found at /Users/gastonhardy/Developer/projects/open-source/svelte-imageway/examples/components - using default configuration.
+@imageway/example-components build:ssr: vite v8.3.4 building ssr environment for production...
+@imageway/example-components build:ssr: transforming...
+@imageway/example-components build:ssr: ✓ 87 modules transformed.
+@imageway/example-components build:ssr: rendering chunks...
+@imageway/example-components build:ssr: computing gzip size...
+@imageway/example-components build:ssr: dist-ssr/ssr.js  78.69 kB │ gzip: 22.25 kB
+@imageway/example-components build:ssr:
+@imageway/example-components build:ssr: ✓ built in 99ms
+@imageway/example-components build:ssr: Exited with code 0
+SSR example rendered: 6644 body bytes, 2604 head bytes.

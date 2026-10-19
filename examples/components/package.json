@@ -1,0 +1,15 @@
+{
+  "name": "@imageway/example-components",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "build:ssr": "vite build --ssr src/ssr.ts --outDir dist-ssr"
+  },
+  "dependencies": {
+    "svelte-imageway": "workspace:*",
+    "svelte": "5.57.2"
+  }
+}

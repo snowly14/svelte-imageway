@@ -15,7 +15,11 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "check": "bun run lint && bun run typecheck && bun run build && bun run test:coverage"
+    "check": "bun run lint && bun run typecheck && bun run check:svelte && bun run build && bun run test:coverage",
+    "check:svelte": "svelte-check --tsconfig ./tsconfig.json",
+    "fixtures": "bun scripts/generate-fixtures.ts",
+    "test:e2e": "playwright test",
+    "build:components": "bun run --filter @imageway/example-components build && bun run --filter @imageway/example-components build:ssr && bun scripts/render-example.ts"
   },
   "devDependencies": {
     "@eslint/js": "9.39.1",
@@ -34,6 +38,7 @@
     "prettier-plugin-svelte": "^3.0.0",
     "sharp": "0.35.5",
     "svelte": "5.57.2",
+    "svelte-check": "^4.7.7",
     "svgo": "4.1.0",
     "thumbhash": "0.1.1",
     "typescript": "6.0.3",

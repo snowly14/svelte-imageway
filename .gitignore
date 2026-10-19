@@ -11,3 +11,4 @@ test-results/
 !.env.example
 .DS_Store
 imageway-env.d.ts
+dist-ssr/
