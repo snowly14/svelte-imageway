@@ -77,11 +77,18 @@
     "packages/svelte-imageway": {
       "name": "svelte-imageway",
       "version": "0.1.0",
+      "bin": {
+        "svelte-imageway": "./dist/cli/index.js",
+      },
       "dependencies": {
         "blurhash": "2.0.5",
         "ipaddr.js": "^2.2.0",
         "svgo": "4.1.0",
         "thumbhash": "0.1.1",
+        "typescript": "^6.0.3",
+      },
+      "optionalDependencies": {
+        "sharp": "^0.35.5",
       },
       "peerDependencies": {
         "@aws-sdk/client-s3": "^3.1153.0",
