@@ -5,15 +5,56 @@
   "type": "module",
   "license": "MIT",
   "sideEffects": false,
-  "files": ["dist", "README.md", "LICENSE"],
-  "engines": { "node": ">=22.17" },
-  "exports": {
-    ".": { "types": "./dist/index.d.ts", "svelte": "./dist/index.js", "default": "./dist/index.js" },
-    "./core": { "types": "./dist/core/index.d.ts", "default": "./dist/core/index.js" },
-    "./node": { "types": "./dist/node/index.d.ts", "default": "./dist/node/index.js" }
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22.17"
   },
-  "peerDependencies": { "svelte": "^5.57.1", "sharp": "^0.35.5" },
-  "peerDependenciesMeta": { "sharp": { "optional": true } },
-  "dependencies": { "ipaddr.js": "^2.2.0" },
-  "scripts": { "build": "svelte-package -i src/lib -o dist" }
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "default": "./dist/core/index.js"
+    },
+    "./node": {
+      "types": "./dist/node/index.d.ts",
+      "default": "./dist/node/index.js"
+    },
+    "./vite": {
+      "types": "./dist/vite/index.d.ts",
+      "default": "./dist/vite/index.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts"
+    }
+  },
+  "peerDependencies": {
+    "svelte": "^5.57.1",
+    "sharp": "^0.35.5",
+    "vite": "^8.0.12"
+  },
+  "peerDependenciesMeta": {
+    "sharp": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "ipaddr.js": "^2.2.0",
+    "thumbhash": "0.1.1",
+    "blurhash": "2.0.5",
+    "svgo": "4.1.0"
+  },
+  "scripts": {
+    "build": "svelte-package -i src/lib -o dist"
+  }
 }

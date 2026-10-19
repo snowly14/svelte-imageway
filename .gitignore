@@ -10,3 +10,4 @@ test-results/
 .env.*
 !.env.example
 .DS_Store
+imageway-env.d.ts
