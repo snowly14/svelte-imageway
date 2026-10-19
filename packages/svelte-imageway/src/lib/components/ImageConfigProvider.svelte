@@ -3,6 +3,6 @@
   import type { ImageContextConfig } from '../props.js';
   import { setImageConfig } from '../context.js';
   let { config, children }: { config: ImageContextConfig; children: Snippet } = $props();
-  setImageConfig({ get provider() { return config.provider; }, get providers() { return config.providers; }, get widths() { return config.widths; }, get quality() { return config.quality; } });
+  setImageConfig({ get provider() { return config.provider; }, get providers() { return config.providers; }, get widths() { return config.widths; }, get quality() { return config.quality; }, get formats() { return config.formats; } });
 </script>
 {@render children()}

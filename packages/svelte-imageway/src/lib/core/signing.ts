@@ -9,7 +9,7 @@ async function key(secret: string, usage: KeyUsage[]): Promise<CryptoKey> {
   return crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, usage);
 }
 function payload(r: ImageRequest, config: ImageConfig): Uint8Array<ArrayBuffer> {
-  return encoder.encode(`GET\n${config.endpoint}\nv1\n${canonicalQuery(r, false)}`);
+  return encoder.encode(`GET\n${config.endpoint}\nv1:${r.preset ? config.presets[r.preset]!.revision : '-'}\n${canonicalQuery(r, false)}`);
 }
 /** Sign only on the server/build; never serialize secret material into public configuration. */
 export async function signRequest(request: ImageRequest, options: { secret: string; kid: string; exp: number; config?: ImageConfig }): Promise<NormalizedRequest> {
@@ -24,7 +24,7 @@ export async function verifyRequest(request: ImageRequest, keys: Readonly<Record
   const config = options.config ?? defaults;
   const r = normalizeRequest(request, config);
   const now = options.now ?? Math.floor(Date.now() / 1000);
-  invariant(r.kid && r.sig && r.exp && keys[r.kid], 'SIGNATURE', 'A valid signed image request is required.', 401);
+  invariant(r.kid && r.sig && r.exp && Object.hasOwn(keys, r.kid) && typeof keys[r.kid] === 'string', 'SIGNATURE', 'A valid signed image request is required.', 401);
   invariant(r.exp > now && r.exp - now <= (options.maxLifetime ?? 86400), 'EXPIRED', 'Image authorization expired or exceeds maximum lifetime.', 401);
   const bytes = Uint8Array.from(atob(r.sig.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
   const valid = await crypto.subtle.verify('HMAC', await key(keys[r.kid]!, ['verify']), bytes, payload(r, config));

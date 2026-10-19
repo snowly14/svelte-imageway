@@ -1,7 +1,7 @@
 # ADR 0002: Bounded v1 requests and explicit representation identity
 
 - Date: 2026-10-19
-- Status: Proposed; conformance implementation and machine schemas belong to M1
+- Status: Accepted for 0.1.0; parser/signature/policy-revision tests and machine schemas implemented
 
 ## Decision
 

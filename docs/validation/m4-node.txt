@@ -1,0 +1,67 @@
+@imageway/example-node build: vite v8.3.4 building ssr environment for production...
+@imageway/example-node build: transforming...
+@imageway/example-node build: ✓ 184 modules transformed.
+@imageway/example-node build: rendering chunks...
+@imageway/example-node build: computing gzip size...
+@imageway/example-node build: .svelte-kit/output/server/.vite/manifest.json                         5.70 kB │ gzip:  0.79 kB
+@imageway/example-node build: .svelte-kit/output/server/_app/immutable/assets/_page.C9bzB9xa.css    0.37 kB │ gzip:  0.20 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/index-server.js                      0.03 kB │ gzip:  0.05 kB
+@imageway/example-node build: .svelte-kit/output/server/handler.js                                  0.05 kB │ gzip:  0.07 kB
+@imageway/example-node build: .svelte-kit/output/server/adapter-env.js                              0.06 kB │ gzip:  0.08 kB
+@imageway/example-node build: .svelte-kit/output/server/env.js                                      0.13 kB │ gzip:  0.12 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/server.js                            0.22 kB │ gzip:  0.15 kB │ map:   0.62 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/config.js                            0.34 kB │ gzip:  0.21 kB │ map:   0.58 kB
+@imageway/example-node build: .svelte-kit/output/server/entries/fallbacks/layout.svelte.js          0.37 kB │ gzip:  0.27 kB │ map:   0.40 kB
+@imageway/example-node build: .svelte-kit/output/server/entries/hooks.server.js                     0.52 kB │ gzip:  0.31 kB │ map:   0.74 kB
+@imageway/example-node build: .svelte-kit/output/server/entries/fallbacks/error.svelte.js           1.22 kB │ gzip:  0.47 kB │ map:   2.70 kB
+@imageway/example-node build: .svelte-kit/output/server/adapter-node-env.js                         2.17 kB │ gzip:  0.97 kB │ map:   3.59 kB
+@imageway/example-node build: .svelte-kit/output/server/index.js                                    2.36 kB │ gzip:  0.96 kB │ map:   3.39 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/functions.js                         2.97 kB │ gzip:  1.25 kB │ map:   4.09 kB
+@imageway/example-node build: .svelte-kit/output/server/adapter-index.js                            3.13 kB │ gzip:  1.20 kB │ map:   5.79 kB
+@imageway/example-node build: .svelte-kit/output/server/entries/pages/_page.svelte.js               8.32 kB │ gzip:  3.23 kB │ map:  13.20 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/local.js                            12.68 kB │ gzip:  4.43 kB │ map:  23.57 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/uneval.js                           19.43 kB │ gzip:  5.37 kB │ map:  40.88 kB
+@imageway/example-node build: .svelte-kit/output/server/adapter-node-handler.js                    20.67 kB │ gzip:  7.13 kB │ map:  37.20 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/server-errors.js                    24.89 kB │ gzip:  4.70 kB │ map:  34.93 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/server2.js                          44.86 kB │ gzip: 12.25 kB │ map: 127.58 kB
+@imageway/example-node build: .svelte-kit/output/server/remote-entry.js                            54.77 kB │ gzip: 11.86 kB │ map:  90.20 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/internal.js                        120.45 kB │ gzip: 31.88 kB │ map: 263.99 kB
+@imageway/example-node build: .svelte-kit/output/server/chunks/instance.js                        126.33 kB │ gzip: 33.70 kB │ map: 254.21 kB
+@imageway/example-node build:
+@imageway/example-node build: ✓ built in 76ms
+@imageway/example-node build: Analysing routes
+@imageway/example-node build: (node:18064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+@imageway/example-node build: (Use `node --trace-warnings ...` to show where the warning was created)
+@imageway/example-node build: Building app
+@imageway/example-node build: vite v8.3.4 building client environment for production...
+@imageway/example-node build: transforming...
+@imageway/example-node build: ✓ 194 modules transformed.
+@imageway/example-node build: rendering chunks...
+@imageway/example-node build: computing gzip size...
+@imageway/example-node build: .svelte-kit/output/client/_app/version.json                          0.02 kB │ gzip:  0.04 kB
+@imageway/example-node build: .svelte-kit/output/client/.vite/manifest.json                        3.81 kB │ gzip:  0.62 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/assets/2.C9bzB9xa.css       0.37 kB │ gzip:  0.20 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/entry/payload.DSmR2FwN.js   0.06 kB │ gzip:  0.07 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/nodes/0.DlxIasx3.js         0.14 kB │ gzip:  0.14 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/nodes/1.Cz3zRLqF.js         0.32 kB │ gzip:  0.24 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/entry/start.cpMlM0Jt.js     0.52 kB │ gzip:  0.31 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/entry/app.49u1Gh7S.js       1.09 kB │ gzip:  0.55 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/chunks/Bjy-W4x2.js          1.36 kB │ gzip:  0.65 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/chunks/CRzLMJPS.js          1.53 kB │ gzip:  0.80 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/chunks/CbPWfmN4.js          4.29 kB │ gzip:  1.93 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/nodes/2.Btv0rTFG.js        12.83 kB │ gzip:  5.46 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/chunks/DDSVTWqu.js         39.71 kB │ gzip: 14.65 kB
+@imageway/example-node build: .svelte-kit/output/client/_app/immutable/chunks/D7StRL0c.js         46.64 kB │ gzip: 18.01 kB
+@imageway/example-node build:
+@imageway/example-node build: ✓ built in 63ms
+@imageway/example-node build: (node:18064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+@imageway/example-node build: (Use `node --trace-warnings ...` to show where the warning was created)
+@imageway/example-node build:
+@imageway/example-node build: Run npm run preview to preview your production build locally.
+@imageway/example-node build:
+@imageway/example-node build: > Using @sveltejs/adapter-node
+@imageway/example-node build: Imageway: node / sharp; persistent disk available
+@imageway/example-node build: Copying assets
+@imageway/example-node build: Compressing and hashing assets
+@imageway/example-node build: ✔ done
+@imageway/example-node build: Exited with code 0

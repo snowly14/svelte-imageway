@@ -6,34 +6,38 @@ import { loadSharp, type TransformResult } from './pipeline.js';
 import { TransformPool } from './pool.js';
 
 /** Persistent content/codec/policy-addressed processing with in-flight deduplication. */
+export interface ProcessedImage extends TransformResult { cacheHit: boolean }
 export class ImageProcessor {
   readonly metrics = { hit: 0, miss: 0, transforms: 0 };
   private memory: MemoryCache;
   private disk: DiskCache;
-  private flight = new SingleFlight<TransformResult>();
+  private flight = new SingleFlight<ProcessedImage>();
   private pool: TransformPool;
-  constructor(options: { directory: string; config?: ImageConfig; concurrency?: number; memoryBytes?: number; diskBytes?: number }) {
-    this.config = options.config ?? defaults;
+  constructor(options: { directory: string; config?: ImageConfig; concurrency?: number; memoryBytes?: number; diskBytes?: number; onTransform?: () => void | Promise<void> }) {
+    this.onTransform = options.onTransform;
+    this.config = { ...(options.config ?? defaults), provider: undefined, providers: undefined };
     this.memory = new MemoryCache(options.memoryBytes);
     this.disk = new DiskCache(options.directory, options.diskBytes);
     this.pool = new TransformPool(options.concurrency);
   }
   private config: ImageConfig;
-  async process(data: Uint8Array, input: ImageRequest, format: OutputFormat): Promise<TransformResult> {
+  private onTransform?: () => void | Promise<void>;
+  async process(data: Uint8Array, input: ImageRequest, format: OutputFormat): Promise<ProcessedImage> {
     const request = normalizeRequest(input, this.config);
     const sharp = await loadSharp();
     const key = hash(`${hash(data)}:${cacheIdentity(request, format, JSON.stringify(sharp.versions), this.config)}`);
     return this.flight.run(key, async () => {
       const cached = this.memory.get(key) ?? await this.disk.get(key);
       if (cached) {
-        try { const result = unpack(cached); this.memory.set(key, cached, 3600_000); this.metrics.hit++; return result; }
+        try { const result = unpack(cached); this.memory.set(key, cached, 3600_000); this.metrics.hit++; return { ...result, cacheHit: true }; }
         catch { await this.disk.delete(key); }
       }
+      await this.onTransform?.();
       this.metrics.miss++; this.metrics.transforms++;
       const result = await this.pool.run({ data, request, format, config: this.config });
       const packed = pack(result);
       await this.disk.set(key, packed); this.memory.set(key, packed, 3600_000);
-      return result;
+      return { ...result, cacheHit: false };
     });
   }
 }

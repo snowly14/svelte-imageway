@@ -35,6 +35,8 @@ export interface Preset {
   revision: string;
 }
 export interface ImageConfig {
+  provider?: ImageProvider;
+  providers?: Readonly<Record<string, ImageProvider>>;
   widths: readonly number[];
   qualities: readonly number[];
   formats: readonly OutputFormat[];
@@ -69,6 +71,9 @@ export interface ImageArtifact {
   hash?: string;
 }
 export interface ProviderCapabilities {
+  explicitFormat?: boolean;
+  fixed?: boolean;
+  maxWidthByFormat?: Partial<Record<OutputFormat, number>>;
   formats: readonly OutputFormat[];
   fit: readonly Fit[];
   smartCrop: boolean;

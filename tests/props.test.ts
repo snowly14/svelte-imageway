@@ -24,6 +24,7 @@ describe('headless and type contract', () => {
     const provider: ImageProvider = { name: 'test', capabilities: { formats: ['avif', 'webp', 'jpeg'], fit: ['inside'], animation: false, signature: false, smartCrop: false }, validate() {}, buildUrl: r => `/proxy?w=${r.w}&format=${r.format}` };
     const remote = getImageProps({ src: 'https://images.example/a.jpg', alt: 'Example', width: 640, height: 400, config: { providers: { 'images.example': provider } } });
     expect(remote.src).toBe('/proxy?w=640&format=jpeg'); expect(remote.sources[0]?.type).toBe('image/avif'); expect(remote.srcset).toContain('320w');
+    expect(getImageProps({ src: 'https://constructor/image.jpg', alt: '', config: { providers: {} } }).src).toBe('https://constructor/image.jpg');
     expect(getImageProps({ src: '/original.png', alt: '' }).src).toBe('/original.png');
   });
   it('escapes background raw-text URLs and generates typed image-set with a fallback', () => {

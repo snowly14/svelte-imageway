@@ -3,7 +3,7 @@ import { relative, join } from 'node:path';
 import { defineConfig } from '../core/config.js';
 import { ImagewayError } from '../core/errors.js';
 import { mimeType } from '../core/accept.js';
-import type { ImageArtifact, ImageConfig, ImageRequest, OutputFormat } from '../core/types.js';
+import type { ImageArtifact, ImageConfig, ImageRequest, OutputFormat, ImageProvider } from '../core/types.js';
 import { hash } from '../node/cache.js';
 import { readLocal } from '../node/source.js';
 import { loadSharp, sniff } from '../node/pipeline.js';
@@ -11,6 +11,9 @@ import { ImageProcessor } from '../node/processor.js';
 import { optimize } from 'svgo';
 import { parseDirectives } from './directives.js';
 import { placeholder } from './placeholder.js';
+import { vercel } from '../providers/vercel.js';
+import { netlify } from '../providers/netlify.js';
+import { cloudflare } from '../providers/cloudflare.js';
 import { generateImageTypes } from './typegen.js';
 export { generateImageTypes } from './typegen.js';
 
@@ -24,11 +27,20 @@ export interface ImagePluginOptions {
 }
 /** Typed responsive imports with lazy dev endpoints and persistent content-addressed builds. */
 export function imageway(options: ImagePluginOptions = {}): Plugin {
-  const config = defineConfig(options.config);
+  let config = defineConfig(options.config);
   let vite: ResolvedConfig;
   const jobs = new Map<string, { file: string; run: () => Promise<Buffer>; format: OutputFormat }>();
   return {
     name: 'svelte-imageway', enforce: 'pre',
+    api: { setTarget(target: string) {
+      if (['cloudflare', 'vercel', 'netlify', 'deno'].includes(target) && config.provider?.name === 'local') throw new ImagewayError('ADAPTER_PROVIDER', 'Choose a native or Edge provider for this deployment target.');
+      if (!config.provider && !config.providers) {
+        const native = target === 'vercel' ? vercel() : target === 'netlify' ? netlify() : target === 'cloudflare' ? cloudflare() : undefined;
+        if (native) config = defineConfig({ ...config, provider: native });
+      }
+    } },
+    config: () => ({ ssr: { external: ['svelte-imageway/kit', 'svelte-imageway/node'] } }),
+    resolveId(id) { if (id === 'virtual:imageway/config') return '\0imageway:config'; },
     async configResolved(resolved) {
       vite = resolved;
       await generateImageTypes(vite.root);
@@ -47,6 +59,18 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       if (jobs.size > 2048) for (const [key, job] of jobs) if (job.file === ctx.file) jobs.delete(key);
     },
     async load(id) {
+      if (id === '\0imageway:config') {
+        const entries = Object.entries(config.providers ?? (config.provider ? { '*': config.provider } : {}));
+        const imports: string[] = [], values: string[] = [];
+        const allowed = new Set(['local', 'edge', 'generic', 'cloudflare', 'vercel', 'netlify']);
+        for (const [index, [domain, value]] of entries.entries()) {
+          const descriptor = (value as ImageProvider & { descriptor?: { factory: string; options: Record<string, unknown> } }).descriptor;
+          if (!descriptor || !allowed.has(descriptor.factory)) throw new ImagewayError('PROVIDER_SERIALIZATION', 'A browser provider needs a supported public descriptor; use generic() or an explicit subtree provider.');
+          imports.push(`import { ${descriptor.factory} as p${index} } from 'svelte-imageway/providers/${descriptor.factory}';`);
+          values.push(`${JSON.stringify(domain)}:p${index}(${JSON.stringify(descriptor.options)})`);
+        }
+        return `${imports.join('\n')}\nexport const config={widths:${JSON.stringify(config.widths)},quality:${config.quality},formats:${JSON.stringify(config.formats)},providers:{${values.join(',')}}};`;
+      }
       const split = id.indexOf('?');
       if (split < 0 || !new URLSearchParams(id.slice(split + 1)).has('img')) return;
       const file = id.slice(0, split);

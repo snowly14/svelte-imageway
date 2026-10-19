@@ -33,18 +33,58 @@
     },
     "./types": {
       "types": "./dist/types.d.ts"
+    },
+    "./providers/local": {
+      "types": "./dist/providers/local.d.ts",
+      "default": "./dist/providers/local.js"
+    },
+    "./providers/edge": {
+      "types": "./dist/providers/edge.d.ts",
+      "default": "./dist/providers/edge.js"
+    },
+    "./providers/generic": {
+      "types": "./dist/providers/generic.d.ts",
+      "default": "./dist/providers/generic.js"
+    },
+    "./providers/cloudflare": {
+      "types": "./dist/providers/cloudflare.d.ts",
+      "default": "./dist/providers/cloudflare.js"
+    },
+    "./providers/vercel": {
+      "types": "./dist/providers/vercel.d.ts",
+      "default": "./dist/providers/vercel.js"
+    },
+    "./providers/netlify": {
+      "types": "./dist/providers/netlify.d.ts",
+      "default": "./dist/providers/netlify.js"
+    },
+    "./kit": {
+      "types": "./dist/kit/index.d.ts",
+      "default": "./dist/kit/index.js"
+    },
+    "./props": {
+      "types": "./dist/props.d.ts",
+      "default": "./dist/props.js"
+    },
+    "./config": {
+      "types": "./dist/core/config.d.ts",
+      "default": "./dist/core/config.js"
     }
   },
   "peerDependencies": {
     "svelte": "^5.57.1",
     "sharp": "^0.35.5",
-    "vite": "^8.0.12"
+    "vite": "^8.0.12",
+    "@sveltejs/kit": "^3.1.0"
   },
   "peerDependenciesMeta": {
     "sharp": {
       "optional": true
     },
     "vite": {
+      "optional": true
+    },
+    "@sveltejs/kit": {
       "optional": true
     }
   },

@@ -1,0 +1,76 @@
+@imageway/example-static build: vite v8.3.4 building ssr environment for production...
+@imageway/example-static build: transforming...
+@imageway/example-static build: ✓ 166 modules transformed.
+@imageway/example-static build: rendering chunks...
+@imageway/example-static build: computing gzip size...
+@imageway/example-static build: .svelte-kit/output/server/imageway/cb0cf649bddd667d94ca098000d8589fdb005bebfc9416218a6af58075f6d2f0.webp    1.39 kB
+@imageway/example-static build: .svelte-kit/output/server/imageway/501fb376c3bc698927a72c774efa784944f8c48d10095cc966312cdbce9621f3.jpeg    2.86 kB
+@imageway/example-static build: .svelte-kit/output/server/.vite/manifest.json                                                               4.45 kB │ gzip:  1.00 kB
+@imageway/example-static build: .svelte-kit/output/server/imageway/bf9a853d07c310118c664f5b52b7483c9b12d4f3a3c9847ec4a9efe9e0b6a9f3.avif    5.09 kB
+@imageway/example-static build: .svelte-kit/output/server/imageway/5e28eb067b97ef1074b24464d693145f9c48ebf093db0244bf9cbd54a7d4aa3d.jpeg   13.69 kB
+@imageway/example-static build: .svelte-kit/output/server/imageway/cd0b7f00f9557151ba86f27816cd90b8196bdd32c0ec4ec79d348bcef81ef554.webp   14.48 kB
+@imageway/example-static build: .svelte-kit/output/server/imageway/9517dab20e58b11370bb7488c4ae9cc1448a41ce865193a211bcd07cb2367680.avif   42.88 kB
+@imageway/example-static build: .svelte-kit/output/server/imageway/40d15e51dfbe1fca50902bb91024b3d0f26d27637f52a07a3d7af8a919073d16.jpeg   46.20 kB
+@imageway/example-static build: .svelte-kit/output/server/imageway/710d7f0f3fe115b2bb3a0dfc5ffb11fcdffc982b6e1221ba539577cf159ced10.webp   71.53 kB
+@imageway/example-static build: .svelte-kit/output/server/imageway/bf926631774538eb6dd4167a50c5512ca3932ed0f4dfdb91e951ef76eb2ff1f2.avif  134.91 kB
+@imageway/example-static build: .svelte-kit/output/server/_app/immutable/assets/_page.HFTlnQp0.css                                          0.50 kB │ gzip:  0.28 kB
+@imageway/example-static build: .svelte-kit/output/server/chunks/index-server.js                                                            0.03 kB │ gzip:  0.05 kB
+@imageway/example-static build: .svelte-kit/output/server/entries/pages/_layout.ts.js                                                       0.12 kB │ gzip:  0.12 kB │ map:   0.18 kB
+@imageway/example-static build: .svelte-kit/output/server/env.js                                                                            0.31 kB │ gzip:  0.19 kB │ map:   0.57 kB
+@imageway/example-static build: .svelte-kit/output/server/entries/fallbacks/layout.svelte.js                                                0.37 kB │ gzip:  0.27 kB │ map:   0.40 kB
+@imageway/example-static build: .svelte-kit/output/server/entries/fallbacks/error.svelte.js                                                 1.22 kB │ gzip:  0.47 kB │ map:   2.70 kB
+@imageway/example-static build: .svelte-kit/output/server/index.js                                                                          2.32 kB │ gzip:  0.95 kB │ map:   3.38 kB
+@imageway/example-static build: .svelte-kit/output/server/entries/pages/_page.svelte.js                                                    11.82 kB │ gzip:  4.59 kB │ map:  16.55 kB
+@imageway/example-static build: .svelte-kit/output/server/chunks/uneval.js                                                                 19.43 kB │ gzip:  5.37 kB │ map:  40.88 kB
+@imageway/example-static build: .svelte-kit/output/server/chunks/server-errors.js                                                          24.12 kB │ gzip:  4.55 kB │ map:  34.85 kB
+@imageway/example-static build: .svelte-kit/output/server/chunks/server.js                                                                 44.86 kB │ gzip: 12.25 kB │ map: 127.58 kB
+@imageway/example-static build: .svelte-kit/output/server/remote-entry.js                                                                  54.79 kB │ gzip: 11.86 kB │ map:  90.21 kB
+@imageway/example-static build: .svelte-kit/output/server/chunks/internal.js                                                              108.34 kB │ gzip: 28.71 kB │ map: 236.85 kB
+@imageway/example-static build: .svelte-kit/output/server/chunks/instance.js                                                              128.86 kB │ gzip: 34.65 kB │ map: 257.92 kB
+@imageway/example-static build:
+@imageway/example-static build: ✓ built in 122ms
+@imageway/example-static build: Analysing routes
+@imageway/example-static build: (node:18043) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+@imageway/example-static build: (Use `node --trace-warnings ...` to show where the warning was created)
+@imageway/example-static build: Building app
+@imageway/example-static build: vite v8.3.4 building client environment for production...
+@imageway/example-static build: transforming...
+@imageway/example-static build: ✓ 194 modules transformed.
+@imageway/example-static build: rendering chunks...
+@imageway/example-static build: computing gzip size...
+@imageway/example-static build: .svelte-kit/output/client/_app/version.json                                                                 0.02 kB │ gzip:  0.04 kB
+@imageway/example-static build: .svelte-kit/output/client/imageway/cb0cf649bddd667d94ca098000d8589fdb005bebfc9416218a6af58075f6d2f0.webp    1.39 kB
+@imageway/example-static build: .svelte-kit/output/client/imageway/501fb376c3bc698927a72c774efa784944f8c48d10095cc966312cdbce9621f3.jpeg    2.86 kB
+@imageway/example-static build: .svelte-kit/output/client/.vite/manifest.json                                                               4.63 kB │ gzip:  1.04 kB
+@imageway/example-static build: .svelte-kit/output/client/imageway/bf9a853d07c310118c664f5b52b7483c9b12d4f3a3c9847ec4a9efe9e0b6a9f3.avif    5.09 kB
+@imageway/example-static build: .svelte-kit/output/client/imageway/5e28eb067b97ef1074b24464d693145f9c48ebf093db0244bf9cbd54a7d4aa3d.jpeg   13.69 kB
+@imageway/example-static build: .svelte-kit/output/client/imageway/cd0b7f00f9557151ba86f27816cd90b8196bdd32c0ec4ec79d348bcef81ef554.webp   14.48 kB
+@imageway/example-static build: .svelte-kit/output/client/imageway/9517dab20e58b11370bb7488c4ae9cc1448a41ce865193a211bcd07cb2367680.avif   42.88 kB
+@imageway/example-static build: .svelte-kit/output/client/imageway/40d15e51dfbe1fca50902bb91024b3d0f26d27637f52a07a3d7af8a919073d16.jpeg   46.20 kB
+@imageway/example-static build: .svelte-kit/output/client/imageway/710d7f0f3fe115b2bb3a0dfc5ffb11fcdffc982b6e1221ba539577cf159ced10.webp   71.53 kB
+@imageway/example-static build: .svelte-kit/output/client/imageway/bf926631774538eb6dd4167a50c5512ca3932ed0f4dfdb91e951ef76eb2ff1f2.avif  134.91 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/assets/2.HFTlnQp0.css                                              0.50 kB │ gzip:  0.28 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/entry/payload.DSmR2FwN.js                                          0.06 kB │ gzip:  0.07 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/nodes/1.Cz3zRLqF.js                                                0.32 kB │ gzip:  0.24 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/nodes/0.Cd3-6Iwh.js                                                0.33 kB │ gzip:  0.26 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/entry/start.cpMlM0Jt.js                                            0.52 kB │ gzip:  0.31 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/entry/app.D6WEtaum.js                                              1.09 kB │ gzip:  0.55 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/chunks/Bjy-W4x2.js                                                 1.36 kB │ gzip:  0.65 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/chunks/CRzLMJPS.js                                                 1.53 kB │ gzip:  0.80 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/chunks/CbPWfmN4.js                                                 4.29 kB │ gzip:  1.93 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/nodes/2.BG0NBTvi.js                                                8.14 kB │ gzip:  3.95 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/chunks/DDSVTWqu.js                                                39.71 kB │ gzip: 14.65 kB
+@imageway/example-static build: .svelte-kit/output/client/_app/immutable/chunks/D7StRL0c.js                                                46.64 kB │ gzip: 18.01 kB
+@imageway/example-static build:
+@imageway/example-static build: ✓ built in 98ms
+@imageway/example-static build: (node:18043) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+@imageway/example-static build: (Use `node --trace-warnings ...` to show where the warning was created)
+@imageway/example-static build: Prerendering
+@imageway/example-static build:
+@imageway/example-static build: Run npm run preview to preview your production build locally.
+@imageway/example-static build:
+@imageway/example-static build: > Using @sveltejs/adapter-static
+@imageway/example-static build: Imageway: static / build; persistent disk disabled
+@imageway/example-static build: Wrote site to "build"
+@imageway/example-static build: ✔ done
+@imageway/example-static build: Exited with code 0

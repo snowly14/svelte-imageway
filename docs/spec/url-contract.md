@@ -1,6 +1,6 @@
 # Universal URL contract: v1 design draft
 
-Status: proposed specification, **not yet an implemented or frozen protocol**. M1 must ship matching JSON Schema, OpenAPI, parser, signer and conformance vectors before v1 is declared stable. Unknown or unsupported operations fail explicitly.
+Status: v1 parser, signer, JSON Schema and OpenAPI implemented; pre-release compatibility is covered by executable contract tests. Platform policy and network checks remain separate from structural schemas. Unknown or unsupported operations fail explicitly.
 
 ## Endpoint and sources
 
@@ -39,7 +39,7 @@ All ranges below are proposed safe defaults, configurable only server-side withi
 | `exp` | integer Unix seconds | Required when signing; bounded maximum lifetime and configured clock skew |
 | `sig` | unpadded base64url HMAC-SHA256 | Server-generated signature over the canonical signing payload |
 
-Omitted defaults normalize to explicit internal values; generated URLs consistently omit fields equal to stable documented defaults. Unknown query names, duplicate keys, NaN, Infinity, empty required fields, invalid UTF-8/percent encodings and noncanonical ambiguous boolean spellings are rejected. Never coerce a malformed value to a permissive default.
+Omitted defaults normalize to explicit internal values; generated URLs consistently materialize and include stable defaults. Unknown query names, duplicate keys, NaN, Infinity, empty required fields, invalid UTF-8/percent encodings and noncanonical ambiguous boolean spellings are rejected. Never coerce a malformed value to a permissive default.
 
 Proposed width ladder: 320, 480, 640, 768, 960, 1280, 1600, 1920, 2560. Proposed quality ladder: 50, 65, 75, 85, 95. Defaults: quality 75, DPR 1, fit inside, position center, no metadata. Exact ladders and final range enforcement must be fixed by M1 tests. Static source dimensions clamp generated variants without upscaling.
 
@@ -59,7 +59,7 @@ The canonical byte string, normalized object and cache identity are distinct con
 
 ## Signatures and expiry
 
-Proposed signing payload is four UTF-8 lines without a trailing newline: method `GET`, normalized endpoint path, protocol identifier `v1`, sorted encoded request excluding `sig`. It includes `kid`, `exp`, source, all output-affecting fields and relevant preset revision. HEAD is authorized using the same GET payload and cannot change the output contract. Use HMAC-SHA256, unpadded base64url output and constant-time comparison over fixed-size decoded bytes.
+Proposed signing payload is four UTF-8 lines without a trailing newline: method `GET`, normalized endpoint path, protocol/policy identifier `v1:<preset revision>` (or `v1:-` without a preset), sorted encoded request excluding `sig`. It includes `kid`, `exp`, source, all output-affecting fields and relevant preset revision. HEAD is authorized using the same GET payload and cannot change the output contract. Use HMAC-SHA256, unpadded base64url output and constant-time comparison over fixed-size decoded bytes.
 
 Reject missing/unknown key IDs, invalid signature encoding/length, expired or implausibly distant expiry, duplicate parameters and altered values. Configure current/previous key IDs for rotation with bounded overlap. Error responses and logs must not print secrets or private source query credentials.
 

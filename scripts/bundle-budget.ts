@@ -1,8 +1,9 @@
 import { build } from 'vite';
+import { imageway } from '../packages/svelte-imageway/src/lib/vite/index.js';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { gzipSync } from 'node:zlib';
 import { writeFile } from 'node:fs/promises';
-const result = await build({ configFile: false, logLevel: 'silent', plugins: [svelte()], build: { write: false, minify: true, lib: { entry: 'packages/svelte-imageway/dist/components/Image.svelte', formats: ['es'] }, rolldownOptions: { external: id => id === 'svelte' || id.startsWith('svelte/') } } });
+const result = await build({ configFile: false, logLevel: 'silent', plugins: [imageway(), svelte()], build: { write: false, minify: true, lib: { entry: 'packages/svelte-imageway/dist/components/Image.svelte', formats: ['es'] }, rolldownOptions: { external: id => id === 'svelte' || id.startsWith('svelte/') } } });
 const chunks = (Array.isArray(result) ? result : [result]).flatMap(r => 'output' in r ? r.output : []);
 const js = chunks.filter(v => v.type === 'chunk').map(v => v.code).join('\n');
 if (/node:|worker_threads|require\(["']sharp/.test(js)) throw new Error('Server code leaked into the client entry.');

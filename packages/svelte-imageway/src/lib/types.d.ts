@@ -7,3 +7,5 @@ declare module '*&img' {
   const image: import('./core/types.js').ImageArtifact;
   export default image;
 }
+
+declare module 'virtual:imageway/config' { export const config: import('./props.js').ImageContextConfig; }

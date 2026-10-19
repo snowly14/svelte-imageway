@@ -1,5 +1,5 @@
 import type { HTMLImgAttributes } from 'svelte/elements';
-import type { ImageArtifact, ImageProvider, ImageSource, Fit, Position } from './core/types.js';
+import type { ImageArtifact, ImageProvider, ImageSource, Fit, Position, OutputFormat } from './core/types.js';
 import { invariant } from './core/errors.js';
 
 /** Public browser configuration; intentionally contains no private server fields. */
@@ -8,6 +8,7 @@ export interface ImageContextConfig {
   providers?: Readonly<Record<string, ImageProvider>>;
   widths?: readonly number[];
   quality?: number;
+  formats?: readonly OutputFormat[];
 }
 /** Headless input shared by components and custom image presentation. */
 export interface ImageOptions extends Omit<HTMLImgAttributes, 'src' | 'alt' | 'width' | 'height' | 'class' | 'style' | 'placeholder'> {
@@ -43,17 +44,19 @@ export function getImageProps(options: ImageOptions): HTMLImgAttributes & { sour
   const provider = explicit ?? selectProvider(original, config);
   let fallback = original; let srcset = artifact?.srcset; let sources = artifact?.sources ?? [];
   const width = options.width ?? artifact?.width, height = options.height ?? artifact?.height;
-  if (provider && !artifact) {
+  if (provider && !artifact && !original.startsWith('data:')) {
     provider.validate();
     const widths = [...new Set([...(config.widths ?? [320, 640, 960, 1280, 1920]).filter(v => !width || v < width), width ?? 1920])].sort((a, b) => a - b);
-    const source = original.startsWith('/') ? { key: original.slice(1) } : { url: original };
+    const source = original.startsWith('/') || !/^[a-z]+:/i.test(original) ? { key: original.replace(/^\//, '') } : { url: original };
+    if (provider.capabilities.fixed) { fallback = provider.buildUrl(source); srcset = undefined; sources = []; } else {
     const request = { ...source, fit, position, q: quality ?? config.quality ?? 75 };
-    const formats = provider.capabilities.formats.filter(v => ['avif', 'webp', 'jpeg', 'png'].includes(v));
+    const formats = provider.capabilities.explicitFormat === false ? [] : provider.capabilities.formats.filter(v => ['avif', 'webp', 'jpeg', 'png'].includes(v) && (!config.formats || config.formats.includes(v)) && (!provider.capabilities.maxWidthByFormat?.[v] || Math.max(...widths) <= provider.capabilities.maxWidthByFormat[v]!));
     const fallbackFormat = formats.includes('jpeg') ? 'jpeg' : formats.at(-1);
     const srcsetFor = (format: typeof fallbackFormat) => widths.map(w => `${provider.buildUrl({ ...request, w, format })} ${w}w`).join(', ');
     fallback = provider.buildUrl({ ...request, w: width ?? 1920, format: fallbackFormat });
     srcset = srcsetFor(fallbackFormat);
     sources = formats.filter(v => v !== fallbackFormat).map(format => ({ type: `image/${format}`, srcset: srcsetFor(format) }));
+    }
   }
   const lazy = !priority && options.loading !== 'eager';
   const disabled = placeholder === false || placeholder === 'none';
@@ -68,5 +71,5 @@ export function getImageProps(options: ImageOptions): HTMLImgAttributes & { sour
 function selectProvider(src: string, config: ImageContextConfig): ImageProvider | undefined {
   let hostname: string | undefined;
   try { hostname = new URL(src).hostname; } catch { /* Local keys use the wildcard provider. */ }
-  return (hostname ? config.providers?.[hostname] : undefined) ?? config.providers?.['*'] ?? config.provider;
+  return (hostname && config.providers && Object.hasOwn(config.providers, hostname) ? config.providers[hostname] : undefined) ?? config.providers?.['*'] ?? config.provider;
 }

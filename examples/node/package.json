@@ -1,0 +1,14 @@
+{
+  "name": "@imageway/example-node",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "svelte-imageway": "workspace:*",
+    "svelte": "5.57.2"
+  }
+}

@@ -21,7 +21,7 @@ describe('v1 request contract', () => {
     {}, { key: 'x', url: 'https://example.com/x' }, { url: 'invalid' }, { url: 'http://example.com/x' }, { url: 'https://u:p@example.com/x' }, { url: 'https://example.com:444/x' }, { url: 'https://example.com/x#frag' }, { url: 'https://example.com/x y' },
     { key: '../x' }, { key: '/x' }, { key: 'a//b' }, { key: 'a/./b' }, { key: '%2e%2e/x' }, { key: 'a', w: 0 }, { key: 'a', w: -1 }, { key: 'a', w: 0.2 }, { key: 'a', w: 5000 }, { key: 'a', w: 3000 }, { key: 'a', w: 2560, dpr: 3 },
     { key: 'a', h: 5000 }, { key: 'a', q: 0 }, { key: 'a', q: 101 }, { key: 'a', q: 99 }, { key: 'a', q: 2.5 }, { key: 'a', dpr: 1.3 }, { key: 'a', rotate: 45 }, { key: 'a', blur: 21 }, { key: 'a', sharpen: -1 }, { key: 'a', blur: NaN },
-    { key: 'a', bg: '#fff' }, { key: 'a', rev: 'a&b' }, { key: 'a', kid: '/' }, { key: 'a', sig: 'short' }, { key: 'a', format: 'bmp' }, { key: 'a', fit: 'invalid' }, { key: 'a', unknown: 1 },
+    { key: 'a', bg: '#fff' }, { key: 'a', rev: 'a&b' }, { key: 'a', kid: '/' }, { key: 'a', sig: 'short' }, { key: 'a', format: 'bmp' }, { key: 'a', fit: 'invalid' }, { key: 'a', unknown: 1 }, { key: 'a', preset: 'constructor' }, { key: 'a', preset: '__proto__' }, { key: 'a', preset: 'toString' },
   ])('rejects unsafe/out-of-bound request %#', input => expect(() => normalizeRequest(input as ImageRequest)).toThrow());
   it('enforces physical decoded pixel limits', () => {
     expect(() => normalizeRequest({ key: 'x', w: 640, h: 640 }, defineConfig({ maxPixels: 1000 }))).toThrow(/Physical/);
@@ -75,12 +75,18 @@ describe('HMAC authorization', () => {
     await expect(verifyRequest(signed, { old: secret }, { now: 200 })).rejects.toThrow(/expired/);
     await expect(verifyRequest({ ...signed, w: 640 }, { old: secret }, { now: 100 })).rejects.toThrow(/signature/);
     await expect(verifyRequest(signed, {}, { now: 100 })).rejects.toThrow(/required/);
+    for (const kid of ['constructor', '__proto__', 'toString']) await expect(verifyRequest({ ...signed, kid }, {}, { now: 100 })).rejects.toThrow(/required/);
     await expect(verifyRequest(signed, { old: secret }, { now: 0, maxLifetime: 50 })).rejects.toThrow(/lifetime/);
     await expect(verifyRequest({ key: 'x' }, {}, { now: 0 })).rejects.toThrow(/required/);
     const now = Math.floor(Date.now() / 1000);
     const current = await signRequest({ key: 'x' }, { secret, kid: 'current', exp: now + 60 });
     expect(await verifyRequest(current, { current: secret })).toEqual(current);
     await expect(signRequest({ key: 'x' }, { secret: 'short', kid: 'x', exp: 100 })).rejects.toThrow(/32 bytes/);
+    const forgedInheritedKey = await signRequest({ key: 'x' }, { secret: String(Object), kid: 'constructor', exp: 200 });
+    await expect(verifyRequest(forgedInheritedKey, {}, { now: 100 })).rejects.toThrow(/required/);
+    const presetSigned = await signRequest({ key: 'x', preset: 'hero' }, { secret, kid: 'old', exp: 200 });
+    const changedPolicy = defineConfig({ presets: { ...defaults.presets, hero: { ...defaults.presets.hero!, revision: '2' } } });
+    await expect(verifyRequest(presetSigned, { old: secret }, { now: 100, config: changedPolicy })).rejects.toThrow(/signature/);
     const config = defineConfig({ endpoint: '/different/v1' });
     const separate = await signRequest({ key: 'x' }, { secret, kid: 'x', exp: 200, config });
     expect(await verifyRequest(separate, { x: secret }, { now: 100, config })).toEqual(separate);

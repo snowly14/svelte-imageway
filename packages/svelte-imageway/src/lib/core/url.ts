@@ -39,7 +39,7 @@ export function normalizeRequest(input: ImageRequest, config: ImageConfig = defa
   if (input.key) invariant(input.key.length <= 1024 && /^[\w./-]+$/.test(input.key) && !input.key.startsWith('/') && input.key.split('/').every(v => v !== '..' && v !== '.' && v !== ''), 'KEY', 'Object key must be relative and cannot traverse directories.');
   let values = input;
   if (input.preset) {
-    const preset = config.presets[input.preset];
+    const preset = Object.hasOwn(config.presets, input.preset) ? config.presets[input.preset] : undefined;
     invariant(preset, 'PRESET', 'Unknown image preset.', 403);
     for (const key of Object.keys(input) as (keyof ImageRequest)[]) {
       if (['url', 'key', 'preset', 'rev', 'kid', 'exp', 'sig'].includes(key)) continue;

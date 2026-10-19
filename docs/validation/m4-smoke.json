@@ -1,0 +1,28 @@
+{
+  "basic": {
+    "status": 200,
+    "contentType": "image/avif",
+    "image": {
+      "src": "http://127.0.0.1:4271/imageway/bf926631774538eb6dd4167a50c5512ca3932ed0f4dfdb91e951ef76eb2ff1f2.avif",
+      "width": 960,
+      "loading": "eager",
+      "priority": "high"
+    },
+    "browserErrors": []
+  },
+  "node": {
+    "status": 200,
+    "contentType": "image/avif",
+    "image": {
+      "src": "http://127.0.0.1:4272/_img/v1?animation=preserve&blur=0&dpr=1&fit=inside&flip=none&format=avif&key=source.png&metadata=none&position=center&preset=card&q=75&rotate=0&sharpen=0&w=960",
+      "width": 1280,
+      "loading": "eager",
+      "priority": "high"
+    },
+    "browserErrors": []
+  },
+  "static": {
+    "status": 200,
+    "imageRendered": true
+  }
+}
