@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:svelte-imageway:url:v1",
+  "title": "Imageway v1 request (network/preset/codec policy enforced separately)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "url": {
+      "type": "string",
+      "minLength": 1,
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "key": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[\\w./-]+$",
+      "maxLength": 1024
+    },
+    "preset": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rev": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sig": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9_-]{43}$"
+    },
+    "w": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4096
+    },
+    "h": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4096
+    },
+    "q": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+    },
+    "dpr": {
+      "enum": [
+        1,
+        1.5,
+        2,
+        3
+      ]
+    },
+    "rotate": {
+      "enum": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    "exp": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "format": {
+      "enum": [
+        "avif",
+        "webp",
+        "jpeg",
+        "png",
+        "gif",
+        "svg",
+        "auto"
+      ]
+    },
+    "fit": {
+      "enum": [
+        "cover",
+        "contain",
+        "fill",
+        "inside",
+        "outside",
+        "scale-down"
+      ]
+    },
+    "position": {
+      "enum": [
+        "center",
+        "top",
+        "bottom",
+        "left",
+        "right",
+        "top-left",
+        "top-right",
+        "bottom-left",
+        "bottom-right",
+        "attention",
+        "entropy"
+      ]
+    },
+    "flip": {
+      "enum": [
+        "none",
+        "horizontal",
+        "vertical",
+        "both"
+      ]
+    },
+    "metadata": {
+      "enum": [
+        "none",
+        "icc",
+        "safe"
+      ]
+    },
+    "animation": {
+      "enum": [
+        "preserve",
+        "first"
+      ]
+    },
+    "blur": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 20
+    },
+    "sharpen": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "bg": {
+      "type": "string",
+      "pattern": "^(transparent|[a-fA-F0-9]{6}|[a-fA-F0-9]{8})$"
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "url"
+      ],
+      "not": {
+        "required": [
+          "key"
+        ]
+      }
+    },
+    {
+      "required": [
+        "key"
+      ],
+      "not": {
+        "required": [
+          "url"
+        ]
+      }
+    }
+  ]
+}

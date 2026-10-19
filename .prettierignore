@@ -1,0 +1,7 @@
+node_modules
+dist
+coverage
+.local
+bun.lock
+docs/planning/original-brief.md
+docs/research/evidence

@@ -3,8 +3,7 @@
 - Use Bun for all dependency installation and workspace scripts: `bun install`, `bun run <script>`.
 - `npm view` is permitted for the registry research explicitly requested in the brief. Do not use npm, pnpm, or Yarn as a package manager.
 - The authoritative feature request is [the original brief](docs/planning/original-brief.md). The user's Bun instruction supersedes its pnpm workspace requirement.
-- Phase 0 is documentation and research only. Do not create implementation files until the user approves M1.
-- The brief requires: “Ne passe au suivant qu'après mon feu vert.” Stop at each milestone with concrete results and request approval for the next one.
+- On 2026-10-20 the user explicitly approved all milestones and requested continuous execution through completion. This supersedes the brief's per-milestone approval requirement. Follow M1–M11 in order, verify each gate and commit before continuing, without requesting another milestone approval.
 - Decisions belong in ADRs. Public API documentation and code comments are English. Svelte components must use Svelte 5 runes and snippets.
 - Never report a build, benchmark, deployment, or test as passed unless executed. Mark unavailable infrastructure as unverified, not passed.
 - Enforce SSRF, filesystem, decoding, and resource limits from the first relevant implementation milestone; M9 is an independent security verification gate.

@@ -2,7 +2,7 @@
 
 ## Current status
 
-**Phase 0 research and design prepared on 2026-10-19. M1 awaits user approval. No package implementation or publication exists.**
+**M1 implemented and verified on 2026-10-20. The user authorized continuous execution of M1–M11; per-milestone approval is no longer required. No npm publication or cloud deployment has occurred.**
 
 Selected name: `svelte-imageway` (public registry E404 at research time). Bun replaces pnpm by user instruction. Proposed baseline: Svelte 5.57.2, Kit 3.1.0, Vite 8.3.4, Node 24.22.0 LTS and TypeScript 6.0.3 (latest compatible, despite 7.0.2 being current stable).
 
@@ -19,7 +19,7 @@ Architecture: [ADR 0001](docs/adr/0001-architecture.md), [URL ADR](docs/adr/0002
 - [x] Verify macOS sleep assertions under a project-specific launchd job; shutdown is pending genuine final completion.
 - [x] Validate 11 authored Markdown files with markdownlint-cli2 0.23.3 (0 issues), 25 local document links, 2 evidence JSON files, 30 registry entries and byte-for-byte preservation of the original brief.
 - [x] Pass staged whitespace validation; include this report in the Phase 0 Conventional Commit.
-- [ ] Obtain user approval to start M1.
+- [x] User approved all implementation milestones on 2026-10-20, retaining their order, validation and commits.
 
 ## Execution ledger
 
@@ -149,3 +149,11 @@ The framework ecosystem has moved to Kit 3/Vite 8/TypeScript 6-compatible toolin
 M1–M11 are the roadmap to a verified 0.1.0 next release. 1.0.0 requires all mandatory success criteria and no falsely green checks. Optional v1.x candidates are advanced video encoding, broader experimental decoders, developer overlay, auto-preprocessor, extra presentation components, and additional provider-specific features. If an original mandatory requirement remains unmet, list it as a release blocker, not silently move it to bonuses.
 
 There is no publishable artifact yet, so this phase supplies no pretend “exact publish command.” M11 must provide owner-specific commands after actual pack/type/runtime/provenance verification. No npm publication, remote push or paid deployment occurs in Phase 0.
+
+## M1 — verified core (2026-10-20)
+
+Bun workspace and isolated Node 24.22.0 runtime installed. Implemented strict v1 normalization, bounded widths/qualities/DPR, presets, HMAC key rotation/expiration, Accept q-values, JSON Schema/OpenAPI, IP classification, HTTPS connection pinning and redirect revalidation, source deadlines and local containment. Added lazy Sharp loading, signature sniffing, restricted SVG rasterization, orientation/ICC/privacy policies, frame/pixel/byte limits, bounded worker_threads, atomic disk cache, byte LRU and content/codec-addressed deduplicated processing.
+
+`fnm exec --using 24.22.0 bun run check`: lint, strict types, svelte-package build and unit/security/pipeline tests passed. The suite exercises real JPEG/PNG/WebP/AVIF/TIFF/GIF, multi-frame animation, EXIF, CMYK+ICC, alpha, corrupt images, input/output limits, compiled workers and cache restart/invalidation. Warm repeated processing achieved 100% cache hits in the declared 100-request repeat test. A real connection-pinned HTTPS fetch from raw.githubusercontent.com returned 22,949 bytes. Coverage of the portable core exceeds 90% (latest exact counts are in the validation log).
+
+Codec limits remain explicit: this baseline rejects unsupported exotic containers/encoders instead of silently mis-decoding or flattening animation. Exotic decoder extensions and additional real-world fixture coverage remain tracked for later validation; no all-codec support claim is made. Runtime source roots must be controlled by the application operator; arbitrary concurrent filesystem writers are outside the configured-root trust boundary.

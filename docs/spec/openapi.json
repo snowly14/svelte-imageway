@@ -1,0 +1,336 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Imageway service",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/_img/v1": {
+      "get": {
+        "operationId": "getImage",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "format": "uri",
+              "pattern": "^https://"
+            }
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[\\w./-]+$",
+              "maxLength": 1024
+            }
+          },
+          {
+            "name": "preset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "rev",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "kid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "sig",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "w",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096
+            }
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4096
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "dpr",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                1,
+                1.5,
+                2,
+                3
+              ]
+            }
+          },
+          {
+            "name": "rotate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                0,
+                90,
+                180,
+                270
+              ]
+            }
+          },
+          {
+            "name": "exp",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "avif",
+                "webp",
+                "jpeg",
+                "png",
+                "gif",
+                "svg",
+                "auto"
+              ]
+            }
+          },
+          {
+            "name": "fit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "cover",
+                "contain",
+                "fill",
+                "inside",
+                "outside",
+                "scale-down"
+              ]
+            }
+          },
+          {
+            "name": "position",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "center",
+                "top",
+                "bottom",
+                "left",
+                "right",
+                "top-left",
+                "top-right",
+                "bottom-left",
+                "bottom-right",
+                "attention",
+                "entropy"
+              ]
+            }
+          },
+          {
+            "name": "flip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "none",
+                "horizontal",
+                "vertical",
+                "both"
+              ]
+            }
+          },
+          {
+            "name": "metadata",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "none",
+                "icc",
+                "safe"
+              ]
+            }
+          },
+          {
+            "name": "animation",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "preserve",
+                "first"
+              ]
+            }
+          },
+          {
+            "name": "blur",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 20
+            }
+          },
+          {
+            "name": "sharpen",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            }
+          },
+          {
+            "name": "bg",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(transparent|[a-fA-F0-9]{6}|[a-fA-F0-9]{8})$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Encoded image; representation MIME is authoritative"
+          },
+          "304": {
+            "description": "ETag matched"
+          },
+          "400": {
+            "description": "Invalid query"
+          },
+          "401": {
+            "description": "Signature or expiration failure"
+          },
+          "403": {
+            "description": "Origin or preset policy denied"
+          },
+          "406": {
+            "description": "No acceptable representation"
+          },
+          "413": {
+            "description": "Resource limit"
+          },
+          "415": {
+            "description": "Unsupported or unsafe input"
+          },
+          "422": {
+            "description": "Unsupported transformation"
+          },
+          "429": {
+            "description": "Rate or budget limit"
+          },
+          "502": {
+            "description": "Origin failure"
+          },
+          "504": {
+            "description": "Deadline exceeded"
+          }
+        }
+      },
+      "head": {
+        "operationId": "headImage",
+        "description": "Same authorization and representation headers as GET, without a response body.",
+        "responses": {
+          "200": {
+            "description": "Encoded image; representation MIME is authoritative"
+          },
+          "304": {
+            "description": "ETag matched"
+          },
+          "400": {
+            "description": "Invalid query"
+          },
+          "401": {
+            "description": "Signature or expiration failure"
+          },
+          "403": {
+            "description": "Origin or preset policy denied"
+          },
+          "406": {
+            "description": "No acceptable representation"
+          },
+          "413": {
+            "description": "Resource limit"
+          },
+          "415": {
+            "description": "Unsupported or unsafe input"
+          },
+          "422": {
+            "description": "Unsupported transformation"
+          },
+          "429": {
+            "description": "Rate or budget limit"
+          },
+          "502": {
+            "description": "Origin failure"
+          },
+          "504": {
+            "description": "Deadline exceeded"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Milestone plan and approval gates
 
-Date: 2026-10-19. The original brief requires a plan before code and explicit approval between milestones. Phase 0 contains research, design documents and this plan only. **M1 has not started.**
+Date: 2026-10-19. The original brief requires a plan before code and explicit approval between milestones. Phase 0 contains research, design documents and this plan only. On 2026-10-20 the user approved continuous execution through M11, superseding the approval pauses. Order, execution checks, reports and commits remain required. M1 is now verified.
 
 Every implementation gate requires the relevant tests actually run, clean lint, successful strict type checking, an updated REPORT.md, a Conventional Commit and a short status note. Introduce meaningful tests with each capability. M9 independently challenges security already built in M1 onward; it is not permission to defer basic protections.
 
@@ -27,7 +27,7 @@ Every implementation gate requires the relevant tests actually run, clean lint, 
 4. Implement safe local acquisition and bounded remote fetch with injected DNS/connection primitives for security tests. Deny unsupported runtime security guarantees.
 5. Add lazy Sharp capability probing, EXIF orientation/metadata policy, bounded encoders/worker pool and honest unsupported-format results.
 6. Add content/pipeline-addressed disk cache, byte-bounded memory LRU, atomic writes and concurrent deduplication.
-7. Execute lint/types/unit/security/pipeline/coverage checks. Record real results and a Conventional Commit. Present the M1 review and wait for M2 approval.
+7. Execute lint/types/unit/security/pipeline/coverage checks. Record real results and a Conventional Commit. Record the M1 status and proceed to M2 under the blanket approval.
 
 ## Platform and acceptance caveats
 

@@ -1,0 +1,50 @@
+import { defaults } from '../core/config.js';
+import { cacheIdentity, normalizeRequest } from '../core/url.js';
+import type { ImageConfig, ImageRequest, OutputFormat } from '../core/types.js';
+import { DiskCache, hash, MemoryCache, SingleFlight } from './cache.js';
+import { loadSharp, type TransformResult } from './pipeline.js';
+import { TransformPool } from './pool.js';
+
+/** Persistent content/codec/policy-addressed processing with in-flight deduplication. */
+export class ImageProcessor {
+  readonly metrics = { hit: 0, miss: 0, transforms: 0 };
+  private memory: MemoryCache;
+  private disk: DiskCache;
+  private flight = new SingleFlight<TransformResult>();
+  private pool: TransformPool;
+  constructor(options: { directory: string; config?: ImageConfig; concurrency?: number; memoryBytes?: number; diskBytes?: number }) {
+    this.config = options.config ?? defaults;
+    this.memory = new MemoryCache(options.memoryBytes);
+    this.disk = new DiskCache(options.directory, options.diskBytes);
+    this.pool = new TransformPool(options.concurrency);
+  }
+  private config: ImageConfig;
+  async process(data: Uint8Array, input: ImageRequest, format: OutputFormat): Promise<TransformResult> {
+    const request = normalizeRequest(input, this.config);
+    const sharp = await loadSharp();
+    const key = hash(`${hash(data)}:${cacheIdentity(request, format, JSON.stringify(sharp.versions), this.config)}`);
+    return this.flight.run(key, async () => {
+      const cached = this.memory.get(key) ?? await this.disk.get(key);
+      if (cached) {
+        try { const result = unpack(cached); this.memory.set(key, cached, 3600_000); this.metrics.hit++; return result; }
+        catch { await this.disk.delete(key); }
+      }
+      this.metrics.miss++; this.metrics.transforms++;
+      const result = await this.pool.run({ data, request, format, config: this.config });
+      const packed = pack(result);
+      await this.disk.set(key, packed); this.memory.set(key, packed, 3600_000);
+      return result;
+    });
+  }
+}
+function pack({ data, ...metadata }: TransformResult): Buffer {
+  const header = Buffer.from(JSON.stringify(metadata)); const length = Buffer.alloc(4); length.writeUInt32BE(header.length);
+  return Buffer.concat([length, header, data]);
+}
+function unpack(bytes: Buffer): TransformResult {
+  const length = bytes.readUInt32BE(0);
+  if (length > 8192 || length + 4 >= bytes.length) throw new Error('Invalid cached artifact.');
+  const metadata = JSON.parse(bytes.toString('utf8', 4, length + 4)) as Omit<TransformResult, 'data'>;
+  if (!Number.isSafeInteger(metadata.width) || !Number.isSafeInteger(metadata.height) || !metadata.format) throw new Error('Invalid cached metadata.');
+  return { ...metadata, data: Buffer.from(bytes.subarray(length + 4)) };
+}
