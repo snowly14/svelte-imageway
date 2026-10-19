@@ -63,7 +63,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       if (id === '\0imageway:config') {
         const entries = Object.entries(config.providers ?? (config.provider ? { '*': config.provider } : {}));
         const imports: string[] = [], values: string[] = [];
-        const allowed = new Set(['local', 'edge', 'generic', 'cloudflare', 'vercel', 'netlify']);
+        const allowed = new Set(['local', 'edge', 'generic', 'cloudflare', 'vercel', 'netlify', 'bunny', 'imgix', 'cloudinary', 'imagekit', 'imgproxy', 'ipx', 'supabase', 'fastly', 'cloudfront', 'uploadcare', 'cms']);
         for (const [index, [domain, value]] of entries.entries()) {
           const descriptor = (value as ImageProvider & { descriptor?: { factory: string; options: Record<string, unknown> } }).descriptor;
           if (!descriptor || !allowed.has(descriptor.factory)) throw new ImagewayError('PROVIDER_SERIALIZATION', 'A browser provider needs a supported public descriptor; use generic() or an explicit subtree provider.');

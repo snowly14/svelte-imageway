@@ -193,3 +193,9 @@ Executed `wrangler dev` with actual local Images/R2/Durable Object bindings: Web
 Executed the same image/cache/conditional checks against standalone Node 24, Bun 1.4.3 and real Docker Compose with reverse proxy. The container runs as uid 1000, read-only root, all capabilities dropped, no-new-privileges and bounded resources. A task-owned isolated Lima VM supplied the Docker engine; no Docker Desktop/global configuration was installed. See `docs/validation/m5-services.json`. Protected admin routes require 32-byte tokens. Local caches and metrics are process/isolate scoped; deployment-level aggregation is operator-owned.
 
 Gate: lint, strict types, package build, Svelte diagnostics and 158 tests passed. Portable URL/Accept core retains 100% line coverage, 98.85% branches. M3 component size issue remains open; M5 does not resolve it.
+
+## M6 — Additional providers, CMS and fallback (2026-10-20)
+
+Added Bunny, imgix, Cloudinary, ImageKit, explicitly unsafe/private imgproxy, IPX, Supabase, Fastly, CloudFront-v1-origin and Uploadcare subpaths, with public Vite descriptor reconstruction. Added exact-host CMS recognition, CMS URL translators and pre-generated Strapi/WordPress variant artifacts. Credentialed vendor signing/purge remains a server integration, never a browser secret. Added timeout/5xx circuit breaker with half-open recovery; 4xx/security/budget refusals cannot trigger original fallback.
+
+Gate: 185 tests, lint/types/package/Svelte checks pass. Tests cover URL encoding/capabilities, domain boundaries, signed-source rejection, preserved attribution, CMS artifacts, provider switching and fallback admission/recovery. A real Cloudinary demo request returned WebP and was decoded; other paid-native paths are documentation-conformant URL tests, not account-backed execution. Official sources and exact restrictions: `docs/research/provider-contracts.md`. Existing component gzip release blocker remains open.

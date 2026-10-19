@@ -73,6 +73,58 @@
     "./edge": {
       "types": "./dist/edge/index.d.ts",
       "default": "./dist/edge/index.js"
+    },
+    "./providers/bunny": {
+      "types": "./dist/providers/bunny.d.ts",
+      "default": "./dist/providers/bunny.js"
+    },
+    "./providers/imgix": {
+      "types": "./dist/providers/imgix.d.ts",
+      "default": "./dist/providers/imgix.js"
+    },
+    "./providers/cloudinary": {
+      "types": "./dist/providers/cloudinary.d.ts",
+      "default": "./dist/providers/cloudinary.js"
+    },
+    "./providers/imagekit": {
+      "types": "./dist/providers/imagekit.d.ts",
+      "default": "./dist/providers/imagekit.js"
+    },
+    "./providers/imgproxy": {
+      "types": "./dist/providers/imgproxy.d.ts",
+      "default": "./dist/providers/imgproxy.js"
+    },
+    "./providers/ipx": {
+      "types": "./dist/providers/ipx.d.ts",
+      "default": "./dist/providers/ipx.js"
+    },
+    "./providers/supabase": {
+      "types": "./dist/providers/supabase.d.ts",
+      "default": "./dist/providers/supabase.js"
+    },
+    "./providers/fastly": {
+      "types": "./dist/providers/fastly.d.ts",
+      "default": "./dist/providers/fastly.js"
+    },
+    "./providers/cloudfront": {
+      "types": "./dist/providers/cloudfront.d.ts",
+      "default": "./dist/providers/cloudfront.js"
+    },
+    "./providers/uploadcare": {
+      "types": "./dist/providers/uploadcare.d.ts",
+      "default": "./dist/providers/uploadcare.js"
+    },
+    "./cms": {
+      "types": "./dist/cms/index.d.ts",
+      "default": "./dist/cms/index.js"
+    },
+    "./providers/cms": {
+      "types": "./dist/providers/cms.d.ts",
+      "default": "./dist/providers/cms.js"
+    },
+    "./providers/fallback": {
+      "types": "./dist/providers/fallback.d.ts",
+      "default": "./dist/providers/fallback.js"
     }
   },
   "peerDependencies": {

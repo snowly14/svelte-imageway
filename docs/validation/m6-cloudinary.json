@@ -1,0 +1,23 @@
+{
+  "status": 200,
+  "type": "image/webp",
+  "bytes": 38164,
+  "metadata": {
+    "format": "webp",
+    "mediaType": "image/webp",
+    "size": 38164,
+    "width": 640,
+    "height": 427,
+    "space": "srgb",
+    "channels": 3,
+    "depth": "uchar",
+    "isProgressive": false,
+    "isPalette": false,
+    "hasProfile": false,
+    "hasAlpha": false,
+    "autoOrient": {
+      "width": 640,
+      "height": 427
+    }
+  }
+}
