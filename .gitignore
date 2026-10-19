@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.svelte-kit/
+.wrangler/
+coverage/
+playwright-report/
+test-results/
+.local/
+.env
+.env.*
+!.env.example
+.DS_Store

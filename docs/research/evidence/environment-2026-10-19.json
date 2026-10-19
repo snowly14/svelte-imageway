@@ -1,0 +1,43 @@
+{
+  "checkedDate": "2026-10-19",
+  "nodeSource": "https://nodejs.org/dist/index.json",
+  "latestByMajor": [
+    {
+      "version": "v24.22.0",
+      "date": "2026-10-14",
+      "lts": "Krypton"
+    },
+    {
+      "version": "v22.23.3",
+      "date": "2026-09-23",
+      "lts": "Jod"
+    },
+    {
+      "version": "v26.12.0",
+      "date": "2026-10-14",
+      "lts": false
+    }
+  ],
+  "additionalRegistryChecks": [
+    {
+      "command": "npm view typescript@6.0.3 version engines --json",
+      "result": {
+        "version": "6.0.3",
+        "engines": {
+          "node": ">=14.17"
+        }
+      }
+    },
+    {
+      "command": "npm view markdownlint-cli2 version --json",
+      "result": "0.23.3"
+    }
+  ],
+  "host": {
+    "bun": "1.4.3",
+    "node": "26.11.1",
+    "npm": "11.20.0",
+    "dockerInPath": false
+  },
+  "implementationTests": "not run; Phase 0 documentation only"
+}
