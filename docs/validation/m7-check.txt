@@ -1,0 +1,37 @@
+$ bun run lint && bun run typecheck && bun run build && bun run check:svelte && bun run test:coverage
+$ eslint .
+$ tsc --noEmit
+$ bun scripts/version.ts && bun run --filter svelte-imageway build
+svelte-imageway build: src/lib -> dist
+svelte-imageway build: Exited with code 0
+$ svelte-check --tsconfig ./tsconfig.json
+Loading svelte-check in workspace: /Users/gastonhardy/Developer/projects/open-source/svelte-imageway
+Getting Svelte diagnostics...
+
+svelte-check found 0 errors and 0 warnings
+$ vitest run --coverage
+
+ RUN  v5.0.5 /Users/gastonhardy/Developer/projects/open-source/svelte-imageway
+      Coverage enabled with v8
+
+
+ Test Files  8 passed (8)
+      Tests  189 passed (189)
+   Start at  01:27:53
+   Duration  1.21s (tests 72%, transform 16%, import 9%, worker 3%)
+
+ % Coverage report from v8
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------|---------|----------|---------|---------|-------------------
+All files   |     100 |    98.85 |     100 |     100 |
+ accept.ts  |     100 |    96.42 |     100 |     100 | 14
+ url.ts     |     100 |    98.96 |     100 |     100 | 75
+------------|---------|----------|---------|---------|-------------------
+
+=============================== Coverage summary ===============================
+Statements   : 100% ( 154/154 )
+Branches     : 98.85% ( 173/175 )
+Functions    : 100% ( 38/38 )
+Lines        : 100% ( 110/110 )
+================================================================================

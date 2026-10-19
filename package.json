@@ -22,9 +22,11 @@
     "build:components": "bun run --filter @imageway/example-components build && bun run --filter @imageway/example-components build:ssr && bun scripts/render-example.ts"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "3.1153.0",
     "@cloudflare/workers-types": "^5.20261019.1",
     "@eslint/js": "9.39.1",
     "@playwright/test": "1.64.1",
+    "@supabase/storage-js": "2.118.0",
     "@sveltejs/adapter-cloudflare": "8.0.1",
     "@sveltejs/adapter-netlify": "7.0.1",
     "@sveltejs/adapter-node": "6.0.0",
@@ -34,6 +36,7 @@
     "@sveltejs/package": "3.0.1",
     "@sveltejs/vite-plugin-svelte": "7.3.1",
     "@types/node": "^24.0.0",
+    "@vercel/blob": "2.8.2",
     "@vitest/coverage-v8": "5.0.5",
     "blurhash": "2.0.5",
     "eslint": "9.39.1",

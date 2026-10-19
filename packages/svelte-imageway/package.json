@@ -125,13 +125,24 @@
     "./providers/fallback": {
       "types": "./dist/providers/fallback.d.ts",
       "default": "./dist/providers/fallback.js"
+    },
+    "./publish": {
+      "types": "./dist/publish/index.d.ts",
+      "default": "./dist/publish/index.js"
+    },
+    "./publish/targets": {
+      "types": "./dist/publish/targets.d.ts",
+      "default": "./dist/publish/targets.js"
     }
   },
   "peerDependencies": {
     "svelte": "^5.57.1",
     "sharp": "^0.35.5",
     "vite": "^8.0.12",
-    "@sveltejs/kit": "^3.1.0"
+    "@sveltejs/kit": "^3.1.0",
+    "@aws-sdk/client-s3": "^3.1153.0",
+    "@vercel/blob": "^2.8.2",
+    "@supabase/storage-js": "^2.118.0"
   },
   "peerDependenciesMeta": {
     "sharp": {
@@ -141,6 +152,15 @@
       "optional": true
     },
     "@sveltejs/kit": {
+      "optional": true
+    },
+    "@aws-sdk/client-s3": {
+      "optional": true
+    },
+    "@vercel/blob": {
+      "optional": true
+    },
+    "@supabase/storage-js": {
       "optional": true
     }
   },

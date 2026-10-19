@@ -1,3 +1,4 @@
+import { publishAssets, publicAssetBase, type PublishOptions } from '../publish/index.js';
 import { PIPELINE_REVISION } from '../version.js';
 import type { Plugin, ResolvedConfig } from 'vite';
 import { relative, join } from 'node:path';
@@ -23,12 +24,14 @@ export interface ImagePluginOptions {
   config?: Partial<ImageConfig>;
   concurrency?: number;
   publicBase?: string;
+  publish?: PublishOptions;
   /** Optional notification, never called for every progress tick. */
   onProgress?: (result: { file: string; variants: number }) => void;
 }
 /** Typed responsive imports with lazy dev endpoints and persistent content-addressed builds. */
 export function imageway(options: ImagePluginOptions = {}): Plugin {
   let config = defineConfig(options.config);
+  const publicBase = options.publish && !options.publish.dryRun ? publicAssetBase(options.publish.publicBase) : options.publicBase ? publicAssetBase(options.publicBase) : undefined;
   let vite: ResolvedConfig;
   const jobs = new Map<string, { file: string; run: () => Promise<Buffer>; format: OutputFormat }>();
   return {
@@ -58,6 +61,12 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       if (/\.(svelte|[jt]s)$/.test(ctx.file)) await generateImageTypes(vite.root);
       // Old URLs are content-addressed and may remain in already-rendered pages; bound their retention.
       if (jobs.size > 2048) for (const [key, job] of jobs) if (job.file === ctx.file) jobs.delete(key);
+    },
+    async generateBundle(_output, bundle) {
+      if (!options.publish || vite.build.ssr) return;
+      const assets = Object.values(bundle).filter(v => v.type === 'asset' && /^imageway\/[a-f0-9]{64}\./.test(v.fileName));
+      const result = await publishAssets(assets.map(v => { if (v.type !== 'asset') throw new Error('Expected asset.'); return { key: v.fileName, bytes: typeof v.source === 'string' ? new TextEncoder().encode(v.source) : v.source, contentType: mimeType(v.fileName.split('.').at(-1) as OutputFormat) }; }), options.publish);
+      this.emitFile({ type: 'asset', fileName: 'image-manifest.json', source: JSON.stringify(result.manifest, null, 2) });
     },
     async load(id) {
       if (id === '\0imageway:config') {
@@ -117,7 +126,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
             const ref = this.emitFile({ type: 'asset', fileName: filename, source: output.data });
             const token = `__IMAGEWAY_${tokenUrls.size}__`;
             tokenUrls.set(token, `import.meta.ROLLUP_FILE_URL_${ref}`);
-            url = options.publicBase ? `${options.publicBase.replace(/\/$/, '')}/${filename}` : token;
+            url = publicBase ? `${publicBase}/${filename}` : token;
           }
           outputs.push({ format, width: outputWidth, height, url });
       }));
