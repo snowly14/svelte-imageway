@@ -1,4 +1,4 @@
-import { relative } from 'node:path';
+import { relative, sep } from 'node:path';
 import { stat } from 'node:fs/promises';
 import { files, readFile } from './files.js';
 export interface AuditFinding {
@@ -12,7 +12,7 @@ export async function audit(root: string): Promise<AuditFinding[]> {
   const findings: AuditFinding[] = [];
   const { parse } = await import('svelte/compiler');
   for (const path of await files(root, /\.(svelte|md|css|png|jpe?g|gif|bmp)$/i)) {
-    const name = relative(root, path);
+    const name = relative(root, path).split(sep).join('/');
     const add = (offset: number, code: string, message: string, source = '') =>
       findings.push({
         file: name,

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { resolve, join } from 'node:path';
+import { resolve, join, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { watch, existsSync, realpathSync } from 'node:fs';
 import { init } from './init.js';
@@ -143,7 +143,7 @@ export async function main(argv = process.argv.slice(2), cwd = process.cwd()): P
             if (
               !name ||
               (text('output') &&
-                resolve(root, name).startsWith(resolve(cwd, text('output')!) + '/')) ||
+                resolve(root, name).startsWith(resolve(cwd, text('output')!) + sep)) ||
               name
                 .split(/[\\/]/)
                 .some(

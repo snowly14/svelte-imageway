@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**0.1.0 preview — not published to npm yet.** Local builds, components, runtime services and CLI are implemented and tested. The original 1.0 acceptance targets are still open: the full Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. See [REPORT.md](REPORT.md).
+**0.1.0 preview.** Local builds, components, runtime services and CLI are implemented and tested. The original 1.0 acceptance targets are still open: the full Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. See [REPORT.md](REPORT.md).
 
 ## Before → after
 
@@ -26,20 +26,13 @@ Imageway generates responsive AVIF/WebP/fallback assets, reserves dimensions and
 
 ### 1. Install
 
-Until publication, build and pack this checkout, then install the resulting archive in your Svelte project:
+Install the preview in your existing Svelte 5 / Vite 8 project:
 
 ```sh
-# From the repository root
-bun install
-bun run build
-cd packages/svelte-imageway
-bun pm pack
-
-# From your existing Svelte 5 / Vite 8 project; use the actual archive path
-bun add /absolute/path/svelte-imageway-0.1.0.tgz
+bun add svelte-imageway@next
 ```
 
-After a maintainer publishes the preview: `bun add svelte-imageway@next`.
+The preview uses the `next` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).
 
 Use Node 22.17+ or Node 24 LTS. Sharp is optional at installation but required for local processing; managed providers can run without it. SvelteKit integration targets Kit 3. This preview does not claim Kit 2 compatibility.
 
@@ -126,7 +119,7 @@ bun x svelte-imageway deploy cloudflare --dry-run
 bun x svelte-imageway migrate ./src --from enhanced-img
 ```
 
-Use the locally installed bin before npm publication. `optimize` preserves originals and supports dry-run/watch. Audit findings exit 1; command errors exit 2. Deploy generates configuration and instructions; it does not create paid resources. Migration previews changes and backs up writes; unsupported patterns require review. Protected Worker purge requires an environment token and `--yes`.
+These commands use the installed package CLI. `optimize` preserves originals and supports dry-run/watch. Audit findings exit 1; command errors exit 2. Deploy generates configuration and instructions; it does not create paid resources. Migration previews changes and backs up writes; unsupported patterns require review. Protected Worker purge requires an environment token and `--yes`.
 
 ## Measurements and limits
 

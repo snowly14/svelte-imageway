@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { it, expect } from 'vitest';
 import { mkdtemp, mkdir, readFile, writeFile, rm, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -7,7 +8,9 @@ import { configureVite, init } from '../packages/svelte-imageway/src/lib/cli/ini
 import { audit } from '../packages/svelte-imageway/src/lib/cli/audit.js';
 import { migrate } from '../packages/svelte-imageway/src/lib/cli/migrate.js';
 
-const cli = new URL('../packages/svelte-imageway/dist/cli/index.js', import.meta.url).pathname;
+const cli = fileURLToPath(
+  new URL('../packages/svelte-imageway/dist/cli/index.js', import.meta.url),
+);
 it('patches syntax once, preserves comments and other plugins, and refuses ambiguous configs', async () => {
   const before =
     "// keep me\nimport {sveltekit} from '@sveltejs/kit/vite';\nexport default defineConfig({plugins:[sveltekit()],server:{port:4000}});";
@@ -104,6 +107,28 @@ it('migrates supported static enhanced markup/imports with backup and leaves amb
       'import x from "./a.jpg?w=320&as=picture&unknown=1";',
     );
     expect((await migrate(root, 'imagetools')).review[0]).toContain('unsupported');
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+it('optimizes nested keys and excludes a custom output subtree on every OS', async () => {
+  const { optimizeDirectory } = await import('../packages/svelte-imageway/dist/cli/optimize.js');
+  const root = await mkdtemp(join(tmpdir(), 'imageway-nested-'));
+  try {
+    const sharp = (await import('sharp')).default;
+    const image = await sharp({ create: { width: 8, height: 8, channels: 3, background: 'red' } })
+      .png()
+      .toBuffer();
+    await mkdir(join(root, 'nested'));
+    await mkdir(join(root, 'custom-output'));
+    await writeFile(join(root, 'nested/a.png'), image);
+    await writeFile(join(root, 'custom-output/generated.png'), image);
+    const report = await optimizeDirectory(root, {
+      output: join(root, 'custom-output'),
+      dryRun: true,
+    });
+    expect(report.entries.map((entry: { file: string }) => entry.file)).toEqual(['nested/a.png']);
   } finally {
     await rm(root, { recursive: true, force: true });
   }

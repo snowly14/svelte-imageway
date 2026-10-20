@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**0.1.0 preview — not published to npm yet.** Local builds, components, runtime services and CLI are implemented and tested. The original 1.0 acceptance targets are still open: the full Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. See REPORT.md (in the repository).
+**0.1.0 preview.** Local builds, components, runtime services and CLI are implemented and tested. The original 1.0 acceptance targets are still open: the full Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. See [REPORT.md](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md).
 
 ## Before → after
 
@@ -26,20 +26,13 @@ Imageway generates responsive AVIF/WebP/fallback assets, reserves dimensions and
 
 ### 1. Install
 
-Until publication, build and pack this checkout, then install the resulting archive in your Svelte project:
+Install the preview in your existing Svelte 5 / Vite 8 project:
 
 ```sh
-# From the repository root
-bun install
-bun run build
-cd packages/svelte-imageway
-bun pm pack
-
-# From your existing Svelte 5 / Vite 8 project; use the actual archive path
-bun add /absolute/path/svelte-imageway-0.1.0.tgz
+bun add svelte-imageway@next
 ```
 
-After a maintainer publishes the preview: `bun add svelte-imageway@next`.
+The preview uses the `next` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).
 
 Use Node 22.17+ or Node 24 LTS. Sharp is optional at installation but required for local processing; managed providers can run without it. SvelteKit integration targets Kit 3. This preview does not claim Kit 2 compatibility.
 
@@ -126,7 +119,7 @@ bun x svelte-imageway deploy cloudflare --dry-run
 bun x svelte-imageway migrate ./src --from enhanced-img
 ```
 
-Use the locally installed bin before npm publication. `optimize` preserves originals and supports dry-run/watch. Audit findings exit 1; command errors exit 2. Deploy generates configuration and instructions; it does not create paid resources. Migration previews changes and backs up writes; unsupported patterns require review. Protected Worker purge requires an environment token and `--yes`.
+These commands use the installed package CLI. `optimize` preserves originals and supports dry-run/watch. Audit findings exit 1; command errors exit 2. Deploy generates configuration and instructions; it does not create paid resources. Migration previews changes and backs up writes; unsupported patterns require review. Protected Worker purge requires an environment token and `--yes`.
 
 ## Measurements and limits
 
@@ -138,11 +131,11 @@ Measured on an Apple M4, Node 24.22.0, using three original synthetic 1200×800 
 | vite-imagetools    | 146 ms |           39 ms |
 | enhanced-img       | 150 ms |           39 ms |
 
-Median source-to-output reduction was 92% across six WebP/AVIF outputs at width 960, quality 75; both resizing and re-encoding contribute. Encoder defaults differ between tools, so equal quality numbers do not imply equal perceptual quality. Protocol and raw measurements (in the repository).
+Median source-to-output reduction was 92% across six WebP/AVIF outputs at width 960, quality 75; both resizing and re-encoding contribute. Encoder defaults differ between tools, so equal quality numbers do not imply equal perceptual quality. [Protocol and raw measurements](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md).
 
 JPEG/PNG/WebP/AVIF/TIFF/GIF and a restricted geometric SVG dialect are exercised. EXIF orientation is applied and GPS removed by default; ICC retention is optional. HEIC/JXL depend on the installed codecs. BMP/ICO, animated AVIF/video and rich SVG are unsupported. The base component currently exceeds the requested 1.5 KiB gzip target. Provider-specific advanced transforms and paid runtime behavior need deployment-specific validation.
 
-The service enforces source policy, DNS pinning, signatures, pixel/frame/byte/time limits and bounded admission. Signed URLs do not automatically make mutable sources immutable. A request budget is not an account spending cap. Read SECURITY.md (in the repository) before exposing a service.
+The service enforces source policy, DNS pinning, signatures, pixel/frame/byte/time limits and bounded admission. Signed URLs do not automatically make mutable sources immutable. A request budget is not an account spending cap. Read [SECURITY.md](https://github.com/snowly14/svelte-imageway/blob/main/SECURITY.md) before exposing a service.
 
 ## Repository development
 
@@ -153,10 +146,10 @@ bun run build:components
 bun run test:e2e
 ```
 
-Service E2E additionally needs the documented local Worker and Docker fixtures. Core coverage exceeds 90%; SSR, Chromium/WebKit and Linux Firefox checks are recorded in REPORT.md (in the repository). CI configuration is not evidence of a completed remote CI run.
+Service E2E additionally needs the documented local Worker and Docker fixtures. Core coverage exceeds 90%; SSR, Chromium/WebKit and Linux Firefox checks are recorded in [REPORT.md](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md). CI configuration is not evidence of a completed remote CI run.
 
-The repository includes examples, benchmark scripts, security guidance and research notes.
+The documentation website is deferred at the user's request and preserved in `extras/docs-preview`; it is excluded from the active workspace. The README and package are the current focus.
 
-Local images (in the repository) · Remote/CMS (in the repository) · Runtime (in the repository) · CLI (in the repository) · Publication (in the repository) · CDN topology and costs (in the repository) · Architecture (in the repository)
+[Local images](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/local-images.md) · [Remote/CMS](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/remote-and-cms.md) · [Runtime](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/adapters-and-runtime.md) · [CLI](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/cli.md) · [Publication](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/publication.md) · [CDN topology and costs](https://github.com/snowly14/svelte-imageway/blob/main/docs/research/platforms-and-costs.md) · [Architecture](https://github.com/snowly14/svelte-imageway/blob/main/docs/adr/0001-architecture.md)
 
-MIT — LICENSE (in the repository).
+MIT — [LICENSE](https://github.com/snowly14/svelte-imageway/blob/main/LICENSE).

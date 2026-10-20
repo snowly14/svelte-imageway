@@ -1,4 +1,4 @@
-import { relative } from 'node:path';
+import { relative, sep } from 'node:path';
 import { files, readFile, writeFile } from './files.js';
 import { invariant } from '../core/errors.js';
 interface Value {
@@ -63,7 +63,10 @@ export async function migrate(root: string, from: string, write = false) {
           const p = new URLSearchParams(query);
           if (!(from === 'enhanced-img' ? p.has('enhanced') : p.get('as') === 'picture')) continue;
           if ([...p.keys()].some((v) => !['enhanced', 'as', 'w', 'format', 'q'].includes(v))) {
-            review.push(relative(root, file) + ': unsupported import directives; unchanged.');
+            review.push(
+              relative(root, file).split(sep).join('/') +
+                ': unsupported import directives; unchanged.',
+            );
             continue;
           }
           p.delete('enhanced');
@@ -106,7 +109,7 @@ export async function migrate(root: string, from: string, write = false) {
             (literal || imported);
           if (!safe)
             review.push(
-              relative(root, file) +
+              relative(root, file).split(sep).join('/') +
                 ': review enhanced:img dynamic source, alt or nonempty markup; unchanged.',
             );
           else {
@@ -145,7 +148,7 @@ export async function migrate(root: string, from: string, write = false) {
         await writeFile(file + '.imageway-backup', source, { flag: 'wx' });
         await writeFile(file, output);
       }
-      changed.push(relative(root, file));
+      changed.push(relative(root, file).split(sep).join('/'));
     }
   }
   return {

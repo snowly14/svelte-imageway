@@ -3,7 +3,7 @@ import { request as httpsRequest } from 'node:https';
 import { isIP, type LookupFunction } from 'node:net';
 import { open, realpath } from 'node:fs/promises';
 import { constants } from 'node:fs';
-import { relative, resolve, sep } from 'node:path';
+import { relative, resolve, sep, isAbsolute } from 'node:path';
 import ipaddr from 'ipaddr.js';
 import { defaults } from '../core/config.js';
 import { ImagewayError, invariant } from '../core/errors.js';
@@ -76,7 +76,7 @@ export async function readLocal(
   const path = await realpath(resolve(base, key));
   const rel = relative(base, path);
   invariant(
-    rel !== '' && rel !== '..' && !rel.startsWith(`..${sep}`) && !rel.startsWith(sep),
+    rel !== '' && rel !== '..' && !rel.startsWith(`..${sep}`) && !isAbsolute(rel),
     'TRAVERSAL',
     'Local source escapes its configured root.',
     403,

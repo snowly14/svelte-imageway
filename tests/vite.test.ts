@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { build, createServer } from 'vite';
 import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
@@ -154,11 +155,12 @@ describe('actual TypeScript consumer imports', () => {
     );
     await mkdir(join(root, 'node_modules'), { recursive: true });
     await symlink(
-      new URL('../packages/svelte-imageway', import.meta.url).pathname,
+      fileURLToPath(new URL('../packages/svelte-imageway', import.meta.url)),
       join(root, 'node_modules/svelte-imageway'),
+      process.platform === 'win32' ? 'junction' : 'dir',
     );
     const env = await generateImageTypes(root);
-    const compiler = new URL('../node_modules/typescript/bin/tsc', import.meta.url).pathname;
+    const compiler = fileURLToPath(new URL('../node_modules/typescript/bin/tsc', import.meta.url));
     const args = [
       compiler,
       '--ignoreConfig',

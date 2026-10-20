@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from 'node:fs/promises';
-import { relative, resolve, join } from 'node:path';
+import { relative, resolve, join, sep, isAbsolute } from 'node:path';
 import { files } from './files.js';
 import { readLocal } from '../node/source.js';
 import { ImageProcessor } from '../node/processor.js';
@@ -35,8 +35,13 @@ export async function optimizeDirectory(
     type?: string;
   }[] = [];
   for (const path of await files(root, /\.(jpe?g|png|webp|avif|gif|tiff?|heic|heif|svg|jxl)$/i)) {
-    if (path.startsWith(output + '/')) continue;
-    const file = relative(root, path);
+    const fromOutput = relative(output, path);
+    if (
+      fromOutput === '' ||
+      (!isAbsolute(fromOutput) && fromOutput !== '..' && !fromOutput.startsWith('..' + sep))
+    )
+      continue;
+    const file = relative(root, path).split(sep).join('/');
     const bytes = await readLocal(file, root);
     if (options.dryRun) {
       entries.push({ file, inputBytes: bytes.length });

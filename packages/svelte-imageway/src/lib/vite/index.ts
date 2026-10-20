@@ -181,7 +181,11 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       if (split < 0 || !new URLSearchParams(id.slice(split + 1)).has('img')) return;
       const file = id.slice(0, split);
       this.addWatchFile(file);
-      const source = await readLocal(relative(vite.root, file), vite.root, config.maxInputBytes);
+      const source = await readLocal(
+        relative(vite.root, file).replaceAll('\\', '/'),
+        vite.root,
+        config.maxInputBytes,
+      );
       const kind = sniff(source);
       const sharp = await loadSharp();
       const metadata = await sharp(source, { limitInputPixels: config.maxPixels }).metadata();
