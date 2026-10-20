@@ -275,12 +275,11 @@ export function createImageWorker(options: WorkerOptions = {}) {
                   );
                   await state(sourceTags, 'transform');
                   metrics.transforms++;
-                  encoded = await withDeadline(
-                    options.transform
-                      ? options.transform(r, bytes, env, mimeType(format))
-                      : transformBinding(r, bytes, env, mimeType(format), config),
-                    config.timeoutMs,
-                  );
+                  // Keep the serialization permit until native work actually settles.
+                  // The outer deadline bounds the response, not the native lifetime.
+                  encoded = await (options.transform
+                    ? options.transform(r, bytes, env, mimeType(format))
+                    : transformBinding(r, bytes, env, mimeType(format), config));
                 }
                 invariant(
                   encoded.ok &&

@@ -4,14 +4,13 @@ This checkout prepares 0.1.0 for `next`; nothing has been published. 1.0 is bloc
 
 ## Configure real identity
 
-No public Git remote, npm owner or funding URL has been assumed. Before publishing, create/select the actual public repository and configure its metadata:
+The public repository is [snowly14/svelte-imageway](https://github.com/snowly14/svelte-imageway). Package repository, homepage and issue metadata point to that repository. Private vulnerability reporting is enabled. The first npm publication still requires an authenticated npm account authorized for the available package name.
 
 ```sh
-IMAGEWAY_REPOSITORY=https://github.com/ACTUAL_OWNER/ACTUAL_REPOSITORY bun run release:metadata
-# Optional: also set IMAGEWAY_FUNDING to a real HTTPS funding page.
+IMAGEWAY_REPOSITORY=https://github.com/snowly14/svelte-imageway bun run release:metadata
 ```
 
-The uppercase owner/repository tokens are placeholders, not a repository created by this task. Review/commit package.json. Funding is omitted if no real destination exists. Set a private conduct/security contact before opening the public community. Ensure the npm package name is still available and that the publishing account is authorized; the earlier availability check did not reserve it.
+Funding is omitted because no funding destination was supplied. Never commit npm credentials; authenticate locally with `bunx npm login` or configure npm trusted publishing for the release workflow.
 
 ## Local preparation
 
@@ -39,6 +38,6 @@ The prepared `release.yml` runs only by manual dispatch on main, in the `npm` en
 npm publish .local/pack/svelte-imageway-0.1.0.tgz --tag next --access public --provenance
 ```
 
-That command is for the supported CI/OIDC environment, not a promise of provenance on an arbitrary local shell. No npm login, publication, Git push or paid cloud deployment was executed in this task. Initial-package dist-tag behavior must be checked after publication; do not advertise 1.0/latest accidentally. Verify the registry tar integrity, metadata, dist-tags and provenance before announcing the preview.
+That command is for the supported CI/OIDC environment, not a promise of provenance on an arbitrary local shell. Check the registry and GitHub release before announcing publication; an uploaded GitHub repository does not imply that npm publication succeeded. Paid cloud deployment is outside this package release. Initial-package dist-tag behavior must be checked after publication; do not advertise 1.0/latest accidentally. Verify the registry tar integrity, metadata, dist-tags and provenance before announcing the preview.
 
 A later 1.0 workflow must require the original 1,536-byte size acceptance, measured build parity, the exact browser target, codec requirements and real deployment/CI evidence. The current release workflow intentionally accepts only 0.x versions.

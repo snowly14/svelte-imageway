@@ -295,3 +295,27 @@ it('reports unsupported offline GIF explicitly instead of a native binding failu
       .status,
   ).toBe(422);
 });
+
+it('retains native admission after a response deadline until the encoder settles', async () => {
+  let active = 0;
+  let peak = 0;
+  const f = await fixture({
+    config: { timeoutMs: 50 },
+    transform: async () => {
+      active++;
+      peak = Math.max(peak, active);
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      active--;
+      return new Response(new Uint8Array([1]), { headers: { 'Content-Type': 'image/webp' } });
+    },
+  });
+  const statuses = [];
+  for (let i = 0; i < 3; i++) {
+    statuses.push((await f.fetch()).status);
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  await new Promise((resolve) => setTimeout(resolve, 450));
+  expect(statuses).toEqual([504, 504, 504]);
+  expect(peak).toBe(1);
+  expect(active).toBe(0);
+});

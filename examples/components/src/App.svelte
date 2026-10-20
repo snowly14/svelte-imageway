@@ -47,6 +47,12 @@
     variants={[{ media: '(prefers-color-scheme: dark)', src: hero }]}
     ><p>Decorative responsive background</p></BackgroundImage
   >
+  <BackgroundImage
+    src="/base.png"
+    variants={[{ media: '(min-width: 640px)', src: '/variant.png' }]}
+    data-testid="responsive-background"
+    style="min-height:1px"
+  />
   <div style="height:2000px"></div>
   <Image src={hero} alt="Below-fold landscape" sizes="auto, 100vw" data-testid="lazy" />
 </main>

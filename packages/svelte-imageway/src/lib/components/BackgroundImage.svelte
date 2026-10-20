@@ -17,12 +17,13 @@
   } = $props();
   const id = $props.id();
   const css = $derived(
-    variants
-      .filter((v) => /^[\w\s():./-]+$/.test(v.media))
-      .map(
-        (v) => `@media ${v.media}{[data-imageway-background="${id}"]{${backgroundStyle(v.src)}}}`,
-      )
-      .join(''),
+    `[data-imageway-background="${id}"]{${backgroundStyle(src)}}` +
+      variants
+        .filter((v) => /^[\w\s():./-]+$/.test(v.media))
+        .map(
+          (v) => `@media ${v.media}{[data-imageway-background="${id}"]{${backgroundStyle(v.src)}}}`,
+        )
+        .join(''),
   );
 </script>
 
@@ -31,6 +32,6 @@
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html css ? `<style>${css}</style>` : ''}
 </svelte:head>
-<div {...rest} data-imageway-background={id} style={`${backgroundStyle(src)};${style}`}>
+<div {...rest} data-imageway-background={id} {style}>
   {@render children?.()}
 </div>

@@ -391,3 +391,57 @@ it('rejects XML namespace tricks, malformed documents, escaped CSS and excessive
   ])
     expect(() => sniff(Buffer.from(s))).toThrow();
 });
+
+it('does not retain empty sources and bounds tiny cache entries by count', () => {
+  const cache = new MemoryCache(1_000_000);
+  for (let i = 0; i < 10_000; i++) cache.set(String(i), Buffer.alloc(0), 1000);
+  expect(cache.get('9999')).toBeUndefined();
+  for (let i = 0; i < 5000; i++) cache.set(String(i), Buffer.alloc(1), 1000);
+  expect(cache.bytes).toBe(4096);
+  expect(cache.get('0')).toBeUndefined();
+  expect(cache.get('4999')).toBeDefined();
+});
+it('shares disk accounting across writers and reconciles external files', async () => {
+  const path = join(directory, 'shared-disk');
+  const first = new DiskCache(path, 10);
+  const second = new DiskCache(path, 10);
+  await Promise.all(
+    Array.from({ length: 20 }, (_, i) => (i % 2 ? first : second).set(String(i), Buffer.alloc(2))),
+  );
+  const fs = await import('node:fs/promises');
+  expect((await fs.readdir(path)).length).toBe(5);
+  expect(await first.get('0')).toBeUndefined();
+  expect(await second.get('19')).toHaveLength(2);
+  for (let i = 0; i < 10; i++) await new DiskCache(path, 10).set('same', Buffer.alloc(2));
+  const { hash } = await import('../packages/svelte-imageway/src/lib/node/cache.js');
+  await fs.writeFile(join(path, hash('external')), Buffer.alloc(12));
+  const clock = vi.spyOn(Date, 'now').mockReturnValue(Date.now() + 31_000);
+  try {
+    await second.set('after-external', Buffer.alloc(2));
+    const sizes = await Promise.all(
+      (await fs.readdir(path)).map(async (name) => (await fs.stat(join(path, name))).size),
+    );
+    expect(sizes.reduce((total, size) => total + size, 0)).toBeLessThanOrEqual(10);
+  } finally {
+    clock.mockRestore();
+  }
+});
+it('does not reuse representations under a stricter output policy', async () => {
+  const url = new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url);
+  const { ImageProcessor } = (await import(
+    url.href
+  )) as typeof import('../packages/svelte-imageway/src/lib/node/processor.js');
+  const path = join(directory, 'policy-cache');
+  const input = await sharp({ create: { width: 64, height: 32, channels: 3, background: 'blue' } })
+    .png()
+    .toBuffer();
+  const request = { key: 'policy.png', w: 320 };
+  await new ImageProcessor({ directory: path }).process(input, request, 'webp', undefined, false);
+  const strict = new ImageProcessor({
+    directory: path,
+    config: defineConfig({ maxOutputBytes: 1 }),
+  });
+  await expect(strict.process(input, request, 'webp', undefined, false)).rejects.toThrow(
+    /byte limit/,
+  );
+});

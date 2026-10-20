@@ -201,5 +201,14 @@
   "publishConfig": {
     "access": "public",
     "tag": "next"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/snowly14/svelte-imageway.git",
+    "directory": "packages/svelte-imageway"
+  },
+  "bugs": {
+    "url": "https://github.com/snowly14/svelte-imageway/issues"
+  },
+  "homepage": "https://github.com/snowly14/svelte-imageway#readme"
 }

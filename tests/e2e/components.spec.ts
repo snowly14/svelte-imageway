@@ -72,3 +72,14 @@ test('SSR renders useful images and preloads without JavaScript', async ({ brows
     await context.close();
   }
 });
+
+test('responsive backgrounds follow media queries instead of an inline base image', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 900, height: 700 });
+  await page.goto('/');
+  const background = page.getByTestId('responsive-background');
+  await expect(background).toHaveCSS('background-image', /variant\.png/);
+  await page.setViewportSize({ width: 400, height: 700 });
+  await expect(background).toHaveCSS('background-image', /base\.png/);
+});

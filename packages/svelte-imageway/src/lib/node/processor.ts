@@ -51,7 +51,7 @@ export class ImageProcessor {
           });
     const sharp = await loadSharp();
     const key = hash(
-      `${hash(data)}:preview=${preview}:${cacheIdentity(request, format, PIPELINE_REVISION + JSON.stringify(sharp.versions), this.config)}`,
+      `${hash(data)}:preview=${preview}:${cacheIdentity(request, format, PIPELINE_REVISION + JSON.stringify([sharp.versions, this.config]), this.config)}`,
     );
     return this.flight.run(key, async () => {
       const cached = this.memory.get(key) ?? (await this.disk.get(key));

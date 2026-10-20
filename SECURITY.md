@@ -4,7 +4,7 @@ This is a 0.1.0 preview. Do not deploy an open unrestricted optimizer. A package
 
 ## Reporting
 
-No public repository/security contact has been configured yet. Until a maintainer adds their verified private security channel, do not publish exploit details or credentials in public issues. The release procedure requires a repository with private vulnerability reporting enabled. Supported preview line: latest 0.1.x; fixes may change behavior that relied on unsafe inputs. Production security review remains an operator responsibility.
+Report vulnerabilities privately using [GitHub private vulnerability reporting](https://github.com/snowly14/svelte-imageway/security/advisories/new). Private vulnerability reporting is enabled for this repository. Do not publish exploit details or credentials in public issues. Supported preview line: latest 0.1.x; fixes may change behavior that relied on unsafe inputs. Production security review remains an operator responsibility.
 
 ## Assets, attackers and trust
 
