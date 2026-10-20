@@ -30,7 +30,7 @@ For subsequent releases, run `bun run changeset` with each user-visible change. 
 
 ## Publish with provenance
 
-Bun remains the dependency manager and runs all scripts/builds/packing. [Bun publish cannot generate provenance](https://bun.sh/docs/pm/cli/publish), so the final registry upload uses npm only for publishing the audited tarball. [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) requires the actual public GitHub repository/workflow and authorized package configuration. The first package creation may require authenticated account setup before OIDC can be configured; do not invent credentials or publish without provenance as a workaround.
+Bun remains the dependency manager and runs all scripts/builds/packing. [Bun publish cannot generate provenance](https://bun.sh/docs/pm/cli/publish), so the final registry upload uses npm only for publishing the audited tarball. [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) requires the actual public GitHub repository/workflow and authorized package configuration. The first package creation may use an authenticated npm session supplied as the temporary repository secret `NPM_BOOTSTRAP_TOKEN`; the upload still runs on GitHub with `--provenance`. Remove this secret immediately after bootstrap. Configure the npm trusted publisher for subsequent releases. Never commit credentials or publish without provenance.
 
 The prepared `release.yml` runs only by manual dispatch on main, in the `npm` environment. Configure that environment's required reviewers and npm trusted publisher before enabling it. It verifies the exact requested 0.x version and repository metadata, runs the package gate, and executes:
 

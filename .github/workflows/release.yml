@@ -27,6 +27,7 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 24.22.0
+          registry-url: https://registry.npmjs.org
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
           bun-version: 1.4.3
@@ -46,5 +47,8 @@ jobs:
       - run: bun run check:budget
       # Bun handles installs, builds, scripts and tar creation. Its publish command
       # cannot generate provenance; npm is used only to publish the audited tarball.
-      - name: Publish audited preview with OIDC provenance
+      - name: Publish audited preview with provenance
+        env:
+          # Only needed to create the initial package; removed after bootstrap.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_BOOTSTRAP_TOKEN }}
         run: npm publish .local/pack/svelte-imageway-${EXPECTED_VERSION}.tgz --tag next --access public --provenance
