@@ -7,7 +7,9 @@ The user requested version 1.2.0 and capability-driven hybrid optimization. The 
 - New runtime integration verifies that one component-generated URL negotiates actual WebP/JPEG bytes, distinct ETags and cache reuse, with unsupported Accept rejected.
 - Automatic build widths for a 1676px input: seven instead of eight; three formats generate 21 rather than 24 variants (12.5% fewer transformations). Explicit widths are unchanged. This is a count reduction, not a measured universal speedup.
 - Image entry: 3158 gzip bytes with Svelte externalized; passes the existing 3400-byte release budget, exceeds the original 1536-byte stretch target. Original benchmark results below predate 1.2.0.
-- Public release and complete platform CI status are verified separately before publication is reported complete.
+- Complete Linux/macOS/Windows Node 22/24 CI and Chromium/Firefox/WebKit CI passed for source commit `002158b09e123e70685dbb7d269dc5981de8b20d`.
+- npm 1.2.0/latest and provenance were verified against that source and the downloaded tarball SHA-512. GitHub v1.2.0 carries the registry archive and checksum.
+- npm processing took several minutes; negative tarball responses were briefly cached at the CDN. Registry verification now bypasses stale tarball responses and can run without republishing.
 
 ---
 

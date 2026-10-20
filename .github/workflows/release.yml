@@ -93,8 +93,11 @@ jobs:
             const published = manifest.versions?.[version];
             if (published && manifest['dist-tags']?.latest === version) {
               if (!published.dist?.attestations?.url) throw new Error('Published package is missing provenance attestations.');
-              const tar = await fetch(published.dist.tarball);
-              if (!tar.ok) throw new Error(`Cannot download registry tarball: HTTP ${tar.status}`);
+              const tar = await fetch(`${published.dist.tarball}?verify=${Date.now()}`, { headers: { 'Cache-Control': 'no-cache' } });
+              if (!tar.ok) {
+                await new Promise(resolve => setTimeout(resolve, 10000));
+                continue;
+              }
               const integrity = 'sha512-' + createHash('sha512').update(Buffer.from(await tar.arrayBuffer())).digest('base64');
               if (integrity !== published.dist.integrity) throw new Error('Registry tarball integrity mismatch.');
               console.log(`${name}@${version} is publicly available under latest, with matching integrity and provenance.`);

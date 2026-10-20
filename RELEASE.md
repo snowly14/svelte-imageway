@@ -1,6 +1,6 @@
 # Release policy and commands
 
-Version 1.2.0 is prepared at the user's explicit request. Release publication is complete only after the exact source commit passes CI and npm registry verification. Releases use `latest`. The original 1,536-byte/build-parity/Lighthouse stretch targets remain unmet; the existing 3,400-byte regression budget remains enforced. See ADR 0014 for the explicit version-policy change.
+Version 1.2.0 is published on npm under latest and on GitHub. The source commit `002158b09e123e70685dbb7d269dc5981de8b20d` passed the complete CI matrix; registry integrity and provenance were verified. Releases use `latest`. The original 1,536-byte/build-parity/Lighthouse stretch targets remain unmet; the existing 3,400-byte regression budget remains enforced. See ADR 0014 for the explicit version-policy change.
 
 ## Configure real identity
 
