@@ -1,3 +1,16 @@
+# 1.2.0 release validation
+
+The user requested version 1.2.0 and capability-driven hybrid optimization. The historical preview report below remains a record of the original acceptance work; its unmet stretch targets are not claimed as achieved by this version.
+
+- Local validation: 219 tests passed; strict TypeScript, Svelte diagnostics and lint passed.
+- Chromium and WebKit: eight component/browser tests passed; four optional service scenarios skipped (not configured in this browser run).
+- New runtime integration verifies that one component-generated URL negotiates actual WebP/JPEG bytes, distinct ETags and cache reuse, with unsupported Accept rejected.
+- Automatic build widths for a 1676px input: seven instead of eight; three formats generate 21 rather than 24 variants (12.5% fewer transformations). Explicit widths are unchanged. This is a count reduction, not a measured universal speedup.
+- Image entry: 3158 gzip bytes with Svelte externalized; passes the existing 3400-byte release budget, exceeds the original 1536-byte stretch target. Original benchmark results below predate 1.2.0.
+- Public release and complete platform CI status are verified separately before publication is reported complete.
+
+---
+
 # Project report
 
 ## Current status

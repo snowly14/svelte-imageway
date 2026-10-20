@@ -1,6 +1,6 @@
 # Release policy and commands
 
-Version 0.1.0 is published on npm and GitHub. Install the preview with `bun add svelte-imageway@next`; the registry currently also assigns it to `latest`. 1.0 is blocked by the documented size/build/Lighthouse targets and codec/cloud verification gaps. The preview CI enforces a 3,400-byte full Image gzip regression budget; `bun run check:acceptance-size` enforces the original 1,536-byte target and currently fails. Do not describe the preview budget as meeting the original target.
+Version 1.2.0 is prepared at the user's explicit request. Release publication is complete only after the exact source commit passes CI and npm registry verification. Releases use `latest`. The original 1,536-byte/build-parity/Lighthouse stretch targets remain unmet; the existing 3,400-byte regression budget remains enforced. See ADR 0014 for the explicit version-policy change.
 
 ## Configure real identity
 
@@ -32,18 +32,18 @@ For subsequent releases, run `bun run changeset` with each user-visible change. 
 
 Bun remains the dependency manager and runs all scripts/builds/packing. [Bun publish cannot generate provenance](https://bun.sh/docs/pm/cli/publish), so the final registry upload uses npm only for publishing the audited tarball. [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) requires the actual public GitHub repository/workflow and authorized package configuration. The first package creation may use an authenticated npm session supplied as the temporary repository secret `NPM_BOOTSTRAP_TOKEN`; the upload still runs on GitHub with `--provenance`. Remove this secret immediately after bootstrap. Configure the npm trusted publisher for subsequent releases. Never commit credentials or publish without provenance.
 
-The prepared `release.yml` runs only by manual dispatch on main, in the `npm` environment. Configure that environment's required reviewers and npm trusted publisher before enabling it. It verifies the exact requested 0.x version and repository metadata, runs the package gate, and executes:
+The prepared `release.yml` runs only by manual dispatch on main, in the `npm` environment. Configure that environment's required reviewers and npm trusted publisher before enabling it. It verifies the exact requested version and repository metadata, runs the package gate, and executes:
 
 ```sh
-npm publish .local/pack/svelte-imageway-0.1.0.tgz --tag next --access public --provenance
+npm publish .local/pack/svelte-imageway-1.2.0.tgz --tag latest --access public --provenance
 ```
 
-That command is for the supported CI/OIDC environment, not a promise of provenance on an arbitrary local shell. Check the registry and GitHub release before announcing publication; an uploaded GitHub repository does not imply that npm publication succeeded. Paid cloud deployment is outside this package release. Initial-package dist-tag behavior must be checked after publication; do not advertise 1.0/latest accidentally. Verify the registry tar integrity, metadata, dist-tags and provenance before announcing the preview.
+That command is for the supported CI/OIDC environment, not a promise of provenance on an arbitrary local shell. Check the registry and GitHub release before announcing publication; an uploaded GitHub repository does not imply that npm publication succeeded. Paid cloud deployment is outside this package release. Verify the registry tar integrity, metadata, latest dist-tag and provenance before announcing a release.
 
-A later 1.0 workflow must require the original 1,536-byte size acceptance, measured build parity, the exact browser target, codec requirements and real deployment/CI evidence. The current release workflow intentionally accepts only 0.x versions.
+Version 1.2.0 uses the existing full CI/package/browser gates and provenance. Its requested version is not a claim that original stretch targets have passed.
 
 ## First publication result
 
-Version 0.1.0 was uploaded with GitHub Actions provenance and later became operational in the public registry. Initial staging placeholders are not evidence of an installable release. The workflow now verifies the exact version, `next` tag, tarball integrity and provenance metadata after uploading. An existing published version is immutable; do not rerun its publish command as a verification step. Prepare a new reviewed version for subsequent releases.
+Version 0.1.0 was uploaded with GitHub Actions provenance and later became operational in the public registry. Initial staging placeholders are not evidence of an installable release. The workflow now verifies the exact version, `latest` tag, tarball integrity and provenance metadata after uploading. An existing published version is immutable; do not rerun its publish command as a verification step. Prepare a new reviewed version for subsequent releases.
 
 A new project installed the registry preview with Bun and verified real WebP output and cache reuse. The source/provenance commit is `4ef4a5f371728fabd17db12e527629cb49866491`. Current details are in REPORT.md.

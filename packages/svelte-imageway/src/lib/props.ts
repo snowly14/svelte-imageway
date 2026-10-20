@@ -11,6 +11,8 @@ import { invariant } from './core/errors.js';
 
 /** Public browser configuration; intentionally contains no private server fields. */
 export interface ImageContextConfig {
+  /** Auto uses server negotiation where supported; picture forces explicit sources. */
+  formatStrategy?: 'auto' | 'picture';
   provider?: ImageProvider;
   providers?: Readonly<Record<string, ImageProvider>>;
   widths?: readonly number[];
@@ -33,6 +35,7 @@ export interface ImageOptions extends Omit<
   quality?: number;
   provider?: ImageProvider;
   config?: ImageContextConfig;
+  formatStrategy?: 'auto' | 'picture';
   class?: string;
   style?: string;
   transitionName?: string;
@@ -75,6 +78,7 @@ export function getImageProps(
     fit = 'inside',
     position = 'center',
     quality,
+    formatStrategy,
     placeholder,
     transitionName,
     contentVisibility,
@@ -109,7 +113,10 @@ export function getImageProps(
     } else {
       const request = { ...source, fit, position, q: quality ?? config.quality ?? 75 };
       const formats =
-        provider.capabilities.explicitFormat === false
+        provider.capabilities.explicitFormat === false ||
+        ((formatStrategy ?? config.formatStrategy ?? 'auto') === 'auto' &&
+          provider.capabilities.autoFormat === true &&
+          !config.formats)
           ? []
           : provider.capabilities.formats.filter(
               (v) =>
@@ -119,10 +126,14 @@ export function getImageProps(
                   Math.max(...widths) <= provider.capabilities.maxWidthByFormat[v]!),
             );
       const fallbackFormat = formats.includes('jpeg') ? 'jpeg' : formats.at(-1);
-      const srcsetFor = (format: typeof fallbackFormat) =>
+      const srcsetFor = (format: OutputFormat | 'auto') =>
         widths.map((w) => `${provider.buildUrl({ ...request, w, format })} ${w}w`).join(', ');
-      fallback = provider.buildUrl({ ...request, w: width ?? 1920, format: fallbackFormat });
-      srcset = srcsetFor(fallbackFormat);
+      fallback = provider.buildUrl({
+        ...request,
+        w: width ?? 1920,
+        format: fallbackFormat ?? 'auto',
+      });
+      srcset = srcsetFor(fallbackFormat ?? 'auto');
       sources = formats
         .filter((v) => v !== fallbackFormat)
         .map((format) => ({ type: `image/${format}`, srcset: srcsetFor(format) }));

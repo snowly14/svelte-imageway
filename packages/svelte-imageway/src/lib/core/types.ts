@@ -98,6 +98,8 @@ export interface ImageArtifact {
   hash?: string;
 }
 export interface ProviderCapabilities {
+  /** The endpoint negotiates output using Accept and varies its cache by format. */
+  autoFormat?: boolean;
   explicitFormat?: boolean;
   fixed?: boolean;
   maxWidthByFormat?: Partial<Record<OutputFormat, number>>;

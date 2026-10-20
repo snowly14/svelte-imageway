@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**0.1.0 preview.** Local builds, components, runtime services and CLI are implemented and tested. The original 1.0 acceptance targets are still open: the full Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. See [REPORT.md](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md).
+**1.2.0.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. Version numbering does not imply those benchmark targets were met. See [REPORT.md](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md).
 
 ## Before → after
 
@@ -22,19 +22,35 @@ Responsive images for Svelte 5: optimize local imports, switch image providers, 
 
 Imageway generates responsive AVIF/WebP/fallback assets, reserves dimensions and adds a small preview. `priority` adds eager loading, high fetch priority and an image preload. `alt` is required; use `alt=""` for decorative images. Without `priority`, images load lazily.
 
+## Intelligent delivery in 1.2
+
+- Local `?img` imports generate static responsive files. Automatic widths omit near-duplicate final sizes (less than 25% apart), preserving the largest and smallest widths. Explicit `w=` values remain exact.
+- Dynamic strings use your configured provider. Node/Kit and Edge providers now negotiate formats using the browser's `Accept` header by default. Their responses vary on `Accept, Save-Data`; configure any intermediate CDN to honor these headers. This avoids listing each format in HTML and lets the endpoint cache the requested representation. It does not create an endpoint automatically.
+- Imported artifacts retain `<picture>` sources. Without format sources or a custom source snippet, `Image` renders a plain `<img>`.
+- Set `formatStrategy="picture"` on `Image` (or in `ImageConfigProvider`) to force explicit provider sources. A configured format allowlist also retains explicit formats. Other providers keep their capability-specific behavior.
+- Quality remains a deliberate encoder setting (75 by default), not an unverified perceptual quality algorithm. Originals remain untouched.
+
+Generate custom query declarations before type checking, without starting Vite:
+
+```sh
+bun x svelte-imageway typegen
+```
+
+For CI, run type generation before your application's check script. Keep the `svelte-imageway/types` reference below for standard `?img` imports, including newly added imports before the dev server runs. Generated imports are `ImageArtifact`, never `any`; Vite validates actual source existence at build time.
+
 ## Start in three steps
 
 ### 1. Install
 
-Install the preview in your existing Svelte 5 / Vite 8 project:
+Install the package in your existing Svelte 5 / Vite 8 project:
 
 ```sh
-bun add svelte-imageway@next
+bun add svelte-imageway@1.2.0
 ```
 
-The preview uses the `next` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).
+Releases use the `latest` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).
 
-Use Node 22.17+ or Node 24 LTS. Sharp is optional at installation but required for local processing; managed providers can run without it. SvelteKit integration targets Kit 3. This preview does not claim Kit 2 compatibility.
+Use Node 22.17+ or Node 24 LTS. Sharp is optional at installation but required for local processing; managed providers can run without it. SvelteKit integration targets Kit 3. Kit 2 compatibility is not claimed.
 
 ### 2. Add the Vite plugin
 
@@ -133,11 +149,11 @@ Measured on an Apple M4, Node 24.22.0, using three original synthetic 1200×800 
 
 For small trusted build inputs, `imageway({ concurrency: 4 })` measured about 221 ms cold in a separate three-run sweep. The default remains two workers. More workers increase concurrent decoder memory; tune against your own input set and memory limit. These local measurements do not establish market-wide performance leadership.
 
-Median source-to-output reduction was 92% across six WebP/AVIF outputs at width 960, quality 75; both resizing and re-encoding contribute. Encoder defaults differ between tools, so equal quality numbers do not imply equal perceptual quality. [Protocol and raw measurements](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md).
+Median source-to-output reduction was 92% across six WebP/AVIF outputs at width 960, quality 75; both resizing and re-encoding contribute. Encoder defaults differ between tools, so equal quality numbers do not imply equal perceptual quality. [Protocol and raw measurements](bench/README.md).
 
 JPEG/PNG/WebP/AVIF/TIFF/GIF and a restricted geometric SVG dialect are exercised. EXIF orientation is applied and GPS removed by default; ICC retention is optional. HEIC/JXL depend on the installed codecs. BMP/ICO, animated AVIF/video and rich SVG are unsupported. The base component currently exceeds the requested 1.5 KiB gzip target. Provider-specific advanced transforms and paid runtime behavior need deployment-specific validation.
 
-The service enforces source policy, DNS pinning, signatures, pixel/frame/byte/time limits and bounded admission. Signed URLs do not automatically make mutable sources immutable. A request budget is not an account spending cap. Read [SECURITY.md](https://github.com/snowly14/svelte-imageway/blob/main/SECURITY.md) before exposing a service.
+The service enforces source policy, DNS pinning, signatures, pixel/frame/byte/time limits and bounded admission. Signed URLs do not automatically make mutable sources immutable. A request budget is not an account spending cap. Read [SECURITY.md](SECURITY.md) before exposing a service.
 
 ## Repository development
 
@@ -152,6 +168,6 @@ Service E2E additionally needs the documented local Worker and Docker fixtures. 
 
 The documentation website is deferred at the user's request and preserved in `extras/docs-preview`; it is excluded from the active workspace. The README and package are the current focus.
 
-[Local images](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/local-images.md) · [Remote/CMS](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/remote-and-cms.md) · [Runtime](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/adapters-and-runtime.md) · [CLI](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/cli.md) · [Publication](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/publication.md) · [CDN topology and costs](https://github.com/snowly14/svelte-imageway/blob/main/docs/research/platforms-and-costs.md) · [Architecture](https://github.com/snowly14/svelte-imageway/blob/main/docs/adr/0001-architecture.md)
+[Local images](docs/guides/local-images.md) · [Remote/CMS](docs/guides/remote-and-cms.md) · [Runtime](docs/guides/adapters-and-runtime.md) · [CLI](docs/guides/cli.md) · [Publication](docs/guides/publication.md) · [CDN topology and costs](docs/research/platforms-and-costs.md) · [Architecture](docs/adr/0001-architecture.md)
 
-MIT — [LICENSE](https://github.com/snowly14/svelte-imageway/blob/main/LICENSE).
+MIT — [LICENSE](LICENSE).

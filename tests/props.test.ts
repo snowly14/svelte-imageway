@@ -10,6 +10,7 @@ import type {
   ImageProvider,
 } from '../packages/svelte-imageway/src/lib/core/types.js';
 import type { ImageProps } from '../packages/svelte-imageway/src/lib/component-types.js';
+import { local } from '../packages/svelte-imageway/src/lib/providers/local.js';
 const artifact: ImageArtifact = {
   src: '/fallback.png',
   srcset: '/small.png 320w, /large.png 640w',
@@ -21,6 +22,23 @@ const artifact: ImageArtifact = {
   placeholder: 'data:image/webp;base64,YWJj',
 };
 describe('headless and type contract', () => {
+  it('negotiates dynamic local formats automatically, with an explicit picture override', () => {
+    const options = { src: '/photo.jpg', alt: 'Photo', provider: local(), width: 800 };
+    const automatic = getImageProps(options);
+    expect(automatic.sources).toEqual([]);
+    expect(automatic.src).not.toMatch(/[?&]f=/);
+    expect(automatic.srcset).toContain('800w');
+    expect(automatic).not.toHaveProperty('formatStrategy');
+    const picture = getImageProps({ ...options, formatStrategy: 'picture' });
+    expect(picture.sources.map((source) => source.type)).toContain('image/webp');
+    const restricted = getImageProps({ ...options, config: { formats: ['webp'] } });
+    expect(restricted.src).toMatch(/webp/);
+    const imported = getImageProps({ ...options, src: artifact });
+    expect(imported.sources).toEqual(artifact.sources);
+    // @ts-expect-error Only supported strategies are accepted.
+    const invalid: ImageOptions = { ...options, formatStrategy: 'magic' };
+    void invalid;
+  });
   it('requires alt including explicit decorative alt, and derives dimensions safely', () => {
     // @ts-expect-error alt is mandatory even for a raw URL.
     const invalid: ImageOptions = { src: '/photo.png' };

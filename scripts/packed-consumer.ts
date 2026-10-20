@@ -6,7 +6,10 @@ import { chromium } from '@playwright/test';
 import sharp from 'sharp';
 const exec = promisify(execFile);
 const root = resolve('.local/packed-consumer');
-const archive = resolve('.local/pack/svelte-imageway-0.1.0.tgz');
+const version: string = JSON.parse(
+  await readFile('packages/svelte-imageway/package.json', 'utf8'),
+).version;
+const archive = resolve(`.local/pack/svelte-imageway-${version}.tgz`);
 const started = performance.now();
 await rm(root, { recursive: true, force: true });
 await mkdir(join(root, 'src/routes'), { recursive: true });

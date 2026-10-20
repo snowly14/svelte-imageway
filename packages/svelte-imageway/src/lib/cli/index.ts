@@ -11,6 +11,7 @@ import { templates } from './templates.js';
 import { invariant } from '../core/errors.js';
 const help = `svelte-imageway <command> [directory] [options]
   init [dir] --dry-run                 Configure a literal Vite plugin array and example
+  typegen [dir]                       Generate typed image imports without starting Vite
   optimize [dir] --dry-run --watch     Write variants to imageway-output, preserve originals
     --output <dir> --width <px> --quality <q> --format webp|avif|jpeg|png
   audit [dir] --json                   Static image audit; findings exit 1
@@ -91,6 +92,11 @@ export async function main(argv = process.argv.slice(2), cwd = process.cwd()): P
       return n;
     };
     switch (a.command) {
+      case 'typegen': {
+        const { generateImageTypes } = await import('../vite/typegen.js');
+        output(await generateImageTypes(root));
+        return 0;
+      }
       case 'init':
         output(await init(root, Boolean(f['dry-run'])));
         return 0;

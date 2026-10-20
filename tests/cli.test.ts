@@ -7,6 +7,7 @@ import { execFileSync } from 'node:child_process';
 import { configureVite, init } from '../packages/svelte-imageway/src/lib/cli/init.js';
 import { audit } from '../packages/svelte-imageway/src/lib/cli/audit.js';
 import { migrate } from '../packages/svelte-imageway/src/lib/cli/migrate.js';
+import { PACKAGE_VERSION } from '../packages/svelte-imageway/src/lib/version.js';
 
 const cli = fileURLToPath(
   new URL('../packages/svelte-imageway/dist/cli/index.js', import.meta.url),
@@ -25,12 +26,18 @@ it('executes the compiled CLI with Node, Bun and a bin symlink', async () => {
   try {
     await symlink(cli, join(root, 'imageway'));
     for (const runtime of ['node', 'bun']) {
-      expect(execFileSync(runtime, [cli, '--version'], { encoding: 'utf8' }).trim()).toBe('0.1.0');
+      expect(execFileSync(runtime, [cli, '--version'], { encoding: 'utf8' }).trim()).toBe(
+        PACKAGE_VERSION,
+      );
       expect(
         execFileSync(runtime, [join(root, 'imageway'), '--help'], { encoding: 'utf8' }),
       ).toContain('optimize');
     }
     expect(() => execFileSync('node', [cli, 'unknown'], { stdio: 'pipe' })).toThrow();
+    execFileSync('node', [cli, 'typegen', root]);
+    expect(await readFile(join(root, 'imageway-env.d.ts'), 'utf8')).toContain(
+      'reference types="svelte-imageway/types"',
+    );
   } finally {
     await rm(root, { recursive: true, force: true });
   }

@@ -22,6 +22,9 @@ test('native loading, matching preload, dimensions, art direction, events, error
   expect(await hero.evaluate((img) => getComputedStyle(img).aspectRatio)).toBe('960 / 640');
   await expect(page.getByTestId('events')).toHaveText('Loads: 1');
   await expect(page.getByRole('status')).toHaveText('Image unavailable');
+  expect(
+    await page.getByTestId('broken').evaluate((element) => element.parentElement?.tagName),
+  ).not.toBe('PICTURE');
   await expect(page.getByTestId('lazy')).toHaveAttribute('loading', 'lazy');
   await expect(page.getByTestId('lazy')).toHaveAttribute('sizes', 'auto, 100vw');
   await expect(page.getByTestId('picture').locator('..').locator('source')).toHaveAttribute(

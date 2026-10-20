@@ -14,6 +14,7 @@ import { cloudflare } from '../packages/svelte-imageway/src/lib/providers/cloudf
 import { vercel } from '../packages/svelte-imageway/src/lib/providers/vercel.js';
 import { netlify } from '../packages/svelte-imageway/src/lib/providers/netlify.js';
 import { generic } from '../packages/svelte-imageway/src/lib/providers/generic.js';
+import { getImageProps } from '../packages/svelte-imageway/src/lib/props.js';
 import type { createImageService as Factory } from '../packages/svelte-imageway/src/lib/kit/handler.js';
 let root: string;
 let createImageService: typeof Factory;
@@ -70,6 +71,27 @@ describe('native provider contracts', () => {
   });
 });
 describe('real Fetch runtime', () => {
+  it('serves distinct cached formats through one automatically generated component URL', async () => {
+    const service = createImageService({
+      sourceRoot: root,
+      cacheDirectory: join(root, 'auto-cache'),
+    });
+    const props = getImageProps({ src: '/source.png', alt: '', width: 640, provider: local() });
+    expect(props.sources).toEqual([]);
+    const url = `https://site.example${props.src}`;
+    const webp = await service.fetch(new Request(url, { headers: { Accept: 'image/webp' } }));
+    const jpeg = await service.fetch(new Request(url, { headers: { Accept: 'image/jpeg' } }));
+    expect(webp.status).toBe(200);
+    expect(jpeg.status).toBe(200);
+    expect(webp.headers.get('vary')).toContain('Accept');
+    expect(jpeg.headers.get('etag')).not.toBe(webp.headers.get('etag'));
+    expect((await sharp(Buffer.from(await webp.arrayBuffer())).metadata()).format).toBe('webp');
+    expect((await sharp(Buffer.from(await jpeg.arrayBuffer())).metadata()).format).toBe('jpeg');
+    const cached = await service.fetch(new Request(url, { headers: { Accept: 'image/webp' } }));
+    expect(cached.headers.get('x-imageway-cache')).toBe('HIT');
+    const refused = await service.fetch(new Request(url, { headers: { Accept: 'image/unknown' } }));
+    expect(refused.status).toBe(406);
+  });
   it('serves negotiated bytes with cache validators, correct HEAD and private defaults', async () => {
     const service = createImageService({ sourceRoot: root, cacheDirectory: join(root, 'cache') });
     const url = `https://site.example${local().buildUrl({ key: 'source.png', w: 640 })}`;

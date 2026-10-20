@@ -4,6 +4,9 @@
   import { setImageConfig } from '../context.js';
   let { config, children }: { config: ImageContextConfig; children: Snippet } = $props();
   setImageConfig({
+    get formatStrategy() {
+      return config.formatStrategy;
+    },
     get provider() {
       return config.provider;
     },

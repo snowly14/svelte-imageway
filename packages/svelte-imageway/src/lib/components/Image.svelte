@@ -64,18 +64,7 @@
     />
   {/if}
 </svelte:head>
-<picture>
-  {#each sources as item, index (index)}
-    <source
-      srcset={item.srcset}
-      type={item.type}
-      media={item.media}
-      sizes={attributes.sizes}
-      width={item.width}
-      height={item.height}
-    />
-  {/each}
-  {@render source?.()}
+{#snippet imageElement()}
   <img
     {...attributes}
     bind:this={element}
@@ -94,7 +83,26 @@
       onerror?.call(element, event);
     }}
   />
-</picture>
+{/snippet}
+
+{#if sources.length || source}
+  <picture>
+    {#each sources as item, index (index)}
+      <source
+        srcset={item.srcset}
+        type={item.type}
+        media={item.media}
+        sizes={attributes.sizes}
+        width={item.width}
+        height={item.height}
+      />
+    {/each}
+    {@render source?.()}
+    {@render imageElement()}
+  </picture>
+{:else}
+  {@render imageElement()}
+{/if}
 {#if failed}{@render (errorContent ?? error)?.()}{:else if !loaded}{@render loadingSnippet?.()}{/if}
 
 <style>

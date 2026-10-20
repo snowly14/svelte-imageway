@@ -7,7 +7,7 @@ export function edge(options: { base?: string; endpoint?: string; preset?: strin
   const config = defineConfig({ endpoint: options.endpoint ?? '/_img/v1' });
   return provider(
     'edge',
-    { ...rasterCapabilities, signature: true },
+    { ...rasterCapabilities, signature: true, autoFormat: true },
     (r) => base + imageUrl({ ...r, preset: r.preset ?? options.preset ?? 'card' }, config),
     { factory: 'edge', options: { ...options } },
     [

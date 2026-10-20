@@ -33,6 +33,11 @@ afterAll(async () => {
   await rm(root, { recursive: true, force: true });
 });
 describe('import directives and placeholders', () => {
+  it('avoids nearly identical terminal widths only for the automatic ladder', () => {
+    expect(parseDirectives('img', 1676).widths).toEqual([320, 480, 640, 768, 960, 1280, 1676]);
+    expect(parseDirectives('img&w=1600;1676', 1676).widths).toEqual([1600, 1676]);
+    expect(parseDirectives('img', 321).widths).toEqual([320, 321]);
+  });
   it('preserves exact build widths, deduplicates and clamps intrinsic dimensions', () => {
     expect(parseDirectives('img&w=800;400;400;1200&format=jpg;webp', 800)).toMatchObject({
       widths: [400, 800],
@@ -69,6 +74,23 @@ describe('import directives and placeholders', () => {
   );
 });
 describe('real Vite build and dev', () => {
+  it('does not turn default formats into an explicit browser allowlist', async () => {
+    for (const formats of [undefined, ['webp'] as const]) {
+      const server = await createServer({
+        root,
+        configFile: false,
+        logLevel: 'silent',
+        plugins: [imageway({ config: formats ? { formats } : {} })],
+        server: { middlewareMode: true },
+      });
+      try {
+        const result = await server.transformRequest('virtual:imageway/config');
+        expect(result?.code).toContain(formats ? 'formats:["webp"]' : 'formats:undefined');
+      } finally {
+        await server.close();
+      }
+    }
+  });
   it('emits hashed exact variants and a serializable browser-only artifact with valid URLs', async () => {
     await build({
       root,

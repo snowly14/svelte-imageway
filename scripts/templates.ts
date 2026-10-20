@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 const read = (p: string) => readFile(p, 'utf8');
+const version: string = JSON.parse(await read('packages/svelte-imageway/package.json')).version;
 const files = {
   'cloudflare/worker.ts':
     "import { createImageWorker, ImageBudget } from 'svelte-imageway/edge';\nexport { ImageBudget };\nexport default createImageWorker();\n",
@@ -14,7 +15,7 @@ const files = {
     {
       private: true,
       type: 'module',
-      dependencies: { 'svelte-imageway': '0.1.0', sharp: '0.35.5' },
+      dependencies: { 'svelte-imageway': version, sharp: '0.35.5' },
     },
     null,
     2,

@@ -175,7 +175,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
           );
           values.push(`${JSON.stringify(domain)}:p${index}(${JSON.stringify(descriptor.options)})`);
         }
-        return `${imports.join('\n')}\nexport const config={widths:${JSON.stringify(config.widths)},quality:${config.quality},formats:${JSON.stringify(config.formats)},providers:{${values.join(',')}}};`;
+        return `${imports.join('\n')}\nexport const config={widths:${JSON.stringify(config.widths)},quality:${config.quality},formats:${JSON.stringify(options.config?.formats)},providers:{${values.join(',')}}};`;
       }
       const split = id.indexOf('?');
       if (split < 0 || !new URLSearchParams(id.slice(split + 1)).has('img')) return;

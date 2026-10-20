@@ -1,8 +1,17 @@
 # svelte-imageway
 
+## 1.2.0
+
+- Prefer server format negotiation for dynamic local/Edge providers; retain explicit picture mode and format allowlists.
+- Render a native img without an unnecessary picture wrapper when no sources are needed.
+- Avoid nearly identical final default build widths; preserve explicit width directives.
+- Generate the baseline type reference consistently and add a standalone typegen CLI command for checks before Vite startup.
+- Fix undefined format requests for providers that negotiate formats.
+- Publish the reviewed release under latest. Original bundle/build performance stretch targets remain unmet; this release makes no fastest-on-the-market claim.
+
 ## 0.1.0
 
-Initial local preview, prepared for the `next` dist-tag; not published yet.
+Initial preview published under the `next` dist-tag.
 
 - Responsive Svelte 5 components and typed Vite image imports with persistent caches.
 - Shared URL contract, signatures, provider/CMS builders and policy-enforced Node/Bun/Worker services.

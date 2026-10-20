@@ -82,8 +82,15 @@ export function parseDirectives(
   for (const key of ['h', 'fit', 'position', 'animation', 'metadata'] as const)
     if (params.has(key))
       Object.assign(transforms, { [key]: key === 'h' ? Number(params.get(key)) : params.get(key) });
+  const selected = [...new Set(widths.map((v) => Math.min(v, width)))].sort((a, b) => a - b);
+  // Keep exact explicit widths. For the automatic ladder, avoid an almost identical
+  // final bucket while retaining the largest available image and the smallest bucket.
+  if (!params.has('w')) {
+    while (selected.length > 2 && selected.at(-1)! / selected.at(-2)! < 1.25)
+      selected.splice(selected.length - 2, 1);
+  }
   return {
-    widths: [...new Set(widths.map((v) => Math.min(v, width)))].sort((a, b) => a - b),
+    widths: selected,
     formats: [...new Set(formats)] as OutputFormat[],
     quality,
     placeholder: placeholder as ImageConfig['placeholder'],
