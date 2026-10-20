@@ -15,3 +15,13 @@ Executed locally under Node 24.22.0 with Bun 1.4.3:
 Disk-cache microbenchmark (ten writes per size, Node 24.22.0): at 100/1,000/5,000 existing files, median set time changed from approximately 6.01/27.07/114.24 ms to 0.58/0.71/0.32 ms. The corrected measurement includes initial indexing as the first sample; the median reflects amortized writes. Results are local measurements, not production latency guarantees.
 
 Public repository: https://github.com/snowly14/svelte-imageway. Private vulnerability reporting is enabled. npm publication requires the maintainer's npm authentication; GitHub publication alone does not install a registry package. The prior report's unverified cloud deployment and 1.0 acceptance gaps remain open.
+
+## Extended follow-up
+
+The clean-checkout gate now builds before checking generated types. Windows test execution exposed URL-to-path conversion and diagnostic separator issues; the compiled CLI and Vite boundary now use native paths internally and slash-separated public keys. Local path containment also rejects cross-drive absolute relative paths. Git attributes enforce LF checkout to keep formatting and generated pipeline identity consistent across OSes.
+
+A fresh three-run build comparison after cache fixes measured medians of 274.52 ms cold / 49.50 ms warm for Imageway, 144.19 / 39.15 ms for vite-imagetools and 139.45 / 39.94 ms for enhanced-img. This remains slower than the comparators on this fixture set. A separate cold-build concurrency sweep measured approximately 446/283/221 ms with one/two/four workers. Explicit `imageway({ concurrency: 4 })` improves this small-image build scenario; the default remains two to retain conservative decoder admission. These results do not demonstrate market leadership or equal perceptual quality.
+
+Additional regressions cover transparent native Worker backgrounds and HTTP byte metrics excluding HEAD/304 responses. The handler hashes output only once for both ETag and filename.
+
+The comparison generated 18 images for each tool. Total bytes were 498,652 for Imageway and 745,147 for each comparator (about 33% less). Encoder defaults differ (including JPEG optimization), so this is a byte comparison, not a proof of equal visual quality. Final local regression count after the extended follow-up: 215 passing tests.

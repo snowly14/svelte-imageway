@@ -466,7 +466,7 @@ async function transformBinding(
           : r.position,
       blur: r.blur || undefined,
       sharpen: r.sharpen || undefined,
-      background: r.bg ? `#${r.bg}` : undefined,
+      background: r.bg === 'transparent' ? 'transparent' : r.bg ? `#${r.bg}` : undefined,
       flip: { none: undefined, horizontal: 'h', vertical: 'v', both: 'hv' }[r.flip],
     });
   }

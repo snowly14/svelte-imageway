@@ -18,6 +18,7 @@ jobs:
     environment: npm
     permissions:
       contents: read
+      actions: read
       id-token: write
     env:
       HUSKY: '0'
@@ -31,6 +32,27 @@ jobs:
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
         with:
           bun-version: 1.4.3
+      - name: Require the full CI matrix for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        timeout-minutes: 20
+        run: |
+          node --input-type=module <<'JS'
+          const endpoint = `https://api.github.com/repos/${process.env.GITHUB_REPOSITORY}/actions/runs?head_sha=${process.env.GITHUB_SHA}&event=push&per_page=20`;
+          for (let attempt = 0; attempt < 75; attempt++) {
+            const response = await fetch(endpoint, { headers: { Authorization: `Bearer ${process.env.GH_TOKEN}`, Accept: 'application/vnd.github+json' } });
+            if (!response.ok) throw new Error(`Cannot verify CI: HTTP ${response.status}`);
+            const result = await response.json();
+            const run = result.workflow_runs.find(run => run.path === '.github/workflows/ci.yml');
+            if (run?.status === 'completed') {
+              if (run.conclusion !== 'success') throw new Error(`CI matrix did not pass: ${run.conclusion}`);
+              console.log('The full CI matrix passed for this exact commit.');
+              process.exit(0);
+            }
+            await new Promise(resolve => setTimeout(resolve, 15000));
+          }
+          throw new Error('CI matrix did not complete within the release deadline.');
+          JS
       - run: bun install --frozen-lockfile
       - run: bun run release:metadata
       - name: Verify reviewed preview version and public repository

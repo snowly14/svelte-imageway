@@ -127,9 +127,11 @@ Measured on an Apple M4, Node 24.22.0, using three original synthetic 1200×800 
 
 | Build, 18 variants |   Cold | Disk cache warm |
 | ------------------ | -----: | --------------: |
-| Imageway           | 315 ms |           53 ms |
-| vite-imagetools    | 146 ms |           39 ms |
-| enhanced-img       | 150 ms |           39 ms |
+| Imageway           | 275 ms |           50 ms |
+| vite-imagetools    | 144 ms |           39 ms |
+| enhanced-img       | 139 ms |           40 ms |
+
+For small trusted build inputs, `imageway({ concurrency: 4 })` measured about 221 ms cold in a separate three-run sweep. The default remains two workers. More workers increase concurrent decoder memory; tune against your own input set and memory limit. These local measurements do not establish market-wide performance leadership.
 
 Median source-to-output reduction was 92% across six WebP/AVIF outputs at width 960, quality 75; both resizing and re-encoding contribute. Encoder defaults differ between tools, so equal quality numbers do not imply equal perceptual quality. [Protocol and raw measurements](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md).
 

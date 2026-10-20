@@ -186,3 +186,22 @@ it('supports Save-Data for locked presets with correct cache variation', async (
   expect(r.status).toBe(200);
   expect(r.headers.get('vary')).toContain('Save-Data');
 });
+
+it('counts body bytes once and excludes HEAD and 304 responses', async () => {
+  const service = createImageService({
+    sourceRoot: root,
+    cacheDirectory: join(root, 'metrics-cache'),
+  });
+  const url = `https://site.example${local().buildUrl({ key: 'source.png', w: 640 })}`;
+  const first = await service.fetch(new Request(url, { headers: { Accept: 'image/webp' } }));
+  const length = (await first.arrayBuffer()).byteLength;
+  expect(service.metrics.bytes).toBe(length);
+  const conditional = await service.fetch(
+    new Request(url, {
+      headers: { Accept: 'image/webp', 'If-None-Match': first.headers.get('etag')! },
+    }),
+  );
+  expect(conditional.status).toBe(304);
+  await service.fetch(new Request(url, { method: 'HEAD', headers: { Accept: 'image/webp' } }));
+  expect(service.metrics.bytes).toBe(length);
+});

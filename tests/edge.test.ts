@@ -319,3 +319,40 @@ it('retains native admission after a response deadline until the encoder settles
   expect(peak).toBe(1);
   expect(active).toBe(0);
 });
+
+it('passes transparent backgrounds to the native binding as a valid CSS color', async () => {
+  const f = await fixture({
+    transform: undefined,
+    config: {
+      presets: {
+        transparent: { values: { w: 64, bg: 'transparent' }, overrides: ['format'], revision: '1' },
+      },
+    },
+  });
+  let background: string | undefined;
+  f.env.IMAGES = {
+    async info() {
+      return { format: 'image/png', width: 640, height: 400 };
+    },
+    input() {
+      return {
+        transform(options) {
+          background = options.background;
+          return {
+            async output() {
+              return {
+                response: () =>
+                  new Response(new Uint8Array([1]), { headers: { 'Content-Type': 'image/webp' } }),
+              };
+            },
+          };
+        },
+      };
+    },
+  };
+  const response = await f.fetch(
+    'https://worker.example/_img/v1?key=images/a.png&preset=transparent&format=webp',
+  );
+  expect(response.status).toBe(200);
+  expect(background).toBe('transparent');
+});

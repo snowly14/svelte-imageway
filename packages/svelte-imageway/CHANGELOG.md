@@ -18,3 +18,7 @@ Known acceptance gaps: base Image size, build parity, exact Lighthouse 100 and a
 - Apply responsive background variants through the CSS cascade.
 - Reject empty memory-cache entries and cap entry count.
 - Share disk-cache accounting across processors, serialize writes and amortize directory reconciliation with bounded filesystem concurrency.
+
+- Normalize Windows file URLs and nested source keys, reject cross-drive path escapes, and keep LF checkout consistent across CI runners.
+- Preserve transparent backgrounds in the native Worker binding.
+- Count only response body bytes for HTTP metrics and reuse the output digest.

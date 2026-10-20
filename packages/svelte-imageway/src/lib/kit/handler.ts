@@ -142,7 +142,8 @@ export function createImageService(options: ImageHandlerOptions = {}) {
       const result = await processor.process(input, r, format, saveData ? 65 : undefined, false);
       const hit = result.cacheHit;
       if (hit) metrics.hits++;
-      const etag = `"${hash(result.data)}"`;
+      const outputDigest = hash(result.data);
+      const etag = `"${outputDigest}"`;
       const publicCache = options.publicSources === true;
       const publicPolicy = signed
         ? `public, max-age=${Math.max(0, Math.min(r.rev ? 31536000 : 60, r.exp! - Math.floor(Date.now() / 1000)))}, must-revalidate`
@@ -157,13 +158,12 @@ export function createImageService(options: ImageHandlerOptions = {}) {
         Vary: 'Accept, Save-Data',
         'X-Content-Type-Options': 'nosniff',
         'Accept-Ranges': 'none',
-        'Content-Disposition': `inline; filename="${hash(result.data)}.${format}"`,
+        'Content-Disposition': `inline; filename="${outputDigest}.${format}"`,
         'Server-Timing': `imageway;dur=${(performance.now() - start).toFixed(1)}`,
         'X-Imageway-Cache': hit ? 'HIT' : 'MISS',
       });
       if (options.corsOrigin) headers.set('Access-Control-Allow-Origin', options.corsOrigin);
       metrics.responses++;
-      metrics.bytes += result.data.length;
       const validators = request.headers
         .get('if-none-match')
         ?.split(',')
@@ -172,6 +172,7 @@ export function createImageService(options: ImageHandlerOptions = {}) {
         headers.delete('Content-Length');
         return new Response(null, { status: 304, headers });
       }
+      if (request.method !== 'HEAD') metrics.bytes += result.data.length;
       return new Response(request.method === 'HEAD' ? null : new Uint8Array(result.data), {
         headers,
       });
