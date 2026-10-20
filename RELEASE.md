@@ -1,10 +1,10 @@
 # Release policy and commands
 
-This checkout prepares 0.1.0 for `next`; nothing has been published. 1.0 is blocked by the documented size/build/Lighthouse targets and codec/cloud verification gaps. The preview CI enforces a 3,400-byte full Image gzip regression budget; `bun run check:acceptance-size` enforces the original 1,536-byte target and currently fails. Do not describe the preview budget as meeting the original target.
+Version 0.1.0 is published on npm and GitHub. Install the preview with `bun add svelte-imageway@next`; the registry currently also assigns it to `latest`. 1.0 is blocked by the documented size/build/Lighthouse targets and codec/cloud verification gaps. The preview CI enforces a 3,400-byte full Image gzip regression budget; `bun run check:acceptance-size` enforces the original 1,536-byte target and currently fails. Do not describe the preview budget as meeting the original target.
 
 ## Configure real identity
 
-The public repository is [snowly14/svelte-imageway](https://github.com/snowly14/svelte-imageway). Package repository, homepage and issue metadata point to that repository. Private vulnerability reporting is enabled. The first npm publication still requires an authenticated npm account authorized for the available package name.
+The public repository is [snowly14/svelte-imageway](https://github.com/snowly14/svelte-imageway). Package repository, homepage and issue metadata point to that repository. Private vulnerability reporting is enabled. npm ownership is configured, and trusted publishing is connected to this repository, workflow `release.yml`, and environment `npm`. No npm token is stored in GitHub.
 
 ```sh
 IMAGEWAY_REPOSITORY=https://github.com/snowly14/svelte-imageway bun run release:metadata
@@ -41,3 +41,9 @@ npm publish .local/pack/svelte-imageway-0.1.0.tgz --tag next --access public --p
 That command is for the supported CI/OIDC environment, not a promise of provenance on an arbitrary local shell. Check the registry and GitHub release before announcing publication; an uploaded GitHub repository does not imply that npm publication succeeded. Paid cloud deployment is outside this package release. Initial-package dist-tag behavior must be checked after publication; do not advertise 1.0/latest accidentally. Verify the registry tar integrity, metadata, dist-tags and provenance before announcing the preview.
 
 A later 1.0 workflow must require the original 1,536-byte size acceptance, measured build parity, the exact browser target, codec requirements and real deployment/CI evidence. The current release workflow intentionally accepts only 0.x versions.
+
+## First publication result
+
+Version 0.1.0 was uploaded with GitHub Actions provenance and later became operational in the public registry. Initial staging placeholders are not evidence of an installable release. The workflow now verifies the exact version, `next` tag, tarball integrity and provenance metadata after uploading. An existing published version is immutable; do not rerun its publish command as a verification step. Prepare a new reviewed version for subsequent releases.
+
+A new project installed the registry preview with Bun and verified real WebP output and cache reuse. The source/provenance commit is `4ef4a5f371728fabd17db12e527629cb49866491`. Current details are in REPORT.md.

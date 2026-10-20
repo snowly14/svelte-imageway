@@ -2,7 +2,7 @@
 
 ## Current status
 
-**0.1.0 local preview implemented; packaging and local verification executed (20 October 2026). This is not a completed 1.0 Definition of Done. Nothing has been published to npm or deployed to a paid cloud account.**
+**0.1.0 published on npm and GitHub; registry installation, tarball integrity and provenance verified on 21 October 2026. This remains a preview, not the completed 1.0 Definition of Done. No paid cloud deployment has been performed.**
 
 The user's latest instruction defers the website. Its files and maintenance scripts are preserved in `extras/`, its preview is stopped, and it is excluded from workspaces/checks. Work now targets the package and README. Bun replaces the original brief's pnpm requirement. The user authorized continuous M1–M11 execution with checks between milestones.
 
@@ -16,7 +16,7 @@ Architecture: [ADR](docs/adr/0001-architecture.md), [URL contract](docs/spec/url
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Bun install and frozen lock                                     | Executed; root lock committed, standalone production lock prepared                                                                                            |
 | ESLint / strict TypeScript / package build / Svelte diagnostics | Pass on Node 24; zero Svelte errors/warnings                                                                                                                  |
-| Unit/security/pipeline/provider/CLI tests                       | 208 pass on Node 24 and Node 22                                                                                                                               |
+| Unit/security/pipeline/provider/CLI tests                       | 215 pass across the remote Node 22/24 matrix on Linux, macOS and Windows                                                                                      |
 | Portable core coverage                                          | 99.56% lines, 99.11% branches, 100% functions after formatting; not whole-repository coverage                                                                 |
 | Vite/Kit examples                                               | Real builds, static/node HTTP and rendered-image checks; M2–M4 logs                                                                                           |
 | Worker / Docker / Node / Bun                                    | Real local bindings and real task-owned Docker engine exercised; final rerun passes, see M11 evidence                                                         |
@@ -27,7 +27,17 @@ Architecture: [ADR](docs/adr/0001-architecture.md), [URL contract](docs/spec/url
 | Lighthouse                                                      | 99/100, CLS 0, LCP 1.61 s, TBT 84 ms on component fixture; exact 100 target fails                                                                             |
 | Full Image entry                                                | 3,057 gzip bytes in M10, Svelte peer external; original 1,536-byte target fails                                                                               |
 | Benchmarks                                                      | Real three-run build/runtime samples; build parity fails; raw files in bench/results                                                                          |
-| Remote OS CI / cloud uploads / npm provenance publication       | Prepared or documented, not executed; no public remote/account configured                                                                                     |
+| Remote OS CI / cloud uploads / npm provenance publication       | OS matrix passes; npm 0.1.0 and provenance verified; paid cloud uploads remain unverified                                                                     |
+
+## Public release verification — 21 October 2026
+
+- [npm package](https://www.npmjs.com/package/svelte-imageway): operational version 0.1.0 is present under both `next` and `latest`.
+- [GitHub release](https://github.com/snowly14/svelte-imageway/releases/tag/v0.1.0): source commit `4ef4a5f371728fabd17db12e527629cb49866491`.
+- [Full CI matrix](https://github.com/snowly14/svelte-imageway/actions/runs/39503077450): Linux, macOS and Windows on Node 22/24 plus browser job pass.
+- [Registry upload with provenance](https://github.com/snowly14/svelte-imageway/actions/runs/39506359230): succeeded. npm initially exposed a staging placeholder before the operational version became available; registry availability was verified separately. A repeat upload was rejected because 0.1.0 was already published, so no version was overwritten.
+- Fresh Bun registry install and Node 24 consumer: core/provider/props imports, actual 64×32 WebP processing and cache HIT pass.
+- Downloaded npm tarball SHA-512 matches registry integrity. The SLSA provenance subject digest matches that tarball and resolves to the published source commit. Packed file contents match the GitHub release archive.
+- Trusted publishing is configured for `snowly14/svelte-imageway`, `release.yml`, environment `npm`, with publish/stage-publish permissions. The temporary GitHub npm secret was removed. Revoking the separately created temporary npm token still requires the maintainer's MFA; no claim of token revocation is made.
 
 ## Requirements checklist
 
@@ -40,7 +50,7 @@ Checked means implemented and supported by the stated local tests. An unchecked 
 - [x] Lazy off-screen loading, sizes auto fallback, cached hydration and reduced-motion behavior exercised.
 - [x] GIF/WebP animation and explicit first-frame handling; frame/pixel limits exercised.
 - [ ] Exact Lighthouse 100 and component <1.5 KiB gzip: measured failures, ISSUE-0001/0003.
-- [ ] Build parity with imagetools: 314.9/52.5 ms versus 145.7/39.0 ms cold/warm; ISSUE-0002.
+- [ ] Build parity with imagetools: follow-up medians 274.52/49.50 ms versus 144.19/39.15 ms cold/warm; ISSUE-0002.
 - [ ] Perceptual quality adaptation, AVIF decode-cost study and production 103 Early Hints: not established. No universal INP claim.
 - [ ] Animated AVIF/video: unsupported; Client Hints are not automatically trusted as cache dimensions.
 
