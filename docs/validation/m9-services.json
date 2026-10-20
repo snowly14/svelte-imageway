@@ -1,0 +1,53 @@
+{
+  "worker": {
+    "status": 200,
+    "format": "webp",
+    "width": 640,
+    "height": 427,
+    "etag": "\"dfdab6c50894f6275119a4f80bf32d115bc4e929ce5eea260117ec233e88348d\"",
+    "warm": "HIT",
+    "conditional": 304,
+    "cacheControl": "public, max-age=60, stale-while-revalidate=300"
+  },
+  "docker": {
+    "status": 200,
+    "format": "webp",
+    "width": 640,
+    "height": 427,
+    "etag": "\"cd0b7f00f9557151ba86f27816cd90b8196bdd32c0ec4ec79d348bcef81ef554\"",
+    "warm": "HIT",
+    "conditional": 304,
+    "cacheControl": "public, max-age=60, stale-while-revalidate=300"
+  },
+  "workerPurge": {
+    "invalidated": true,
+    "scope": "prefix"
+  },
+  "workerMetrics": {
+    "requests": 25,
+    "hits": 11,
+    "transforms": 5,
+    "bytes": 434595,
+    "errors": 8
+  },
+  "node": {
+    "status": 200,
+    "format": "webp",
+    "width": 640,
+    "height": 427,
+    "etag": "\"cd0b7f00f9557151ba86f27816cd90b8196bdd32c0ec4ec79d348bcef81ef554\"",
+    "warm": "HIT",
+    "conditional": 304,
+    "cacheControl": "public, max-age=60, stale-while-revalidate=300"
+  },
+  "bun": {
+    "status": 200,
+    "format": "webp",
+    "width": 640,
+    "height": 427,
+    "etag": "\"cd0b7f00f9557151ba86f27816cd90b8196bdd32c0ec4ec79d348bcef81ef554\"",
+    "warm": "HIT",
+    "conditional": 304,
+    "cacheControl": "public, max-age=60, stale-while-revalidate=300"
+  }
+}

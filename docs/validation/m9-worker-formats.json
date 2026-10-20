@@ -1,0 +1,38 @@
+[
+  {
+    "format": "avif",
+    "status": 200,
+    "bytes": 6188,
+    "width": 640,
+    "height": 427
+  },
+  {
+    "format": "webp",
+    "status": 200,
+    "bytes": 23818,
+    "width": 640,
+    "height": 427
+  },
+  {
+    "format": "jpeg",
+    "status": 200,
+    "bytes": 30502,
+    "width": 640,
+    "height": 427
+  },
+  {
+    "format": "png",
+    "status": 200,
+    "bytes": 374087,
+    "width": 640,
+    "height": 427
+  },
+  {
+    "format": "gif",
+    "status": 422,
+    "limitation": {
+      "error": "OFFLINE_CAPABILITY",
+      "message": "The local Images emulator cannot encode GIF. Use WebP locally and verify GIF with the production binding."
+    }
+  }
+]

@@ -1,6 +1,7 @@
+import { rasterFrames } from '../core/raster.js';
 import { PIPELINE_REVISION } from '../version.js';
 import { defineConfig } from '../core/config.js';
-import { parseRequest, canonicalQuery, normalizeRequest } from '../core/url.js';
+import { parseRequest, canonicalQuery } from '../core/url.js';
 import { verifyRequest } from '../core/signing.js';
 import { mimeType, negotiateFormat } from '../core/accept.js';
 import { ImagewayError, invariant } from '../core/errors.js';
@@ -151,7 +152,8 @@ export function createImageWorker(options: WorkerOptions = {}) {
           'Worker accepts approved R2 keys only. Use the Node service for arbitrary allowlisted HTTPS sources.',
           403,
         );
-        if (r.sig || r.kid || r.exp || env.PUBLIC_SOURCES !== 'true' || !r.preset) {
+        const signed = [r.sig, r.kid, r.exp].some((v) => v !== undefined);
+        if (signed || env.PUBLIC_SOURCES !== 'true' || !r.preset) {
           const keys = {
             ...(env.SIGNING_KEY_CURRENT ? { current: env.SIGNING_KEY_CURRENT } : {}),
             ...(env.SIGNING_KEY_PREVIOUS ? { previous: env.SIGNING_KEY_PREVIOUS } : {}),
@@ -159,11 +161,21 @@ export function createImageWorker(options: WorkerOptions = {}) {
           r = await verifyRequest(r, keys, { config });
         }
         const saveData = request.headers.get('save-data') === 'on';
-        if (saveData && r.q > 65) r = normalizeRequest({ ...r, q: 65 }, config);
+        if (saveData && r.q > 65)
+          r = Object.freeze({
+            ...r,
+            q: config.qualities.filter((q) => q <= 65 && q <= r.q).at(-1) ?? r.q,
+          });
         const format =
           r.format === 'auto'
             ? negotiateFormat(request.headers.get('accept'), config.formats)
             : r.format;
+        invariant(
+          config.formats.includes(format),
+          'FORMAT',
+          'Output format is disabled by configuration.',
+          415,
+        );
         invariant(format !== 'svg', 'FORMAT', 'Worker only serves raster representations.', 415);
         const cache = options.cache ?? (await caches.open('svelte-imageway-v1'));
         const { sig: _sig, exp: _exp, kid: _kid, ...output } = r;
@@ -324,9 +336,11 @@ export function createImageWorker(options: WorkerOptions = {}) {
         headers.set(
           'Cache-Control',
           env.PUBLIC_SOURCES === 'true'
-            ? r.rev
-              ? 'public, max-age=31536000, immutable'
-              : 'public, max-age=60, stale-while-revalidate=300'
+            ? signed
+              ? `public, max-age=${Math.max(0, Math.min(r.rev ? 31536000 : 60, r.exp! - Math.floor(Date.now() / 1000)))}, must-revalidate`
+              : r.rev
+                ? 'public, max-age=31536000, immutable'
+                : 'public, max-age=60, stale-while-revalidate=300'
             : 'private, no-store',
         );
         if (env.CORS_ORIGIN) headers.set('Access-Control-Allow-Origin', env.CORS_ORIGIN);
@@ -389,11 +403,12 @@ async function transformBinding(
     'Worker SVG input is disabled. Rasterize approved SVG at build time.',
     415,
   );
+  const frames = rasterFrames(bytes);
   const info = await env.IMAGES.info(new Response(bytes).body!);
   invariant(
     info.width &&
       info.height &&
-      info.width * info.height <= config.maxPixels &&
+      info.width * info.height * frames <= config.maxPixels &&
       info.width <= 12000 &&
       info.height <= 12000,
     'PIXELS',
@@ -407,6 +422,7 @@ async function transformBinding(
     422,
   );
   const offline = env.LOCAL_OFFLINE === 'true';
+  invariant(!offline || format !== 'image/gif', 'OFFLINE_CAPABILITY', 'The local Images emulator cannot encode GIF. Use WebP locally and verify GIF with the production binding.', 422);
   invariant(
     !offline ||
       (r.fit === 'inside' && !r.blur && !r.sharpen && r.flip === 'none' && r.position === 'center'),
@@ -435,7 +451,15 @@ async function transformBinding(
             : r.fit === 'fill'
               ? 'squeeze'
               : 'crop',
-      gravity: r.position === 'attention' ? 'auto' : r.position,
+      gravity: r.position.includes('-')
+        ? {
+            x: r.position.endsWith('left') ? 0 : 1,
+            y: r.position.startsWith('top') ? 0 : 1,
+            mode: 'remainder',
+          }
+        : r.position === 'attention'
+          ? 'auto'
+          : r.position,
       blur: r.blur || undefined,
       sharpen: r.sharpen || undefined,
       background: r.bg ? `#${r.bg}` : undefined,

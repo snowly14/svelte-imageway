@@ -73,3 +73,13 @@ describe('real Fetch runtime', () => {
     expect((await service.fetch(new Request('https://site.example/_img/v1?' + canonicalQuery(other)))).status).toBe(429);
   });
 });
+
+it('never gives a public CDN a TTL beyond a signed request expiry',async()=>{
+ process.env.IMAGEWAY_TEST_KEY='a-public-test-signing-key-at-least-32-bytes';
+ const service=createImageService({sourceRoot:root,cacheDirectory:join(root,'signed-public'),publicSources:true,signingKeys:{current:'IMAGEWAY_TEST_KEY'}});
+ const signed=await signRequest({key:'source.png',preset:'card',format:'webp'},{secret:process.env.IMAGEWAY_TEST_KEY,kid:'current',exp:Math.floor(Date.now()/1000)+15});
+ const response=await service.fetch(new Request('https://site.example/_img/v1?'+canonicalQuery(signed)));expect(response.status).toBe(200);expect(response.headers.get('cache-control')).toMatch(/^public, max-age=1[0-5], must-revalidate$/);
+ expect((await service.fetch(new Request('https://site.example/_img/v1?key=source.png&preset=card&exp=0'))).status).toBe(401);
+});
+
+it('supports Save-Data for locked presets with correct cache variation',async()=>{const service=createImageService({sourceRoot:root,cacheDirectory:join(root,'save-data')});const r=await service.fetch(new Request('https://site.example/_img/v1?key=source.png&preset=og',{headers:{'Save-Data':'on'}}));expect(r.status).toBe(200);expect(r.headers.get('vary')).toContain('Save-Data');});

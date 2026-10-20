@@ -16,6 +16,7 @@ export const defaults: ImageConfig = Object.freeze({
     og: { values: { w: 1200, h: 630, fit: 'cover', format: 'jpeg' }, overrides: [], revision: '1' },
   }),
 });
+for (const preset of Object.values(defaults.presets)) { Object.freeze(preset.values); Object.freeze(preset.overrides); Object.freeze(preset); }
 const formats = ['avif', 'webp', 'jpeg', 'png', 'gif', 'svg'];
 /** Define and validate a central configuration. Secrets are intentionally excluded. */
 export function defineConfig(input: Partial<ImageConfig> = {}): ImageConfig {

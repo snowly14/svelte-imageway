@@ -173,7 +173,8 @@
     "thumbhash": "0.1.1",
     "blurhash": "2.0.5",
     "svgo": "4.1.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "saxes": "6.0.0"
   },
   "scripts": {
     "build": "svelte-package -i src/lib -o dist"

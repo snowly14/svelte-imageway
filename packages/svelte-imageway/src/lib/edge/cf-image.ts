@@ -37,6 +37,17 @@ export function cfImageTransform(
       'cf.image mode supports the declared fit intersection and metadata stripping.',
       422,
     );
+    invariant(
+      r.rotate === 0 &&
+        r.flip === 'none' &&
+        !r.blur &&
+        !r.sharpen &&
+        !r.bg &&
+        r.position === 'center',
+      'CF_OPERATION',
+      'cf.image helper currently supports centered basic resizing only; use the Images binding for advanced operations.',
+      422,
+    );
     const source = new URL(r.key.split('/').map(encodeURIComponent).join('/'), base).href;
     const response = await nativeFetch(source, {
       redirect: 'manual',

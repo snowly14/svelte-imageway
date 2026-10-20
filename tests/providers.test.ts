@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { bunny } from '../packages/svelte-imageway/src/lib/providers/bunny.js';
 import { imgix } from '../packages/svelte-imageway/src/lib/providers/imgix.js';
 import { cloudinary } from '../packages/svelte-imageway/src/lib/providers/cloudinary.js';
@@ -123,11 +123,12 @@ describe('CMS integration', () => {
 describe('server circuit breaker', () => {
   const p = bunny({ base });
   it('opens on 5xx, skips the open provider and recovers with a probe', async () => {
+    const clock = vi.spyOn(Date, 'now').mockReturnValue(1000);
     let first = 0;
     const fallback = createFallback({
       providers: [p, bunny({ base: 'https://backup.example' })],
       failureThreshold: 1,
-      cooldownMs: 10,
+      cooldownMs: 30000,
       transport: async (url) => {
         if (url.startsWith(base)) {
           first++;
@@ -139,9 +140,10 @@ describe('server circuit breaker', () => {
     expect(await (await fallback.fetch(request)).text()).toBe('backup');
     await fallback.fetch(request);
     expect(first).toBe(1);
-    await new Promise((r) => setTimeout(r, 15));
+    clock.mockReturnValue(32000);
     expect((await fallback.fetch(request)).status).toBe(200);
     expect(first).toBe(2);
+    clock.mockRestore();
   });
   it.each([400, 401, 403, 404, 429])('never bypasses %s with a backup/original', async (status) => {
     const f = createFallback({

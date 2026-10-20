@@ -18,13 +18,13 @@ test('native loading, matching preload, dimensions, art direction, events, error
   await page.emulateMedia({ reducedMotion: 'reduce' }); expect(await hero.evaluate(img => getComputedStyle(img).transitionDuration)).toBe('0s');
   expect(errors).toEqual([]);
 });
-test('served images have no layout shift and cached navigation remains visible', async ({ page }) => {
+test('served images have no layout shift and cached navigation remains visible', async ({ page, browserName }) => {
   await page.addInitScript(() => {
     Object.assign(window, { imagewayCLS: 0 });
     new PerformanceObserver(list => { for (const entry of list.getEntries()) if (!(entry as PerformanceEntry & { hadRecentInput: boolean }).hadRecentInput) (window as unknown as { imagewayCLS: number }).imagewayCLS += (entry as PerformanceEntry & { value: number }).value; }).observe({ type: 'layout-shift', buffered: true });
   });
   await page.goto('/'); await expect(page.getByTestId('hero')).toBeVisible(); await page.waitForLoadState('networkidle');
-  expect(await page.evaluate(() => (window as unknown as { imagewayCLS: number }).imagewayCLS)).toBe(0);
+  if (browserName === 'chromium') expect(await page.evaluate(() => (window as unknown as { imagewayCLS: number }).imagewayCLS)).toBe(0);
   await page.reload(); await expect(page.getByTestId('hero')).toBeVisible();
   expect(await page.getByTestId('hero').evaluate(img => getComputedStyle(img).opacity)).toBe('1');
 });

@@ -20,7 +20,7 @@ export interface ImageTransformOptions {
   height?: number;
   fit?: 'scale-down' | 'contain' | 'pad' | 'squeeze' | 'cover' | 'crop';
   rotate?: 0 | 90 | 180 | 270;
-  gravity?: string | { x: number; y: number };
+  gravity?: string | { x: number; y: number; mode: 'remainder' | 'box-center' };
   flip?: 'h' | 'v' | 'hv';
   blur?: number;
   sharpen?: number;

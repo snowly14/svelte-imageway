@@ -160,3 +160,7 @@ describe('integrated persistent processor', () => {
     expect(processor.metrics.transforms).toBe(3);
   });
 });
+
+it('rejects XML namespace tricks, malformed documents, escaped CSS and excessive SVG depth', () => {
+  for (const s of ['<svg><svg:script xmlns:svg="http://www.w3.org/2000/svg">alert(1)</svg:script></svg>', '<svg xmlns="http://www.w3.org/1999/xhtml"><path/></svg>', '<svg/><svg/>', '<svg><rect></svg>', '<svg><rect fill="u\\72l(http://metadata/)"/></svg>', '<svg><![CDATA[attack]]></svg>', '<svg><?xml-stylesheet href="http://metadata"?></svg>', '<svg>'+ '<g>'.repeat(33)+'</g>'.repeat(33)+'</svg>']) expect(()=>sniff(Buffer.from(s))).toThrow();
+});

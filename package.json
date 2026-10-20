@@ -45,6 +45,7 @@
     "ipaddr.js": "^2.2.0",
     "prettier": "^3.0.0",
     "prettier-plugin-svelte": "^3.0.0",
+    "saxes": "6.0.0",
     "sharp": "0.35.5",
     "svelte": "5.57.2",
     "svelte-check": "^4.7.7",

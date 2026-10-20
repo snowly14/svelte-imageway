@@ -250,3 +250,13 @@ it('validates admin JSON and cf.image origin redirects', async () => {
     ),
   ).rejects.toThrow('redirected');
 });
+
+it('rejects present-but-zero expiry and clamps public caching to authorization lifetime',async()=>{
+ const f=await fixture();f.env.SIGNING_KEY_CURRENT='a-current-signing-key-with-at-least-32-bytes';
+ expect((await f.fetch('https://worker.example/_img/v1?key=images/a.png&preset=card&exp=0')).status).toBe(401);
+ const r=await signRequest({key:'images/a.png',preset:'card',format:'webp'},{secret:f.env.SIGNING_KEY_CURRENT,kid:'current',exp:Math.floor(Date.now()/1000)+15});const response=await f.fetch('https://worker.example/_img/v1?'+canonicalQuery(r));expect(response.status).toBe(200);expect(response.headers.get('cache-control')).toMatch(/^public, max-age=1[0-5], must-revalidate$/);
+});
+
+it('can lower Save-Data quality without reopening a locked og preset',async()=>{const f=await fixture();expect((await f.fetch('https://worker.example/_img/v1?key=images/a.png&preset=og',{headers:{'Save-Data':'on'}})).status).toBe(200);});
+
+it('reports unsupported offline GIF explicitly instead of a native binding failure',async()=>{const f=await fixture({transform:undefined});f.env.LOCAL_OFFLINE='true';f.env.IMAGES={async info(){return{format:'image/png',width:640,height:400};},input(){throw new Error('Encoding must not run.');}};expect((await f.fetch('https://worker.example/_img/v1?key=images/a.png&preset=card&format=gif')).status).toBe(422);});

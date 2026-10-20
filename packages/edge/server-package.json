@@ -2,5 +2,9 @@
   "name": "imageway-node-service",
   "private": true,
   "type": "module",
-  "dependencies": { "sharp": "0.35.5", "ipaddr.js": "2.5.0" }
+  "dependencies": {
+    "sharp": "0.35.5",
+    "ipaddr.js": "2.5.0",
+    "saxes": "6.0.0"
+  }
 }

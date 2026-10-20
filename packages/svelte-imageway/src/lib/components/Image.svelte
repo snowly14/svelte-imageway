@@ -26,7 +26,7 @@
     <source srcset={item.srcset} type={item.type} media={item.media} sizes={attributes.sizes} width={item.width} height={item.height} />
   {/each}
   {@render source?.()}
-  <img {...attributes} bind:this={element} class:ready={loaded} class:fade={animate} onload={(event) => { animate = !loaded; loaded = true; failed = false; onload?.call(element, event); }} onerror={(event) => { failed = true; onerror?.call(element, event); }} />
+  <img {...attributes} bind:this={element} class:ready={loaded} class:fade={animate} onload={(event) => { const timing = performance.getEntriesByName(element.currentSrc).at(-1) as PerformanceResourceTiming | undefined; animate = !loaded && (timing?.transferSize ?? 0) > 300; loaded = true; failed = false; onload?.call(element, event); }} onerror={(event) => { failed = true; onerror?.call(element, event); }} />
 </picture>
 {#if failed}{@render (errorContent ?? error)?.()}{:else if !loaded}{@render loadingSnippet?.()}{/if}
 
