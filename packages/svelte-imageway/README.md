@@ -78,14 +78,14 @@ The artifact contains `src`, `srcset`, `sources`, `width`, `height`, `aspectRati
 
 ## Components and headless API
 
-| Export | Purpose |
-| --- | --- |
-| `Image` | Responsive image, required alt, dimensions, preview, preload and native attributes |
-| `Picture` | Multiple formats, art direction, media sources and snippets |
-| `BackgroundImage` | Responsive CSS backgrounds with a fallback |
-| `ImageMeta` | OG, Twitter and image metadata |
-| `ImageConfigProvider` | Configuration for a component subtree |
-| `getImageProps` | Image attributes for your own markup; also available from `/props` |
+| Export                | Purpose                                                                            |
+| --------------------- | ---------------------------------------------------------------------------------- |
+| `Image`               | Responsive image, required alt, dimensions, preview, preload and native attributes |
+| `Picture`             | Multiple formats, art direction, media sources and snippets                        |
+| `BackgroundImage`     | Responsive CSS backgrounds with a fallback                                         |
+| `ImageMeta`           | OG, Twitter and image metadata                                                     |
+| `ImageConfigProvider` | Configuration for a component subtree                                              |
+| `getImageProps`       | Image attributes for your own markup; also available from `/props`                 |
 
 `Image` forwards HTML attributes and `onload`/`onerror`; loading/error snippets are available. Reduced-motion users skip the reveal animation. Dimensions and previews work in SSR and without JavaScript. For a URL string, supply intrinsic `width` and `height` from your CMS or application.
 
@@ -132,11 +132,11 @@ Use the locally installed bin before npm publication. `optimize` preserves origi
 
 Measured on an Apple M4, Node 24.22.0, using three original synthetic 1200×800 images; medians of three runs. These are small reproducible fixtures, not a photographic quality study.
 
-| Build, 18 variants | Cold | Disk cache warm |
-| --- | ---: | ---: |
-| Imageway | 315 ms | 53 ms |
-| vite-imagetools | 146 ms | 39 ms |
-| enhanced-img | 150 ms | 39 ms |
+| Build, 18 variants |   Cold | Disk cache warm |
+| ------------------ | -----: | --------------: |
+| Imageway           | 315 ms |           53 ms |
+| vite-imagetools    | 146 ms |           39 ms |
+| enhanced-img       | 150 ms |           39 ms |
 
 Median source-to-output reduction was 92% across six WebP/AVIF outputs at width 960, quality 75; both resizing and re-encoding contribute. Encoder defaults differ between tools, so equal quality numbers do not imply equal perceptual quality. Protocol and raw measurements (in the repository).
 

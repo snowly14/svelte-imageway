@@ -1,7 +1,8 @@
 FROM oven/bun:1.4.3 AS dependencies
 WORKDIR /app
 COPY packages/edge/server-package.json package.json
-RUN bun install --production
+COPY packages/edge/server.bun.lock bun.lock
+RUN bun install --production --frozen-lockfile
 
 FROM node:24.22.0-bookworm-slim
 ENV NODE_ENV=production PORT=3000 IMAGEWAY_SOURCE_ROOT=/sources IMAGEWAY_CACHE_DIR=/cache

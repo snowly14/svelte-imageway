@@ -5,7 +5,13 @@ import { relative, join } from 'node:path';
 import { defineConfig } from '../core/config.js';
 import { ImagewayError } from '../core/errors.js';
 import { mimeType } from '../core/accept.js';
-import type { ImageArtifact, ImageConfig, ImageRequest, OutputFormat, ImageProvider } from '../core/types.js';
+import type {
+  ImageArtifact,
+  ImageConfig,
+  ImageRequest,
+  OutputFormat,
+  ImageProvider,
+} from '../core/types.js';
 import { hash } from '../node/cache.js';
 import { readLocal } from '../node/source.js';
 import { loadSharp, sniff } from '../node/pipeline.js';
@@ -31,20 +37,47 @@ export interface ImagePluginOptions {
 /** Typed responsive imports with lazy dev endpoints and persistent content-addressed builds. */
 export function imageway(options: ImagePluginOptions = {}): Plugin {
   let config = defineConfig(options.config);
-  const publicBase = options.publish && !options.publish.dryRun ? publicAssetBase(options.publish.publicBase) : options.publicBase ? publicAssetBase(options.publicBase) : undefined;
+  const publicBase =
+    options.publish && !options.publish.dryRun
+      ? publicAssetBase(options.publish.publicBase)
+      : options.publicBase
+        ? publicAssetBase(options.publicBase)
+        : undefined;
   let vite: ResolvedConfig;
-  const jobs = new Map<string, { file: string; run: () => Promise<Buffer>; format: OutputFormat }>();
+  const jobs = new Map<
+    string,
+    { file: string; run: () => Promise<Buffer>; format: OutputFormat }
+  >();
   return {
-    name: 'svelte-imageway', enforce: 'pre',
-    api: { setTarget(target: string) {
-      if (['cloudflare', 'vercel', 'netlify', 'deno'].includes(target) && config.provider?.name === 'local') throw new ImagewayError('ADAPTER_PROVIDER', 'Choose a native or Edge provider for this deployment target.');
-      if (!config.provider && !config.providers) {
-        const native = target === 'vercel' ? vercel() : target === 'netlify' ? netlify() : target === 'cloudflare' ? cloudflare() : undefined;
-        if (native) config = defineConfig({ ...config, provider: native });
-      }
-    } },
+    name: 'svelte-imageway',
+    enforce: 'pre',
+    api: {
+      setTarget(target: string) {
+        if (
+          ['cloudflare', 'vercel', 'netlify', 'deno'].includes(target) &&
+          config.provider?.name === 'local'
+        )
+          throw new ImagewayError(
+            'ADAPTER_PROVIDER',
+            'Choose a native or Edge provider for this deployment target.',
+          );
+        if (!config.provider && !config.providers) {
+          const native =
+            target === 'vercel'
+              ? vercel()
+              : target === 'netlify'
+                ? netlify()
+                : target === 'cloudflare'
+                  ? cloudflare()
+                  : undefined;
+          if (native) config = defineConfig({ ...config, provider: native });
+        }
+      },
+    },
     config: () => ({ ssr: { external: ['svelte-imageway/kit', 'svelte-imageway/node'] } }),
-    resolveId(id) { if (id === 'virtual:imageway/config') return '\0imageway:config'; },
+    resolveId(id) {
+      if (id === 'virtual:imageway/config') return '\0imageway:config';
+    },
     async configResolved(resolved) {
       vite = resolved;
       await generateImageTypes(vite.root);
@@ -53,30 +86,93 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       server.middlewares.use((req, res, next) => {
         const job = jobs.get((req.url ?? '').split('?')[0]!);
         if (!job) return next();
-        if (req.method !== 'GET' && req.method !== 'HEAD') { res.statusCode = 405; res.end(); return; }
-        void job.run().then(data => { res.setHeader('Content-Type', mimeType(job.format)); res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); res.setHeader('X-Content-Type-Options', 'nosniff'); res.end(req.method === 'HEAD' ? undefined : data); }).catch(error => { res.statusCode = error instanceof ImagewayError ? error.status : 500; res.end('Image processing failed. Check the configured codec and source limits.'); });
+        if (req.method !== 'GET' && req.method !== 'HEAD') {
+          res.statusCode = 405;
+          res.end();
+          return;
+        }
+        void job
+          .run()
+          .then((data) => {
+            res.setHeader('Content-Type', mimeType(job.format));
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+            res.setHeader('X-Content-Type-Options', 'nosniff');
+            res.end(req.method === 'HEAD' ? undefined : data);
+          })
+          .catch((error) => {
+            res.statusCode = error instanceof ImagewayError ? error.status : 500;
+            res.end('Image processing failed. Check the configured codec and source limits.');
+          });
       });
     },
     async handleHotUpdate(ctx) {
       if (/\.(svelte|[jt]s)$/.test(ctx.file)) await generateImageTypes(vite.root);
       // Old URLs are content-addressed and may remain in already-rendered pages; bound their retention.
-      if (jobs.size > 2048) for (const [key, job] of jobs) if (job.file === ctx.file) jobs.delete(key);
+      if (jobs.size > 2048)
+        for (const [key, job] of jobs) if (job.file === ctx.file) jobs.delete(key);
     },
     async generateBundle(_output, bundle) {
       if (!options.publish || vite.build.ssr) return;
-      const assets = Object.values(bundle).filter(v => v.type === 'asset' && /^imageway\/[a-f0-9]{64}\./.test(v.fileName));
-      const result = await publishAssets(assets.map(v => { if (v.type !== 'asset') throw new Error('Expected asset.'); return { key: v.fileName, bytes: typeof v.source === 'string' ? new TextEncoder().encode(v.source) : v.source, contentType: mimeType(v.fileName.split('.').at(-1) as OutputFormat) }; }), options.publish);
-      this.emitFile({ type: 'asset', fileName: 'image-manifest.json', source: JSON.stringify(result.manifest, null, 2) });
+      const assets = Object.values(bundle).filter(
+        (v) => v.type === 'asset' && /^imageway\/[a-f0-9]{64}\./.test(v.fileName),
+      );
+      const result = await publishAssets(
+        assets.map((v) => {
+          if (v.type !== 'asset') throw new Error('Expected asset.');
+          return {
+            key: v.fileName,
+            bytes: typeof v.source === 'string' ? new TextEncoder().encode(v.source) : v.source,
+            contentType: mimeType(v.fileName.split('.').at(-1) as OutputFormat),
+          };
+        }),
+        options.publish,
+      );
+      this.emitFile({
+        type: 'asset',
+        fileName: 'image-manifest.json',
+        source: JSON.stringify(result.manifest, null, 2),
+      });
     },
     async load(id) {
       if (id === '\0imageway:config') {
-        const entries = Object.entries(config.providers ?? (config.provider ? { '*': config.provider } : {}));
-        const imports: string[] = [], values: string[] = [];
-        const allowed = new Set(['local', 'edge', 'generic', 'cloudflare', 'vercel', 'netlify', 'bunny', 'imgix', 'cloudinary', 'imagekit', 'imgproxy', 'ipx', 'supabase', 'fastly', 'cloudfront', 'uploadcare', 'cms']);
+        const entries = Object.entries(
+          config.providers ?? (config.provider ? { '*': config.provider } : {}),
+        );
+        const imports: string[] = [],
+          values: string[] = [];
+        const allowed = new Set([
+          'local',
+          'edge',
+          'generic',
+          'cloudflare',
+          'vercel',
+          'netlify',
+          'bunny',
+          'imgix',
+          'cloudinary',
+          'imagekit',
+          'imgproxy',
+          'ipx',
+          'supabase',
+          'fastly',
+          'cloudfront',
+          'uploadcare',
+          'cms',
+        ]);
         for (const [index, [domain, value]] of entries.entries()) {
-          const descriptor = (value as ImageProvider & { descriptor?: { factory: string; options: Record<string, unknown> } }).descriptor;
-          if (!descriptor || !allowed.has(descriptor.factory)) throw new ImagewayError('PROVIDER_SERIALIZATION', 'A browser provider needs a supported public descriptor; use generic() or an explicit subtree provider.');
-          imports.push(`import { ${descriptor.factory} as p${index} } from 'svelte-imageway/providers/${descriptor.factory}';`);
+          const descriptor = (
+            value as ImageProvider & {
+              descriptor?: { factory: string; options: Record<string, unknown> };
+            }
+          ).descriptor;
+          if (!descriptor || !allowed.has(descriptor.factory))
+            throw new ImagewayError(
+              'PROVIDER_SERIALIZATION',
+              'A browser provider needs a supported public descriptor; use generic() or an explicit subtree provider.',
+            );
+          imports.push(
+            `import { ${descriptor.factory} as p${index} } from 'svelte-imageway/providers/${descriptor.factory}';`,
+          );
           values.push(`${JSON.stringify(domain)}:p${index}(${JSON.stringify(descriptor.options)})`);
         }
         return `${imports.join('\n')}\nexport const config={widths:${JSON.stringify(config.widths)},quality:${config.quality},formats:${JSON.stringify(config.formats)},providers:{${values.join(',')}}};`;
@@ -93,35 +189,70 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       const directives = parseDirectives(id.slice(split + 1), dimensions.width, config);
       const formats = [...directives.formats];
       if ((metadata.pages ?? 1) > 1 && directives.transforms.animation !== 'first') {
-        for (let i = formats.length - 1; i >= 0; i--) if (!['webp', 'gif'].includes(formats[i]!)) formats.splice(i, 1);
+        for (let i = formats.length - 1; i >= 0; i--)
+          if (!['webp', 'gif'].includes(formats[i]!)) formats.splice(i, 1);
         if (!formats.length) formats.push('webp');
       }
-      if (metadata.hasAlpha && !formats.includes('png') && formats.includes('jpeg')) formats.splice(formats.indexOf('jpeg'), 1, 'png');
+      if (metadata.hasAlpha && !formats.includes('png') && formats.includes('jpeg'))
+        formats.splice(formats.indexOf('jpeg'), 1, 'png');
       const tokenUrls = new Map<string, string>();
-      const outputs: Array<{ format: OutputFormat; width: number; height: number; url: string }> = [];
-      const exactConfig = defineConfig({ ...config, widths: directives.widths, qualities: [directives.quality], quality: directives.quality });
-      const exactProcessor = new ImageProcessor({ directory: join(vite.root, 'node_modules/.cache/svelte-imageway'), config: exactConfig, concurrency: options.concurrency });
-      const variants = formats.flatMap(format => (format === 'svg' ? [dimensions.width] : directives.widths).map(width => ({ format, width })));
-      await Promise.all(variants.map(async ({ format, width }) => {
-          const request: ImageRequest = { key: 'import', ...directives.transforms, w: width, q: directives.quality };
+      const outputs: Array<{ format: OutputFormat; width: number; height: number; url: string }> =
+        [];
+      const exactConfig = defineConfig({
+        ...config,
+        widths: directives.widths,
+        qualities: [directives.quality],
+        quality: directives.quality,
+      });
+      const exactProcessor = new ImageProcessor({
+        directory: join(vite.root, 'node_modules/.cache/svelte-imageway'),
+        config: exactConfig,
+        concurrency: options.concurrency,
+      });
+      const variants = formats.flatMap((format) =>
+        (format === 'svg' ? [dimensions.width] : directives.widths).map((width) => ({
+          format,
+          width,
+        })),
+      );
+      await Promise.all(
+        variants.map(async ({ format, width }) => {
+          const request: ImageRequest = {
+            key: 'import',
+            ...directives.transforms,
+            w: width,
+            q: directives.quality,
+          };
           // Exact requested widths/qualities belong to build configuration, not dynamic URL ladders.
-          const digest = hash(`${hash(source)}:${JSON.stringify(request)}:${format}:${PIPELINE_REVISION}:${JSON.stringify(sharp.versions)}`);
+          const digest = hash(
+            `${hash(source)}:${JSON.stringify(request)}:${format}:${PIPELINE_REVISION}:${JSON.stringify(sharp.versions)}`,
+          );
           let url: string;
           const run = async () => {
-            if (format !== 'svg') return exactProcessor.process(source, request, format, undefined, false);
-            if (kind !== 'svg') throw new ImagewayError('SVG', 'Only approved SVG inputs can produce SVG output.');
+            if (format !== 'svg')
+              return exactProcessor.process(source, request, format, undefined, false);
+            if (kind !== 'svg')
+              throw new ImagewayError('SVG', 'Only approved SVG inputs can produce SVG output.');
             const optimized = optimize(source.toString('utf8'), { multipass: true }).data;
             sniff(Buffer.from(optimized));
-            return { data: Buffer.from(optimized), width: dimensions.width, height: dimensions.height };
+            return {
+              data: Buffer.from(optimized),
+              width: dimensions.width,
+              height: dimensions.height,
+            };
           };
           let outputWidth = width;
-          let height = Math.max(1, Math.round((directives.transforms.h ?? dimensions.height * width / dimensions.width)));
+          let height = Math.max(
+            1,
+            Math.round(directives.transforms.h ?? (dimensions.height * width) / dimensions.width),
+          );
           if (vite.command === 'serve') {
             url = `${vite.base}@imageway/${digest}.${format}`;
             jobs.set(url, { file, format, run: async () => (await run()).data });
           } else {
             const output = await run();
-            height = output.height; outputWidth = output.width;
+            height = output.height;
+            outputWidth = output.width;
             const filename = `imageway/${hash(output.data)}.${format}`;
             const ref = this.emitFile({ type: 'asset', fileName: filename, source: output.data });
             const token = `__IMAGEWAY_${tokenUrls.size}__`;
@@ -129,24 +260,44 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
             url = publicBase ? `${publicBase}/${filename}` : token;
           }
           outputs.push({ format, width: outputWidth, height, url });
-      }));
+        }),
+      );
       outputs.sort((a, b) => a.width - b.width);
       while (jobs.size > 2048) jobs.delete(jobs.keys().next().value!);
-      if (!outputs.length) throw new ImagewayError('VARIANTS', 'No supported image variants generated.');
-      const fallbackFormat = formats.includes('jpeg') ? 'jpeg' : formats.includes('png') ? 'png' : formats.includes('gif') ? 'gif' : formats.at(-1)!;
-      const fallbacks = outputs.filter(v => v.format === fallbackFormat);
+      if (!outputs.length)
+        throw new ImagewayError('VARIANTS', 'No supported image variants generated.');
+      const fallbackFormat = formats.includes('jpeg')
+        ? 'jpeg'
+        : formats.includes('png')
+          ? 'png'
+          : formats.includes('gif')
+            ? 'gif'
+            : formats.at(-1)!;
+      const fallbacks = outputs.filter((v) => v.format === fallbackFormat);
       const fallback = fallbacks.at(-1)!;
       const artifact: ImageArtifact = {
         src: fallback.url,
-        srcset: fallbacks.map(v => `${v.url} ${v.width}w`).join(', '),
-        sources: formats.filter(v => v !== fallbackFormat).map(format => ({ type: mimeType(format), srcset: outputs.filter(v => v.format === format).map(v => `${v.url} ${v.width}w`).join(', ') })),
-        width: fallback.width, height: fallback.height, aspectRatio: fallback.width / fallback.height,
-        ...await placeholder(source, directives.placeholder), hash: hash(source),
+        srcset: fallbacks.map((v) => `${v.url} ${v.width}w`).join(', '),
+        sources: formats
+          .filter((v) => v !== fallbackFormat)
+          .map((format) => ({
+            type: mimeType(format),
+            srcset: outputs
+              .filter((v) => v.format === format)
+              .map((v) => `${v.url} ${v.width}w`)
+              .join(', '),
+          })),
+        width: fallback.width,
+        height: fallback.height,
+        aspectRatio: fallback.width / fallback.height,
+        ...(await placeholder(source, directives.placeholder)),
+        hash: hash(source),
       };
       options.onProgress?.({ file: relative(vite.root, file), variants: outputs.length });
       // Replace references inside srcsets too; JSON escaping must not turn asset expressions into strings.
       let expression = JSON.stringify(artifact);
-      for (const [token, ref] of tokenUrls) expression = expression.replaceAll(token, `" + ${ref} + "`);
+      for (const [token, ref] of tokenUrls)
+        expression = expression.replaceAll(token, `" + ${ref} + "`);
       return { code: `export default ${expression};`, map: { mappings: '' } };
     },
   };

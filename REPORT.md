@@ -2,153 +2,123 @@
 
 ## Current status
 
-**M1 implemented and verified on 2026-10-20. The user authorized continuous execution of M1–M11; per-milestone approval is no longer required. No npm publication or cloud deployment has occurred.**
+**0.1.0 local preview implemented; packaging and local verification executed (20 October 2026). This is not a completed 1.0 Definition of Done. Nothing has been published to npm or deployed to a paid cloud account.**
 
-Selected name: `svelte-imageway` (public registry E404 at research time). Bun replaces pnpm by user instruction. Proposed baseline: Svelte 5.57.2, Kit 3.1.0, Vite 8.3.4, Node 24.22.0 LTS and TypeScript 6.0.3 (latest compatible, despite 7.0.2 being current stable).
+The user's latest instruction defers the website. Its files and maintenance scripts are preserved in `extras/`, its preview is stopped, and it is excluded from workspaces/checks. Work now targets the package and README. Bun replaces the original brief's pnpm requirement. The user authorized continuous M1–M11 execution with checks between milestones.
 
-Architecture: [ADR 0001](docs/adr/0001-architecture.md), [URL ADR](docs/adr/0002-url-contract.md), [draft contract](docs/spec/url-contract.md). Research: [competition](docs/research/competitive-analysis.md), [compatibility](docs/research/versions-and-compatibility.md), [platforms/costs](docs/research/platforms-and-costs.md), [names](docs/research/package-names.md). Work sequence: [eleven milestones](docs/planning/milestones.md).
+Baseline: Svelte 5.57.2, Kit 3.1.0, Vite 8.3.4, TypeScript 6.0.3, Node 24.22.0 and 22.23.3 LTS, Bun 1.4.3. Versions, costs and limits were researched against official sources; no repository owner, contact, funding URL or npm credentials were invented.
 
-## Phase 0 evidence
+Architecture: [ADR](docs/adr/0001-architecture.md), [URL contract](docs/spec/url-contract.md), [research](docs/research/versions-and-compatibility.md), [costs/topology](docs/research/platforms-and-costs.md), [release instructions](RELEASE.md). Detailed milestone evidence follows the current checklist.
 
-- [x] Read and preserve the original brief; inspect target directory/ancestor instructions.
-- [x] Run `npm view` on required packages, competitors, official adapters and five candidate names; preserve raw structured responses and exit codes.
-- [x] Check Node LTS against the official release index and policy; identify Current host runtime separately.
-- [x] Review official framework/codec/provider documentation and dated pricing sources; explicitly record unresolved API/account/cache details.
-- [x] Write the competitive analysis, proposed architecture, URL-contract design and milestone plan before any implementation source.
-- [x] Initialize a local Git repository; no remote or npm identity invented.
-- [x] Verify macOS sleep assertions under a project-specific launchd job; shutdown is pending genuine final completion.
-- [x] Validate 11 authored Markdown files with markdownlint-cli2 0.23.3 (0 issues), 25 local document links, 2 evidence JSON files, 30 registry entries and byte-for-byte preservation of the original brief.
-- [x] Pass staged whitespace validation; include this report in the Phase 0 Conventional Commit.
-- [x] User approved all implementation milestones on 2026-10-20, retaining their order, validation and commits.
+## Executed evidence
 
-## Execution ledger
-
-| Check | Status | Evidence / limitation |
-| --- | --- | --- |
-| Registry metadata and candidate names | Executed | docs/research/evidence/npm-view-2026-10-19.json |
-| TypeScript 6.0.3 metadata | Executed | `npm view typescript@6.0.3 version engines --json`; exact selection and Node engine recorded |
-| Node release index | Executed | Official index returned 24.22.0 LTS / 22.23.3 LTS / 26.12.0 Current |
-| Host tools | Executed | Bun 1.4.3, Node 26.11.1, npm 11.20.0; Docker not found |
-| Markdown / links / JSON / original brief | Passed | markdownlint-cli2 0.23.3: 11 authored files, 0 issues; Python: 25 local links, 2 valid JSON files, 30 registry entries, original brief unchanged |
-| Git staged whitespace | Passed | `git diff --cached --check` returned exit 0 |
-| Dependency installation | Not run | No implementation manifest before M1 approval |
-| Lint / TypeScript / unit / coverage / component tests | Not run | No implementation yet; cannot claim green |
-| Vite/Kit examples / browser E2E / Lighthouse | Not run | M2 onward |
-| Wrangler / Miniflare / Docker Compose | Not run | Worker not built; Docker absent |
-| Benchmarks / bundle size / npm pack / package checks | Not run | M10/M11 evidence required |
-| Cloud deployment / paid activation / publication | Not attempted | No credentials used; future actions require the specified approvals |
+| Gate                                                            | Actual result / boundary                                                                                                                                      |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bun install and frozen lock                                     | Executed; root lock committed, standalone production lock prepared                                                                                            |
+| ESLint / strict TypeScript / package build / Svelte diagnostics | Pass on Node 24; zero Svelte errors/warnings                                                                                                                  |
+| Unit/security/pipeline/provider/CLI tests                       | 208 pass on Node 24 and Node 22                                                                                                                               |
+| Portable core coverage                                          | 99.56% lines, 99.11% branches, 100% functions after formatting; not whole-repository coverage                                                                 |
+| Vite/Kit examples                                               | Real builds, static/node HTTP and rendered-image checks; M2–M4 logs                                                                                           |
+| Worker / Docker / Node / Bun                                    | Real local bindings and real task-owned Docker engine exercised; final rerun passes, see M11 evidence                                                         |
+| Browser E2E                                                     | M9 Chromium/WebKit on macOS, Firefox in official Linux container passed; final rerun passes, see M11 evidence                                                 |
+| Packed consumer                                                 | Real archive installed in a new minimal Kit 3 project, CLI init, build, strict Svelte check, image decode/preload pass in 19.2 s with warm Bun registry/cache |
+| Package inspection                                              | publint passes; ATTW ESM-only passes with internal errors fixed; pack allowlist/bin/worker/README/license checks and npm dry-run executed                     |
+| CLI watch                                                       | Real source rewrite produces a new variant; original preserved and generated output excluded                                                                  |
+| Lighthouse                                                      | 99/100, CLS 0, LCP 1.61 s, TBT 84 ms on component fixture; exact 100 target fails                                                                             |
+| Full Image entry                                                | 3,057 gzip bytes in M10, Svelte peer external; original 1,536-byte target fails                                                                               |
+| Benchmarks                                                      | Real three-run build/runtime samples; build parity fails; raw files in bench/results                                                                          |
+| Remote OS CI / cloud uploads / npm provenance publication       | Prepared or documented, not executed; no public remote/account configured                                                                                     |
 
 ## Requirements checklist
 
-Unchecked means **not implemented or not proven**, even when a design exists. Planning status is not product completion. This checklist will be expanded with direct command/fixture evidence at each gate.
+Checked means implemented and supported by the stated local tests. An unchecked item is an unmet target, deferred scope or unverified external behavior. Test results do not imply every production configuration was exercised.
 
 ### Performance
 
-- [ ] LCP priority attributes, matching head preload and HTTP Link; platform-specific 103 evidence.
-- [ ] Explicit dimensions/aspect ratio and controlled-example CLS=0.
-- [ ] No blocking client processing; INP behavior measured where relevant.
-- [ ] AVIF/WebP/fallback output and perceptual-quality policy verified.
-- [ ] Bounded responsive widths, srcset/density semantics and DPR deduplication.
-- [ ] Save-Data/Client Hints quality and cache isolation.
-- [ ] AVIF encoding/decoding tradeoffs measured; backend limits respected.
-- [ ] Off-screen lazy images; sizes auto compatibility and fallback verified.
-- [ ] GIF animation handling and optional video output verified.
-- [ ] Base component <1.5KB gzip and zero unnecessary browser dependencies.
+- [x] Priority attributes, matching head preload and Link hook; dimensions/aspect ratio and controlled-example CLS 0.
+- [x] No browser image processing; responsive AVIF/WebP/fallback, bounded widths, DPR and Save-Data quality policy.
+- [x] Lazy off-screen loading, sizes auto fallback, cached hydration and reduced-motion behavior exercised.
+- [x] GIF/WebP animation and explicit first-frame handling; frame/pixel limits exercised.
+- [ ] Exact Lighthouse 100 and component <1.5 KiB gzip: measured failures, ISSUE-0001/0003.
+- [ ] Build parity with imagetools: 314.9/52.5 ms versus 145.7/39.0 ms cold/warm; ISSUE-0002.
+- [ ] Perceptual quality adaptation, AVIF decode-cost study and production 103 Early Hints: not established. No universal INP claim.
+- [ ] Animated AVIF/video: unsupported; Client Hints are not automatically trusted as cache dimensions.
 
 ### Reliability
 
-- [ ] 404, network errors, deadlines and broken-image snippets/callbacks.
-- [ ] Eligible provider fallback and timeout/5xx circuit breaking.
-- [ ] HEIC/HEIF, TIFF, BMP, ICO, JXL capability behavior and unsupported-codec errors.
-- [ ] Very large images, decompression limits and corrupt input fixtures.
-- [ ] EXIF orientation, GPS removal, ICC, CMYK and transparency fixtures.
-- [ ] Animated fixtures with frame/pixel budgets and metadata fidelity.
-- [ ] Worker concurrency, memory/disk bounds, anti-stampede and atomic writes.
-- [ ] Cache warm-hit target >95% on a documented repeat workload.
+- [x] 404/broken-image snippets/events, deadlines, eligible timeout/5xx fallback and half-open recovery.
+- [x] Corrupt/oversized images, decompression limits, EXIF orientation/GPS removal, ICC/CMYK/alpha exercised.
+- [x] Reusable bounded workers, admission byte/time limits, atomic cache writes and anti-stampede.
+- [x] Warm cache hit target >95%: 100% on documented repeat workload.
+- [ ] HEIC/JXL conditional on real codecs; BMP/ICO unsupported. TIFF and restricted SVG pass; this is not all-exotic-format support.
+- [ ] Native production Cloudflare animation/advanced operations: documentation-backed, account execution absent.
 
 ### Security
 
-- [ ] Mandatory remote-origin allowlist and safe HTTPS/port/userinfo parsing.
-- [ ] Private/local/metadata/IPv4/IPv6/mapped/encoded address rejection.
-- [ ] Redirect checks and DNS rebinding protection at the actual connection.
-- [ ] Filesystem realpath containment, symlink/traversal protection.
-- [ ] HMAC canonicalization, expiry, key rotation and constant-time verification.
-- [ ] Signature/authorization checked before cache; private/shared-cache isolation.
-- [ ] Locked presets, bounded transforms and rate/budget guards.
-- [ ] Input/output bytes, pixels/pages, queue/concurrency and timeouts bounded.
-- [ ] Magic-byte validation and active SVG handling; no assumption SVGO sanitizes.
-- [ ] Server secrets and Node/Sharp code absent from browser bundles.
-- [ ] Authenticated purge/metrics where appropriate; no destructive implicit actions.
-- [ ] SECURITY.md threat model and automated adversarial regression tests.
+- [x] Mandatory exact HTTPS origin allowlist, DNS connection pinning, redirect reauthorization, private/metadata/mapped/encoded IP denial.
+- [x] Local realpath containment/final symlink protections; configured roots require trusted writers.
+- [x] HMAC canonicalization, expiry including zero, rotation and authorization before cache/304.
+- [x] Private default cache; signed public TTL clamped to authorization, no signed SWR; immutable only verified content revisions.
+- [x] Locked presets, bounded transforms/input/output/pixels/frames/queues/time and local/shared admission guards.
+- [x] Magic bytes and strict bounded SVG XML/geometry whitelist, including escaped CSS/namespace/DTD/active-content regressions.
+- [x] Browser bundle checks reject Node/Sharp leakage; public config excludes server credentials.
+- [x] Authenticated Worker purge/metrics, explicit CLI purge confirmation, no implicit source deletion or billed deployment.
+- [x] SECURITY.md documents threat boundaries, dependencies and adversarial fixtures; no claim of an external security audit.
 
 ### Developer experience
 
-- [ ] Local zero-config imports and one-plugin integration.
-- [ ] Typed artifact, required alt, public JSDoc, subpath exports and config schemas.
-- [ ] Actionable codec/runtime/configuration errors.
-- [ ] Image/Picture/BackgroundImage/ImageMeta, headless API and subtree context.
-- [ ] Loading/error snippets and native attributes/events.
-- [ ] CLI init/optimize/audit/deploy/purge/migrate, watch, dry-run, JSON/CI exits, NO_COLOR.
-- [ ] Idempotent parser-aware enhanced-img/imagetools migration.
-- [ ] Playground and optional developer overlay/preprocessor explicitly tracked.
+- [x] Local zero-account imports, one plugin, typed artifacts, required alt, subpath exports and schemas.
+- [x] Image/Picture/BackgroundImage/ImageMeta, headless props and reactive subtree context; native attributes/events and loading/error snippets.
+- [x] Actionable codec/config/runtime errors and lazy Sharp loading.
+- [x] CLI init/optimize/audit/deploy/purge/migrate; dry-run, watch, JSON/exit codes, plain NO_COLOR-compatible output.
+- [x] Parser-aware idempotent init and conservative migration with backups/review diagnostics.
+- [ ] Arbitrary migration patterns are intentionally not auto-rewritten; public API JSDoc exists but exhaustive prose for every exported helper is not claimed.
+- [ ] Website/playground deferred by user; developer overlay and preprocessor remain optional roadmap work.
 
 ### Ecosystem
 
-- [ ] Official static/node/auto/vercel/netlify/cloudflare adapter integration.
-- [ ] Bun/Deno runtime/adapter paths individually verified or clearly unsupported.
-- [ ] SSR, streaming, prerender, SSG and SPA behavior.
-- [ ] Vite development laziness, persistent cache, HMR and correct production assets.
-- [ ] CMS helpers for Sanity, Contentful, Strapi, Directus, WordPress, Storyblok, Prismic, DatoCMS, Shopify and Unsplash.
-- [ ] Additional provider capability/purge/signature/animation matrix.
-- [ ] R2/S3/Bunny/B2/Blob/Supabase publication and static-CDN URL tests.
-- [ ] mdsvex/Markdown, Storybook, Tailwind and monorepo guidance/examples.
-- [ ] PWA/service-worker caching recipe.
+- [x] Actual static/node Kit builds, SSR/no-JS/hydration, Vite dev laziness/HMR/cache/production assets.
+- [x] Cloudflare/Vercel/Netlify adapter wrappers preserve hooks and have type/conformance checks. Auto needs an explicit actual target.
+- [x] Bun standalone service verified; Deno/edge use native providers or fail clearly, not fictitious official adapters.
+- [x] CMS helpers: Sanity, Contentful, Directus, Storyblok, Prismic, DatoCMS, Shopify, Unsplash; Strapi/WordPress variant artifacts.
+- [x] Additional provider capability/URL tests and explicit unsupported transform/signature/purge limits.
+- [x] Publication manifests, dry-run/resume/retries/GC and static CDN URL rewrite tested with an in-memory target; SDK signatures type-checked.
+- [ ] Real account R2/S3/Bunny/B2/Blob/Supabase uploads and paid native deployment remain unverified.
+- [ ] Dedicated streaming/103 transport matrix, mdsvex/Storybook/Tailwind/PWA fixtures: not implemented/tested. Existing hooks do not buffer arbitrary streamed pages.
 
-### Accessibility and SEO
+### Accessibility, SEO and privacy
 
-- [ ] Required alt and explicit decorative empty alt; i18n-compatible values.
-- [ ] Reduced-motion transitions; useful no-JavaScript and cached-image behavior.
-- [ ] No information communicated only by placeholder color.
-- [ ] Open Graph/Twitter/image_src dimensions and actual MIME.
-- [ ] Image sitemap utility or explicitly unmet optional requirement.
-- [ ] Alt/dimensions/loading/format/weight/LCP audit diagnostics.
+- [x] Type-required alt, explicit decorative empty alt, translatable strings, reduced motion and useful SSR/no-JS/cache behavior.
+- [x] Dimensions and real images convey content; placeholder color is supplementary.
+- [x] Open Graph/Twitter/image_src helpers with dimensions/MIME; audit diagnostics for alt/dimensions/loading/formats/weight/LCP review.
+- [x] GPS removal tested; no package telemetry or default client-IP/source-query logging; retention/operator responsibilities documented in SECURITY.md.
+- [ ] Optional image sitemap utility and measured assistive-technology audit are not delivered.
 
-### Privacy and cost
+### Costs and maintenance
 
-- [ ] Metadata/GPS policy enforced by tests, not documentation alone.
-- [ ] No telemetry by default; no client-IP or secret-source-query logging.
-- [ ] RGPD operational guidance, storage/log retention and opt-in observability.
-- [ ] Updated provider costs, free-tier limits and verified cache recipes.
-- [ ] Distributed budget/rate limits and clearly stated enforcement scope.
-- [ ] No included-CDN claim; separate origin/CDN/storage costs documented.
+- [x] Official dated provider costs/free tiers and CDN topology/cache recipes; distinct storage/transform/delivery costs, no included-CDN claim.
+- [x] Worker shared Durable Object guard and Node injectable shared guard; local metrics/admission scopes documented. Neither is a provider spending cap.
+- [x] MIT, contributing/conduct/security, issue/PR templates, Changesets config/changelog and version/deprecation policy prepared.
+- [x] Package files restricted; README/license/bin/worker declarations, tree shaking and ESM type resolution checked.
+- [x] Preview CI enforces a 3,400-byte gzip regression budget; original strict 1,536-byte command remains failing and blocks a 1.0 claim.
+- [ ] GitHub Actions Node LTS × Linux/macOS/Windows matrix prepared but no remote run exists.
+- [ ] Actual repository/bugs/homepage/funding/contact identity requires a real public repository; release validation refuses absent metadata. Funding omitted unless real.
+- [ ] Provenance-enabled release workflow prepared, not executed. Exact upload command in RELEASE.md requires actual trusted-publisher configuration.
+- [ ] npm 0.1.0 next publication and later 1.0: not executed.
 
-### Maintenance and publication
+## Benchmarks and acceptance
 
-- [ ] MIT/governance/security/contributing/conduct/issue/PR templates complete.
-- [ ] Changesets, changelog, semver/compatibility/deprecation policies.
-- [ ] Node LTS × OS CI actually green, framework-aware lint and strict type checks.
-- [ ] Core >90% coverage with meaningful security and cache tests.
-- [ ] Packed consumer, tree-shaking, server leak, publint and arethetypeswrong checks.
-- [ ] Restricted package files, complete real repository/bugs/homepage/funding metadata.
-- [ ] Provenance release workflow and npm pack inspection.
-- [ ] Exact publication commands resolved against actual owner/repository/package metadata.
-- [ ] Initial 0.1.0 next release; 1.0.0 only after all required success criteria.
+See [bench/README.md](bench/README.md) for dataset generation, exact versions, three-run protocols, quality caveats, output counts, RSS and raw samples. Median reduction is 92.0% across six resized synthetic outputs; not a real-photo/perceptual comparison. Runtime cache comparison is Imageway's built-in cache versus bare IPX. Local Cloudflare binding timings are not production-CDN timings.
 
-## Benchmarks and Definition of Done
+## Remaining release work
 
-No measurements exist. Installation <2 minutes, Lighthouse Performance 100 for the controlled example, CLS=0, correctly preloaded LCP, median weight reduction >=60%, build parity with imagetools, TTFB/throughput/RSS comparisons, provider switching without component edits and Worker deployment <10 minutes are open acceptance gates. No numerical performance claim is justified by the research.
+Close ISSUE-0001/0002/0003, validate missing codecs and external platform/account behavior, run the remote OS matrix, configure real release identity/private community contact, and perform an authorized provenance publication before making a complete 1.0 claim. Optional v1.x work includes overlay/preprocessor, sitemap, additional presentation components, video, Storybook/PWA examples and deeper vendor features. The deferred website requires a new explicit direction before reactivation.
 
-Record the dataset/license, source/output bytes, dimensions/quality, failures, OS/CPU, tool/runtime versions, warm/cold protocol, sample counts and raw outputs when benchmarks are run. Native Cloudflare comparisons require real infrastructure and cannot be replaced by a local mocked timing.
+The Mac must not be shut down merely because a preview archive exists: the user tied shutdown to actual completion. Sleep prevention remains session-scoped while this original acceptance work remains unfinished. No permanent system power preferences were changed.
 
-## Known limits and risks
+## Milestone history
 
-The framework ecosystem has moved to Kit 3/Vite 8/TypeScript 6-compatible tooling. This requires current APIs rather than legacy configuration examples. Some exotic codecs and animated AVIF cannot be promised based on Sharp's name alone. Worker offline binding support is a subset. Docker is not installed. No cloud account access, npm organization, GitHub remote, benchmark corpus or publish identity has been assumed. Additional-provider API parity and some exact cache/account cost details remain pending and must be resolved before their milestones are called complete.
-
-## Roadmap and publication
-
-M1–M11 are the roadmap to a verified 0.1.0 next release. 1.0.0 requires all mandatory success criteria and no falsely green checks. Optional v1.x candidates are advanced video encoding, broader experimental decoders, developer overlay, auto-preprocessor, extra presentation components, and additional provider-specific features. If an original mandatory requirement remains unmet, list it as a release blocker, not silently move it to bonuses.
-
-There is no publishable artifact yet, so this phase supplies no pretend “exact publish command.” M11 must provide owner-specific commands after actual pack/type/runtime/provenance verification. No npm publication, remote push or paid deployment occurs in Phase 0.
+The following records describe the evidence at each commit; current measurements and acceptance state above supersede historical values.
 
 ## M1 — verified core (2026-10-20)
 
@@ -231,3 +201,17 @@ Actual benchmarks exposed excess worker startup overhead. Workers are now reused
 Final three-run medians: Imageway build cold 314.9 ms / warm 52.5 ms; imagetools 145.7 / 39.0; enhanced-img 149.6 / 38.9. The build parity target remains unmet (ISSUE-0002). Six resized WebP/AVIF outputs from three original synthetic sources reduced weight by 92.0% median; this is not a perceptual quality comparison or real-photo generalization. Runtime cold/warm TTFB medians 90.1/0.9 ms versus IPX 47.9/23.7 ms; warm numbers compare built-in caching with bare IPX, not encoder speed. Worker local timings are labeled emulator-only. Reproduction and raw evidence: bench/README.md and bench/results/.
 
 Lighthouse 13.5.0 on the package component fixture actually reports **99/100**, CLS **0**, LCP **1.61 s**, TBT **84 ms**, with LCP discovery and unsized-image audits passing. Exact 100 remains open (ISSUE-0003). Full Image entry remains above 1,536 gzip bytes (ISSUE-0001). These are retained acceptance failures; no 1.0 claim is made.
+
+## M11 — Preview packaging and release preparation (2026-10-20)
+
+Prepared Bun/Changesets versioning, initial changelog, Conventional Commit hooks, staged formatting, contributing/conduct/issue/PR documents, a pinned GitHub Actions Node 22/24 × Linux/macOS/Windows matrix, and a manually dispatched provenance release workflow restricted to 0.x previews. No GitHub workflow has actually run: the repository is local with no remote. Real repository metadata is intentionally required by release:metadata; no owner/funding/contact was fabricated.
+
+Fixed provider declaration inference so safe subpaths do not depend on the Svelte component entry. Added NodeNext arbitrary-extension declaration aliases alongside svelte-package’s bundler declarations. publint and ATTW esm-only pass across all 31 export entries; internal type resolution errors are fixed rather than disabled. The unsupported Node10/CommonJS paths are explicitly excluded by the ESM profile. Bun pack and npm pack dry-run inspect 148 restricted package files, including README/MIT/changelog, executable CLI, components and compiled Sharp workers; no extras/site or local state ships.
+
+Actual final checks: 208 unit/security tests on Node 24.22.0 and Node 22.23.3; strict types including bench/scripts, ESLint, package build, Svelte diagnostics and Prettier pass. The package fixture builds client and SSR output. Final E2E passes **10 Chromium/WebKit macOS + 5 Firefox Linux** cases, including real Worker and Docker HTTP. Standalone Node/Bun/Worker/Docker smoke checks validate decoded WebP 640×427, HIT, ETag/304/HEAD, policy/admin denial and protected purge/metrics. Docker was rebuilt with a standalone frozen production lock and inspected healthy, node user, read-only root, all capabilities dropped and no-new-privileges.
+
+The final tarball was installed independently into a new minimal SvelteKit 3 project. Actual Node 24 build, CLI init, strict Svelte check, browser decode/preload and fetched WebP **640×427** pass in **19.2 seconds**, with a warm local Bun registry/cache. Browser naturalWidth is density-corrected; encoded pixels are independently decoded. This is not a network-cold installation guarantee. A real CLI watch rewrite produces a new hash while retaining the source.
+
+The preview regression budget passes at **3,057 gzip bytes** with a 3,400 ceiling. The original strict command was also actually run and **fails** at its 1,536-byte target. Build parity and exact Lighthouse 100 likewise remain open. The three issues and the current checklist retain these blockers. RELEASE.md contains exact audit/upload commands and the required real identity/OIDC setup. No npm upload, provenance attestation, live storage upload or paid deployment was performed; 1.0 is not ready.
+
+Validation artifacts: docs/validation/m11-*. Final package and a readable copy of this report are also placed in the chat outputs folder. The site stays preserved and inactive. Sleep prevention is retained because the original full acceptance work remains unfinished; shutdown has not been triggered.

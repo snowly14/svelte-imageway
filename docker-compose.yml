@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: packages/edge/Dockerfile
     environment:
-      IMAGEWAY_PUBLIC_SOURCES: "true"
+      IMAGEWAY_PUBLIC_SOURCES: 'true'
     volumes:
       - ./examples/node/static:/sources:ro
       - imageway-cache:/cache
@@ -20,8 +20,8 @@ services:
     build:
       context: .
       dockerfile: packages/edge/Dockerfile.proxy
-    user: "1000:1000"
-    ports: ["127.0.0.1:8788:8080"]
+    user: '1000:1000'
+    ports: ['127.0.0.1:8788:8080']
     volumes:
       - ./packages/edge/Caddyfile:/etc/caddy/Caddyfile:ro
     read_only: true

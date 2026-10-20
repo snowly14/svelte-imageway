@@ -1,0 +1,24 @@
+$ playwright test "--project=chromium" "--project=webkit"
+
+Running 10 tests using 2 workers
+
+(node:10477) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10478) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 [chromium] › tests/e2e/services.spec.ts:7:3 › worker: real image format/cache/security through HTTP (288ms)
+  ✓   3 [chromium] › tests/e2e/services.spec.ts:7:3 › docker: real image format/cache/security through HTTP (63ms)
+  ✓   1 [chromium] › tests/e2e/components.spec.ts:3:1 › native loading, matching preload, dimensions, art direction, events, error and reduced motion (248ms)
+(node:10539) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   4 [chromium] › tests/e2e/components.spec.ts:35:1 › served images have no layout shift and cached navigation remains visible (585ms)
+  ✓   6 [chromium] › tests/e2e/components.spec.ts:60:1 › SSR renders useful images and preloads without JavaScript (71ms)
+(node:10557) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   7 [webkit] › tests/e2e/services.spec.ts:7:3 › worker: real image format/cache/security through HTTP (61ms)
+  ✓   8 [webkit] › tests/e2e/services.spec.ts:7:3 › docker: real image format/cache/security through HTTP (37ms)
+  ✓   5 [webkit] › tests/e2e/components.spec.ts:3:1 › native loading, matching preload, dimensions, art direction, events, error and reduced motion (886ms)
+  ✓   9 [webkit] › tests/e2e/components.spec.ts:35:1 › served images have no layout shift and cached navigation remains visible (841ms)
+  ✓  10 [webkit] › tests/e2e/components.spec.ts:60:1 › SSR renders useful images and preloads without JavaScript (211ms)
+
+  10 passed (7.3s)

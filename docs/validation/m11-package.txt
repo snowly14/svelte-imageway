@@ -1,0 +1,1207 @@
+$ bun scripts/package-check.ts
+Running publint v0.3.25 for svelte-imageway...
+Packing files with `bun pack`...
+Linting...
+All good!
+bun pack v1.4.3 (c6da4a4d3)
+
+packed 5.23KB package.json
+packed 0.68KB CHANGELOG.md
+packed 1.1KB LICENSE
+packed 9.61KB README.md
+packed 358B dist/background.d.ts
+packed 1.17KB dist/background.js
+packed 278B dist/cli/audit.d.ts
+packed 3.59KB dist/cli/audit.js
+packed 389B dist/cli/files.d.ts
+packed 1.39KB dist/cli/files.js
+packed 182B dist/cli/index.d.ts
+packed 10.49KB dist/cli/index.js
+packed 317B dist/cli/init.d.ts
+packed 3.89KB dist/cli/init.js
+packed 303B dist/cli/migrate.d.ts
+packed 6.50KB dist/cli/migrate.js
+packed 0.52KB dist/cli/optimize.d.ts
+packed 2.35KB dist/cli/optimize.js
+packed 56B dist/cli/templates.d.ts
+packed 4.91KB dist/cli/templates.js
+packed 1.0KB dist/cms/index.d.ts
+packed 4.85KB dist/cms/index.js
+packed 494B dist/component-types.d.ts
+packed 11B dist/component-types.js
+packed 0.57KB dist/components/BackgroundImage.d.svelte.ts
+packed 1.14KB dist/components/BackgroundImage.svelte
+packed 0.57KB dist/components/BackgroundImage.svelte.d.ts
+packed 191B dist/components/Image.d.svelte.ts
+packed 2.96KB dist/components/Image.svelte
+packed 191B dist/components/Image.svelte.d.ts
+packed 370B dist/components/ImageConfigProvider.d.svelte.ts
+packed 0.60KB dist/components/ImageConfigProvider.svelte
+packed 370B dist/components/ImageConfigProvider.svelte.d.ts
+packed 368B dist/components/ImageMeta.d.svelte.ts
+packed 1.32KB dist/components/ImageMeta.svelte
+packed 368B dist/components/ImageMeta.svelte.d.ts
+packed 195B dist/components/Picture.d.svelte.ts
+packed 184B dist/components/Picture.svelte
+packed 195B dist/components/Picture.svelte.d.ts
+packed 383B dist/context.d.ts
+packed 494B dist/context.js
+packed 370B dist/core/accept.d.ts
+packed 1.53KB dist/core/accept.js
+packed 351B dist/core/config.d.ts
+packed 4.46KB dist/core/config.js
+packed 448B dist/core/errors.d.ts
+packed 0.54KB dist/core/errors.js
+packed 171B dist/core/index.d.ts
+packed 171B dist/core/index.js
+packed 163B dist/core/raster.d.ts
+packed 4.0KB dist/core/raster.js
+packed 0.67KB dist/core/signing.d.ts
+packed 2.19KB dist/core/signing.js
+packed 3.0KB dist/core/types.d.ts
+packed 11B dist/core/types.js
+packed 1.0KB dist/core/url.d.ts
+packed 7.60KB dist/core/url.js
+packed 500B dist/edge/budget.d.ts
+packed 3.67KB dist/edge/budget.js
+packed 499B dist/edge/cf-image.d.ts
+packed 2.20KB dist/edge/cf-image.js
+packed 150B dist/edge/index.d.ts
+packed 150B dist/edge/index.js
+packed 2.89KB dist/edge/types.d.ts
+packed 11B dist/edge/types.js
+packed 344B dist/edge/worker.d.ts
+packed 19.55KB dist/edge/worker.js
+packed 0.52KB dist/index.d.ts
+packed 461B dist/index.js
+packed 1.1KB dist/kit/adapter.d.ts
+packed 3.67KB dist/kit/adapter.js
+packed 1.58KB dist/kit/handler.d.ts
+packed 8.26KB dist/kit/handler.js
+packed 60B dist/kit/index.d.ts
+packed 60B dist/kit/index.js
+packed 1.23KB dist/node/cache.d.ts
+packed 4.39KB dist/node/cache.js
+packed 212B dist/node/index.d.ts
+packed 212B dist/node/index.js
+packed 0.97KB dist/node/pipeline.d.ts
+packed 6.68KB dist/node/pipeline.js
+packed 1.0KB dist/node/pool.d.ts
+packed 6.0KB dist/node/pool.js
+packed 0.94KB dist/node/processor.d.ts
+packed 3.15KB dist/node/processor.js
+packed 11B dist/node/sharp-worker.d.ts
+packed 0.71KB dist/node/sharp-worker.js
+packed 1.26KB dist/node/source.d.ts
+packed 7.21KB dist/node/source.js
+packed 162B dist/node/svg.d.ts
+packed 2.55KB dist/node/svg.js
+packed 1.44KB dist/props.d.ts
+packed 5.72KB dist/props.js
+packed 165B dist/providers/bunny.d.ts
+packed 0.55KB dist/providers/bunny.js
+packed 347B dist/providers/cloudflare.d.ts
+packed 2.64KB dist/providers/cloudflare.js
+packed 264B dist/providers/cloudfront.d.ts
+packed 292B dist/providers/cloudfront.js
+packed 222B dist/providers/cloudinary.d.ts
+packed 1.33KB dist/providers/cloudinary.js
+packed 39B dist/providers/cms.d.ts
+packed 39B dist/providers/cms.js
+packed 237B dist/providers/edge.d.ts
+packed 0.87KB dist/providers/edge.js
+packed 0.95KB dist/providers/fallback.d.ts
+packed 2.60KB dist/providers/fallback.js
+packed 108B dist/providers/fastly.d.ts
+packed 0.57KB dist/providers/fastly.js
+packed 310B dist/providers/generic.d.ts
+packed 0.71KB dist/providers/generic.js
+packed 110B dist/providers/imagekit.d.ts
+packed 0.71KB dist/providers/imagekit.js
+packed 213B dist/providers/imgix.d.ts
+packed 1.14KB dist/providers/imgix.js
+packed 256B dist/providers/imgproxy.d.ts
+packed 0.94KB dist/providers/imgproxy.js
+packed 107B dist/providers/ipx.d.ts
+packed 0.70KB dist/providers/ipx.js
+packed 264B dist/providers/local.d.ts
+packed 290B dist/providers/local.js
+packed 198B dist/providers/netlify.d.ts
+packed 0.96KB dist/providers/netlify.js
+packed 0.97KB dist/providers/shared.d.ts
+packed 2.65KB dist/providers/shared.js
+packed 234B dist/providers/supabase.d.ts
+packed 1.1KB dist/providers/supabase.js
+packed 112B dist/providers/uploadcare.d.ts
+packed 0.77KB dist/providers/uploadcare.js
+packed 0.57KB dist/providers/url-tools.d.ts
+packed 1.31KB dist/providers/url-tools.js
+packed 209B dist/providers/vercel.d.ts
+packed 0.79KB dist/providers/vercel.js
+packed 1.84KB dist/publish/index.d.ts
+packed 4.98KB dist/publish/index.js
+packed 1.16KB dist/publish/targets.d.ts
+packed 7.20KB dist/publish/targets.js
+packed 396B dist/types.d.ts
+packed 157B dist/version.d.ts
+packed 217B dist/version.js
+packed 467B dist/vite/directives.d.ts
+packed 2.58KB dist/vite/directives.js
+packed 0.74KB dist/vite/index.d.ts
+packed 13.14KB dist/vite/index.js
+packed 337B dist/vite/placeholder.d.ts
+packed 2.0KB dist/vite/placeholder.js
+packed 255B dist/vite/typegen.d.ts
+packed 2.18KB dist/vite/typegen.js
+
+/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-0.1.0.tgz
+
+Total files: 148
+Shasum: 5881a7b794d1d8af8e8413416c7025fda61744c0
+Integrity: sha512-yXFAAddhqL7ww[...]m34auC7uA+Ovw==
+Unpacked size: 250.91KB
+Packed size: 70.81KB
+
+svelte-imageway v0.1.0
+
+ (ignoring resolutions: 'node10', 'node16-cjs')
+
+(ignored per resolution) 💀 Import failed to resolve to type declarations or JavaScript files. https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/docs/problems/NoResolution.md
+
+(ignored per resolution) ⚠️ A require call resolved to an ESM JavaScript file, which is an error in Node and some bundlers. CommonJS consumers will need to use a dynamic import. https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/docs/problems/CJSResolvesToESM.md
+
+
+"svelte-imageway"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/core"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/node"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/vite"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/types"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/local"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/edge"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/generic"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/cloudflare"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/vercel"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/netlify"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/kit"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/props"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/config"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/edge"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/bunny"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/imgix"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/cloudinary"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/imagekit"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/imgproxy"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/ipx"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/supabase"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/fastly"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/cloudfront"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/uploadcare"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/cms"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/cms"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/providers/fallback"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/publish"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/publish/targets"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+
+"svelte-imageway/cli"
+
+node16 (from ESM): 🟢 (ESM)
+bundler: 🟢
+node10: (ignored) 💀 Resolution failed
+node16 (from CJS): (ignored) ⚠️ ESM (dynamic import only)
+
+***********************************
+[
+  {
+    "id": "svelte-imageway@0.1.0",
+    "name": "svelte-imageway",
+    "version": "0.1.0",
+    "size": 75623,
+    "unpackedSize": 250911,
+    "shasum": "59bcf37c3fcc038ce6e6eabccda0cb92dd3c7060",
+    "integrity": "sha512-FpRwm9XvQCBHejS6bKORvBBpCydjrbZ1eIB0O90Ws2+O134WFyOmTWl25zHV+OMQaVEXvEiSjW7RJ30e43pFpA==",
+    "filename": "svelte-imageway-0.1.0.tgz",
+    "files": [
+      {
+        "path": "CHANGELOG.md",
+        "size": 678,
+        "mode": 420
+      },
+      {
+        "path": "LICENSE",
+        "size": 1085,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 9610,
+        "mode": 420
+      },
+      {
+        "path": "dist/background.d.ts",
+        "size": 358,
+        "mode": 420
+      },
+      {
+        "path": "dist/background.js",
+        "size": 1174,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/audit.d.ts",
+        "size": 278,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/audit.js",
+        "size": 3586,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/files.d.ts",
+        "size": 389,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/files.js",
+        "size": 1394,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/index.d.ts",
+        "size": 182,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/index.js",
+        "size": 10490,
+        "mode": 493
+      },
+      {
+        "path": "dist/cli/init.d.ts",
+        "size": 317,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/init.js",
+        "size": 3889,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/migrate.d.ts",
+        "size": 303,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/migrate.js",
+        "size": 6498,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/optimize.d.ts",
+        "size": 522,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/optimize.js",
+        "size": 2352,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/templates.d.ts",
+        "size": 56,
+        "mode": 420
+      },
+      {
+        "path": "dist/cli/templates.js",
+        "size": 4914,
+        "mode": 420
+      },
+      {
+        "path": "dist/cms/index.d.ts",
+        "size": 1012,
+        "mode": 420
+      },
+      {
+        "path": "dist/cms/index.js",
+        "size": 4854,
+        "mode": 420
+      },
+      {
+        "path": "dist/component-types.d.ts",
+        "size": 494,
+        "mode": 420
+      },
+      {
+        "path": "dist/component-types.js",
+        "size": 11,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/BackgroundImage.d.svelte.ts",
+        "size": 570,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/BackgroundImage.svelte",
+        "size": 1136,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/BackgroundImage.svelte.d.ts",
+        "size": 570,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/Image.d.svelte.ts",
+        "size": 191,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/Image.svelte",
+        "size": 2958,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/Image.svelte.d.ts",
+        "size": 191,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/ImageConfigProvider.d.svelte.ts",
+        "size": 370,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/ImageConfigProvider.svelte",
+        "size": 598,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/ImageConfigProvider.svelte.d.ts",
+        "size": 370,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/ImageMeta.d.svelte.ts",
+        "size": 368,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/ImageMeta.svelte",
+        "size": 1320,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/ImageMeta.svelte.d.ts",
+        "size": 368,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/Picture.d.svelte.ts",
+        "size": 195,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/Picture.svelte",
+        "size": 184,
+        "mode": 420
+      },
+      {
+        "path": "dist/components/Picture.svelte.d.ts",
+        "size": 195,
+        "mode": 420
+      },
+      {
+        "path": "dist/context.d.ts",
+        "size": 383,
+        "mode": 420
+      },
+      {
+        "path": "dist/context.js",
+        "size": 494,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/accept.d.ts",
+        "size": 370,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/accept.js",
+        "size": 1526,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/config.d.ts",
+        "size": 351,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/config.js",
+        "size": 4463,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/errors.d.ts",
+        "size": 448,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/errors.js",
+        "size": 535,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/index.d.ts",
+        "size": 171,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/index.js",
+        "size": 171,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/raster.d.ts",
+        "size": 163,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/raster.js",
+        "size": 4018,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/signing.d.ts",
+        "size": 670,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/signing.js",
+        "size": 2193,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/types.d.ts",
+        "size": 3022,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/types.js",
+        "size": 11,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/url.d.ts",
+        "size": 1037,
+        "mode": 420
+      },
+      {
+        "path": "dist/core/url.js",
+        "size": 7599,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/budget.d.ts",
+        "size": 500,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/budget.js",
+        "size": 3669,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/cf-image.d.ts",
+        "size": 499,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/cf-image.js",
+        "size": 2197,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/index.d.ts",
+        "size": 150,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/index.js",
+        "size": 150,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/types.d.ts",
+        "size": 2890,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/types.js",
+        "size": 11,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/worker.d.ts",
+        "size": 344,
+        "mode": 420
+      },
+      {
+        "path": "dist/edge/worker.js",
+        "size": 19545,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.d.ts",
+        "size": 517,
+        "mode": 420
+      },
+      {
+        "path": "dist/index.js",
+        "size": 461,
+        "mode": 420
+      },
+      {
+        "path": "dist/kit/adapter.d.ts",
+        "size": 1056,
+        "mode": 420
+      },
+      {
+        "path": "dist/kit/adapter.js",
+        "size": 3667,
+        "mode": 420
+      },
+      {
+        "path": "dist/kit/handler.d.ts",
+        "size": 1583,
+        "mode": 420
+      },
+      {
+        "path": "dist/kit/handler.js",
+        "size": 8257,
+        "mode": 420
+      },
+      {
+        "path": "dist/kit/index.d.ts",
+        "size": 60,
+        "mode": 420
+      },
+      {
+        "path": "dist/kit/index.js",
+        "size": 60,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/cache.d.ts",
+        "size": 1232,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/cache.js",
+        "size": 4393,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/index.d.ts",
+        "size": 212,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/index.js",
+        "size": 212,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/pipeline.d.ts",
+        "size": 975,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/pipeline.js",
+        "size": 6684,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/pool.d.ts",
+        "size": 1009,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/pool.js",
+        "size": 6048,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/processor.d.ts",
+        "size": 941,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/processor.js",
+        "size": 3148,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/sharp-worker.d.ts",
+        "size": 11,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/sharp-worker.js",
+        "size": 711,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/source.d.ts",
+        "size": 1265,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/source.js",
+        "size": 7215,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/svg.d.ts",
+        "size": 162,
+        "mode": 420
+      },
+      {
+        "path": "dist/node/svg.js",
+        "size": 2547,
+        "mode": 420
+      },
+      {
+        "path": "dist/props.d.ts",
+        "size": 1440,
+        "mode": 420
+      },
+      {
+        "path": "dist/props.js",
+        "size": 5720,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/bunny.d.ts",
+        "size": 165,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/bunny.js",
+        "size": 554,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/cloudflare.d.ts",
+        "size": 347,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/cloudflare.js",
+        "size": 2642,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/cloudfront.d.ts",
+        "size": 264,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/cloudfront.js",
+        "size": 292,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/cloudinary.d.ts",
+        "size": 222,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/cloudinary.js",
+        "size": 1326,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/cms.d.ts",
+        "size": 39,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/cms.js",
+        "size": 39,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/edge.d.ts",
+        "size": 237,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/edge.js",
+        "size": 867,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/fallback.d.ts",
+        "size": 946,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/fallback.js",
+        "size": 2599,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/fastly.d.ts",
+        "size": 108,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/fastly.js",
+        "size": 575,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/generic.d.ts",
+        "size": 310,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/generic.js",
+        "size": 712,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/imagekit.d.ts",
+        "size": 110,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/imagekit.js",
+        "size": 715,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/imgix.d.ts",
+        "size": 213,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/imgix.js",
+        "size": 1142,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/imgproxy.d.ts",
+        "size": 256,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/imgproxy.js",
+        "size": 945,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/ipx.d.ts",
+        "size": 107,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/ipx.js",
+        "size": 701,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/local.d.ts",
+        "size": 264,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/local.js",
+        "size": 290,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/netlify.d.ts",
+        "size": 198,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/netlify.js",
+        "size": 965,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/shared.d.ts",
+        "size": 966,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/shared.js",
+        "size": 2646,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/supabase.d.ts",
+        "size": 234,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/supabase.js",
+        "size": 1054,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/uploadcare.d.ts",
+        "size": 112,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/uploadcare.js",
+        "size": 768,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/url-tools.d.ts",
+        "size": 572,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/url-tools.js",
+        "size": 1309,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/vercel.d.ts",
+        "size": 209,
+        "mode": 420
+      },
+      {
+        "path": "dist/providers/vercel.js",
+        "size": 789,
+        "mode": 420
+      },
+      {
+        "path": "dist/publish/index.d.ts",
+        "size": 1836,
+        "mode": 420
+      },
+      {
+        "path": "dist/publish/index.js",
+        "size": 4984,
+        "mode": 420
+      },
+      {
+        "path": "dist/publish/targets.d.ts",
+        "size": 1161,
+        "mode": 420
+      },
+      {
+        "path": "dist/publish/targets.js",
+        "size": 7195,
+        "mode": 420
+      },
+      {
+        "path": "dist/types.d.ts",
+        "size": 396,
+        "mode": 420
+      },
+      {
+        "path": "dist/version.d.ts",
+        "size": 157,
+        "mode": 420
+      },
+      {
+        "path": "dist/version.js",
+        "size": 217,
+        "mode": 420
+      },
+      {
+        "path": "dist/vite/directives.d.ts",
+        "size": 467,
+        "mode": 420
+      },
+      {
+        "path": "dist/vite/directives.js",
+        "size": 2582,
+        "mode": 420
+      },
+      {
+        "path": "dist/vite/index.d.ts",
+        "size": 739,
+        "mode": 420
+      },
+      {
+        "path": "dist/vite/index.js",
+        "size": 13145,
+        "mode": 420
+      },
+      {
+        "path": "dist/vite/placeholder.d.ts",
+        "size": 337,
+        "mode": 420
+      },
+      {
+        "path": "dist/vite/placeholder.js",
+        "size": 2022,
+        "mode": 420
+      },
+      {
+        "path": "dist/vite/typegen.d.ts",
+        "size": 255,
+        "mode": 420
+      },
+      {
+        "path": "dist/vite/typegen.js",
+        "size": 2183,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 5230,
+        "mode": 420
+      }
+    ],
+    "entryCount": 148,
+    "bundled": []
+  }
+]

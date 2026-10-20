@@ -16,7 +16,7 @@ await build({
       ? [imageway()]
       : engine === 'imagetools'
         ? [imagetools({ cache: { dir: join(root, 'node_modules/.cache/imagetools') } })]
-        : enhancedImages()),
+        : await enhancedImages()),
     svelte(),
   ],
   build: { outDir: 'dist', minify: true },

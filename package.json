@@ -8,7 +8,7 @@
     "examples/*"
   ],
   "scripts": {
-    "build": "bun scripts/version.ts && bun scripts/templates.ts && bun run --filter svelte-imageway build",
+    "build": "bun scripts/version.ts && bun scripts/templates.ts && bun run --filter svelte-imageway build && bun scripts/package-finalize.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -20,11 +20,23 @@
     "test:e2e": "playwright test",
     "build:components": "bun run --filter @imageway/example-components build && bun run --filter @imageway/example-components build:ssr && bun scripts/render-example.ts",
     "bench:build": "bun bench/run.ts",
-    "bench:runtime": "bun bench/runtime.ts"
+    "bench:runtime": "bun bench/runtime.ts",
+    "format:check": "prettier --check .",
+    "changeset": "changeset",
+    "version:packages": "changeset version",
+    "package:check": "bun scripts/package-check.ts",
+    "check:budget": "bun scripts/bundle-budget.ts --budget=3400",
+    "check:acceptance-size": "bun scripts/bundle-budget.ts --budget=1536",
+    "prepare": "husky",
+    "release:metadata": "bun scripts/release-metadata.ts"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.5",
     "@aws-sdk/client-s3": "3.1153.0",
+    "@changesets/cli": "3.0.3",
     "@cloudflare/workers-types": "^5.20261019.1",
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
     "@eslint/js": "9.39.1",
     "@playwright/test": "1.64.1",
     "@supabase/storage-js": "2.118.0",
@@ -44,11 +56,14 @@
     "eslint": "9.39.1",
     "eslint-plugin-svelte": "^3.0.0",
     "globals": "^16.0.0",
+    "husky": "9.1.7",
     "ipaddr.js": "^2.2.0",
     "ipx": "4.0.0",
     "lighthouse": "13.5.0",
+    "lint-staged": "17.6.0",
     "prettier": "^3.0.0",
     "prettier-plugin-svelte": "^3.0.0",
+    "publint": "0.3.25",
     "saxes": "6.0.0",
     "sharp": "0.35.5",
     "svelte": "5.57.2",
@@ -61,5 +76,8 @@
     "vite-imagetools": "12.0.1",
     "vitest": "5.0.5",
     "wrangler": "4.151.2"
+  },
+  "lint-staged": {
+    "*.{ts,js,mjs,svelte,json,md,yml,yaml,css}": "prettier --write"
   }
 }

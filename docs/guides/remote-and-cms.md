@@ -4,6 +4,7 @@
 <script lang="ts">
   import { Image } from 'svelte-imageway';
 </script>
+
 <Image src="photos/trail.jpg" width={1200} height={800} alt="A mountain trail" />
 ```
 

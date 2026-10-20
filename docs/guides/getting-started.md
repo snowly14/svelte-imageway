@@ -20,6 +20,7 @@ export default defineConfig({ plugins: [imageway(), sveltekit()] });
   import { Image } from 'svelte-imageway';
   import hero from './hero.jpg?img';
 </script>
+
 <Image src={hero} alt="A trail through the mountains" priority sizes="100vw" />
 ```
 
@@ -31,8 +32,12 @@ export default defineConfig({ plugins: [imageway(), sveltekit()] });
 // svelte-imageway.config.ts
 import { defineConfig } from 'svelte-imageway/config';
 import { cloudinary } from 'svelte-imageway/providers/cloudinary';
-export default defineConfig({ provider: cloudinary({ cloudName: 'your-public-cloud' }),
-  widths: [320,640,960,1280,1920], qualities: [50,65,75,85,95], quality: 75 });
+export default defineConfig({
+  provider: cloudinary({ cloudName: 'your-public-cloud' }),
+  widths: [320, 640, 960, 1280, 1920],
+  qualities: [50, 65, 75, 85, 95],
+  quality: 75,
+});
 ```
 
 Import that object into Vite and pass `imageway({config})`. Runtime hooks may import the same object and pass it as `config`; source roots, cache directories, signing environment variable names and publication targets are explicit server/build options. They are excluded from the browser-safe virtual configuration. This package deliberately does not execute an arbitrary config file automatically inside the browser or CLI.

@@ -1,0 +1,21 @@
+$ bun scripts/bundle-budget.ts --budget=1536
+{
+  "entry": "Image.svelte plus all Imageway helpers",
+  "runtime": "Svelte peer externalized",
+  "rawBytes": 7241,
+  "gzipBytes": 3057,
+  "gzipLevel": 9,
+  "targetBytes": 1536
+}
+38 |
+39 | const limit = process.argv.find((v) => v.startsWith('--budget='))?.split('=')[1];
+40 | if (limit && (!Number.isSafeInteger(Number(limit)) || Number(limit) <= 0))
+41 |   throw new Error('Invalid size budget.');
+42 | if (limit && gzip > Number(limit))
+43 |   throw new Error(`Image entry is ${gzip} gzip bytes; budget is ${limit}.`);
+                 ^
+error: Image entry is 3057 gzip bytes; budget is 1536.
+      at /Users/gastonhardy/Developer/projects/open-source/svelte-imageway/scripts/bundle-budget.ts:43:13
+
+Bun v1.4.3 (macOS arm64)
+error: script "check:acceptance-size" exited with code 1

@@ -8,4 +8,6 @@ declare module '*&img' {
   export default image;
 }
 
-declare module 'virtual:imageway/config' { export const config: import('./props.js').ImageContextConfig; }
+declare module 'virtual:imageway/config' {
+  export const config: import('./props.js').ImageContextConfig;
+}

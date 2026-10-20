@@ -5,11 +5,21 @@ Imageway uploads only its own content-addressed `imageway/<sha256>.<format>` ass
 ```ts
 import { imageway } from 'svelte-imageway/vite';
 import { r2 } from 'svelte-imageway/publish/targets';
-const target = await r2({ accountId: process.env.CF_ACCOUNT_ID!, bucket: 'public-images',
-  accessKeyEnv: 'R2_ACCESS_KEY_ID', secretKeyEnv: 'R2_SECRET_ACCESS_KEY' });
+const target = await r2({
+  accountId: process.env.CF_ACCOUNT_ID!,
+  bucket: 'public-images',
+  accessKeyEnv: 'R2_ACCESS_KEY_ID',
+  secretKeyEnv: 'R2_SECRET_ACCESS_KEY',
+});
 // In Vite plugins, before sveltekit():
-imageway({ publish: { target, publicBase: 'https://images.example.com',
-  manifestPath: '.imageway/image-manifest.json', concurrency: 4 } });
+imageway({
+  publish: {
+    target,
+    publicBase: 'https://images.example.com',
+    manifestPath: '.imageway/image-manifest.json',
+    concurrency: 4,
+  },
+});
 ```
 
 Install the optional server SDK: `bun add -d @aws-sdk/client-s3` for S3/R2/B2, `@vercel/blob` for Blob or `@supabase/storage-js` for Supabase. Factory imports are server/build-only. Bunny uses its official HTTP Storage API. SDK methods and response fields are checked against the installed published types. No SDK/credential is serialized into virtual browser configuration.

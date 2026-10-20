@@ -79,33 +79,33 @@ Fallback/circuit breaking belongs in the runtime transport, since a pure URL bui
 
 `imageAdapter()` wraps a supplied current SvelteKit adapter, preserving its interface. Detect recognized adapters using documented metadata/capabilities where available; provide an explicit target override for auto/unknown adapters. Never rely on names of nonexistent packages or guess an edge runtime from a hostname.
 
-| Target | Proposed behavior |
-| --- | --- |
-| static | Build variants and optional publication; no dynamic Sharp endpoint |
-| Node / verified Bun | Sharp runtime with bounded memory/disk cache |
-| Vercel | Emit supported platform image configuration; delegate to native image service |
-| Netlify | Use Image CDN and validated remote patterns |
-| Cloudflare | Binding/transformation provider; no native Sharp |
+| Target                | Proposed behavior                                                                                            |
+| --------------------- | ------------------------------------------------------------------------------------------------------------ |
+| static                | Build variants and optional publication; no dynamic Sharp endpoint                                           |
+| Node / verified Bun   | Sharp runtime with bounded memory/disk cache                                                                 |
+| Vercel                | Emit supported platform image configuration; delegate to native image service                                |
+| Netlify               | Use Image CDN and validated remote patterns                                                                  |
+| Cloudflare            | Binding/transformation provider; no native Sharp                                                             |
 | auto / unknown / Deno | Detect supported configuration or require an explicit target; actionable failure for impossible combinations |
 
 Ordinary Link headers and head preload are portable targets. SvelteKit streaming cannot guarantee discovery before headers flush; track preload hints per request or declare them earlier. 103 Early Hints remain platform-dependent and require specific evidence. Do not promise to add them through a generic Fetch Response.
 
 ## Dependency decisions
 
-| Dependency | Purpose and justification | Placement |
-| --- | --- | --- |
-| Svelte | Required component peer, ^5 baseline | Peer |
-| SvelteKit/Vite/Svelte plugin | Current integration contracts; examples and build tooling | Optional integration peers/dev |
-| @sveltejs/package / TypeScript 6 | Supported package output and strict declarations; TS7 peer conflict documented | Development |
-| Sharp | Existing high-quality codec/pixel pipeline; no homegrown codecs | Optional server/build peer, dev fixture dependency |
-| SVGO | Optimizes approved SVG; cannot supply security guarantees | Server/build only, when introduced |
-| thumbhash / blurhash | Optional placeholder algorithms if they meet no-JS and bundle requirements | Server/build optional |
-| Vitest / coverage / Playwright | Unit/type/SSR/browser/security regression evidence | Development; versions aligned |
-| Wrangler / Worker types | Actual local Worker runtime and bindings | Edge development only |
-| AWS S3 SDK | Signing, retries and interoperability justify a scoped SDK when S3 targets are built | Optional publish-only dependency in M7 |
-| ESLint / Svelte plugin / Prettier | Framework-aware lint and formatting | Development |
-| Changesets / commitlint / Husky / lint-staged | Release history, commit conventions and local changed-file checks | Development; CI remains authoritative |
-| OpenTelemetry API | Optional observability hooks without mandatory exporters | Optional server integration only |
+| Dependency                                    | Purpose and justification                                                            | Placement                                          |
+| --------------------------------------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------- |
+| Svelte                                        | Required component peer, ^5 baseline                                                 | Peer                                               |
+| SvelteKit/Vite/Svelte plugin                  | Current integration contracts; examples and build tooling                            | Optional integration peers/dev                     |
+| @sveltejs/package / TypeScript 6              | Supported package output and strict declarations; TS7 peer conflict documented       | Development                                        |
+| Sharp                                         | Existing high-quality codec/pixel pipeline; no homegrown codecs                      | Optional server/build peer, dev fixture dependency |
+| SVGO                                          | Optimizes approved SVG; cannot supply security guarantees                            | Server/build only, when introduced                 |
+| thumbhash / blurhash                          | Optional placeholder algorithms if they meet no-JS and bundle requirements           | Server/build optional                              |
+| Vitest / coverage / Playwright                | Unit/type/SSR/browser/security regression evidence                                   | Development; versions aligned                      |
+| Wrangler / Worker types                       | Actual local Worker runtime and bindings                                             | Edge development only                              |
+| AWS S3 SDK                                    | Signing, retries and interoperability justify a scoped SDK when S3 targets are built | Optional publish-only dependency in M7             |
+| ESLint / Svelte plugin / Prettier             | Framework-aware lint and formatting                                                  | Development                                        |
+| Changesets / commitlint / Husky / lint-staged | Release history, commit conventions and local changed-file checks                    | Development; CI remains authoritative              |
+| OpenTelemetry API                             | Optional observability hooks without mandatory exporters                             | Optional server integration only                   |
 
 Use native URL, Web Crypto, fetch, filesystem primitives and small explicit validation for the narrow contract. Generate machine schemas and check them against the validator; do not add a large runtime schema framework by default. If security requires a well-maintained IP parser or sanitization library, record its evidence and justification before addition. Do not implement a fragile ad-hoc IP regular expression.
 

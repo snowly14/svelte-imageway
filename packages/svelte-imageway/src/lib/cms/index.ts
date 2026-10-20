@@ -1,4 +1,4 @@
-import { provider, dimensions } from '../providers/shared.js';
+import { provider, dimensions, type SerializableProvider } from '../providers/shared.js';
 import { asset, basic, centered, query, format } from '../providers/url-tools.js';
 import { imgix } from '../providers/imgix.js';
 import { invariant } from '../core/errors.js';
@@ -28,7 +28,7 @@ export function recognizeCms(source: string): CmsKind | undefined {
   if (h === 'images.unsplash.com') return 'unsplash';
 }
 /** Public unsigned CMS URLs. Preserve attribution/crop query data; signed URLs need a server signer. */
-export function cms(options: { kind: CmsKind; base: string }) {
+export function cms(options: { kind: CmsKind; base: string }): SerializableProvider {
   const { kind, base } = options;
   invariant(
     !['strapi', 'wordpress'].includes(kind),

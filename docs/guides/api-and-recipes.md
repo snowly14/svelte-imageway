@@ -23,9 +23,17 @@ Public TypeScript declarations are the exact reference for option shapes. The ve
 ```ts
 const provider = {
   name: 'my-cdn',
-  capabilities: {formats:['webp','jpeg'],fit:['inside'],smartCrop:false,animation:false,signature:false},
+  capabilities: {
+    formats: ['webp', 'jpeg'],
+    fit: ['inside'],
+    smartCrop: false,
+    animation: false,
+    signature: false,
+  },
   validate() {},
-  buildUrl({key,w,q,format}) { return `https://images.example/${encodeURIComponent(key!)}?w=${w}&q=${q}&format=${format}`; }
+  buildUrl({ key, w, q, format }) {
+    return `https://images.example/${encodeURIComponent(key!)}?w=${w}&q=${q}&format=${format}`;
+  },
 };
 ```
 

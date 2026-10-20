@@ -3,9 +3,21 @@
 `Image` and `Picture` share `src`, required `alt`, native img attributes, dimensions, sizes, priority, loading/decoding/fetchpriority, fit/position, provider, placeholder, class/style, onload/onerror and loading/error snippets. Use `alt=""` explicitly for decorative images. Localized alt is an ordinary translated string. Svelte 5 runes/snippets only.
 
 ```svelte
-<Picture src={landscape} alt="A valley" priority
-  sources={[{type:'image/webp',srcset:portrait.srcset,media:'(max-width: 640px)',width:portrait.width,height:portrait.height}]}
-  sizes="sm:100vw md:50vw lg:33vw">
+<Picture
+  src={landscape}
+  alt="A valley"
+  priority
+  sources={[
+    {
+      type: 'image/webp',
+      srcset: portrait.srcset,
+      media: '(max-width: 640px)',
+      width: portrait.width,
+      height: portrait.height,
+    },
+  ]}
+  sizes="sm:100vw md:50vw lg:33vw"
+>
   {#snippet error()}<span>Image unavailable</span>{/snippet}
 </Picture>
 ```

@@ -103,12 +103,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "enum": [
-                1,
-                1.5,
-                2,
-                3
-              ]
+              "enum": [1, 1.5, 2, 3]
             }
           },
           {
@@ -116,12 +111,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "enum": [
-                0,
-                90,
-                180,
-                270
-              ]
+              "enum": [0, 90, 180, 270]
             }
           },
           {
@@ -138,15 +128,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "enum": [
-                "avif",
-                "webp",
-                "jpeg",
-                "png",
-                "gif",
-                "svg",
-                "auto"
-              ]
+              "enum": ["avif", "webp", "jpeg", "png", "gif", "svg", "auto"]
             }
           },
           {
@@ -154,14 +136,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "enum": [
-                "cover",
-                "contain",
-                "fill",
-                "inside",
-                "outside",
-                "scale-down"
-              ]
+              "enum": ["cover", "contain", "fill", "inside", "outside", "scale-down"]
             }
           },
           {
@@ -189,12 +164,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "enum": [
-                "none",
-                "horizontal",
-                "vertical",
-                "both"
-              ]
+              "enum": ["none", "horizontal", "vertical", "both"]
             }
           },
           {
@@ -202,11 +172,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "enum": [
-                "none",
-                "icc",
-                "safe"
-              ]
+              "enum": ["none", "icc", "safe"]
             }
           },
           {
@@ -214,10 +180,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "enum": [
-                "preserve",
-                "first"
-              ]
+              "enum": ["preserve", "first"]
             }
           },
           {

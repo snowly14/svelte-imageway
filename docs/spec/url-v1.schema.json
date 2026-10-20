@@ -50,45 +50,20 @@
       "maximum": 100
     },
     "dpr": {
-      "enum": [
-        1,
-        1.5,
-        2,
-        3
-      ]
+      "enum": [1, 1.5, 2, 3]
     },
     "rotate": {
-      "enum": [
-        0,
-        90,
-        180,
-        270
-      ]
+      "enum": [0, 90, 180, 270]
     },
     "exp": {
       "type": "integer",
       "minimum": 1
     },
     "format": {
-      "enum": [
-        "avif",
-        "webp",
-        "jpeg",
-        "png",
-        "gif",
-        "svg",
-        "auto"
-      ]
+      "enum": ["avif", "webp", "jpeg", "png", "gif", "svg", "auto"]
     },
     "fit": {
-      "enum": [
-        "cover",
-        "contain",
-        "fill",
-        "inside",
-        "outside",
-        "scale-down"
-      ]
+      "enum": ["cover", "contain", "fill", "inside", "outside", "scale-down"]
     },
     "position": {
       "enum": [
@@ -106,25 +81,13 @@
       ]
     },
     "flip": {
-      "enum": [
-        "none",
-        "horizontal",
-        "vertical",
-        "both"
-      ]
+      "enum": ["none", "horizontal", "vertical", "both"]
     },
     "metadata": {
-      "enum": [
-        "none",
-        "icc",
-        "safe"
-      ]
+      "enum": ["none", "icc", "safe"]
     },
     "animation": {
-      "enum": [
-        "preserve",
-        "first"
-      ]
+      "enum": ["preserve", "first"]
     },
     "blur": {
       "type": "number",
@@ -143,23 +106,15 @@
   },
   "oneOf": [
     {
-      "required": [
-        "url"
-      ],
+      "required": ["url"],
       "not": {
-        "required": [
-          "key"
-        ]
+        "required": ["key"]
       }
     },
     {
-      "required": [
-        "key"
-      ],
+      "required": ["key"],
       "not": {
-        "required": [
-          "url"
-        ]
+        "required": ["url"]
       }
     }
   ]

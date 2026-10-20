@@ -2,7 +2,18 @@
 export type OutputFormat = 'avif' | 'webp' | 'jpeg' | 'png' | 'gif' | 'svg';
 /** Resizing semantics; provider capabilities may restrict this set. */
 export type Fit = 'cover' | 'contain' | 'fill' | 'inside' | 'outside' | 'scale-down';
-export type Position = 'center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'attention' | 'entropy';
+export type Position =
+  | 'center'
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right'
+  | 'attention'
+  | 'entropy';
 /** Public, serializable image request. Keys never contain signing secrets. */
 export interface ImageRequest {
   url?: string;
@@ -28,7 +39,23 @@ export interface ImageRequest {
   sig?: string;
 }
 /** Normalized requests always include stable defaults. */
-export type NormalizedRequest = ImageRequest & Required<Pick<ImageRequest, 'dpr' | 'q' | 'format' | 'fit' | 'position' | 'metadata' | 'animation' | 'rotate' | 'flip' | 'blur' | 'sharpen'>>;
+export type NormalizedRequest = ImageRequest &
+  Required<
+    Pick<
+      ImageRequest,
+      | 'dpr'
+      | 'q'
+      | 'format'
+      | 'fit'
+      | 'position'
+      | 'metadata'
+      | 'animation'
+      | 'rotate'
+      | 'flip'
+      | 'blur'
+      | 'sharpen'
+    >
+  >;
 export interface Preset {
   values: ImageRequest;
   overrides: readonly (keyof ImageRequest)[];

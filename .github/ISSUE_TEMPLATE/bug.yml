@@ -1,0 +1,17 @@
+name: Bug report
+description: Report a reproducible package failure
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction and expected behavior
+      description: Include a minimal example, exact command and actual output. Do not include credentials or private source URLs.
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions and runtime
+      description: Imageway, Svelte, Kit, Vite, Node/Bun, OS, provider and adapter.
+    validations:
+      required: true

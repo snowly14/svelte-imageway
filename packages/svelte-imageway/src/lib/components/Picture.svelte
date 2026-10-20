@@ -3,4 +3,5 @@
   import Image from './Image.svelte';
   let props: ImageProps = $props();
 </script>
+
 <Image {...props} />

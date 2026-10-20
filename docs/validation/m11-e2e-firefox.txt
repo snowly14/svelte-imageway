@@ -1,0 +1,15 @@
+$ playwright test "--project=firefox"
+
+Running 5 tests using 2 workers
+
+(node:10633) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [firefox] › tests/e2e/services.spec.ts:7:3 › worker: real image format/cache/security through HTTP (171ms)
+  ✓  3 [firefox] › tests/e2e/services.spec.ts:7:3 › docker: real image format/cache/security through HTTP (84ms)
+  ✓  1 [firefox] › tests/e2e/components.spec.ts:3:1 › native loading, matching preload, dimensions, art direction, events, error and reduced motion (4.9s)
+  ✓  4 [firefox] › tests/e2e/components.spec.ts:35:1 › served images have no layout shift and cached navigation remains visible (1.7s)
+  ✓  5 [firefox] › tests/e2e/components.spec.ts:60:1 › SSR renders useful images and preloads without JavaScript (1.2s)
+
+  5 passed (10.0s)

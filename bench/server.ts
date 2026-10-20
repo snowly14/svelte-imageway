@@ -33,7 +33,8 @@ const server = createServer(async (req, res) => {
     }
     const r = await handler(new Request(url, { headers: { Accept: 'image/webp' } }));
     res.writeHead(r.status, Object.fromEntries(r.headers));
-    if (r.body) Readable.fromWeb(r.body).pipe(res);
+    if (r.body)
+      Readable.fromWeb(r.body as unknown as Parameters<typeof Readable.fromWeb>[0]).pipe(res);
     else res.end();
   } catch {
     res.writeHead(500);

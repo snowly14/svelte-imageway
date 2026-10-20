@@ -4,22 +4,22 @@ Checked 2026-10-19. The registry's `latest` tag determines the current stable pa
 
 ## Proposed baseline
 
-| Dependency | Stable observed | Selection | Reason |
-| --- | --- | --- | --- |
-| Svelte | 5.57.2 | 5.57.2 | Svelte 5 only; meets Kit's ^5.57.1 peer |
-| SvelteKit | 3.1.0 | 3.1.0 | Current stable; use Kit 3 integration and configuration |
-| Vite | 8.3.4 | 8.3.4 | Satisfies Kit ^8.0.12 and Svelte plugin ^8 |
-| @sveltejs/vite-plugin-svelte | 7.3.1 | 7.3.1 | Satisfies Kit ^7 |
-| @sveltejs/package | 3.0.1 | 3.0.1 | Supported package compilation/declarations; TypeScript ^6 peer |
-| sharp | 0.35.5 | 0.35.5 | Node >=20.9; optional server dependency |
-| Vitest | 5.0.5 | 5.0.5 | Supports Vite 8; matching coverage/browser packages required |
-| @playwright/test | 1.64.1 | 1.64.1 | Stable browser test runner; browser binaries not yet installed |
-| Wrangler | 4.151.2 | 4.151.2 | Node >=22; current Worker tooling |
-| TypeScript | 7.0.2 | **6.0.3** | Latest stable 7 is outside Kit/package ^6 peer ranges; latest compatible 6 selected |
-| SVGO | 4.1.0 | 4.1.0 when needed | SVG optimization; not a security sanitizer |
-| thumbhash | 0.1.1 | Optional, evaluated in M2 | Build/server generation only; avoid mandatory browser decoder |
-| blurhash | 2.0.5 | Optional, evaluated in M2 | User-requested alternative; same client budget constraint |
-| Bun | Installed 1.4.3 | 1.4.3 workspace tool | Required by user; runtime support must be tested independently |
+| Dependency                   | Stable observed | Selection                 | Reason                                                                              |
+| ---------------------------- | --------------- | ------------------------- | ----------------------------------------------------------------------------------- |
+| Svelte                       | 5.57.2          | 5.57.2                    | Svelte 5 only; meets Kit's ^5.57.1 peer                                             |
+| SvelteKit                    | 3.1.0           | 3.1.0                     | Current stable; use Kit 3 integration and configuration                             |
+| Vite                         | 8.3.4           | 8.3.4                     | Satisfies Kit ^8.0.12 and Svelte plugin ^8                                          |
+| @sveltejs/vite-plugin-svelte | 7.3.1           | 7.3.1                     | Satisfies Kit ^7                                                                    |
+| @sveltejs/package            | 3.0.1           | 3.0.1                     | Supported package compilation/declarations; TypeScript ^6 peer                      |
+| sharp                        | 0.35.5          | 0.35.5                    | Node >=20.9; optional server dependency                                             |
+| Vitest                       | 5.0.5           | 5.0.5                     | Supports Vite 8; matching coverage/browser packages required                        |
+| @playwright/test             | 1.64.1          | 1.64.1                    | Stable browser test runner; browser binaries not yet installed                      |
+| Wrangler                     | 4.151.2         | 4.151.2                   | Node >=22; current Worker tooling                                                   |
+| TypeScript                   | 7.0.2           | **6.0.3**                 | Latest stable 7 is outside Kit/package ^6 peer ranges; latest compatible 6 selected |
+| SVGO                         | 4.1.0           | 4.1.0 when needed         | SVG optimization; not a security sanitizer                                          |
+| thumbhash                    | 0.1.1           | Optional, evaluated in M2 | Build/server generation only; avoid mandatory browser decoder                       |
+| blurhash                     | 2.0.5           | Optional, evaluated in M2 | User-requested alternative; same client budget constraint                           |
+| Bun                          | Installed 1.4.3 | 1.4.3 workspace tool      | Required by user; runtime support must be tested independently                      |
 
 Primary evidence: [npm responses](evidence/npm-view-2026-10-19.json). TypeScript 6.0.3 was additionally checked with `npm view typescript@6.0.3 version engines --json` (Node >=14.17).
 
@@ -33,14 +33,14 @@ Observed host: Node 26.11.1, npm 11.20.0, Bun 1.4.3. This host's Node is Current
 
 ## Adapter versions
 
-| Official adapter | Stable observed | Declared Kit peer |
-| --- | --- | --- |
-| static | 4.0.0 | ^3.0.0-next.0 |
-| node | 6.0.0 | ^3.0.0-next.0 |
-| auto | 8.0.0 | ^3.0.0-next.0 |
-| cloudflare | 8.0.1 | ^3.0.0-next.0; Wrangler ^4.118.0 |
-| vercel | 7.0.1 | ^3.0.0-next.0 |
-| netlify | 7.0.1 | ^3.0.0-next.0 |
+| Official adapter | Stable observed | Declared Kit peer                |
+| ---------------- | --------------- | -------------------------------- |
+| static           | 4.0.0           | ^3.0.0-next.0                    |
+| node             | 6.0.0           | ^3.0.0-next.0                    |
+| auto             | 8.0.0           | ^3.0.0-next.0                    |
+| cloudflare       | 8.0.1           | ^3.0.0-next.0; Wrangler ^4.118.0 |
+| vercel           | 7.0.1           | ^3.0.0-next.0                    |
+| netlify          | 7.0.1           | ^3.0.0-next.0                    |
 
 Bun and Deno adapters are not assigned invented package names or compatibility claims. Follow the [official adapter index](https://svelte.dev/docs/kit/adapters) and inspect actual adapter packages before implementation.
 

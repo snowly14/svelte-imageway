@@ -1,0 +1,9 @@
+name: Feature request
+description: Describe a concrete use case
+body:
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Use case, current limitation and proposed behavior
+    validations:
+      required: true

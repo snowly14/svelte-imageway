@@ -6,3 +6,5 @@ bun.lock
 docs/planning/original-brief.md
 docs/research/evidence
 extras/
+packages/svelte-imageway/src/lib/version.ts
+packages/svelte-imageway/src/lib/cli/templates.ts

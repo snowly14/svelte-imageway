@@ -17,27 +17,27 @@ No wildcard public proxy is a default. A component's unrecognized remote URL may
 
 All ranges below are proposed safe defaults, configurable only server-side within backend limits. Machine schemas must express the structural constraints; semantic/preset/network constraints require runtime checks.
 
-| Parameter | Type / values | Proposed semantics |
-| --- | --- | --- |
-| `url` / `key` | string, mutually exclusive | Source identity; source URL preserves signed query semantics |
-| `w`, `h` | integer 1–4096 | Logical target box dimensions; at least one dimension or a preset is needed for dynamic transforms |
-| `dpr` | 1, 1.5, 2, 3 | Multiply logical dimensions, with decoded/output limits checked on physical pixels |
-| `q` | integer 1–100 | Quantized quality ladder; quality scales differ by encoder/provider |
-| `format` | `avif`, `webp`, `jpeg`, `png`, `gif`, `svg`, `auto` | Canonical `jpeg`; import-side `jpg` is normalized to `jpeg`; SVG restricted to approved processing paths |
-| `fit` | `cover`, `contain`, `fill`, `inside`, `outside`, `scale-down` | Transform semantics, separate from CSS object-fit; provider support checked |
-| `position` | `center`, cardinal/corner anchors, `attention`, `entropy` | Crop focus; smart crop is capability-gated |
-| `blur` | number 0–20 | Zero disables; positive sigma/backend mapping must be documented |
-| `sharpen` | number 0–10 | Zero disables; map only where semantics are supported |
-| `bg` | `transparent` or lowercase 6/8-digit hex without `#` | Padding/flattening color, including alpha if supported |
-| `rotate` | 0, 90, 180, 270 | Clockwise rotation after EXIF auto-orientation |
-| `flip` | `none`, `horizontal`, `vertical`, `both` | Explicit axis mapping; no ambiguous vendor flip names |
-| `metadata` | `none`, `icc`, `safe` | Default none; ICC preserves color profile only. Safe metadata allowlist must exclude GPS and identifying EXIF |
-| `animation` | `preserve`, `first` | Default preserve when supported; do not silently flatten animation |
-| `preset` | `thumb`, `card`, `hero`, `og`, configured safe name | Server-defined restricted recipe with versioned policy |
-| `rev` | restricted string | Trusted source revision/content identity; arbitrary user text alone does not prove immutable content |
-| `kid` | restricted public key identifier | Select configured HMAC key; never a key or arbitrary environment-variable name |
-| `exp` | integer Unix seconds | Required when signing; bounded maximum lifetime and configured clock skew |
-| `sig` | unpadded base64url HMAC-SHA256 | Server-generated signature over the canonical signing payload |
+| Parameter     | Type / values                                                 | Proposed semantics                                                                                            |
+| ------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `url` / `key` | string, mutually exclusive                                    | Source identity; source URL preserves signed query semantics                                                  |
+| `w`, `h`      | integer 1–4096                                                | Logical target box dimensions; at least one dimension or a preset is needed for dynamic transforms            |
+| `dpr`         | 1, 1.5, 2, 3                                                  | Multiply logical dimensions, with decoded/output limits checked on physical pixels                            |
+| `q`           | integer 1–100                                                 | Quantized quality ladder; quality scales differ by encoder/provider                                           |
+| `format`      | `avif`, `webp`, `jpeg`, `png`, `gif`, `svg`, `auto`           | Canonical `jpeg`; import-side `jpg` is normalized to `jpeg`; SVG restricted to approved processing paths      |
+| `fit`         | `cover`, `contain`, `fill`, `inside`, `outside`, `scale-down` | Transform semantics, separate from CSS object-fit; provider support checked                                   |
+| `position`    | `center`, cardinal/corner anchors, `attention`, `entropy`     | Crop focus; smart crop is capability-gated                                                                    |
+| `blur`        | number 0–20                                                   | Zero disables; positive sigma/backend mapping must be documented                                              |
+| `sharpen`     | number 0–10                                                   | Zero disables; map only where semantics are supported                                                         |
+| `bg`          | `transparent` or lowercase 6/8-digit hex without `#`          | Padding/flattening color, including alpha if supported                                                        |
+| `rotate`      | 0, 90, 180, 270                                               | Clockwise rotation after EXIF auto-orientation                                                                |
+| `flip`        | `none`, `horizontal`, `vertical`, `both`                      | Explicit axis mapping; no ambiguous vendor flip names                                                         |
+| `metadata`    | `none`, `icc`, `safe`                                         | Default none; ICC preserves color profile only. Safe metadata allowlist must exclude GPS and identifying EXIF |
+| `animation`   | `preserve`, `first`                                           | Default preserve when supported; do not silently flatten animation                                            |
+| `preset`      | `thumb`, `card`, `hero`, `og`, configured safe name           | Server-defined restricted recipe with versioned policy                                                        |
+| `rev`         | restricted string                                             | Trusted source revision/content identity; arbitrary user text alone does not prove immutable content          |
+| `kid`         | restricted public key identifier                              | Select configured HMAC key; never a key or arbitrary environment-variable name                                |
+| `exp`         | integer Unix seconds                                          | Required when signing; bounded maximum lifetime and configured clock skew                                     |
+| `sig`         | unpadded base64url HMAC-SHA256                                | Server-generated signature over the canonical signing payload                                                 |
 
 Omitted defaults normalize to explicit internal values; generated URLs consistently materialize and include stable defaults. Unknown query names, duplicate keys, NaN, Infinity, empty required fields, invalid UTF-8/percent encodings and noncanonical ambiguous boolean spellings are rejected. Never coerce a malformed value to a permissive default.
 

@@ -422,7 +422,12 @@ async function transformBinding(
     422,
   );
   const offline = env.LOCAL_OFFLINE === 'true';
-  invariant(!offline || format !== 'image/gif', 'OFFLINE_CAPABILITY', 'The local Images emulator cannot encode GIF. Use WebP locally and verify GIF with the production binding.', 422);
+  invariant(
+    !offline || format !== 'image/gif',
+    'OFFLINE_CAPABILITY',
+    'The local Images emulator cannot encode GIF. Use WebP locally and verify GIF with the production binding.',
+    422,
+  );
   invariant(
     !offline ||
       (r.fit === 'inside' && !r.blur && !r.sharpen && r.flip === 'none' && r.position === 'center'),

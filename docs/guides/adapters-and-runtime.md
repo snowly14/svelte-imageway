@@ -6,7 +6,7 @@ Wrap the actual adapter object to preserve all official adapter Vite/runtime hoo
 import node from '@sveltejs/adapter-node';
 import { imageAdapter } from 'svelte-imageway/kit';
 // Inside sveltekit configuration:
-sveltekit({adapter: imageAdapter(node())});
+sveltekit({ adapter: imageAdapter(node()) });
 ```
 
 `imageAdapter('node'|'static'|'cloudflare'|'vercel'|'netlify')` dynamically imports the selected official adapter (install it first). For adapter-auto, resolve the actual deployment target explicitly rather than guessing from an unknown environment. A supplied Bun/Deno adapter needs an explicit matching target and verified runtime; there is no invented official Bun/Deno adapter package.
@@ -16,8 +16,11 @@ Static: generate imports at build time, optionally publish them directly to CDN 
 ```ts
 // src/hooks.server.ts
 import { imageHandle } from 'svelte-imageway/kit';
-export const handle = imageHandle({ sourceRoot: '/approved/images',
-  publicSources: false, signingKeys: { current: 'IMAGEWAY_SIGNING_KEY' } });
+export const handle = imageHandle({
+  sourceRoot: '/approved/images',
+  publicSources: false,
+  signingKeys: { current: 'IMAGEWAY_SIGNING_KEY' },
+});
 ```
 
 Compose with existing hooks using SvelteKit sequence. The handler only intercepts the configured image route and leaves prerender/streaming SSR resolution intact. It never buffers arbitrary streamed page HTML or mutates transformPageChunk output. Place preload hints before the response is committed; a hook cannot retrofit 103 after streaming starts.
