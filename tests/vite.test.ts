@@ -24,7 +24,7 @@ describe('import directives and placeholders', () => {
   it.each(['img&w=NaN', 'img&w=0', 'img&w=5000', 'img&format=bmp', 'img&q=101', 'img&placeholder=evil', 'img&bad=1', 'img&w=320&w=640'])('rejects invalid directive %s', query => expect(() => parseDirectives(query, 800)).toThrow());
   it.each(['lqip', 'color', 'none', 'thumbhash', 'blurhash'] as const)('produces a server-generated %s preview without a browser decoder', async strategy => {
     const result = await placeholder(await readFile(join(root, 'hero.png')), strategy);
-    expect(result.dominantColor).toMatch(/^#[a-f\d]{6}$/);
+    if (strategy === 'none') expect(result.dominantColor).toBeUndefined(); else expect(result.dominantColor).toMatch(/^#[a-f\d]{6}$/);
     if (!['color', 'none'].includes(strategy)) { expect(result.placeholder).toMatch(/^data:image\//); const decoded = Buffer.from(result.placeholder!.split(',')[1]!, 'base64'); expect((await sharp(decoded).metadata()).width).toBeGreaterThan(0); }
     if (strategy === 'lqip') expect(Buffer.from(result.placeholder!.split(',')[1]!, 'base64').length).toBeLessThan(1024);
   });

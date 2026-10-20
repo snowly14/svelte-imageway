@@ -37,6 +37,7 @@ export class ImageProcessor {
     input: ImageRequest,
     format: OutputFormat,
     qualityCap?: number,
+    preview = true,
   ): Promise<ProcessedImage> {
     const normalized = normalizeRequest(input, this.config);
     const request =
@@ -50,7 +51,7 @@ export class ImageProcessor {
           });
     const sharp = await loadSharp();
     const key = hash(
-      `${hash(data)}:${cacheIdentity(request, format, PIPELINE_REVISION + JSON.stringify(sharp.versions), this.config)}`,
+      `${hash(data)}:preview=${preview}:${cacheIdentity(request, format, PIPELINE_REVISION + JSON.stringify(sharp.versions), this.config)}`,
     );
     return this.flight.run(key, async () => {
       const cached = this.memory.get(key) ?? (await this.disk.get(key));
@@ -67,7 +68,7 @@ export class ImageProcessor {
       await this.onTransform?.();
       this.metrics.miss++;
       this.metrics.transforms++;
-      const result = await this.pool.run({ data, request, format, config: this.config });
+      const result = await this.pool.run({ data, request, format, config: this.config, preview });
       const packed = pack(result);
       await this.disk.set(key, packed);
       this.memory.set(key, packed, 3600_000);

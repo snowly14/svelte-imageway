@@ -57,3 +57,5 @@ For `sizes="auto"`, [MDN's current element reference](https://developer.mozilla.
 ## Execution status
 
 Registry requests, official documentation reads, host version checks and power assertions were executed. Dependency installation, Kit compatibility builds, Sharp codec probes, tests, Wrangler, browser tests, Docker, packaging and benchmarks have **not** been executed. Docker is absent from PATH. No pass is inferred from version metadata.
+
+M10 execution confirmed Kit 3's `#lib/*` Node subpath imports require a package.json imports map and explicit .js specifiers for corresponding TS modules. `$lib` is removed unless an explicit compatibility alias is configured. Official reference: https://svelte.dev/docs/kit/%24lib. Docs build and strict app typecheck exercise the new form.

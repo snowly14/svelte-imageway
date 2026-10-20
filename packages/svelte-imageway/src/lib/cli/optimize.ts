@@ -46,6 +46,8 @@ export async function optimizeDirectory(
       bytes,
       { key: 'batch', w: options.width ?? 1920, q: options.quality ?? 75, animation: 'first' },
       format as OutputFormat,
+      undefined,
+      false,
     );
     const name = hash(result.data) + '.' + format;
     await mkdir(output, { recursive: true });

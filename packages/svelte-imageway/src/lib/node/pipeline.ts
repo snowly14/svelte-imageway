@@ -62,6 +62,7 @@ export async function transform(
   request: NormalizedRequest,
   format: OutputFormat,
   config: ImageConfig = defaults,
+  includePreview = true,
 ): Promise<TransformResult> {
   invariant(
     data.length > 0 && data.length <= config.maxInputBytes,
@@ -144,6 +145,15 @@ export async function transform(
       'Encoded output exceeds configured byte limit.',
       413,
     );
+    if (!includePreview)
+      return {
+        data: output.data,
+        width: output.info.width,
+        height: output.info.pageHeight ?? output.info.height,
+        format,
+        dominantColor: '',
+        placeholder: '',
+      };
     const stats = await preview.clone().stats();
     const { r, g, b } = stats.dominant;
     const dominantColor = `#${[r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')}`;

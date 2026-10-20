@@ -1,0 +1,106 @@
+{
+  "lighthouseVersion": "13.5.0",
+  "fetchTime": "2026-10-20T17:11:13.612Z",
+  "requestedUrl": "http://127.0.0.1:4173/",
+  "performance": 0.99,
+  "metrics": {
+    "first-contentful-paint": {
+      "score": 0.99,
+      "numericValue": 1221.302,
+      "displayValue": "1.2 s"
+    },
+    "largest-contentful-paint": {
+      "score": 0.99,
+      "numericValue": 1614.302,
+      "displayValue": "1.6 s"
+    },
+    "cumulative-layout-shift": {
+      "score": 1,
+      "numericValue": 0,
+      "displayValue": "0",
+      "details": {
+        "type": "debugdata",
+        "items": [
+          {
+            "cumulativeLayoutShiftMainFrame": 0,
+            "newEngineResult": {
+              "cumulativeLayoutShift": 0,
+              "cumulativeLayoutShiftMainFrame": 0
+            },
+            "newEngineResultDiffered": false
+          }
+        ]
+      }
+    },
+    "total-blocking-time": {
+      "score": 0.99,
+      "numericValue": 83.84899999999993,
+      "displayValue": "80 ms"
+    },
+    "speed-index": {
+      "score": 1,
+      "numericValue": 1221.302,
+      "displayValue": "1.2 s"
+    },
+    "lcp-discovery-insight": {
+      "score": 1,
+      "details": {
+        "type": "list",
+        "items": [
+          {
+            "type": "checklist",
+            "items": {
+              "priorityHinted": {
+                "label": "fetchpriority=high applied",
+                "value": true
+              },
+              "requestDiscoverable": {
+                "label": "Request is discoverable in initial document",
+                "value": true
+              },
+              "eagerlyLoaded": {
+                "label": "LCP resources should not use loading=lazy",
+                "value": true
+              }
+            }
+          },
+          {
+            "type": "node",
+            "lhId": "page-0-IMG",
+            "path": "1,HTML,1,BODY,0,DIV,2,MAIN,1,PICTURE,5,IMG",
+            "selector": "div#app > main.svelte-1n46o8q > picture > img.svelte-17s4uov",
+            "boundingRect": {
+              "top": 143,
+              "bottom": 371,
+              "left": 24,
+              "right": 366,
+              "width": 342,
+              "height": 228
+            },
+            "snippet": "<img sizes=\"(min-width: 960px) 960px, 100vw\" data-testid=\"hero\" loading=\"eager\" src=\"http://127.0.0.1:4173/imageway/9517dab20e58b11370bb7488c4ae9cc1448a41ce865…\" srcset=\"/imageway/375c112658b9d8c1c0cdd428056afcc3c9f8227420695b9e3aabc27336fdb9f6…\" alt=\"Procedural mountain landscape\" width=\"960\" height=\"640\" decoding=\"sync\" fetchpriority=\"high\" class=\"svelte-17s4uov ready\" style=\"max-width: 100%; height: auto; object-fit: contain; object-position: center center;\">",
+            "nodeLabel": "Procedural mountain landscape"
+          }
+        ]
+      }
+    },
+    "unsized-images": {
+      "score": 1,
+      "details": {
+        "type": "table",
+        "headings": [
+          {
+            "key": "node",
+            "valueType": "node",
+            "label": ""
+          },
+          {
+            "key": "url",
+            "valueType": "url",
+            "label": "URL"
+          }
+        ],
+        "items": []
+      }
+    }
+  }
+}

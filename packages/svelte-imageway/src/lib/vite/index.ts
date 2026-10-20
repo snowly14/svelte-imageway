@@ -108,7 +108,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
           const digest = hash(`${hash(source)}:${JSON.stringify(request)}:${format}:${PIPELINE_REVISION}:${JSON.stringify(sharp.versions)}`);
           let url: string;
           const run = async () => {
-            if (format !== 'svg') return exactProcessor.process(source, request, format);
+            if (format !== 'svg') return exactProcessor.process(source, request, format, undefined, false);
             if (kind !== 'svg') throw new ImagewayError('SVG', 'Only approved SVG inputs can produce SVG output.');
             const optimized = optimize(source.toString('utf8'), { multipass: true }).data;
             sniff(Buffer.from(optimized));

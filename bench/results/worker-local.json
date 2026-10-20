@@ -1,0 +1,127 @@
+{
+  "mode": "Wrangler local Images binding emulator, not production Cloudflare; offline quality defaults apply",
+  "measuredAt": "2026-10-20T17:04:24.132Z",
+  "samples": [
+    {
+      "ttfb": 170.37254100000064,
+      "cache": "MISS"
+    },
+    {
+      "ttfb": 3.357375000000502,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.1048749999999927,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.395249999999578,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.3360840000004828,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.205041999999594,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.0165420000002996,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.294582999999875,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.7415000000000873,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.042207999999846,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.7134580000001733,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.340749999999389,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.967959000000519,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.507832999999664,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.4596250000004147,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.4533330000003843,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.104667000000518,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.3006670000004306,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 2.5835830000005444,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.307875000000422,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.1478329999999914,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.811999999999898,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 4.225625000000036,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 4.01470800000061,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.7182080000002316,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.9014579999993657,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 4.695999999999913,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.986584000000221,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 4.094000000000051,
+      "cache": "HIT"
+    },
+    {
+      "ttfb": 3.6592920000002778,
+      "cache": "HIT"
+    }
+  ],
+  "medianTtfbMs": 3.307875000000422
+}

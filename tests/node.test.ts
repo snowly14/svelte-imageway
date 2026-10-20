@@ -138,6 +138,14 @@ describe('built worker_threads pipeline', () => {
     await expect(pool.run(task)).rejects.toThrow(/capacity/);
     expect((await first).width).toBe(64); expect((await queued).height).toBe(32);
     await expect(pool.run({ ...task, data: Buffer.from('corrupt') })).rejects.toThrow(/signature/);
+    // A failed decode must not poison the retained worker or leak its admission slot.
+    const recovered = await pool.run({ ...task, preview: false });
+    expect(recovered.width).toBe(64);
+    expect(recovered.placeholder).toBe('');
+    const byteBound = new TransformPool(1, 4, data.length - 1);
+    const active = byteBound.run(task);
+    await expect(byteBound.run(task)).rejects.toThrow(/capacity/);
+    await active;
   });
 });
 describe('integrated persistent processor', () => {

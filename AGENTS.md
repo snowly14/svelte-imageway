@@ -9,3 +9,4 @@
 - Enforce SSRF, filesystem, decoding, and resource limits from the first relevant implementation milestone; M9 is an independent security verification gate.
 - Keep Node, filesystem, Sharp, signing secrets, and credentials out of all browser entry points.
 - The user requested no sleep until the project is finished and Mac shutdown after final completion. Read the ignored `.local/power-state.md` before touching power controls. Do not shut down at an intermediate milestone. Remove the project's sleep assertion on cancellation or final completion.
+- On 2026-10-20 the user deferred the documentation website. Preserve its draft under `extras/docs-preview`; do not develop, serve or publish it. Prioritize the package and README. The website is outside the active workspace and checks.

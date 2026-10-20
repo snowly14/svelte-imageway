@@ -1,0 +1,10 @@
+$ vitest run tests/node.test.ts
+
+ RUN  v5.0.5 /Users/gastonhardy/Developer/projects/open-source/svelte-imageway
+
+
+ Test Files  1 passed (1)
+      Tests  37 passed (37)
+   Start at  19:11:36
+   Duration  2.56s (tests 88%, transform 6%, import 6%)
+

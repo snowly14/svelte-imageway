@@ -3,21 +3,27 @@ import { cpus } from 'node:os';
 import { invariant, ImagewayError } from '../core/errors.js';
 import type { ImageConfig, NormalizedRequest, OutputFormat } from '../core/types.js';
 import type { TransformResult } from './pipeline.js';
-interface Task {
+export interface TransformTask {
   data: Uint8Array;
   request: NormalizedRequest;
   format: OutputFormat;
   config: ImageConfig;
+  preview?: boolean;
 }
 interface Waiting {
   bytes: number;
   begin: () => void;
 }
-/** Bounded worker pool; admission includes queue time and retains a slot until its native worker exits. */
+interface Idle {
+  worker: Worker;
+  timer: ReturnType<typeof setTimeout>;
+}
+/** Reusable workers, bounded admission including queue time, and termination before releasing timed-out native work. */
 export class TransformPool {
   private active = 0;
   private waiting: Waiting[] = [];
   private queuedBytes = 0;
+  private idle: Idle[] = [];
   constructor(
     private readonly concurrency = Math.max(1, Math.min(2, cpus().length - 1)),
     private readonly maxQueue = 64,
@@ -34,7 +40,37 @@ export class TransformPool {
       'Invalid worker concurrency or queue limit.',
     );
   }
-  async run(task: Task): Promise<TransformResult> {
+  private acquire(): Worker {
+    while (this.idle.length) {
+      const item = this.idle.pop()!;
+      clearTimeout(item.timer);
+      if (item.worker.threadId !== -1) {
+        item.worker.ref();
+        return item.worker;
+      }
+    }
+    const worker = new Worker(new URL('./sharp-worker.js', import.meta.url), {
+      resourceLimits: { maxOldGenerationSizeMb: 64 },
+    });
+    worker.on('error', () => {
+      /* Active jobs attach a rejecting listener; an idle worker error must not crash the host. */
+    });
+    return worker;
+  }
+  private retain(worker: Worker): void {
+    worker.unref();
+    const item: Idle = {
+      worker,
+      timer: setTimeout(() => {
+        const i = this.idle.indexOf(item);
+        if (i >= 0) this.idle.splice(i, 1);
+        void worker.terminate();
+      }, 5000),
+    };
+    item.timer.unref();
+    this.idle.push(item);
+  }
+  async run(task: TransformTask): Promise<TransformResult> {
     const deadline = Date.now() + task.config.timeoutMs + 1000;
     if (this.active >= this.concurrency) {
       invariant(
@@ -56,9 +92,9 @@ export class TransformPool {
         this.waiting.push(entry);
         const timer = setTimeout(
           () => {
-            const index = this.waiting.indexOf(entry);
-            if (index >= 0) {
-              this.waiting.splice(index, 1);
+            const i = this.waiting.indexOf(entry);
+            if (i >= 0) {
+              this.waiting.splice(i, 1);
               this.queuedBytes -= entry.bytes;
               reject(new ImagewayError('TIMEOUT', 'Transform queue deadline exceeded.', 504));
             }
@@ -67,46 +103,61 @@ export class TransformPool {
         );
       });
     } else this.active++;
+    let worker: Worker | undefined,
+      reusable = false;
     try {
       invariant(Date.now() < deadline, 'TIMEOUT', 'Transform deadline exceeded in queue.', 504);
+      worker = this.acquire();
+      const current = worker;
       return await new Promise<TransformResult>((resolve, reject) => {
-        const worker = new Worker(new URL('./sharp-worker.js', import.meta.url), {
-          workerData: task,
-        });
-        let value: TransformResult | undefined, failure: unknown;
+        const cleanup = () => {
+          clearTimeout(timer);
+          current.removeListener('message', message);
+          current.removeListener('error', error);
+          current.removeListener('exit', exit);
+        };
+        const exit = () => {
+          cleanup();
+          reject(new ImagewayError('WORKER', 'Image worker exited unexpectedly.', 500));
+        };
+        const error = (e: Error) => {
+          cleanup();
+          void current.terminate().then(() => reject(e));
+        };
+        const message = (result: {
+          value?: TransformResult;
+          error?: { code: string; message: string; status: number };
+        }) => {
+          cleanup();
+          reusable = true;
+          if (result.error)
+            reject(new ImagewayError(result.error.code, result.error.message, result.error.status));
+          else if (result.value) resolve({ ...result.value, data: Buffer.from(result.value.data) });
+          else reject(new ImagewayError('WORKER', 'Invalid worker response.', 500));
+        };
         const timer = setTimeout(
           () => {
-            failure = new ImagewayError('TIMEOUT', 'Image worker exceeded its deadline.', 504);
-            void worker.terminate();
+            cleanup();
+            void current
+              .terminate()
+              .then(() =>
+                reject(new ImagewayError('TIMEOUT', 'Image worker exceeded its deadline.', 504)),
+              );
           },
           Math.max(1, deadline - Date.now()),
         );
-        worker.once(
-          'message',
-          (result: {
-            value?: TransformResult;
-            error?: { code: string; message: string; status: number };
-          }) => {
-            if (result.error)
-              failure = new ImagewayError(
-                result.error.code,
-                result.error.message,
-                result.error.status,
-              );
-            else value = result.value;
-          },
-        );
-        worker.once('error', (error) => {
-          failure = error;
-        });
-        worker.once('exit', (code) => {
-          clearTimeout(timer);
-          if (failure) reject(failure);
-          else if (code || !value) reject(new ImagewayError('WORKER', 'Image worker failed.', 500));
-          else resolve({ ...value, data: Buffer.from(value.data) });
-        });
+        current.once('message', message);
+        current.once('error', error);
+        current.once('exit', exit);
+        try {
+          current.postMessage(task);
+        } catch (e) {
+          cleanup();
+          void current.terminate().then(() => reject(e));
+        }
       });
     } finally {
+      if (worker && reusable && worker.threadId !== -1) this.retain(worker);
       const next = this.waiting.shift();
       if (next) {
         this.queuedBytes -= next.bytes;
@@ -116,7 +167,7 @@ export class TransformPool {
   }
 }
 const pools = new Map<number, TransformPool>();
-/** Share admission across all per-import processors, rather than multiplying concurrency for every import. */
+/** Shared admission across per-import processors, rather than multiplying worker count for every import. */
 export function sharedPool(
   concurrency = Math.max(1, Math.min(2, cpus().length - 1)),
 ): TransformPool {

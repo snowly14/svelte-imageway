@@ -139,7 +139,7 @@ export function createImageService(options: ImageHandlerOptions = {}) {
         'Output format is disabled by configuration.',
         415,
       );
-      const result = await processor.process(input, r, format, saveData ? 65 : undefined);
+      const result = await processor.process(input, r, format, saveData ? 65 : undefined, false);
       const hit = result.cacheHit;
       if (hit) metrics.hits++;
       const etag = `"${hash(result.data)}"`;
