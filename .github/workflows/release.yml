@@ -6,6 +6,10 @@ on:
         description: Exact reviewed package version
         required: true
         type: string
+      verify_only:
+        description: Verify an already uploaded version without publishing it again
+        default: false
+        type: boolean
 permissions:
   contents: read
 concurrency:
@@ -70,6 +74,7 @@ jobs:
       # Bun handles installs, builds, scripts and tar creation. Its publish command
       # cannot generate provenance; npm is used only to publish the audited tarball.
       - name: Publish audited package with provenance
+        if: ${{ !inputs.verify_only }}
         env:
           # Only needed to create the initial package; removed after bootstrap.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_BOOTSTRAP_TOKEN }}
@@ -81,7 +86,7 @@ jobs:
           import { createHash } from 'node:crypto';
           const name = 'svelte-imageway';
           const version = process.env.EXPECTED_VERSION;
-          for (let attempt = 0; attempt < 12; attempt++) {
+          for (let attempt = 0; attempt < 120; attempt++) {
             const response = await fetch(`https://registry.npmjs.org/${name}?verify=${Date.now()}`, { headers: { 'Cache-Control': 'no-cache' } });
             if (!response.ok) throw new Error(`Registry verification failed: HTTP ${response.status}`);
             const manifest = await response.json();

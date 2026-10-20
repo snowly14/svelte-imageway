@@ -44,6 +44,8 @@ Version 1.2.0 uses the existing full CI/package/browser gates and provenance. It
 
 ## First publication result
 
+If npm reports that the package is being processed, the upload succeeded but public availability may lag. Never republish the same version to retry verification. Dispatch the release workflow with `verify_only=true` and the exact version; it skips publication and allows up to 20 minutes for registry availability, integrity and provenance verification.
+
 Version 0.1.0 was uploaded with GitHub Actions provenance and later became operational in the public registry. Initial staging placeholders are not evidence of an installable release. The workflow now verifies the exact version, `latest` tag, tarball integrity and provenance metadata after uploading. An existing published version is immutable; do not rerun its publish command as a verification step. Prepare a new reviewed version for subsequent releases.
 
 A new project installed the registry preview with Bun and verified real WebP output and cache reuse. The source/provenance commit is `4ef4a5f371728fabd17db12e527629cb49866491`. Current details are in REPORT.md.
