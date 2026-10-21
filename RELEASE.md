@@ -1,6 +1,6 @@
 # Release policy and commands
 
-Version 1.3.1 is prepared with an artifact-only StaticImage entry, dominated-default-format selection, safer output-buffer transfers and alternating benchmark comparisons. Publication requires the complete CI matrix and registry provenance verification. Version 1.2.0 remains immutable and available. Releases use latest; performance stretch targets remain documented, not implied by the version number.
+Version 1.3.1 is published on npm under latest and on GitHub. Source/provenance commit: `06f2c634ed51759cc11091df37ce64360c49c49b`. The complete Node 22/24 Linux/macOS/Windows CI and Chromium/Firefox/WebKit checks passed; the release workflow verified registry integrity and provenance. lunar-web installed the registry package with Bun, passed strict checks/build and loaded one responsive WebP with a matching preload. Earlier versions remain immutable. Performance stretch targets remain documented, not implied by version numbering.
 
 ## Configure real identity
 
