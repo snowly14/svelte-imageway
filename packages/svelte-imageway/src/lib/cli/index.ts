@@ -12,6 +12,7 @@ import { invariant } from '../core/errors.js';
 const help = `svelte-imageway <command> [directory] [options]
   init [dir] --dry-run                 Configure a literal Vite plugin array and example
   typegen [dir]                       Generate typed image imports without starting Vite
+  codecs --json                       Inspect installed native decoder/encoder capabilities
   optimize [dir] --dry-run --watch     Write variants to imageway-output, preserve originals
     --output <dir> --width <px> --quality <q> --format webp|avif|jpeg|png
   audit [dir] --json                   Static image audit; findings exit 1
@@ -92,6 +93,21 @@ export async function main(argv = process.argv.slice(2), cwd = process.cwd()): P
       return n;
     };
     switch (a.command) {
+      case 'codecs': {
+        const { codecCapabilities } = await import('../node/pipeline.js');
+        const capabilities = await codecCapabilities();
+        output(
+          json
+            ? capabilities
+            : Object.entries(capabilities.formats)
+                .map(
+                  ([name, c]) =>
+                    `${name}: input=${c.input.buffer ? 'yes' : 'no'} output=${c.output.buffer ? 'yes' : 'no'}`,
+                )
+                .join('\n'),
+        );
+        return 0;
+      }
       case 'typegen': {
         const { generateImageTypes } = await import('../vite/typegen.js');
         output(await generateImageTypes(root));
@@ -157,7 +173,7 @@ export async function main(argv = process.argv.slice(2), cwd = process.cwd()): P
                     v.startsWith('.') ||
                     ['node_modules', 'imageway-output', 'dist', 'build'].includes(v),
                 ) ||
-              !/\.(png|jpe?g|webp|avif|gif|tiff?|svg)$/i.test(name)
+              !/\.(png|jpe?g|webp|avif|gif|tiff?|heic|heif|jxl|svg)$/i.test(name)
             )
               return;
             clearTimeout(timer);

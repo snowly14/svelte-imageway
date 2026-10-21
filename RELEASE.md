@@ -1,5 +1,7 @@
 # Release policy and commands
 
+1.5.0 preparation: parsed representation cache, frozen policy fingerprint, typed native codec inventory and JPEG XL decoder diagnostics. Local gates pass; remote CI and registry publication are pending. See REPORT.md.
+
 1.4.0 is published on npm under latest and on GitHub. Immutable prepared sources and bounded build parallelism have paired byte-verified measurements. The complete CI matrix, public registry integrity/provenance verification and fresh registry consumer pass for source `571136a0f44b91fb75893d84bb71c573e24200cc`. See REPORT.md.
 
 Previous version 1.3.1 was published on npm under latest and on GitHub. Source/provenance commit: `06f2c634ed51759cc11091df37ce64360c49c49b`. The complete Node 22/24 Linux/macOS/Windows CI and Chromium/Firefox/WebKit checks passed; the release workflow verified registry integrity and provenance. lunar-web installed the registry package with Bun, passed strict checks/build and loaded one responsive WebP with a matching preload. Earlier versions remain immutable. Performance stretch targets remain documented, not implied by version numbering.
@@ -37,7 +39,7 @@ Bun remains the dependency manager and runs all scripts/builds/packing. [Bun pub
 The prepared `release.yml` runs only by manual dispatch on main, in the `npm` environment. Configure that environment's required reviewers and npm trusted publisher before enabling it. It verifies the exact requested version and repository metadata, runs the package gate, and executes:
 
 ```sh
-npm publish .local/pack/svelte-imageway-1.4.0.tgz --tag latest --access public --provenance
+npm publish .local/pack/svelte-imageway-1.5.0.tgz --tag latest --access public --provenance
 ```
 
 That command is for the supported CI/OIDC environment, not a promise of provenance on an arbitrary local shell. Check the registry and GitHub release before announcing publication; an uploaded GitHub repository does not imply that npm publication succeeded. Paid cloud deployment is outside this package release. Verify the registry tar integrity, metadata, latest dist-tag and provenance before announcing a release.

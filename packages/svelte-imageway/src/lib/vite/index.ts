@@ -194,7 +194,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         config.maxInputBytes,
       );
       const kind = sniff(source);
-      const sharp = await loadSharp();
+      const sharp = await loadSharp(kind);
       const metadata = await sharp(source, { limitInputPixels: config.maxPixels }).metadata();
       const dimensions = metadata.autoOrient;
       const directives = parseDirectives(id.slice(split + 1), dimensions.width, config);

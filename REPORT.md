@@ -1,3 +1,28 @@
+# 1.5.0 parsed cache and JPEG XL diagnostics
+
+Private parsed memory-cache values remove repeated metadata parsing and payload copies. A frozen validated configuration allows one policy fingerprint per processor. Source expiry, signatures, queue/worker limits and native encoders remain unchanged. Output-mutation, too-small cache, persistent reuse and caller-policy mutation regressions pass. [Decision](docs/adr/0017-parsed-cache-and-codec-diagnostics.md).
+
+| Prepared memory-cache lookup | Output bytes | 1.4.0 ops/s | 1.5.0 ops/s | Ratio |
+| ---------------------------- | -----------: | ----------: | ----------: | ----: |
+| Small synthetic WebP         |        1,580 |      14,733 |      26,681 | 1.81× |
+| Synthetic texture WebP       |      155,112 |       5,048 |      10,478 | 2.08× |
+| Synthetic landscape PNG      |      246,641 |       3,209 |       6,609 | 2.06× |
+
+| HTTP median      |          1.4.0 |          1.5.0 |
+| ---------------- | -------------: | -------------: |
+| Cold TTFB        |      69.056 ms |      69.295 ms |
+| Warm TTFB        |       0.269 ms |       0.256 ms |
+| Burst throughput | 8389.203 req/s | 9344.921 req/s |
+| Peak RSS         |    147.594 MiB |    148.344 MiB |
+
+Seven alternating pairs per suite, identical encoded bytes. Cache API rates exclude native encoding/warm-up and are not HTTP rates. The initial noisy HTTP series and same-code A/A control remain available alongside the final series; see [all data and caveats](bench/README.md). This is not a statistical or universal superiority claim.
+
+Typed CodecCapabilities and `codecs --json` expose actual native flags. Installed Sharp 0.35.5 has neither JXL buffer decoder nor encoder. Recognized JXL input now reports CODEC_UNAVAILABLE (415) before native decoding, including Vite metadata. Automatic JXL output is not implemented, and custom libjxl builds are unverified. [Capability/fallback guide](docs/guides/jpeg-xl.md).
+
+Local: 235 tests, lint, strict TypeScript/Svelte, core coverage 99.56% lines / 99.11% branches / 100% functions, package/tar/exports, both component budgets and a fresh packed SvelteKit consumer pass. Chromium/WebKit: 10 tests pass, four optional services unconfigured. Firefox was not rerun locally; the Linux CI browser gate is required. The test port is configurable so another project's preview can keep running. Full remote CI/public registry verification are pending for this preparation commit.
+
+---
+
 # 1.4.0 validation and measurements
 
 Prepared source snapshots eliminate full-source copying/hashing on HTTP cache hits and repeated source hashing across Vite variants. Finite builds select up to four workers using available CPU parallelism, with the existing explicit concurrency override. Auth, source expiry and per-job limits remain enforced. [Decision and memory tradeoff](docs/adr/0016-prepared-sources-and-build-parallelism.md).

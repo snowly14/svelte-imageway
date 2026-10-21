@@ -1,0 +1,297 @@
+{
+  "measuredAt": "2026-10-21T20:26:17.602Z",
+  "packageVersion": "1.5.0",
+  "node": "v26.11.1",
+  "versions": {
+    "aom": "3.15.1",
+    "archive": "3.8.9",
+    "cairo": "1.18.6",
+    "cgif": "0.5.4",
+    "exif": "0.6.26",
+    "expat": "2.8.5",
+    "ffi": "3.8.0",
+    "fontconfig": "2.18.3",
+    "freetype": "2.14.3",
+    "fribidi": "1.0.17",
+    "glib": "2.90.0",
+    "harfbuzz": "14.5.0",
+    "heif": "1.23.5",
+    "highway": "1.4.0",
+    "imagequant": "2.4.1",
+    "lcms": "2.19.1",
+    "mozjpeg": "0826579",
+    "pango": "1.58.2",
+    "pixman": "0.46.4",
+    "png": "1.6.58",
+    "proxy-libintl": "0.5",
+    "rsvg": "2.63.2",
+    "tiff": "4.7.2",
+    "uhdr": "2.0.2",
+    "vips": "8.18.7",
+    "webp": "1.6.0",
+    "xml2": "2.15.4",
+    "zlib-ng": "2.3.3",
+    "sharp": "0.35.5"
+  },
+  "formats": {
+    "jpeg": {
+      "id": "jpeg",
+      "input": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "fileSuffix": [".jpg", ".jpeg", ".jpe", ".jfif"]
+      },
+      "output": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "alias": ["jpe", "jpg"]
+      }
+    },
+    "png": {
+      "id": "png",
+      "input": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "fileSuffix": [".png"]
+      },
+      "output": {
+        "file": true,
+        "buffer": true,
+        "stream": true
+      }
+    },
+    "webp": {
+      "id": "webp",
+      "input": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "fileSuffix": [".webp"]
+      },
+      "output": {
+        "file": true,
+        "buffer": true,
+        "stream": true
+      }
+    },
+    "tiff": {
+      "id": "tiff",
+      "input": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "fileSuffix": [".tif", ".tiff"]
+      },
+      "output": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "alias": ["tif"]
+      }
+    },
+    "magick": {
+      "id": "magick",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "openslide": {
+      "id": "openslide",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "dz": {
+      "id": "dz",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": true,
+        "buffer": true,
+        "stream": true
+      }
+    },
+    "ppm": {
+      "id": "ppm",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "fits": {
+      "id": "fits",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "gif": {
+      "id": "gif",
+      "input": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "fileSuffix": [".gif"]
+      },
+      "output": {
+        "file": true,
+        "buffer": true,
+        "stream": true
+      }
+    },
+    "svg": {
+      "id": "svg",
+      "input": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "fileSuffix": [".svg", ".svgz", ".svg.gz"]
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "heif": {
+      "id": "heif",
+      "input": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "fileSuffix": [".avif"]
+      },
+      "output": {
+        "file": true,
+        "buffer": true,
+        "stream": true,
+        "alias": ["avif"]
+      }
+    },
+    "pdf": {
+      "id": "pdf",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "vips": {
+      "id": "vips",
+      "input": {
+        "file": true,
+        "buffer": false,
+        "stream": false,
+        "fileSuffix": [".v", ".vips"]
+      },
+      "output": {
+        "file": true,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "jp2": {
+      "id": "jp2",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false,
+        "alias": ["j2c", "j2k", "jp2", "jpx"]
+      }
+    },
+    "jxl": {
+      "id": "jxl",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "rad": {
+      "id": "rad",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "dcraw": {
+      "id": "dcraw",
+      "input": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      },
+      "output": {
+        "file": false,
+        "buffer": false,
+        "stream": false
+      }
+    },
+    "raw": {
+      "id": "raw",
+      "input": {
+        "file": false,
+        "buffer": true,
+        "stream": true
+      },
+      "output": {
+        "file": false,
+        "buffer": true,
+        "stream": true
+      }
+    }
+  }
+}

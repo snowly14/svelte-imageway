@@ -8,10 +8,22 @@ import { configureVite, init } from '../packages/svelte-imageway/src/lib/cli/ini
 import { audit } from '../packages/svelte-imageway/src/lib/cli/audit.js';
 import { migrate } from '../packages/svelte-imageway/src/lib/cli/migrate.js';
 import { PACKAGE_VERSION } from '../packages/svelte-imageway/src/lib/version.js';
+import sharp from 'sharp';
 
 const cli = fileURLToPath(
   new URL('../packages/svelte-imageway/dist/cli/index.js', import.meta.url),
 );
+it('reports actual installed buffer codecs through the compiled CLI', () => {
+  for (const runtime of ['node', 'bun']) {
+    const report = JSON.parse(
+      execFileSync(runtime, [cli, 'codecs', '--json'], { encoding: 'utf8' }),
+    );
+    expect(report.versions.vips).toBe(sharp.versions.vips);
+    expect(report.formats.jxl).toEqual(sharp.format.jxl);
+    expect(report.formats.webp.output.buffer).toBe(true);
+  }
+  expect(execFileSync('node', [cli, 'codecs'], { encoding: 'utf8' })).toContain('jxl: input=');
+});
 it('patches syntax once, preserves comments and other plugins, and refuses ambiguous configs', async () => {
   const before =
     "// keep me\nimport {sveltekit} from '@sveltejs/kit/vite';\nexport default defineConfig({plugins:[sveltekit()],server:{port:4000}});";

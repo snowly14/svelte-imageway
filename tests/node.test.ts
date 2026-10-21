@@ -272,6 +272,19 @@ describe('real Sharp pipeline', () => {
   it('reports the actual codec inventory', async () => {
     expect(await codecCapabilities()).toHaveProperty('versions.vips');
   });
+  it('recognizes JPEG XL signatures and gives a codec error when the installed decoder is absent', async () => {
+    const codestream = Buffer.from([0xff, 0x0a, 0, 0]);
+    const container = Buffer.from('0000000c4a584c200d0a870a', 'hex');
+    expect(sniff(codestream)).toBe('jxl');
+    expect(sniff(container)).toBe('jxl');
+    const report = await codecCapabilities();
+    expect(typeof report.formats.jxl.input.buffer).toBe('boolean');
+    if (!report.formats.jxl.input.buffer) {
+      await expect(
+        transform(codestream, normalizeRequest({ key: 'jxl' }), 'webp'),
+      ).rejects.toMatchObject({ code: 'CODEC_UNAVAILABLE', status: 415 });
+    }
+  });
 });
 describe('multi-frame and color fidelity', () => {
   it('preserves animation explicitly and refuses lossy flattening', async () => {
@@ -401,6 +414,52 @@ describe('built worker_threads pipeline', () => {
   });
 });
 describe('integrated persistent processor', () => {
+  it('owns the processing policy before memoizing its cache identity', async () => {
+    const { ImageProcessor } = (await import(
+      new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url).href
+    )) as typeof import('../packages/svelte-imageway/src/lib/node/processor.js');
+    const config = { ...defineConfig(), qualities: [50, 65, 75, 85, 95] };
+    const processor = new ImageProcessor({ directory: join(directory, 'owned-policy'), config });
+    const input = await sharp({ create: { width: 32, height: 16, channels: 3, background: 'red' } })
+      .png()
+      .toBuffer();
+    const prepared = processor.prepare(input);
+    const a = await prepared.process({ key: 'x', q: 75 }, 'webp', undefined, false);
+    config.qualities.splice(0);
+    const b = await prepared.process({ key: 'x', q: 75 }, 'webp', undefined, false);
+    expect(b.cacheHit).toBe(true);
+    expect(b.data).toEqual(a.data);
+    expect(processor.metrics.transforms).toBe(1);
+  });
+  it('keeps disk/memory output copies isolated and respects a cache budget too small for retention', async () => {
+    const { ImageProcessor } = (await import(
+      new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url).href
+    )) as typeof import('../packages/svelte-imageway/src/lib/node/processor.js');
+    const path = join(directory, 'output-copies');
+    const processor = new ImageProcessor({ directory: path, memoryBytes: 1 });
+    const input = await sharp({
+      create: { width: 32, height: 16, channels: 3, background: 'blue' },
+    })
+      .png()
+      .toBuffer();
+    const prepared = processor.prepare(input);
+    const a = await prepared.process({ key: 'x' }, 'webp', undefined, false);
+    const expected = Buffer.from(a.data);
+    a.data.fill(0);
+    const b = await prepared.process({ key: 'x' }, 'webp', undefined, false);
+    expect(b.cacheHit).toBe(true);
+    expect(b.data).toEqual(expected);
+    b.data.fill(1);
+    expect((await prepared.process({ key: 'x' }, 'webp', undefined, false)).data).toEqual(expected);
+    const restarted = new ImageProcessor({ directory: path });
+    const disk = await restarted.process(input, { key: 'x' }, 'webp', undefined, false);
+    expect(disk.cacheHit).toBe(true);
+    disk.data.fill(2);
+    expect((await restarted.process(input, { key: 'x' }, 'webp', undefined, false)).data).toEqual(
+      expected,
+    );
+    expect(processor.metrics.transforms).toBe(1);
+  });
   it('owns prepared input snapshots and keeps cached outputs isolated from caller mutation', async () => {
     const { ImageProcessor } = (await import(
       new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url).href

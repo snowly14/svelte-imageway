@@ -5,22 +5,30 @@ import { ImagewayError, invariant } from '../core/errors.js';
 import type { ImageConfig, NormalizedRequest, OutputFormat } from '../core/types.js';
 
 let factory: typeof Sharp | undefined;
+export type InputFormat = 'jpeg' | 'png' | 'gif' | 'webp' | 'heif' | 'tiff' | 'jxl' | 'svg';
 /** Load Sharp only on a Node/build transformation path. */
-export async function loadSharp(): Promise<typeof Sharp> {
-  if (factory) return factory;
-  try {
-    factory = (await import('sharp')).default;
-    return factory;
-  } catch {
-    throw new ImagewayError(
-      'SHARP_MISSING',
-      'Install sharp with bun add sharp, or configure a native/remote image provider for this runtime.',
-      500,
-    );
+export async function loadSharp(input?: InputFormat): Promise<typeof Sharp> {
+  if (!factory) {
+    try {
+      factory = (await import('sharp')).default;
+    } catch {
+      throw new ImagewayError(
+        'SHARP_MISSING',
+        'Install sharp with bun add sharp, or configure a native/remote image provider for this runtime.',
+        500,
+      );
+    }
   }
+  invariant(
+    input !== 'jxl' || factory.format.jxl.input.buffer,
+    'CODEC_UNAVAILABLE',
+    'This Sharp/libvips build cannot decode JPEG XL. Run svelte-imageway codecs; use a libjxl-enabled libvips build or convert the source to a supported format.',
+    415,
+  );
+  return factory;
 }
 /** Recognize permitted container signatures before decoder invocation. SVG is never trusted raw. */
-export function sniff(data: Uint8Array): string {
+export function sniff(data: Uint8Array): InputFormat {
   const b = Buffer.from(data.buffer, data.byteOffset, data.byteLength);
   if (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return 'jpeg';
   if (b.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return 'png';
@@ -77,7 +85,7 @@ export async function transform(
     'Raw SVG output is disabled; request a raster format.',
     415,
   );
-  const sharp = await loadSharp();
+  const sharp = await loadSharp(kind);
   try {
     const options = {
       limitInputPixels: config.maxPixels,
@@ -182,7 +190,11 @@ export async function transform(
   }
 }
 /** Report real decoder/encoder availability rather than promising exotic formats. */
-export async function codecCapabilities(): Promise<unknown> {
+export interface CodecCapabilities {
+  versions: typeof Sharp.versions;
+  formats: typeof Sharp.format;
+}
+export async function codecCapabilities(): Promise<CodecCapabilities> {
   const sharp = await loadSharp();
   return { versions: sharp.versions, formats: sharp.format };
 }

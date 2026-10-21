@@ -1,5 +1,37 @@
 # Reproducible package benchmarks
 
+## 1.5.0 parsed representation cache — 21 October 2026
+
+Seven alternating baseline/current pairs against published 1.4.0 source `62e4343` (implementation `571136a`), Apple M4, Node 26.11.1. Each processor child starts fresh with an empty disk cache, prepares the synthetic source and excludes the native first transform plus 20 warm-ups. It then measures sequential prepared-source memory-cache hits. Default memory limits apply. Outputs are byte-identical across variants. These are API cache lookups, not encoder, browser or CDN throughput.
+
+| Prepared memory-cache lookup | Output bytes | 1.4.0 ops/s | 1.5.0 ops/s | Ratio |
+| ---------------------------- | -----------: | ----------: | ----------: | ----: |
+| Small synthetic WebP         |        1,580 |      14,733 |      26,681 | 1.81× |
+| Synthetic texture WebP       |      155,112 |       5,048 |      10,478 | 2.08× |
+| Synthetic landscape PNG      |      246,641 |       3,209 |       6,609 | 2.06× |
+
+The cache retains private parsed metadata and an owned payload, returns one defensive copy and fingerprints its frozen policy once. Encoder settings and encoded bytes are unchanged. [All processor samples](results/processor-comparison.json).
+
+A separate complete local HTTP comparison uses seven alternating fresh-process pairs, one cold request, 30 warm repeats and 100 burst requests at concurrency four. Both versions have their built-in cache; every response digest is checked.
+
+| HTTP median      |          1.4.0 |          1.5.0 |
+| ---------------- | -------------: | -------------: |
+| Cold TTFB        |      69.056 ms |      69.295 ms |
+| Warm TTFB        |       0.269 ms |       0.256 ms |
+| Burst throughput | 8389.203 req/s | 9344.921 req/s |
+| Peak RSS         |    147.594 MiB |    148.344 MiB |
+
+The final HTTP series has 11.4% higher median burst throughput and essentially unchanged cold TTFB. This is a descriptive local measurement, not a statistical or market-wide guarantee. [Final HTTP samples](results/runtime-comparison.json). A first series had much noisier cold/warm TTFB and a 46.4% throughput difference; it is retained in [initial trial](results/runtime-comparison-1.5.0-trial.json). A subsequent same-code A/A control gave cold medians 69.1/68.4 ms and burst 8633.7/8924.3 req/s, then prompted the final repeated series. [A/A control](results/runtime-control.json). No previous result was discarded or interpreted as a controlled cross-session speedup. Desktop load and thermal state are uncontrolled. Do not infer a native encoding speedup from cache lookup gains.
+
+Reproduce serially after generating fixtures with bench:build and preparing the 1.4.0 baseline dist:
+
+```sh
+IMAGEWAY_BENCH_BASELINE_REF=62e4343 bun run bench:processor:compare <1.4.0-dist>/node/processor.js
+IMAGEWAY_BENCH_BASELINE_REF=62e4343 bun run bench:runtime:compare <1.4.0-dist>/kit/handler.js
+```
+
+JXL is not encoded by these benchmarks. [JPEG XL capability and fallback guide](../docs/guides/jpeg-xl.md), [measured native codec inventory](results/codecs.json). No custom libjxl-enabled build was tested. Component budgets remain StaticImage 1196 / full Image 3158 gzip bytes with Svelte externalized. Older build/cross-tool/Lighthouse measurements below retain their original versions and dates.
+
 ## 1.4.0 paired measurements — 21 October 2026
 
 Compared with 1.3.1 source `44b8b59`, using seven alternating baseline/current pairs per suite. Current build and HTTP outputs are verified byte-identical to the baseline. Both HTTP variants use their built-in cache. This is a busy Apple M4 desktop, Node 26.11.1; host background load/thermal state are uncontrolled. Suites ran serially without concurrent package verification. Absolute numbers differ substantially from the earlier session below; they are not a cross-session speedup claim.
@@ -18,7 +50,7 @@ Compared with 1.3.1 source `44b8b59`, using seven alternating baseline/current p
 
 Cold build median is 29.6% lower and warm HTTP burst throughput is 3.64× baseline in this session. Cold build RSS rises from 295.5 to 356.5 MiB with up to four workers; `imageway({ concurrency: 2 })` retains a smaller pool. Warm build median is 5.8% higher; first HTTP request median is 19.9% higher. No cold-HTTP improvement, warm-build gain, statistical significance or market-wide leadership is claimed. HTTP peak RSS decreases with fewer source copies; process RSS is not a hard native-memory cap.
 
-Cold build min–max: baseline 874.2–1291.6 ms, current 728.4–1026.0 ms. Warm build min–max: baseline 179.3–233.8 ms, current 134.7–206.2 ms. Full samples: [build comparison](results/comparison.json), [HTTP comparison](results/runtime-comparison.json). The prepared-source snapshot is copied/hashed once and cannot be mutated by its caller. Source TTL, authorization, output copying and worker limits remain enforced. Encoder settings have not changed.
+Cold build min–max: baseline 874.2–1291.6 ms, current 728.4–1026.0 ms. Warm build min–max: baseline 179.3–233.8 ms, current 134.7–206.2 ms. Full samples: [build comparison](results/comparison.json), [Historical 1.4.0 HTTP comparison](results/runtime-comparison-1.4.0.json). The prepared-source snapshot is copied/hashed once and cannot be mutated by its caller. Source TTL, authorization, output copying and worker limits remain enforced. Encoder settings have not changed.
 
 ```sh
 IMAGEWAY_BENCH_BASELINE_REF=44b8b59 bun run bench:compare <1.3.1-dist>/vite/index.js

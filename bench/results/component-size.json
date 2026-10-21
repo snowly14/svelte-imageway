@@ -1,6 +1,6 @@
 {
-  "measuredAt": "2026-10-21T19:58:08.874Z",
-  "packageVersion": "1.4.0",
+  "measuredAt": "2026-10-21T20:26:17.602Z",
+  "packageVersion": "1.5.0",
   "static": {
     "entry": "StaticImage.svelte",
     "runtime": "Svelte peer externalized",
@@ -17,5 +17,5 @@
     "gzipLevel": 9,
     "targetBytes": 1536
   },
-  "baselineReference": "44b8b59"
+  "baselineReference": "62e4343"
 }

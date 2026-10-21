@@ -88,11 +88,11 @@ test('served images have no layout shift and cached navigation remains visible',
   await expect(page.getByTestId('hero')).toBeVisible();
   expect(await page.getByTestId('hero').evaluate((img) => getComputedStyle(img).opacity)).toBe('1');
 });
-test('SSR renders useful images and preloads without JavaScript', async ({ browser }) => {
+test('SSR renders useful images and preloads without JavaScript', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   try {
-    await page.goto('http://127.0.0.1:4173');
+    await page.goto(baseURL!);
     await expect(page.getByTestId('hero')).toBeVisible();
     expect(
       await page.getByTestId('hero').evaluate((img: HTMLImageElement) => img.naturalWidth),

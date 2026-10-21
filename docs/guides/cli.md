@@ -10,3 +10,12 @@ Use `bun x svelte-imageway --help` (or `npx svelte-imageway` after publication).
 - `migrate [dir] --from enhanced-img|imagetools [--write]`: preview by default. Writes `.imageway-backup` before mutation; refuses to overwrite a backup. Parses imports/Svelte syntax. Converts supported enhanced imports and self-closing static/imported enhanced markup with explicit alt. Unknown directives, dynamic markup and imagetools object consumers need review. `as=picture` imports become typed Imageway artifacts, whose field shape differs; update consumers to `<Image src={artifact}>`. Run `init`, remove the old plugin after reviewing the diff, then build/test. This is a conservative codemod, not a guarantee of arbitrary application migration.
 
 No command deletes source media. Deploy does not reserve infrastructure. Publish/GC are the explicit build APIs documented separately.
+
+Inspect installed native codecs without transforming an image:
+
+```sh
+bun x svelte-imageway codecs
+bun x svelte-imageway codecs --json
+```
+
+The inventory reports native buffer input/output and versions; it does not enable missing codecs. [JPEG XL details](jpeg-xl.md).

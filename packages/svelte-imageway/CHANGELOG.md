@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 1.5.0
+
+### Minor Changes
+
+- Reuse parsed, privately owned memory-cache representations with one defensive output copy per hit, and fingerprint the frozen processing policy once per processor. Add a typed native-codec report and `svelte-imageway codecs --json`. JPEG XL inputs now fail with an actionable codec-unavailable error when the installed Sharp build lacks libjxl; no automatic JXL output or bundled JXL encoder is claimed.
+
 ## 1.4.0
 
 ### Minor Changes

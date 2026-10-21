@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**1.4.0.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
+**1.5.0.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold-build parity with vite-imagetools has not been established. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
 
 ## Before → after
 
@@ -64,7 +64,7 @@ For CI, run type generation before your application's check script. Keep the `sv
 Install the package in your existing Svelte 5 / Vite 8 project:
 
 ```sh
-bun add svelte-imageway@1.4.0
+bun add svelte-imageway@1.5.0
 ```
 
 Releases use the `latest` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).
@@ -149,6 +149,7 @@ Imageway supplies integrations, **not an included global CDN**. Accounts, object
 ```sh
 bun x svelte-imageway init
 bun x svelte-imageway optimize ./images --format webp --width 960
+bun x svelte-imageway codecs --json
 bun x svelte-imageway audit ./src --json
 bun x svelte-imageway deploy cloudflare --dry-run
 bun x svelte-imageway migrate ./src --from enhanced-img
@@ -158,21 +159,24 @@ These commands use the installed package CLI. `optimize` preserves originals and
 
 ## Measurements and limits
 
-Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating 1.3.1/current pairs, fresh Node processes, identical 18 WebP/JPEG q75 outputs verified byte-for-byte. Fixtures are three synthetic 1200×800 images, not a photographic quality study.
+Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating 1.4.0/current pairs, fresh Node processes, identical encoded outputs. Synthetic fixtures are not a photographic quality study.
 
-| Build median    |     1.3.1 |    1.4.0 |
-| --------------- | --------: | -------: |
-| Cold            | 1172.5 ms | 825.7 ms |
-| Disk cache warm |  185.0 ms | 195.6 ms |
+| Prepared memory-cache lookup | Output bytes | 1.4.0 ops/s | 1.5.0 ops/s | Ratio |
+| ---------------------------- | -----------: | ----------: | ----------: | ----: |
+| Small synthetic WebP         |        1,580 |      14,733 |      26,681 | 1.81× |
+| Synthetic texture WebP       |      155,112 |       5,048 |      10,478 | 2.08× |
+| Synthetic landscape PNG      |      246,641 |       3,209 |       6,609 | 2.06× |
 
-| HTTP median      |        1.3.1 |         1.4.0 |
-| ---------------- | -----------: | ------------: |
-| Cold TTFB        |    285.81 ms |     342.68 ms |
-| Warm TTFB        |      2.75 ms |       1.34 ms |
-| Burst throughput | 375.86 req/s | 1368.56 req/s |
-| Peak RSS         |   200.36 MiB |    147.64 MiB |
+| HTTP median      |          1.4.0 |          1.5.0 |
+| ---------------- | -------------: | -------------: |
+| Cold TTFB        |      69.056 ms |      69.295 ms |
+| Warm TTFB        |       0.269 ms |       0.256 ms |
+| Burst throughput | 8389.203 req/s | 9344.921 req/s |
+| Peak RSS         |    147.594 MiB |    148.344 MiB |
 
-In this session: 29.6% less cold build time, 3.64× warm HTTP burst throughput. Up to four build workers increase cold build peak RSS (295.5 → 356.5 MiB); configure `imageway({ concurrency: 2 })` on smaller machines. Warm build and first HTTP request medians are higher. The desktop had uncontrolled background load; this is not a statistical or market-wide superiority claim. See [all samples, ranges and protocols](bench/README.md). Source snapshots remove repeated copying/hashing; encoder settings and encoded bytes are unchanged. StaticImage remains 1196 gzip bytes; full Image 3158, Svelte externalized.
+The processor table measures prepared memory-cache hits, excluding native encoding and warm-up; it is not HTTP or codec throughput. The final HTTP burst median is 11.4% higher; cold TTFB is essentially unchanged. Host load is uncontrolled and an earlier noisier trial plus a same-code A/A control are retained in [all samples and protocols](bench/README.md). No market-wide or statistical superiority claim is made. Encoder settings and encoded bytes are unchanged. StaticImage remains 1196 gzip bytes; full Image 3158, Svelte externalized.
+
+JPEG XL browser support and installed native-codec support are separate. `bun x svelte-imageway codecs --json` reports actual capabilities; standard Sharp binaries in this environment cannot decode/encode JXL. Existing hosted JXL files can be supplied through typed artifacts with generated WebP/JPEG fallbacks. [JPEG XL guide](docs/guides/jpeg-xl.md).
 
 JPEG/PNG/WebP/AVIF/TIFF/GIF and a restricted geometric SVG dialect are exercised. EXIF orientation is applied and GPS removed by default; ICC retention is optional. HEIC/JXL depend on the installed codecs. BMP/ICO, animated AVIF/video and rich SVG are unsupported. The base component currently exceeds the requested 1.5 KiB gzip target. Provider-specific advanced transforms and paid runtime behavior need deployment-specific validation.
 
@@ -185,6 +189,8 @@ bun install
 bun run check
 bun run build:components
 bun run test:e2e
+# If another preview uses port 4173:
+IMAGEWAY_TEST_PORT=4198 bun run test:e2e
 ```
 
 Service E2E additionally needs the documented local Worker and Docker fixtures. Core coverage exceeds 90%; SSR, Chromium/WebKit and Linux Firefox checks are recorded in [REPORT.md](REPORT.md). CI configuration is not evidence of a completed remote CI run.

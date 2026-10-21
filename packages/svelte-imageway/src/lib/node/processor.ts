@@ -1,8 +1,8 @@
 import { PIPELINE_REVISION } from '../version.js';
-import { defaults } from '../core/config.js';
+import { defineConfig } from '../core/config.js';
 import { cacheIdentity, normalizeRequest } from '../core/url.js';
 import type { ImageConfig, ImageRequest, OutputFormat } from '../core/types.js';
-import { DiskCache, hash, MemoryCache, SingleFlight } from './cache.js';
+import { DiskCache, hash, ValueCache, SingleFlight } from './cache.js';
 import { loadSharp, type TransformResult } from './pipeline.js';
 import { TransformPool, sharedPool } from './pool.js';
 import { invariant } from '../core/errors.js';
@@ -24,7 +24,7 @@ export interface PreparedImageSource {
 }
 export class ImageProcessor {
   readonly metrics = { hit: 0, miss: 0, transforms: 0 };
-  private memory: MemoryCache;
+  private memory: ValueCache<{ value: TransformResult; bytes: number }>;
   private disk: DiskCache;
   private flight = new SingleFlight<ProcessedImage>();
   private pool: TransformPool;
@@ -41,13 +41,24 @@ export class ImageProcessor {
   }) {
     this.build = options.build ?? false;
     this.onTransform = options.onTransform;
-    this.config = { ...(options.config ?? defaults), provider: undefined, providers: undefined };
-    this.memory = new MemoryCache(options.memoryBytes);
+    this.config = defineConfig({ ...options.config, provider: undefined, providers: undefined });
+    this.memory = new ValueCache(options.memoryBytes ?? 32_000_000);
     this.disk = new DiskCache(options.directory, options.diskBytes);
     this.pool = sharedPool(options.concurrency);
   }
   private config: ImageConfig;
+  private policyRevision?: string;
   private onTransform?: () => void | Promise<void>;
+  private remember(key: string, value: TransformResult, bytes: number): void {
+    if (bytes > this.memory.maxBytes) return;
+    // The cache owns this copy; no caller receives an alias to its payload.
+    this.memory.set(
+      key,
+      { value: { ...value, data: Buffer.from(value.data) }, bytes },
+      bytes,
+      3600_000,
+    );
+  }
   /** Copy once at ingestion; repeated transforms reuse the immutable source identity. */
   prepare(data: Uint8Array): PreparedImageSource {
     invariant(
@@ -72,11 +83,17 @@ export class ImageProcessor {
     qualityCap?: number,
     preview = true,
   ): Promise<ProcessedImage> {
-    return this.processSource(data, hash(data), input, format, qualityCap, preview);
+    invariant(
+      data.byteLength > 0 && data.byteLength <= this.config.maxInputBytes,
+      'INPUT_SIZE',
+      'Input exceeds configured byte limit.',
+      413,
+    );
+    return this.processSource(data, undefined, input, format, qualityCap, preview);
   }
   private async processSource(
     data: Uint8Array,
-    digest: string,
+    digest: string | undefined,
     input: ImageRequest,
     format: OutputFormat,
     qualityCap?: number,
@@ -93,15 +110,23 @@ export class ImageProcessor {
               normalized.q,
           });
     const sharp = await loadSharp();
+    // Config is an owned frozen snapshot; codec identity is fixed for this process.
+    this.policyRevision ??= hash(PIPELINE_REVISION + JSON.stringify([sharp.versions, this.config]));
     const key = hash(
-      `${digest}:preview=${preview}:${cacheIdentity(request, format, PIPELINE_REVISION + JSON.stringify([sharp.versions, this.config]), this.config)}`,
+      `${digest ?? hash(data)}:preview=${preview}:${cacheIdentity(request, format, this.policyRevision, this.config)}`,
     );
     return this.flight.run(key, async () => {
-      const cached = this.memory.get(key) ?? (await this.disk.get(key));
+      const memory = this.memory.get(key);
+      if (memory) {
+        this.memory.set(key, memory, memory.bytes, 3600_000);
+        this.metrics.hit++;
+        return { ...memory.value, data: Buffer.from(memory.value.data), cacheHit: true };
+      }
+      const cached = await this.disk.get(key);
       if (cached) {
         try {
           const result = unpack(cached);
-          this.memory.set(key, cached, 3600_000);
+          this.remember(key, result, cached.length);
           this.metrics.hit++;
           return { ...result, cacheHit: true };
         } catch {
@@ -115,7 +140,7 @@ export class ImageProcessor {
       const result = await (this.build ? this.pool.runBuild(task) : this.pool.run(task));
       const packed = pack(result);
       await this.disk.set(key, packed);
-      this.memory.set(key, packed, 3600_000);
+      this.remember(key, result, packed.length);
       return { ...result, cacheHit: false };
     });
   }
