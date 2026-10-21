@@ -156,17 +156,14 @@ These commands use the installed package CLI. `optimize` preserves originals and
 
 ## Measurements and limits
 
-Measured on an Apple M4, Node 24.22.0, using three original synthetic 1200×800 images; medians of three runs. These are small reproducible fixtures, not a photographic quality study.
+Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating before/after pairs, fresh Node processes, identical 18 WebP/JPEG q75 outputs verified byte-for-byte. Fixtures are three synthetic 1200×800 images, not a photographic quality study.
 
-| Build, 18 variants |   Cold | Disk cache warm |
-| ------------------ | -----: | --------------: |
-| Imageway           | 275 ms |           50 ms |
-| vite-imagetools    | 144 ms |           39 ms |
-| enhanced-img       | 139 ms |           40 ms |
+| Build median    | 1.2 baseline | 1.3 candidate |
+| --------------- | -----------: | ------------: |
+| Cold            |    1312.9 ms |     1328.3 ms |
+| Disk cache warm |     219.3 ms |      218.7 ms |
 
-For small trusted build inputs, `imageway({ concurrency: 4 })` measured about 221 ms cold in a separate three-run sweep. The default remains two workers. More workers increase concurrent decoder memory; tune against your own input set and memory limit. These local measurements do not establish market-wide performance leadership.
-
-Median source-to-output reduction was 92% across six WebP/AVIF outputs at width 960, quality 75; both resizing and re-encoding contribute. Encoder defaults differ between tools, so equal quality numbers do not imply equal perceptual quality. [Protocol and raw measurements](bench/README.md).
+This run does not establish a build speed improvement or market-wide leadership. Historical cross-tool results and their differing encoder settings remain dated separately in the [protocol and raw measurements](bench/README.md). StaticImage size and default-format byte selection are separate improvements; neither implies faster encoding or equal perceptual quality across codecs.
 
 JPEG/PNG/WebP/AVIF/TIFF/GIF and a restricted geometric SVG dialect are exercised. EXIF orientation is applied and GPS removed by default; ICC retention is optional. HEIC/JXL depend on the installed codecs. BMP/ICO, animated AVIF/video and rich SVG are unsupported. The base component currently exceeds the requested 1.5 KiB gzip target. Provider-specific advanced transforms and paid runtime behavior need deployment-specific validation.
 
