@@ -1,3 +1,17 @@
+# 1.3.0 measured improvements
+
+Local measurements on 21 October 2026:
+
+- StaticImage entry: 1196 gzip bytes; complete Image: 3158 bytes, Svelte peer externalized. The smaller component omits provider/snippet/transition features; the complete component still exceeds the original 1536-byte stretch target.
+- The local 1676x1133 JPEG generated 21 files / 1,732,502 bytes with all default formats. Default dominated-AVIF selection emits 14 files / 1,019,864 bytes. At full width the browser can select WebP 189,046 bytes instead of AVIF 279,043 bytes. Both encodings are still computed; same numeric encoder qualities are not proof of equal perceptual quality.
+- Seven alternating baseline/current build pairs verify byte-identical outputs. Cold medians 1027.1 → 1049.4 ms; warm 197.5 → 162.9 ms, with substantial spread (cold samples 879.2–1206.2 ms). No speed improvement or build parity claim. See bench/results/comparison.json. The prepared/shared-source experiment was removed.
+- Current HTTP benchmark: Imageway cold median 314.8 ms / warm 3.46 ms / burst 355.6 requests/s; IPX cold 217.4 ms / warm 102.64 ms / burst 40.1 requests/s. Imageway has built-in cache; bare IPX does not. This is not a pure encoder or production-CDN comparison, nor a controlled speedup over the historical session.
+- Exclusively owned exact-sized worker outputs transfer without redundant copies; pooled/partial/shared allocations retain safe fallback handling. Decoding limits, queue admission, deadlines and encoder settings are preserved.
+- Local validation: 227 tests, strict TypeScript/Svelte checks, both component budgets and package export/tar validation. Chromium/WebKit: ten component tests passed; optional service fixtures skipped.
+- Local tests cover source offsets, explicit/default format selection, opt-out, typed StaticImage inputs, SSR escaping/preload alignment/preview sanitization, and browser loading with/without JavaScript. Optional Worker/Docker browser fixtures remain skipped when unconfigured. Complete 1.3.0 CI/publication status is recorded only after those steps complete.
+
+---
+
 # 1.2.0 release validation
 
 The user requested version 1.2.0 and capability-driven hybrid optimization. The historical preview report below remains a record of the original acceptance work; its unmet stretch targets are not claimed as achieved by this version.

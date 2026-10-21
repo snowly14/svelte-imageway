@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Image, Picture, BackgroundImage, ImageMeta } from 'svelte-imageway';
+  import { Image, Picture, BackgroundImage, ImageMeta, StaticImage } from 'svelte-imageway';
   import hero from './landscape.png?img&w=320;640;960&format=avif;webp;png';
   let events = $state(0);
 </script>
@@ -17,6 +17,13 @@
     data-testid="hero"
   />
   <p data-testid="events">Loads: {events}</p>
+  <StaticImage
+    src={hero}
+    alt="Static landscape"
+    sizes="320px"
+    style="width:320px"
+    data-testid="static-image"
+  />
   <Picture
     src={hero}
     alt="Landscape with art direction"

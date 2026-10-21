@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**1.2.0.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
+**1.3.0.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
 
 ## Before → after
 
@@ -21,6 +21,23 @@ Responsive images for Svelte 5: optimize local imports, switch image providers, 
 ```
 
 Imageway generates responsive AVIF/WebP/fallback assets, reserves dimensions and adds a small preview. `priority` adds eager loading, high fetch priority and an image preload. `alt` is required; use `alt=""` for decorative images. Without `priority`, images load lazily.
+
+## Lightweight local images
+
+Use `StaticImage` when `src` is a generated `?img` artifact and you do not need providers, custom source/snippet slots, transitions or the headless API:
+
+```svelte
+<script lang="ts">
+  import StaticImage from 'svelte-imageway/static';
+  import hero from './hero.jpg?img';
+</script>
+
+<StaticImage src={hero} alt="A mountain trail" priority sizes="100vw" />
+```
+
+The measured StaticImage entry is 1,196 bytes gzip with the Svelte peer externalized; the complete Image entry remains 3,158 bytes. These are different capability sets, not a like-for-like speed comparison. StaticImage preserves responsive sources, dimensions, loading, preview removal, native events and matching priority preloads. It requires ImageArtifact and an explicit alt; dynamic strings use Image with a configured provider. It does not support Image's custom loading/error snippets or source slots. Set display size through CSS and `sizes`; artifact dimensions remain authoritative.
+
+Default build imports now omit AVIF only when **every** matching WebP width/height has no more bytes. This can avoid downloading a larger AVIF simply because the browser supports it. It compares encoded bytes at the configured encoder settings, not perceptual quality; both encodings are still computed to make the decision. Explicit `format=` directives remain exact. Set `imageway({ pruneLargerFormats: false })` to preserve all default formats. Development remains lazy and does not perform this build-only comparison.
 
 ## Intelligent delivery in 1.2
 
@@ -45,7 +62,7 @@ For CI, run type generation before your application's check script. Keep the `sv
 Install the package in your existing Svelte 5 / Vite 8 project:
 
 ```sh
-bun add svelte-imageway@1.2.0
+bun add svelte-imageway@1.3.0
 ```
 
 Releases use the `latest` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).

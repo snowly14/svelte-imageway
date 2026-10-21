@@ -64,7 +64,7 @@ if (installed === resolve('packages/svelte-imageway/package.json'))
 await run('node', ['node_modules/svelte-imageway/dist/cli/index.js', 'init', root]);
 await writeFile(
   join(root, 'src/routes/+page.svelte'),
-  '<script lang="ts">import { Image } from "svelte-imageway"; import hero from "./hero.png?img&w=320;640&format=webp;jpg";</script>\n<Image src={hero} alt="Original synthetic landscape" priority sizes="100vw" />\n',
+  '<script lang="ts">import StaticImage from "svelte-imageway/static"; import hero from "./hero.png?img&w=320;640&format=webp;jpg";</script>\n<StaticImage src={hero} alt="Original synthetic landscape" priority sizes="100vw" />\n',
 );
 await run('bun', ['run', 'build']);
 await run('bun', ['run', 'check']);

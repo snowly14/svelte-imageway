@@ -310,6 +310,13 @@ describe('multi-frame and color fidelity', () => {
   });
 });
 describe('built worker_threads pipeline', () => {
+  it('sniffs only the declared bytes of an offset input view', () => {
+    const container = Buffer.from([0, 0, 0xff, 0xd8, 0xff, 0]);
+    expect(sniff(new Uint8Array(container.buffer, container.byteOffset + 2, 3))).toBe('jpeg');
+    expect(() => sniff(new Uint8Array(container.buffer, container.byteOffset, 2))).toThrow(
+      /signature/,
+    );
+  });
   it('executes actual compiled workers, queues jobs and propagates errors', async () => {
     const url = new URL('../packages/svelte-imageway/dist/node/pool.js', import.meta.url);
     const { TransformPool } = (await import(

@@ -1,0 +1,262 @@
+{
+  "measuredAt": "2026-10-21T18:23:03.172Z",
+  "fixture": "Local opaque JPEG 1676x1133; same encoders, widths and q75; no perceptual quality score",
+  "rows": [
+    {
+      "pruneLargerFormats": false,
+      "variants": [
+        {
+          "format": "avif",
+          "width": 640,
+          "height": 433,
+          "bytes": 50305
+        },
+        {
+          "format": "jpeg",
+          "width": 768,
+          "height": 519,
+          "bytes": 51511
+        },
+        {
+          "format": "avif",
+          "width": 320,
+          "height": 216,
+          "bytes": 14611
+        },
+        {
+          "format": "avif",
+          "width": 480,
+          "height": 324,
+          "bytes": 29661
+        },
+        {
+          "format": "jpeg",
+          "width": 480,
+          "height": 324,
+          "bytes": 22694
+        },
+        {
+          "format": "jpeg",
+          "width": 1280,
+          "height": 865,
+          "bytes": 126731
+        },
+        {
+          "format": "avif",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 279043
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 433,
+          "bytes": 35080
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 649,
+          "bytes": 70520
+        },
+        {
+          "format": "avif",
+          "width": 1280,
+          "height": 865,
+          "bytes": 167658
+        },
+        {
+          "format": "jpeg",
+          "width": 320,
+          "height": 216,
+          "bytes": 11241
+        },
+        {
+          "format": "webp",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 189046
+        },
+        {
+          "format": "jpeg",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 203956
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 324,
+          "bytes": 21128
+        },
+        {
+          "format": "webp",
+          "width": 320,
+          "height": 216,
+          "bytes": 10410
+        },
+        {
+          "format": "avif",
+          "width": 768,
+          "height": 519,
+          "bytes": 68819
+        },
+        {
+          "format": "jpeg",
+          "width": 640,
+          "height": 433,
+          "bytes": 37730
+        },
+        {
+          "format": "jpeg",
+          "width": 960,
+          "height": 649,
+          "bytes": 76289
+        },
+        {
+          "format": "webp",
+          "width": 768,
+          "height": 519,
+          "bytes": 47686
+        },
+        {
+          "format": "webp",
+          "width": 1280,
+          "height": 865,
+          "bytes": 115842
+        },
+        {
+          "format": "avif",
+          "width": 960,
+          "height": 649,
+          "bytes": 102541
+        }
+      ],
+      "totalBytes": 1732502,
+      "largest": [
+        {
+          "format": "avif",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 279043
+        },
+        {
+          "format": "webp",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 189046
+        },
+        {
+          "format": "jpeg",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 203956
+        }
+      ]
+    },
+    {
+      "pruneLargerFormats": true,
+      "variants": [
+        {
+          "format": "jpeg",
+          "width": 768,
+          "height": 519,
+          "bytes": 51511
+        },
+        {
+          "format": "jpeg",
+          "width": 480,
+          "height": 324,
+          "bytes": 22694
+        },
+        {
+          "format": "jpeg",
+          "width": 1280,
+          "height": 865,
+          "bytes": 126731
+        },
+        {
+          "format": "webp",
+          "width": 640,
+          "height": 433,
+          "bytes": 35080
+        },
+        {
+          "format": "webp",
+          "width": 960,
+          "height": 649,
+          "bytes": 70520
+        },
+        {
+          "format": "jpeg",
+          "width": 320,
+          "height": 216,
+          "bytes": 11241
+        },
+        {
+          "format": "webp",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 189046
+        },
+        {
+          "format": "jpeg",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 203956
+        },
+        {
+          "format": "webp",
+          "width": 480,
+          "height": 324,
+          "bytes": 21128
+        },
+        {
+          "format": "webp",
+          "width": 320,
+          "height": 216,
+          "bytes": 10410
+        },
+        {
+          "format": "jpeg",
+          "width": 640,
+          "height": 433,
+          "bytes": 37730
+        },
+        {
+          "format": "jpeg",
+          "width": 960,
+          "height": 649,
+          "bytes": 76289
+        },
+        {
+          "format": "webp",
+          "width": 768,
+          "height": 519,
+          "bytes": 47686
+        },
+        {
+          "format": "webp",
+          "width": 1280,
+          "height": 865,
+          "bytes": 115842
+        }
+      ],
+      "totalBytes": 1019864,
+      "largest": [
+        {
+          "format": "webp",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 189046
+        },
+        {
+          "format": "jpeg",
+          "width": 1676,
+          "height": 1133,
+          "bytes": 203956
+        }
+      ]
+    }
+  ]
+}

@@ -97,28 +97,32 @@ for (let run = 0; run < 3; run++)
     );
   }
 // Real local binding timing is kept distinct from the managed production service and the q75 encoder comparison.
-const worker = [];
-for (let i = 0; i < 30; i++) {
-  const start = performance.now();
-  const r = await fetch(
-    'http://127.0.0.1:8787/_img/v1?key=images/landscape.png&preset=card&w=640&format=webp',
+const workerEndpoint = process.env.IMAGEWAY_BENCH_WORKER_URL;
+if (workerEndpoint) {
+  const worker = [];
+  for (let i = 0; i < 30; i++) {
+    const start = performance.now();
+    const r = await fetch(workerEndpoint);
+    const ttfb = performance.now() - start;
+    await r.arrayBuffer();
+    if (!r.ok) throw new Error('Worker ' + r.status);
+    worker.push({ ttfb, cache: r.headers.get('x-imageway-cache') });
+  }
+  await writeFile(
+    'bench/results/worker-local.json',
+    JSON.stringify(
+      {
+        mode: 'Wrangler local Images binding emulator, not production Cloudflare; offline quality defaults apply',
+        measuredAt: new Date().toISOString(),
+        samples: worker,
+        medianTtfbMs: median(worker.map((v) => v.ttfb)),
+      },
+      null,
+      2,
+    ) + '\n',
   );
-  const ttfb = performance.now() - start;
-  await r.arrayBuffer();
-  if (!r.ok) throw new Error('Worker ' + r.status);
-  worker.push({ ttfb, cache: r.headers.get('x-imageway-cache') });
-}
-await writeFile(
-  'bench/results/worker-local.json',
-  JSON.stringify(
-    {
-      mode: 'Wrangler local Images binding emulator, not production Cloudflare; offline quality defaults apply',
-      measuredAt: new Date().toISOString(),
-      samples: worker,
-      medianTtfbMs: median(worker.map((v) => v.ttfb)),
-    },
-    null,
-    2,
-  ) + '\n',
-);
+} else
+  console.log(
+    'Worker benchmark skipped: set IMAGEWAY_BENCH_WORKER_URL to an explicit running endpoint.',
+  );
 console.log('Runtime benchmark complete.');

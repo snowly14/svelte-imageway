@@ -10,6 +10,7 @@ import type {
   ImageProvider,
 } from '../packages/svelte-imageway/src/lib/core/types.js';
 import type { ImageProps } from '../packages/svelte-imageway/src/lib/component-types.js';
+import type { StaticImageProps } from '../packages/svelte-imageway/src/lib/static-props.js';
 import { local } from '../packages/svelte-imageway/src/lib/providers/local.js';
 const artifact: ImageArtifact = {
   src: '/fallback.png',
@@ -22,6 +23,27 @@ const artifact: ImageArtifact = {
   placeholder: 'data:image/webp;base64,YWJj',
 };
 describe('headless and type contract', () => {
+  it('keeps the minimal component artifact-only with required alt and native events', () => {
+    const props: StaticImageProps = {
+      src: artifact,
+      alt: '',
+      priority: true,
+      onload(event) {
+        expectTypeOf(event).toExtend<Event>();
+        expectTypeOf(event).not.toBeAny();
+      },
+    };
+    expectTypeOf(props.src).toEqualTypeOf<ImageArtifact>();
+    // @ts-expect-error Dynamic strings require Image plus a configured provider.
+    const dynamic: StaticImageProps = { src: '/photo.jpg', alt: '' };
+    // @ts-expect-error An explicit alt is required for accessibility.
+    const missingAlt: StaticImageProps = { src: artifact };
+    // @ts-expect-error Providers are intentionally absent from the lightweight contract.
+    const provider: StaticImageProps = { src: artifact, alt: '', provider: local() };
+    void dynamic;
+    void missingAlt;
+    void provider;
+  });
   it('negotiates dynamic local formats automatically, with an explicit picture override', () => {
     const options = { src: '/photo.jpg', alt: 'Photo', provider: local(), width: 800 };
     const automatic = getImageProps(options);

@@ -27,6 +27,8 @@ export { generateImageTypes } from './typegen.js';
 
 export { parseDirectives } from './directives.js';
 export interface ImagePluginOptions {
+  /** Omit dominated default AVIF sources. Explicit format directives stay exact. Build only; default true. */
+  pruneLargerFormats?: boolean;
   config?: Partial<ImageConfig>;
   concurrency?: number;
   publicBase?: string;
@@ -200,8 +202,14 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       if (metadata.hasAlpha && !formats.includes('png') && formats.includes('jpeg'))
         formats.splice(formats.indexOf('jpeg'), 1, 'png');
       const tokenUrls = new Map<string, string>();
-      const outputs: Array<{ format: OutputFormat; width: number; height: number; url: string }> =
-        [];
+      let outputs: Array<{
+        format: OutputFormat;
+        width: number;
+        height: number;
+        url: string;
+        data?: Buffer;
+        requestedWidth: number;
+      }> = [];
       const exactConfig = defineConfig({
         ...config,
         widths: directives.widths,
@@ -231,13 +239,20 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
           const digest = hash(
             `${hash(source)}:${JSON.stringify(request)}:${format}:${PIPELINE_REVISION}:${JSON.stringify(sharp.versions)}`,
           );
-          let url: string;
+          let url = '';
+          let data: Buffer | undefined;
           const run = async () => {
             if (format !== 'svg')
               return exactProcessor.process(source, request, format, undefined, false);
             if (kind !== 'svg')
               throw new ImagewayError('SVG', 'Only approved SVG inputs can produce SVG output.');
             const optimized = optimize(source.toString('utf8'), { multipass: true }).data;
+            if (Buffer.byteLength(optimized) > config.maxOutputBytes)
+              throw new ImagewayError(
+                'OUTPUT_SIZE',
+                'Encoded output exceeds configured byte limit.',
+                413,
+              );
             sniff(Buffer.from(optimized));
             return {
               data: Buffer.from(optimized),
@@ -257,16 +272,51 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
             const output = await run();
             height = output.height;
             outputWidth = output.width;
-            const filename = `imageway/${hash(output.data)}.${format}`;
-            const ref = this.emitFile({ type: 'asset', fileName: filename, source: output.data });
-            const token = `__IMAGEWAY_${tokenUrls.size}__`;
-            tokenUrls.set(token, `import.meta.ROLLUP_FILE_URL_${ref}`);
-            url = publicBase ? `${publicBase}/${filename}` : token;
+            data = output.data;
           }
-          outputs.push({ format, width: outputWidth, height, url });
+          outputs.push({ format, width: outputWidth, height, url, data, requestedWidth: width });
         }),
       );
-      outputs.sort((a, b) => a.width - b.width);
+      outputs.sort((a, b) => a.width - b.width || a.requestedWidth - b.requestedWidth);
+      // A fixed height/inside fit may collapse several requested widths to one
+      // encoded width. Repeated width descriptors are invalid in a srcset.
+      const seenWidths = new Set<string>();
+      outputs = outputs.filter((output) => {
+        const key = `${output.format}:${output.width}`;
+        if (seenWidths.has(key)) return false;
+        seenWidths.add(key);
+        return true;
+      });
+      if (
+        vite.command !== 'serve' &&
+        options.pruneLargerFormats !== false &&
+        !new URLSearchParams(id.slice(split + 1)).has('format')
+      ) {
+        const avif = outputs.filter((v) => v.format === 'avif');
+        if (
+          avif.length &&
+          avif.every((a) =>
+            outputs.some(
+              (b) =>
+                b.format === 'webp' &&
+                b.width === a.width &&
+                b.height === a.height &&
+                b.data!.length <= a.data!.length,
+            ),
+          )
+        ) {
+          outputs = outputs.filter((v) => v.format !== 'avif');
+          formats.splice(formats.indexOf('avif'), 1);
+        }
+      }
+      if (vite.command !== 'serve')
+        for (const output of outputs) {
+          const filename = `imageway/${hash(output.data!)}.${output.format}`;
+          const ref = this.emitFile({ type: 'asset', fileName: filename, source: output.data! });
+          const token = `__IMAGEWAY_${tokenUrls.size}__`;
+          tokenUrls.set(token, `import.meta.ROLLUP_FILE_URL_${ref}`);
+          output.url = publicBase ? `${publicBase}/${filename}` : token;
+        }
       while (jobs.size > 2048) jobs.delete(jobs.keys().next().value!);
       if (!outputs.length)
         throw new ImagewayError('VARIANTS', 'No supported image variants generated.');
@@ -294,7 +344,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         width: fallback.width,
         height: fallback.height,
         aspectRatio: fallback.width / fallback.height,
-        ...(await placeholder(source, directives.placeholder)),
+        ...(await placeholder(source, directives.placeholder, config)),
         hash: hash(source),
       };
       options.onProgress?.({ file: relative(vite.root, file), variants: outputs.length });

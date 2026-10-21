@@ -28,7 +28,9 @@
     "check:budget": "bun scripts/bundle-budget.ts --budget=3400",
     "check:acceptance-size": "bun scripts/bundle-budget.ts --budget=1536",
     "prepare": "husky",
-    "release:metadata": "bun scripts/release-metadata.ts"
+    "release:metadata": "bun scripts/release-metadata.ts",
+    "check:static-budget": "bun scripts/bundle-budget.ts --static --budget=1536",
+    "bench:compare": "bun bench/compare.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",

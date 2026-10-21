@@ -1,6 +1,6 @@
 # Release policy and commands
 
-Version 1.2.0 is published on npm under latest and on GitHub. The source commit `002158b09e123e70685dbb7d269dc5981de8b20d` passed the complete CI matrix; registry integrity and provenance were verified. Releases use `latest`. The original 1,536-byte/build-parity/Lighthouse stretch targets remain unmet; the existing 3,400-byte regression budget remains enforced. See ADR 0014 for the explicit version-policy change.
+Version 1.3.0 is prepared with an artifact-only StaticImage entry, dominated-default-format selection, safer output-buffer transfers and alternating benchmark comparisons. Publication requires the complete CI matrix and registry provenance verification. Version 1.2.0 remains immutable and available. Releases use latest; performance stretch targets remain documented, not implied by the version number.
 
 ## Configure real identity
 
@@ -35,7 +35,7 @@ Bun remains the dependency manager and runs all scripts/builds/packing. [Bun pub
 The prepared `release.yml` runs only by manual dispatch on main, in the `npm` environment. Configure that environment's required reviewers and npm trusted publisher before enabling it. It verifies the exact requested version and repository metadata, runs the package gate, and executes:
 
 ```sh
-npm publish .local/pack/svelte-imageway-1.2.0.tgz --tag latest --access public --provenance
+npm publish .local/pack/svelte-imageway-1.3.0.tgz --tag latest --access public --provenance
 ```
 
 That command is for the supported CI/OIDC environment, not a promise of provenance on an arbitrary local shell. Check the registry and GitHub release before announcing publication; an uploaded GitHub repository does not imply that npm publication succeeded. Paid cloud deployment is outside this package release. Verify the registry tar integrity, metadata, latest dist-tag and provenance before announcing a release.

@@ -1,5 +1,22 @@
 # Reproducible package benchmarks
 
+## 21 October 2026 improvements
+
+- StaticImage: 1,196 gzip bytes with Svelte externalized; full Image: 3,158 bytes. Different capability sets; the full component has not met the original 1,536-byte target.
+- [comparison.json](results/comparison.json): seven alternating before/after pairs against source 0c408b0, 18 outputs verified byte-identical. Median cold 1027.1 → 1049.4 ms; warm 197.5 → 162.9 ms. Individual cold samples range from 879.2 to 1206.2 ms. The run does not establish a build speed improvement or statistical significance; do not compare its absolute timings with older sessions as a controlled gain. The prepared-source experiment was rejected and removed.
+- Worker output transfer removes redundant copies only for safe, exact-sized owned allocations. Encoder settings, limits, admission and deadlines remain unchanged. This is a structural allocation reduction, not a measured market-wide throughput claim.
+- [format-selection.json](results/format-selection.json) measures default AVIF selection against equivalent WebP widths. Both candidates are still encoded; selection reduces emitted bytes, not encoding work. It is not a perceptual-quality comparison.
+- The current [runtime.json](results/runtime.json) retains all Node/IPX samples and the cache-topology caveat. Worker timing is skipped unless IMAGEWAY_BENCH_WORKER_URL names a running endpoint; historical worker timing is dated separately.
+
+Reproduce paired builds after preparing a baseline dist and running bench:build for fixtures:
+
+```sh
+IMAGEWAY_BENCH_BASELINE_REF=<source-commit> bun run bench:compare <baseline-dist>/vite/index.js
+bun run check:static-budget
+```
+
+## Historical reference session
+
 Measurements: 20 October 2026; Apple M4, 10 logical CPUs, 16 GiB RAM, macOS 27 arm64. The orchestrator uses Bun 1.4.3 (its Node compatibility version is not the child runtime). Every build/runtime child used Node 24.22.0 and Sharp 0.35.5; codec versions and all samples are in the JSON files.
 
 ## Run
@@ -20,7 +37,7 @@ bun run bench:runtime
 | Warm disk build |  52.5 ms |         39.0 ms |      38.9 ms |
 | Output bytes    |  498,652 |         745,147 |      745,147 |
 
-[build.json](results/build.json) is the authoritative final run. The earlier exploratory `build-before-pool-reuse.json` was collected before worker reuse, while other work ran; do not use it to claim a controlled speedup. Build parity with imagetools is **not met**. See ISSUE-0002.
+[build.json](results/build.json) records this historical session. The earlier exploratory `build-before-pool-reuse.json` was collected before worker reuse, while other work ran; do not use it to claim a controlled speedup. Build parity with imagetools is **not met**. See ISSUE-0002.
 
 ## Weight
 

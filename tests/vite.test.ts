@@ -8,6 +8,7 @@ import sharp from 'sharp';
 import { parseDirectives } from '../packages/svelte-imageway/src/lib/vite/directives.js';
 import { placeholder } from '../packages/svelte-imageway/src/lib/vite/placeholder.js';
 import type { imageway as factory } from '../packages/svelte-imageway/src/lib/vite/index.js';
+import { defineConfig } from '../packages/svelte-imageway/src/lib/core/config.js';
 let root: string;
 let imageway: typeof factory;
 beforeAll(async () => {
@@ -33,6 +34,16 @@ afterAll(async () => {
   await rm(root, { recursive: true, force: true });
 });
 describe('import directives and placeholders', () => {
+  it('applies configured preview byte/pixel limits instead of a hardcoded decoder budget', async () => {
+    const source = await readFile(join(root, 'hero.png'));
+    await expect(placeholder(source, 'lqip', defineConfig({ maxInputBytes: 1 }))).rejects.toThrow(
+      /byte limit/,
+    );
+    await expect(placeholder(source, 'lqip', defineConfig({ maxPixels: 1 }))).rejects.toThrow(
+      /pixel limit/i,
+    );
+    expect(await placeholder(source, 'none', defineConfig({ maxPixels: 1 }))).toEqual({});
+  });
   it('avoids nearly identical terminal widths only for the automatic ladder', () => {
     expect(parseDirectives('img', 1676).widths).toEqual([320, 480, 640, 768, 960, 1280, 1676]);
     expect(parseDirectives('img&w=1600;1676', 1676).widths).toEqual([1600, 1676]);
@@ -74,6 +85,92 @@ describe('import directives and placeholders', () => {
   );
 });
 describe('real Vite build and dev', () => {
+  it('deduplicates actual srcset widths when a height constraint collapses requested sizes', async () => {
+    const entry = join(root, 'height-entry.js');
+    await writeFile(
+      entry,
+      "import image from './hero.png?img&w=320;640&h=100&fit=inside&format=webp&placeholder=none'; console.log(image);",
+    );
+    await build({
+      root,
+      configFile: false,
+      logLevel: 'silent',
+      plugins: [imageway()],
+      build: { outDir: 'height-limited', minify: false, rolldownOptions: { input: entry } },
+    });
+    const scripts = await readdir(join(root, 'height-limited/assets'));
+    const code = await readFile(
+      join(
+        root,
+        'height-limited/assets',
+        scripts.find((file) => file.endsWith('.js'))!,
+      ),
+      'utf8',
+    );
+    expect(code.match(/133w/g)).toHaveLength(1);
+    expect((await readdir(join(root, 'height-limited/imageway'))).length).toBe(1);
+  });
+  it('enforces the output byte limit for optimized SVG imports', async () => {
+    await writeFile(
+      join(root, 'small.svg'),
+      '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="red"/></svg>',
+    );
+    const entry = join(root, 'svg-entry.js');
+    await writeFile(
+      entry,
+      "import image from './small.svg?img&format=svg&placeholder=none'; console.log(image);",
+    );
+    await expect(
+      build({
+        root,
+        configFile: false,
+        logLevel: 'silent',
+        plugins: [imageway({ config: { maxOutputBytes: 1 } })],
+        build: { outDir: 'svg-budget', rolldownOptions: { input: entry } },
+      }),
+    ).rejects.toThrow(/byte limit/);
+  });
+  it('omits default AVIF only when matching WebP variants are no larger, with an opt-out', async () => {
+    const entry = join(root, 'prune.js');
+    await writeFile(
+      entry,
+      "import hero from './hero.png?img&w=320&placeholder=none'; console.log(hero);",
+    );
+    for (const pruneLargerFormats of [false, true]) {
+      const outDir = `prune-${pruneLargerFormats}`;
+      await build({
+        root,
+        configFile: false,
+        logLevel: 'silent',
+        plugins: [imageway({ pruneLargerFormats })],
+        build: { outDir, rolldownOptions: { input: entry } },
+      });
+    }
+    const full = await readdir(join(root, 'prune-false/imageway'));
+    const pruned = await readdir(join(root, 'prune-true/imageway'));
+    const avif = full.find((file) => file.endsWith('.avif'))!;
+    const webp = full.find((file) => file.endsWith('.webp'))!;
+    const avifBytes = (await readFile(join(root, 'prune-false/imageway', avif))).length;
+    const webpBytes = (await readFile(join(root, 'prune-false/imageway', webp))).length;
+    expect(pruned.some((file) => file.endsWith('.avif'))).toBe(avifBytes < webpBytes);
+    expect(pruned.some((file) => file.endsWith('.jpeg'))).toBe(true);
+    expect(await readFile(join(root, 'prune-true/imageway', webp))).toEqual(
+      await readFile(join(root, 'prune-false/imageway', webp)),
+    );
+    // Explicit format directives retain all requested formats even if one is larger.
+    await writeFile(
+      entry,
+      "import hero from './hero.png?img&w=320&format=avif;webp&placeholder=none'; console.log(hero);",
+    );
+    await build({
+      root,
+      configFile: false,
+      logLevel: 'silent',
+      plugins: [imageway()],
+      build: { outDir: 'prune-explicit', rolldownOptions: { input: entry } },
+    });
+    expect((await readdir(join(root, 'prune-explicit/imageway'))).length).toBe(2);
+  });
   it('does not turn default formats into an explicit browser allowlist', async () => {
     for (const formats of [undefined, ['webp'] as const]) {
       const server = await createServer({

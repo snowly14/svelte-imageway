@@ -3,9 +3,13 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { join } from 'node:path';
 import { readdir, stat } from 'node:fs/promises';
 import { imageway } from '../packages/svelte-imageway/dist/vite/index.js';
+import { pathToFileURL } from 'node:url';
 import { imagetools } from 'vite-imagetools';
 import { enhancedImages } from '@sveltejs/enhanced-img';
 const [engine, root] = process.argv.slice(2) as [string, string];
+const imagewayFactory: typeof imageway = process.env.IMAGEWAY_BENCH_PLUGIN
+  ? (await import(pathToFileURL(process.env.IMAGEWAY_BENCH_PLUGIN).href)).imageway
+  : imageway;
 const started = performance.now();
 await build({
   root,
@@ -13,7 +17,7 @@ await build({
   logLevel: 'silent',
   plugins: [
     ...(engine === 'imageway'
-      ? [imageway()]
+      ? [imagewayFactory()]
       : engine === 'imagetools'
         ? [imagetools({ cache: { dir: join(root, 'node_modules/.cache/imagetools') } })]
         : await enhancedImages()),

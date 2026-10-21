@@ -31,3 +31,7 @@ Placeholders use inline CSS and remain useful without JS. Reduced motion disable
 `getImageProps` returns native attributes plus `sources` and placeholder; remove nonnative fields before spreading onto img. `BackgroundImage` emits ordinary URL fallback and image-set, with optional media variants. `ImageMeta` emits OG/Twitter/image_src metadata; supply an absolute public origin for relative artifacts. ImageConfigProvider isolates reactive subtree settings, including SSR requests.
 
 The full Image entry currently exceeds the 1.5 KiB gzip target; see the measured bundle report and issue 0001. Headless markup avoids component state when an application does not need snippets/transitions.
+
+## Artifact-only lightweight component (1.3)
+
+`import StaticImage from 'svelte-imageway/static'` accepts a typed `?img` artifact and a required alt. It preserves responsive sources, native events, intrinsic dimensions, previews, lazy loading and matching priority preloads. It intentionally omits provider URL generation, custom snippets and transition behavior; use Image for those capabilities. Its 1536-byte gzip regression gate is separate from the complete Image entry.

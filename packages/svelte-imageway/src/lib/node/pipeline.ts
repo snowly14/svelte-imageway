@@ -21,7 +21,7 @@ export async function loadSharp(): Promise<typeof Sharp> {
 }
 /** Recognize permitted container signatures before decoder invocation. SVG is never trusted raw. */
 export function sniff(data: Uint8Array): string {
-  const b = Buffer.from(data);
+  const b = Buffer.from(data.buffer, data.byteOffset, data.byteLength);
   if (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return 'jpeg';
   if (b.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return 'png';
   if (/^GIF8[79]a$/.test(b.toString('ascii', 0, 6))) return 'gif';

@@ -31,6 +31,7 @@ jobs:
       - run: bun run format:check
       - run: bun run package:check
       - run: bun run check:budget
+      - run: bun run check:static-budget
   browsers:
     runs-on: ubuntu-latest
     env:

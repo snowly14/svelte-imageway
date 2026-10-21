@@ -1,13 +1,23 @@
 import type { ImageConfig } from '../core/types.js';
 import { loadSharp } from '../node/pipeline.js';
+import { defaults } from '../core/config.js';
+import { invariant } from '../core/errors.js';
 /** Generate one small display-ready preview per import; none performs no preview decode. */
 export async function placeholder(
   data: Uint8Array,
   strategy: ImageConfig['placeholder'],
+  limits: Pick<ImageConfig, 'maxPixels' | 'maxInputBytes' | 'timeoutMs'> = defaults,
 ): Promise<{ placeholder?: string; dominantColor?: string; placeholderHash?: string }> {
   if (strategy === 'none') return {};
+  invariant(
+    data.byteLength > 0 && data.byteLength <= limits.maxInputBytes,
+    'INPUT_SIZE',
+    'Preview input exceeds configured byte limit.',
+    413,
+  );
   const sharp = await loadSharp();
-  const { data: pixels, info } = await sharp(data, { limitInputPixels: 40_000_000 })
+  const { data: pixels, info } = await sharp(data, { limitInputPixels: limits.maxPixels })
+    .timeout({ seconds: Math.max(1, Math.ceil(limits.timeoutMs / 1000)) })
     .autoOrient()
     .resize({ width: 32, height: 32, fit: 'inside', withoutEnlargement: true })
     .ensureAlpha()

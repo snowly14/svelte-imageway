@@ -1,5 +1,15 @@
 # svelte-imageway
 
+## 1.3.0
+
+- Add StaticImage and the svelte-imageway/static entry for artifact-only delivery, measured separately from the complete Image component.
+- Omit default AVIF sources only when all matching WebP sizes are no larger. Preserve explicit format directives and fallback formats; opt out with pruneLargerFormats: false. This is byte selection, not a perceptual quality comparison.
+- Transfer exclusively owned worker output allocations and avoid redundant signature/output copies. Keep fallback copies for pooled/partial buffers.
+- Deduplicate actual srcset widths when fixed-height resizing collapses several requested sizes.
+- Apply configured byte/pixel/timeout limits to previews and the output byte limit to optimized SVG imports.
+- Add alternating baseline/current benchmarks with byte-identical output checks. Make the optional Worker runtime benchmark explicit instead of requiring an undeclared local server.
+- Enforce a separate 1536-byte StaticImage budget. The complete Image budget and original unmet performance targets remain distinct.
+
 ## 1.2.0
 
 - Prefer server format negotiation for dynamic local/Edge providers; retain explicit picture mode and format allowlists.

@@ -1,5 +1,33 @@
 import { expect, test } from '@playwright/test';
 
+test('minimal static component loads responsive bytes, clears its preview and works without JavaScript', async ({
+  page,
+  browser,
+}) => {
+  await page.goto('/');
+  const image = page.getByTestId('static-image');
+  await expect(image).toHaveAttribute('width', '960');
+  await expect(image).toHaveAttribute('loading', 'lazy');
+  await expect
+    .poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0))
+    .toBe(true);
+  await expect
+    .poll(() => image.evaluate((img) => getComputedStyle(img).backgroundImage))
+    .toBe('none');
+  expect(await image.evaluate((img: HTMLImageElement) => img.currentSrc)).toMatch(/imageway/);
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  try {
+    const plain = await context.newPage();
+    await plain.goto('/');
+    await expect(plain.getByTestId('static-image')).toBeVisible();
+    expect(
+      await plain.getByTestId('static-image').evaluate((img: HTMLImageElement) => img.naturalWidth),
+    ).toBeGreaterThan(0);
+  } finally {
+    await context.close();
+  }
+});
+
 test('native loading, matching preload, dimensions, art direction, events, error and reduced motion', async ({
   page,
 }) => {

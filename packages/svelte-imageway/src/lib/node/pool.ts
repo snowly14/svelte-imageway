@@ -132,8 +132,16 @@ export class TransformPool {
           reusable = true;
           if (result.error)
             reject(new ImagewayError(result.error.code, result.error.message, result.error.status));
-          else if (result.value) resolve({ ...result.value, data: Buffer.from(result.value.data) });
-          else reject(new ImagewayError('WORKER', 'Invalid worker response.', 500));
+          else if (result.value) {
+            const data = result.value.data;
+            resolve({
+              ...result.value,
+              data:
+                data.byteOffset === 0 && data.buffer.byteLength === data.byteLength
+                  ? Buffer.from(data.buffer, 0, data.byteLength)
+                  : Buffer.from(data),
+            });
+          } else reject(new ImagewayError('WORKER', 'Invalid worker response.', 500));
         };
         const timer = setTimeout(
           () => {
