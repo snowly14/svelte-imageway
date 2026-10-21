@@ -158,14 +158,14 @@ These commands use the installed package CLI. `optimize` preserves originals and
 
 ## Measurements and limits
 
-Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating before/after pairs, fresh Node processes, identical 18 WebP/JPEG q75 outputs verified byte-for-byte. Fixtures are three synthetic 1200×800 images, not a photographic quality study.
+Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating before/after pairs against the 1.2 baseline, fresh Node processes, identical 18 WebP/JPEG q75 outputs verified byte-for-byte. Fixtures are three synthetic 1200×800 images, not a photographic quality study.
 
-| Build median    | 1.2 baseline | 1.3.0 candidate |
-| --------------- | -----------: | --------------: |
-| Cold            |    1312.9 ms |       1328.3 ms |
-| Disk cache warm |     219.3 ms |        218.7 ms |
+| Build median    | 1.2 baseline |    1.3.1 |
+| --------------- | -----------: | -------: |
+| Cold            |     279.2 ms | 290.4 ms |
+| Disk cache warm |      47.3 ms |  53.0 ms |
 
-The table predates the finite-build scheduling patch in 1.3.1. This run does not establish a build speed improvement or market-wide leadership. Historical cross-tool results and their differing encoder settings remain dated separately in the [protocol and raw measurements](bench/README.md). StaticImage size and default-format byte selection are separate improvements; neither implies faster encoding or equal perceptual quality across codecs.
+This current 1.3.1 run does not establish a build speed improvement or market-wide leadership. The cross-tool run has substantial timing variation and differing JPEG encoder defaults. HTTP medians with Imageway's built-in cache: 72.23 ms cold, 0.77 ms warm, 1,602.58 requests/s; bare IPX has no added CDN cache. See the [protocol, ranges and raw measurements](bench/README.md). StaticImage size and default-format byte selection are separate improvements; neither implies faster encoding or equal perceptual quality across codecs.
 
 JPEG/PNG/WebP/AVIF/TIFF/GIF and a restricted geometric SVG dialect are exercised. EXIF orientation is applied and GPS removed by default; ICC retention is optional. HEIC/JXL depend on the installed codecs. BMP/ICO, animated AVIF/video and rich SVG are unsupported. The base component currently exceeds the requested 1.5 KiB gzip target. Provider-specific advanced transforms and paid runtime behavior need deployment-specific validation.
 

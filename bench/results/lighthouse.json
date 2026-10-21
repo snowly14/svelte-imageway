@@ -1,18 +1,18 @@
 {
   "lighthouseVersion": "13.5.0",
-  "fetchTime": "2026-10-20T17:11:13.612Z",
+  "fetchTime": "2026-10-21T19:36:20.675Z",
   "requestedUrl": "http://127.0.0.1:4173/",
-  "performance": 0.99,
+  "performance": 1,
   "metrics": {
     "first-contentful-paint": {
       "score": 0.99,
-      "numericValue": 1221.302,
+      "numericValue": 1245.936,
       "displayValue": "1.2 s"
     },
     "largest-contentful-paint": {
       "score": 0.99,
-      "numericValue": 1614.302,
-      "displayValue": "1.6 s"
+      "numericValue": 1680.936,
+      "displayValue": "1.7 s"
     },
     "cumulative-layout-shift": {
       "score": 1,
@@ -33,13 +33,13 @@
       }
     },
     "total-blocking-time": {
-      "score": 0.99,
-      "numericValue": 83.84899999999993,
-      "displayValue": "80 ms"
+      "score": 1,
+      "numericValue": 22,
+      "displayValue": "20 ms"
     },
     "speed-index": {
       "score": 1,
-      "numericValue": 1221.302,
+      "numericValue": 1245.936,
       "displayValue": "1.2 s"
     },
     "lcp-discovery-insight": {
@@ -66,8 +66,8 @@
           },
           {
             "type": "node",
-            "lhId": "page-0-IMG",
-            "path": "1,HTML,1,BODY,0,DIV,2,MAIN,1,PICTURE,5,IMG",
+            "lhId": "page-3-IMG",
+            "path": "1,HTML,1,BODY,0,DIV,2,MAIN,2,PICTURE,5,IMG",
             "selector": "div#app > main.svelte-1n46o8q > picture > img.svelte-17s4uov",
             "boundingRect": {
               "top": 143,

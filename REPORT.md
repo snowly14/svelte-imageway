@@ -1,3 +1,16 @@
+# Benchmark refresh — 21 October 2026, 1.3.1
+
+Fresh serial build, paired-version, HTTP and component-size measurements replace the current raw reports. Source `9336bd8`; Node 26.11.1, Sharp 0.35.5, Apple M4.
+
+| Build median    | 1.2 baseline |    1.3.1 |
+| --------------- | -----------: | -------: |
+| Cold            |     279.2 ms | 290.4 ms |
+| Disk cache warm |      47.3 ms |  53.0 ms |
+
+No build speed gain is established. Cross-tool timings have substantial spread; see [current tables, ranges and protocols](bench/README.md). HTTP medians: Imageway 72.23 ms cold / 0.77 ms warm / 1,602.58 req/s; bare IPX 46.65 ms / 23.34 ms / 139.06 req/s. Cache topology differs. Component gzip: StaticImage 1196 bytes, full Image 3158 bytes. Historical release evidence below remains dated; earlier timing numbers below are superseded by this refresh. Fresh Lighthouse fixture run: 100/100, CLS 0, LCP 1.681 s, TBT 22 ms; one local mobile run, not a universal score. No npm version was republished for this benchmark update.
+
+---
+
 # 1.3.1 finite-build scheduling
 
 The real lunar-web integration exposed a batch waiting longer than the runtime queue deadline while generating 21 default variants. Finite Vite build jobs now wait outside request admission, globally bounded by the shared pool's configured concurrency. Each admitted transform retains the original decoding/worker deadline. Runtime HTTP queue count/byte/deadline limits are unchanged.
@@ -16,7 +29,7 @@ Local measurements on 21 October 2026:
 
 - StaticImage entry: 1196 gzip bytes; complete Image: 3158 bytes, Svelte peer externalized. The smaller component omits provider/snippet/transition features; the complete component still exceeds the original 1536-byte stretch target.
 - The local 1676x1133 JPEG generated 21 files / 1,732,502 bytes with all default formats. Default dominated-AVIF selection emits 14 files / 1,019,864 bytes. At full width the browser can select WebP 189,046 bytes instead of AVIF 279,043 bytes. Both encodings are still computed; same numeric encoder qualities are not proof of equal perceptual quality.
-- Seven alternating baseline/current build pairs verify byte-identical outputs. Cold medians 1312.9 → 1328.3 ms; warm 219.3 → 218.7 ms, with substantial spread (cold samples 1287.9–1401.2 ms). No speed improvement or build parity claim. See bench/results/comparison.json. The prepared/shared-source experiment was removed.
+- Seven alternating baseline/current build pairs verify byte-identical outputs. Cold medians 1312.9 → 1328.3 ms; warm 219.3 → 218.7 ms, with substantial spread (cold samples 1287.9–1401.2 ms). No speed improvement or build parity claim. Those historical samples have been superseded by the current benchmark refresh. The prepared/shared-source experiment was removed.
 - Current HTTP benchmark: Imageway cold median 314.8 ms / warm 3.46 ms / burst 355.6 requests/s; IPX cold 217.4 ms / warm 102.64 ms / burst 40.1 requests/s. Imageway has built-in cache; bare IPX does not. This is not a pure encoder or production-CDN comparison, nor a controlled speedup over the historical session.
 - Exclusively owned exact-sized worker outputs transfer without redundant copies; pooled/partial/shared allocations retain safe fallback handling. Decoding limits, queue admission, deadlines and encoder settings are preserved.
 - Local validation: 227 tests, strict TypeScript/Svelte checks, both component budgets and package export/tar validation. Chromium/WebKit: ten component tests passed; optional service fixtures skipped.

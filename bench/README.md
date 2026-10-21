@@ -1,62 +1,65 @@
 # Reproducible package benchmarks
 
-## 21 October 2026 improvements
+## Current session — 21 October 2026, version 1.3.1
 
-- StaticImage: 1,196 gzip bytes with Svelte externalized; full Image: 3,158 bytes. Different capability sets; the full component has not met the original 1,536-byte target.
-- [comparison.json](results/comparison.json): seven alternating before/after pairs against source 0c408b0, 18 outputs verified byte-identical. Median cold 1312.9 → 1328.3 ms; warm 219.3 → 218.7 ms. Individual cold samples range from 1287.9 to 1401.2 ms. The run does not establish a build speed improvement or statistical significance; do not compare its absolute timings with older sessions as a controlled gain. The prepared-source experiment was rejected and removed.
-- Worker output transfer removes redundant copies only for safe, exact-sized owned allocations. Encoder settings, limits, admission and deadlines remain unchanged. This is a structural allocation reduction, not a measured market-wide throughput claim.
-- [format-selection.json](results/format-selection.json) measures default AVIF selection against equivalent WebP widths. Both candidates are still encoded; selection reduces emitted bytes, not encoding work. It is not a perceptual-quality comparison.
-- The current [runtime.json](results/runtime.json) retains all Node/IPX samples and the cache-topology caveat. Worker timing is skipped unless IMAGEWAY_BENCH_WORKER_URL names a running endpoint; historical worker timing is dated separately.
+Apple M4, 10 logical CPUs, 16 GiB RAM, macOS arm64. Build children use Node 26.11.1 and Sharp 0.35.5; Bun 1.4.3 orchestrates the scripts. `environment.node` in build.json is Bun's compatibility version, not the child runtime; each row records the actual Node version. Source: `9336bd8b1ff31f7ba52dc231e3c300cce1df45f5` (published 1.3.1 implementation). All benchmark suites ran successively, without concurrent package builds or tests. Host-wide CPU contention and thermal state are not controlled.
 
-Reproduce paired builds after preparing a baseline dist and running bench:build for fixtures:
+## Build comparison
 
-```sh
-IMAGEWAY_BENCH_BASELINE_REF=<source-commit> bun run bench:compare <baseline-dist>/vite/index.js
-bun run check:static-budget
-```
+Three cold/warm pairs per tool, fresh Node process per build. Cold deletes the relevant disk cache. Three opaque synthetic 1200×800 sources × widths 320/640/960 × WebP/JPEG quality 75 = 18 output images. Placeholder work is disabled where configurable. Imageway uses mozjpeg; the other tools use their JPEG defaults. Equal numeric quality is not equal perceptual quality.
 
-## Historical reference session
+| Median          |  Imageway | vite-imagetools | enhanced-img |
+| --------------- | --------: | --------------: | -----------: |
+| Cold build      | 1071.3 ms |        156.2 ms |     138.4 ms |
+| Warm disk build |  174.6 ms |         39.6 ms |      39.7 ms |
+| Output bytes    |   498,652 |         745,147 |      745,147 |
 
-Measurements: 20 October 2026; Apple M4, 10 logical CPUs, 16 GiB RAM, macOS 27 arm64. The orchestrator uses Bun 1.4.3 (its Node compatibility version is not the child runtime). Every build/runtime child used Node 24.22.0 and Sharp 0.35.5; codec versions and all samples are in the JSON files.
+Strong within-session variability: cold min–max imageway 277.9–1186.2 ms; imagetools 154.3–484.6 ms; enhanced-img 135.5–589.2 ms. Fixed engine order can also introduce order effects. These descriptive medians do not establish a stable performance ratio. Build parity is not met. [All samples and codec versions](results/build.json), [raw rows](results/build.raw.json).
 
-## Run
+## Paired version comparison
 
-From the repository root, with Node 24 on PATH:
+Seven alternating before/after pairs against source `0c408b0`; fresh processes, cold reset then warm repeat. All 18 image outputs are verified byte-identical across every run.
 
-```sh
-bun run build
-bun run bench:build
-bun run bench:runtime
-```
+| Build median    | 1.2 baseline |    1.3.1 |
+| --------------- | -----------: | -------: |
+| Cold            |     279.2 ms | 290.4 ms |
+| Disk cache warm |      47.3 ms |  53.0 ms |
 
-`bench:build` regenerates original deterministic synthetic fixtures and runs three cold/warm pairs per tool, in fresh Node processes. Cold deletes the relevant disk cache. Vite runs without app/framework overhead: 3 opaque 1200×800 sources × widths 320/640/960 × WebP/JPEG quality 75 = 18 output images. Placeholder work is disabled where configurable. Version pins are in bun.lock. Sharp defaults differ: Imageway uses mozjpeg; output bytes and quality numbers are not a perceptual quality match.
+No build speed improvement or statistical significance is established. This is a separate session from the cross-tool measurements; absolute timings must not be combined into a speedup claim. [All paired samples](results/comparison.json).
 
-| Median          | Imageway | vite-imagetools | enhanced-img |
-| --------------- | -------: | --------------: | -----------: |
-| Cold build      | 314.9 ms |        145.7 ms |     149.6 ms |
-| Warm disk build |  52.5 ms |         39.0 ms |      38.9 ms |
-| Output bytes    |  498,652 |         745,147 |      745,147 |
+## Runtime HTTP
 
-[build.json](results/build.json) records this historical session. The earlier exploratory `build-before-pool-reuse.json` was collected before worker reuse, while other work ran; do not use it to claim a controlled speedup. Build parity with imagetools is **not met**. See ISSUE-0002.
+Three fresh Node processes per engine; local HTTP, same source, width 640, WebP q75. One cold request, 30 repeats, then 100 requests at concurrency four. Imageway includes memory/disk caching; bare IPX has no added CDN cache. Warm results measure that configured service topology, not pure encoding throughput or production CDN performance.
 
-## Weight
+| Median across processes |      Imageway |          IPX |
+| ----------------------- | ------------: | -----------: |
+| Cold TTFB               |      72.23 ms |     46.65 ms |
+| Warm median TTFB        |       0.77 ms |     23.34 ms |
+| Burst throughput        | 1602.58 req/s | 139.06 req/s |
+| Peak RSS                |    203.27 MiB |   186.70 MiB |
 
-The source fixtures are generated in run.ts, not downloaded photos. Source/output measurements at width 960, WebP/AVIF q75 give 92.0% median reduction over six outputs. This includes resizing. Texture AVIF reduces only 52.1%; results must not be generalized to every photo or every encoder setting. There is no perceptual quality score in this experiment.
+Both emit 14,482 bytes. Imageway repeats report 100% cache hits. [All HTTP samples and metrics](results/runtime.json). Worker timing was skipped because no endpoint was configured; [worker-local.json](results/worker-local.json) remains a dated local emulator measurement, not a new or managed Cloudflare measurement.
 
-## Runtime
+## Component size and image weight
 
-`bench:runtime` uses the generated fixtures and starts three fresh local Node HTTP processes per engine. Same source, width 640, WebP q75: one cold request, 30 repeats, then 100 requests at concurrency four. Imageway's built-in memory/disk cache is compared with a bare IPX handler without an added CDN cache. Therefore the warm difference measures the complete configured service, not an encoding-speed advantage.
+StaticImage: **1,196 gzip bytes**; complete Image: **3,158 gzip bytes**, with Svelte externalized. The smaller component omits provider/snippet/transition features. Only StaticImage meets the original 1,536-byte target. [Current size measurements](results/component-size.json).
 
-| Median across three processes | Imageway |             IPX |
-| ----------------------------- | -------: | --------------: |
-| Cold TTFB                     |  90.1 ms |         47.9 ms |
-| Warm median TTFB              |   0.9 ms |         23.7 ms |
-| Burst requests/s              |    1,461 |             129 |
-| Peak RSS                      |  198 MiB |         189 MiB |
-| Repeat cache hits             |     100% | No cache header |
-
-[runtime.json](results/runtime.json) includes individual samples, bytes, metrics and RSS. Worker [worker-local.json](results/worker-local.json) measures the local Images binding: it is not a geographically distributed/native production Cloudflare benchmark, and is not an apples-to-apples production comparison. No paid Cloudflare timing is claimed.
+Six source-to-960px WebP/AVIF q75 outputs give 92.0% median byte reduction, including resizing. Texture AVIF reduces only 52.1%; this is not a perceptual quality study or a promise for arbitrary photos. [Weight samples](results/build.json). The separately dated [format-selection case](results/format-selection.json) measures omitted dominated AVIF variants; both encodings are still computed, so this does not reduce encoding work.
 
 ## Browser performance
 
-`bun scripts/lighthouse.ts` measures the already-built component verification fixture on port 4173 with Lighthouse 13.5.0 / Playwright Chromium, mobile 390×844 emulation. It scored **99/100**, CLS **0**, LCP **1.61 s**, TBT **84 ms** in this run. LCP discovery and unsized-image checks pass. The page includes deliberate broken-image, callback and lazy-loading tests. This single run does not meet or establish the exact 100/100 target. Raw metrics: [lighthouse.json](results/lighthouse.json).
+The freshly built component verification fixture scored **100/100** in one Lighthouse 13.5.0 mobile run (390×844): CLS **0**, LCP **1.681 s**, TBT **22 ms**; LCP discovery passes. This is one local fixture run, not a universal site score. [Raw metrics](results/lighthouse.json). Reproduce after `bun run build:components` by serving the component example on port 4173 and running `bun scripts/lighthouse.ts`. The task-owned preview was stopped after measurement.
+
+## Reproduce
+
+```sh
+bun install --frozen-lockfile
+bun run build
+bun run bench:build
+IMAGEWAY_BENCH_BASELINE_REF=<source-commit> bun run bench:compare <baseline-dist>/vite/index.js
+bun run bench:runtime
+bun run check:static-budget
+bun run check:budget
+```
+
+Run suites serially. Prepare the baseline dist from the stated source first; paired builds reuse the fixtures generated by bench:build. Version pins are in bun.lock. Worker measurement requires an explicit IMAGEWAY_BENCH_WORKER_URL.
