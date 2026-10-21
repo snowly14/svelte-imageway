@@ -1,5 +1,9 @@
 # svelte-imageway
 
+## 1.3.1
+
+- Schedule finite Vite build batches outside runtime request admission, starting each worker deadline only when a bounded build slot is available. This prevents legitimate large variant batches from consuming the request queue's byte/deadline budget. Runtime request limits and individual transformation deadlines are unchanged.
+
 ## 1.3.0
 
 - Add StaticImage and the svelte-imageway/static entry for artifact-only delivery, measured separately from the complete Image component.

@@ -16,6 +16,7 @@ export class ImageProcessor {
   private disk: DiskCache;
   private flight = new SingleFlight<ProcessedImage>();
   private pool: TransformPool;
+  private build: boolean;
   constructor(options: {
     directory: string;
     config?: ImageConfig;
@@ -23,7 +24,10 @@ export class ImageProcessor {
     memoryBytes?: number;
     diskBytes?: number;
     onTransform?: () => void | Promise<void>;
+    /** Finite build batches wait outside the runtime request queue. */
+    build?: boolean;
   }) {
+    this.build = options.build ?? false;
     this.onTransform = options.onTransform;
     this.config = { ...(options.config ?? defaults), provider: undefined, providers: undefined };
     this.memory = new MemoryCache(options.memoryBytes);
@@ -68,7 +72,8 @@ export class ImageProcessor {
       await this.onTransform?.();
       this.metrics.miss++;
       this.metrics.transforms++;
-      const result = await this.pool.run({ data, request, format, config: this.config, preview });
+      const task = { data, request, format, config: this.config, preview };
+      const result = await (this.build ? this.pool.runBuild(task) : this.pool.run(task));
       const packed = pack(result);
       await this.disk.set(key, packed);
       this.memory.set(key, packed, 3600_000);

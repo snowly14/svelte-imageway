@@ -224,6 +224,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         directory: join(vite.root, 'node_modules/.cache/svelte-imageway'),
         config: exactConfig,
         concurrency: options.concurrency,
+        build: vite.command === 'build',
       });
       const variants = formats.flatMap((format) =>
         (format === 'svg' ? [dimensions.width] : directives.widths).map((width) => ({

@@ -310,6 +310,32 @@ describe('multi-frame and color fidelity', () => {
   });
 });
 describe('built worker_threads pipeline', () => {
+  it('schedules a finite build batch outside the runtime queue without loosening admission', async () => {
+    const { TransformPool } = (await import(
+      new URL('../packages/svelte-imageway/dist/node/pool.js', import.meta.url).href
+    )) as typeof import('../packages/svelte-imageway/src/lib/node/pool.js');
+    const pool = new TransformPool(1, 0, 1);
+    const data = await sharp({ create: { width: 64, height: 32, channels: 3, background: 'blue' } })
+      .png()
+      .toBuffer();
+    const task = {
+      data,
+      request: normalizeRequest({ key: 'x', w: 320 }),
+      format: 'webp' as const,
+      config: defineConfig(),
+      preview: false,
+    };
+    const batch = Promise.all(Array.from({ length: 70 }, () => pool.runBuild(task)));
+    // Request admission remains closed while the first build transform occupies the worker.
+    await expect(pool.run(task)).rejects.toThrow(/capacity/);
+    const results = await batch;
+    expect(results).toHaveLength(70);
+    for (const result of results) expect(result.width).toBe(64);
+    await expect(pool.runBuild({ ...task, data: Buffer.from('corrupt') })).rejects.toThrow(
+      /signature/,
+    );
+    expect((await pool.runBuild(task)).height).toBe(32);
+  });
   it('sniffs only the declared bytes of an offset input view', () => {
     const container = Buffer.from([0, 0, 0xff, 0xd8, 0xff, 0]);
     expect(sniff(new Uint8Array(container.buffer, container.byteOffset + 2, 3))).toBe('jpeg');

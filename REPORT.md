@@ -1,3 +1,13 @@
+# 1.3.1 finite-build scheduling
+
+The real lunar-web integration exposed a batch waiting longer than the runtime queue deadline while generating 21 default variants. Finite Vite build jobs now wait outside request admission, globally bounded by the shared pool's configured concurrency. Each admitted transform retains the original decoding/worker deadline. Runtime HTTP queue count/byte/deadline limits are unchanged.
+
+A real 70-job worker batch passes even with the runtime queue disabled; simultaneous runtime admission is still rejected at capacity, and errors release build slots. The lunar-web candidate build now passes with the default transform deadline and reports zero Svelte/TypeScript errors. Complete CI and public provenance verification are required before this patch is reported published.
+
+The timing table below records the 1.3.0 candidate before this scheduling patch. It is not a 1.3.1 timing or general speedup claim.
+
+---
+
 # 1.3.0 measured improvements
 
 Local measurements on 21 October 2026:

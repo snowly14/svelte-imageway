@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**1.3.0.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. Version numbering does not imply those benchmark targets were met. See [REPORT.md](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md).
+**1.3.1.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. Version numbering does not imply those benchmark targets were met. See [REPORT.md](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md).
 
 ## Before → after
 
@@ -21,6 +21,8 @@ Responsive images for Svelte 5: optimize local imports, switch image providers, 
 ```
 
 Imageway generates responsive AVIF/WebP/fallback assets, reserves dimensions and adds a small preview. `priority` adds eager loading, high fetch priority and an image preload. `alt` is required; use `alt=""` for decorative images. Without `priority`, images load lazily.
+
+Finite build batches are scheduled separately from runtime request admission, so waiting for other variants does not consume an individual transform deadline. Per-transform decoding limits and runtime request limits remain enforced.
 
 ## Lightweight local images
 
@@ -62,7 +64,7 @@ For CI, run type generation before your application's check script. Keep the `sv
 Install the package in your existing Svelte 5 / Vite 8 project:
 
 ```sh
-bun add svelte-imageway@1.3.0
+bun add svelte-imageway@1.3.1
 ```
 
 Releases use the `latest` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).
@@ -158,12 +160,12 @@ These commands use the installed package CLI. `optimize` preserves originals and
 
 Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating before/after pairs, fresh Node processes, identical 18 WebP/JPEG q75 outputs verified byte-for-byte. Fixtures are three synthetic 1200×800 images, not a photographic quality study.
 
-| Build median    | 1.2 baseline | 1.3 candidate |
-| --------------- | -----------: | ------------: |
-| Cold            |    1312.9 ms |     1328.3 ms |
-| Disk cache warm |     219.3 ms |      218.7 ms |
+| Build median    | 1.2 baseline | 1.3.0 candidate |
+| --------------- | -----------: | --------------: |
+| Cold            |    1312.9 ms |       1328.3 ms |
+| Disk cache warm |     219.3 ms |        218.7 ms |
 
-This run does not establish a build speed improvement or market-wide leadership. Historical cross-tool results and their differing encoder settings remain dated separately in the [protocol and raw measurements](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md). StaticImage size and default-format byte selection are separate improvements; neither implies faster encoding or equal perceptual quality across codecs.
+The table predates the finite-build scheduling patch in 1.3.1. This run does not establish a build speed improvement or market-wide leadership. Historical cross-tool results and their differing encoder settings remain dated separately in the [protocol and raw measurements](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md). StaticImage size and default-format byte selection are separate improvements; neither implies faster encoding or equal perceptual quality across codecs.
 
 JPEG/PNG/WebP/AVIF/TIFF/GIF and a restricted geometric SVG dialect are exercised. EXIF orientation is applied and GPS removed by default; ICC retention is optional. HEIC/JXL depend on the installed codecs. BMP/ICO, animated AVIF/video and rich SVG are unsupported. The base component currently exceeds the requested 1.5 KiB gzip target. Provider-specific advanced transforms and paid runtime behavior need deployment-specific validation.
 

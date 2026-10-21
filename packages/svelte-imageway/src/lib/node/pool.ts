@@ -20,6 +20,8 @@ interface Idle {
 }
 /** Reusable workers, bounded admission including queue time, and termination before releasing timed-out native work. */
 export class TransformPool {
+  private buildActive = 0;
+  private buildWaiting: Array<() => void> = [];
   private active = 0;
   private waiting: Waiting[] = [];
   private queuedBytes = 0;
@@ -69,6 +71,20 @@ export class TransformPool {
     };
     item.timer.unref();
     this.idle.push(item);
+  }
+  /** Finite trusted builds wait outside request admission; each admitted
+   * transform still uses the same bounded workers and execution deadline. */
+  async runBuild(task: TransformTask): Promise<TransformResult> {
+    if (this.buildActive >= this.concurrency)
+      await new Promise<void>((resolve) => this.buildWaiting.push(resolve));
+    else this.buildActive++;
+    try {
+      return await this.run(task);
+    } finally {
+      const next = this.buildWaiting.shift();
+      if (next) next();
+      else this.buildActive--;
+    }
   }
   async run(task: TransformTask): Promise<TransformResult> {
     const deadline = Date.now() + task.config.timeoutMs + 1000;

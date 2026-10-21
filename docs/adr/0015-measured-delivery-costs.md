@@ -27,3 +27,7 @@ Preview decoding previously hardcoded a 40-megapixel limit even when the caller 
 Fixed-height inside resizing can collapse distinct requested widths into the same encoded width. Deduplicate the resulting format/width candidates before emission; srcset cannot contain repeated width descriptors. Sort ties by requested width to keep output deterministic.
 
 Windows CI exposed source/root path spellings diverging between successive Vite builds. Resolve both physical paths before computing the local key; readLocal still rejects escaping paths and applies its canonical-root containment checks. This handles short-name/junction aliases without loosening the source-key policy.
+
+## Finite build admission (1.3.1)
+
+The real lunar-web build exposed a backlog timeout while encoding the default 21 variants. The request pool started each deadline before queue admission; a later variant could spend most of its time budget waiting for earlier encodings. The 1.3.1 patch adds finite trusted-build scheduling on the shared TransformPool. At most its configured concurrency enters request admission at once; each admitted transform still uses the original worker deadline, memory limits and timeout termination. Runtime HTTP request admission is unchanged. Build waiters are finite compiler work and are not exposed through a request option. A real 70-job batch succeeds with the runtime queue disabled, while a simultaneous runtime request remains rejected at capacity; failures release build slots.
