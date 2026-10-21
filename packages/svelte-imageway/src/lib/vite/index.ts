@@ -2,6 +2,7 @@ import { publishAssets, publicAssetBase, type PublishOptions } from '../publish/
 import { PIPELINE_REVISION } from '../version.js';
 import type { Plugin, ResolvedConfig } from 'vite';
 import { relative, join } from 'node:path';
+import { realpath } from 'node:fs/promises';
 import { defineConfig } from '../core/config.js';
 import { ImagewayError } from '../core/errors.js';
 import { mimeType } from '../core/accept.js';
@@ -183,9 +184,12 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       if (split < 0 || !new URLSearchParams(id.slice(split + 1)).has('img')) return;
       const file = id.slice(0, split);
       this.addWatchFile(file);
+      // Vite may canonicalize a Windows 8.3/temp alias between builds. Compare
+      // physical paths on both sides; readLocal still rejects escaping sources.
+      const [sourceRoot, sourceFile] = await Promise.all([realpath(vite.root), realpath(file)]);
       const source = await readLocal(
-        relative(vite.root, file).replaceAll('\\', '/'),
-        vite.root,
+        relative(sourceRoot, sourceFile).replaceAll('\\', '/'),
+        sourceRoot,
         config.maxInputBytes,
       );
       const kind = sniff(source);

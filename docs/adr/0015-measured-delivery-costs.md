@@ -25,3 +25,5 @@ Store every sample. Compare before/after in alternating order, with fresh Node p
 Preview decoding previously hardcoded a 40-megapixel limit even when the caller configured a smaller budget. Pass the configured byte/pixel/decode-time limits to preview generation. Apply the output byte limit to optimized SVG output too; that path does not use the raster processor. Regression tests exercise both bypasses.
 
 Fixed-height inside resizing can collapse distinct requested widths into the same encoded width. Deduplicate the resulting format/width candidates before emission; srcset cannot contain repeated width descriptors. Sort ties by requested width to keep output deterministic.
+
+Windows CI exposed source/root path spellings diverging between successive Vite builds. Resolve both physical paths before computing the local key; readLocal still rejects escaping paths and applies its canonical-root containment checks. This handles short-name/junction aliases without loosening the source-key policy.
