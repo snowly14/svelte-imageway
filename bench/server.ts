@@ -1,7 +1,13 @@
 import { createServer } from 'node:http';
 import { Readable } from 'node:stream';
 import { createIPX, createIPXFetchHandler, ipxFSStorage } from 'ipx';
-import { createImageService } from '../packages/svelte-imageway/dist/kit/handler.js';
+import { pathToFileURL } from 'node:url';
+import type { createImageService as ServiceFactory } from '../packages/svelte-imageway/dist/kit/handler.js';
+const { createImageService }: { createImageService: typeof ServiceFactory } = await import(
+  process.env.IMAGEWAY_BENCH_SERVICE
+    ? pathToFileURL(process.env.IMAGEWAY_BENCH_SERVICE).href
+    : '../packages/svelte-imageway/dist/kit/handler.js'
+);
 const [engine, source, cache] = process.argv.slice(2) as [string, string, string];
 const local =
   engine === 'imageway'
@@ -24,6 +30,7 @@ const server = createServer(async (req, res) => {
       res.setHeader('Content-Type', 'application/json');
       res.end(
         JSON.stringify({
+          node: process.version,
           rssBytes: process.memoryUsage().rss,
           peakRssBytes: process.resourceUsage().maxRSS * 1024,
           metrics: local?.metrics,

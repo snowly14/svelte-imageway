@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -18,6 +18,37 @@ import { getImageProps } from '../packages/svelte-imageway/src/lib/props.js';
 import type { createImageService as Factory } from '../packages/svelte-imageway/src/lib/kit/handler.js';
 let root: string;
 let createImageService: typeof Factory;
+it('refreshes prepared sources after the original TTL even when repeatedly requested', async () => {
+  const file = join(root, 'mutable.png');
+  const source = (background: string) =>
+    sharp({ create: { width: 80, height: 40, channels: 3, background } })
+      .png()
+      .toBuffer();
+  await writeFile(file, await source('red'));
+  let now = Date.now();
+  const clock = vi.spyOn(Date, 'now').mockImplementation(() => now);
+  try {
+    const service = createImageService({
+      sourceRoot: root,
+      cacheDirectory: join(root, 'source-expiry'),
+    });
+    const url = 'https://site.example/_img/v1?key=mutable.png&preset=card&format=webp';
+    const first = await service.fetch(new Request(url));
+    const firstBytes = Buffer.from(await first.arrayBuffer());
+    await writeFile(file, await source('blue'));
+    now += 30000;
+    const hit = await service.fetch(new Request(url));
+    expect(hit.headers.get('x-imageway-cache')).toBe('HIT');
+    expect(Buffer.from(await hit.arrayBuffer())).toEqual(firstBytes);
+    now += 30001;
+    const refreshed = await service.fetch(new Request(url));
+    expect(refreshed.status).toBe(200);
+    expect(refreshed.headers.get('x-imageway-cache')).toBe('MISS');
+    expect(Buffer.from(await refreshed.arrayBuffer())).not.toEqual(firstBytes);
+  } finally {
+    clock.mockRestore();
+  }
+});
 beforeAll(async () => {
   root = await mkdtemp(join(tmpdir(), 'imageway-kit-'));
   await writeFile(

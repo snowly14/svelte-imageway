@@ -3,6 +3,7 @@ import { PIPELINE_REVISION } from '../version.js';
 import type { Plugin, ResolvedConfig } from 'vite';
 import { relative, join } from 'node:path';
 import { realpath } from 'node:fs/promises';
+import { availableParallelism } from 'node:os';
 import { defineConfig } from '../core/config.js';
 import { ImagewayError } from '../core/errors.js';
 import { mimeType } from '../core/accept.js';
@@ -223,9 +224,14 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       const exactProcessor = new ImageProcessor({
         directory: join(vite.root, 'node_modules/.cache/svelte-imageway'),
         config: exactConfig,
-        concurrency: options.concurrency,
+        concurrency:
+          options.concurrency ??
+          (vite.command === 'build'
+            ? Math.max(1, Math.min(4, availableParallelism() - 1))
+            : undefined),
         build: vite.command === 'build',
       });
+      const preparedSource = exactProcessor.prepare(source);
       const variants = formats.flatMap((format) =>
         (format === 'svg' ? [dimensions.width] : directives.widths).map((width) => ({
           format,
@@ -242,13 +248,12 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
           };
           // Exact requested widths/qualities belong to build configuration, not dynamic URL ladders.
           const digest = hash(
-            `${hash(source)}:${JSON.stringify(request)}:${format}:${PIPELINE_REVISION}:${JSON.stringify(sharp.versions)}`,
+            `${preparedSource.digest}:${JSON.stringify(request)}:${format}:${PIPELINE_REVISION}:${JSON.stringify(sharp.versions)}`,
           );
           let url = '';
           let data: Buffer | undefined;
           const run = async () => {
-            if (format !== 'svg')
-              return exactProcessor.process(source, request, format, undefined, false);
+            if (format !== 'svg') return preparedSource.process(request, format, undefined, false);
             if (kind !== 'svg')
               throw new ImagewayError('SVG', 'Only approved SVG inputs can produce SVG output.');
             const optimized = optimize(source.toString('utf8'), { multipass: true }).data;
@@ -350,7 +355,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         height: fallback.height,
         aspectRatio: fallback.width / fallback.height,
         ...(await placeholder(source, directives.placeholder, config)),
-        hash: hash(source),
+        hash: preparedSource.digest,
       };
       options.onProgress?.({ file: relative(vite.root, file), variants: outputs.length });
       // Replace references inside srcsets too; JSON escaping must not turn asset expressions into strings.

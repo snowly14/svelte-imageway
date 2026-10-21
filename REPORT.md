@@ -1,3 +1,25 @@
+# 1.4.0 validation and measurements
+
+Prepared source snapshots eliminate full-source copying/hashing on HTTP cache hits and repeated source hashing across Vite variants. Finite builds select up to four workers using available CPU parallelism, with the existing explicit concurrency override. Auth, source expiry and per-job limits remain enforced. [Decision and memory tradeoff](docs/adr/0016-prepared-sources-and-build-parallelism.md).
+
+| Build median    |     1.3.1 |    1.4.0 |
+| --------------- | --------: | -------: |
+| Cold            | 1172.5 ms | 825.7 ms |
+| Disk cache warm |  185.0 ms | 195.6 ms |
+
+| HTTP median      |        1.3.1 |         1.4.0 |
+| ---------------- | -----------: | ------------: |
+| Cold TTFB        |    285.81 ms |     342.68 ms |
+| Warm TTFB        |      2.75 ms |       1.34 ms |
+| Burst throughput | 375.86 req/s | 1368.56 req/s |
+| Peak RSS         |   200.36 MiB |    147.64 MiB |
+
+Seven alternating pairs per suite, byte-identical outputs, busy desktop; no general market-leadership claim. Cold build RSS increases with four workers. Warm build and cold HTTP medians did not improve. Full ranges and raw samples: [benchmarks](bench/README.md). Previous cross-tool/IPX/Lighthouse tables remain 1.3.1 history.
+
+Local validation: 231 tests pass; lint, strict TypeScript and Svelte checks pass; core coverage 99.56% lines / 99.11% branches / 100% functions. Chromium/WebKit: 10 pass, four optional service cases unconfigured. Local Firefox fails before tests because its profile folder cannot be opened by the macOS browser binary; Linux CI must verify Firefox. Package/tar/exports validation and both release bundle budgets pass; sizes remain 1196 / 3158 gzip bytes. Remote CI and publication are pending at this source preparation step.
+
+---
+
 # Benchmark refresh — 21 October 2026, 1.3.1
 
 Fresh serial build, paired-version, HTTP and component-size measurements replace the current raw reports. Source `9336bd8`; Node 26.11.1, Sharp 0.35.5, Apple M4.

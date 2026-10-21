@@ -1,5 +1,32 @@
 # Reproducible package benchmarks
 
+## 1.4.0 paired measurements — 21 October 2026
+
+Compared with 1.3.1 source `44b8b59`, using seven alternating baseline/current pairs per suite. Current build and HTTP outputs are verified byte-identical to the baseline. Both HTTP variants use their built-in cache. This is a busy Apple M4 desktop, Node 26.11.1; host background load/thermal state are uncontrolled. Suites ran serially without concurrent package verification. Absolute numbers differ substantially from the earlier session below; they are not a cross-session speedup claim.
+
+| Build median    |     1.3.1 |    1.4.0 |
+| --------------- | --------: | -------: |
+| Cold            | 1172.5 ms | 825.7 ms |
+| Disk cache warm |  185.0 ms | 195.6 ms |
+
+| HTTP median      |        1.3.1 |         1.4.0 |
+| ---------------- | -----------: | ------------: |
+| Cold TTFB        |    285.81 ms |     342.68 ms |
+| Warm TTFB        |      2.75 ms |       1.34 ms |
+| Burst throughput | 375.86 req/s | 1368.56 req/s |
+| Peak RSS         |   200.36 MiB |    147.64 MiB |
+
+Cold build median is 29.6% lower and warm HTTP burst throughput is 3.64× baseline in this session. Cold build RSS rises from 295.5 to 356.5 MiB with up to four workers; `imageway({ concurrency: 2 })` retains a smaller pool. Warm build median is 5.8% higher; first HTTP request median is 19.9% higher. No cold-HTTP improvement, warm-build gain, statistical significance or market-wide leadership is claimed. HTTP peak RSS decreases with fewer source copies; process RSS is not a hard native-memory cap.
+
+Cold build min–max: baseline 874.2–1291.6 ms, current 728.4–1026.0 ms. Warm build min–max: baseline 179.3–233.8 ms, current 134.7–206.2 ms. Full samples: [build comparison](results/comparison.json), [HTTP comparison](results/runtime-comparison.json). The prepared-source snapshot is copied/hashed once and cannot be mutated by its caller. Source TTL, authorization, output copying and worker limits remain enforced. Encoder settings have not changed.
+
+```sh
+IMAGEWAY_BENCH_BASELINE_REF=44b8b59 bun run bench:compare <1.3.1-dist>/vite/index.js
+IMAGEWAY_BENCH_BASELINE_REF=44b8b59 bun run bench:runtime:compare <1.3.1-dist>/kit/handler.js
+```
+
+The cross-tool, IPX and Lighthouse measurements below remain explicitly **1.3.1** results; they were not rerun for 1.4.0. Component size was rerun and remains StaticImage 1196 / full Image 3158 gzip bytes.
+
 ## Current session — 21 October 2026, version 1.3.1
 
 Apple M4, 10 logical CPUs, 16 GiB RAM, macOS arm64. Build children use Node 26.11.1 and Sharp 0.35.5; Bun 1.4.3 orchestrates the scripts. `environment.node` in build.json is Bun's compatibility version, not the child runtime; each row records the actual Node version. Source: `9336bd8b1ff31f7ba52dc231e3c300cce1df45f5` (published 1.3.1 implementation). All benchmark suites ran successively, without concurrent package builds or tests. Host-wide CPU contention and thermal state are not controlled.
@@ -25,7 +52,7 @@ Seven alternating before/after pairs against source `0c408b0`; fresh processes, 
 | Cold            |     279.2 ms | 290.4 ms |
 | Disk cache warm |      47.3 ms |  53.0 ms |
 
-No build speed improvement or statistical significance is established. This is a separate session from the cross-tool measurements; absolute timings must not be combined into a speedup claim. [All paired samples](results/comparison.json).
+No build speed improvement or statistical significance is established. This is a separate session from the cross-tool measurements; absolute timings must not be combined into a speedup claim. [Historical 1.3.1 paired samples](results/comparison-1.3.1.json).
 
 ## Runtime HTTP
 

@@ -30,7 +30,8 @@
     "prepare": "husky",
     "release:metadata": "bun scripts/release-metadata.ts",
     "check:static-budget": "bun scripts/bundle-budget.ts --static --budget=1536",
-    "bench:compare": "bun bench/compare.ts"
+    "bench:compare": "bun bench/compare.ts",
+    "bench:runtime:compare": "bun bench/runtime-compare.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",

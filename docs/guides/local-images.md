@@ -15,3 +15,11 @@ JPEG, PNG, WebP, AVIF, TIFF, approved SVG and GIF inputs are exercised with real
 HEIC/HEIF and JXL depend on the actual Sharp/libvips distribution and fail with an actionable codec error if absent. BMP/ICO and WASM fallback decoders are not implemented in this preview. Inspect `codecCapabilities()` from `svelte-imageway/node`; do not infer codec support from the filename. This limitation remains part of the 1.0 acceptance backlog.
 
 SVG accepts only a small geometric dialect and is validated before SVGO/Sharp. Scripts, references, text, styles and external resources are rejected. For rich illustrations, rasterize with a trusted design tool rather than relaxing the runtime policy.
+
+Finite builds in 1.4.0 select one to four workers from the available CPU parallelism. Development/runtime defaults remain unchanged. More workers may increase native memory use. Constrain builds explicitly on smaller machines:
+
+```ts
+imageway({ concurrency: 2 });
+```
+
+Each imported source is prepared once for its variants. Encoder settings, pixel/byte limits and individual worker deadlines are preserved.

@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 1.4.0
+
+### Minor Changes
+
+- Add typed immutable prepared image sources and reuse them in the HTTP service, eliminating repeated source copies and content hashing on cache hits while retaining source expiry and authorization. Finite Vite builds use up to four workers based on available parallelism; the existing concurrency override remains available for memory-constrained builds. Add alternating, byte-verified HTTP comparison benchmarks.
+
 ## 1.3.1
 
 - Schedule finite Vite build batches outside runtime request admission, starting each worker deadline only when a bounded build slot is available. This prevents legitimate large variant batches from consuming the request queue's byte/deadline budget. Runtime request limits and individual transformation deadlines are unchanged.

@@ -1,7 +1,6 @@
 {
-  "measuredAt": "2026-10-21T19:35:50.733Z",
-  "sourceCommit": "9336bd8b1ff31f7ba52dc231e3c300cce1df45f5",
-  "packageVersion": "1.3.1",
+  "measuredAt": "2026-10-21T19:58:08.874Z",
+  "packageVersion": "1.4.0",
   "static": {
     "entry": "StaticImage.svelte",
     "runtime": "Svelte peer externalized",
@@ -17,5 +16,6 @@
     "gzipBytes": 3158,
     "gzipLevel": 9,
     "targetBytes": 1536
-  }
+  },
+  "baselineReference": "44b8b59"
 }

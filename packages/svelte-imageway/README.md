@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**1.3.1.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. Version numbering does not imply those benchmark targets were met. See [REPORT.md](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md).
+**1.4.0.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold builds are slower than vite-imagetools. Version numbering does not imply those benchmark targets were met. See [REPORT.md](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md).
 
 ## Before → after
 
@@ -64,7 +64,7 @@ For CI, run type generation before your application's check script. Keep the `sv
 Install the package in your existing Svelte 5 / Vite 8 project:
 
 ```sh
-bun add svelte-imageway@1.3.1
+bun add svelte-imageway@1.4.0
 ```
 
 Releases use the `latest` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).
@@ -158,14 +158,21 @@ These commands use the installed package CLI. `optimize` preserves originals and
 
 ## Measurements and limits
 
-Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating before/after pairs against the 1.2 baseline, fresh Node processes, identical 18 WebP/JPEG q75 outputs verified byte-for-byte. Fixtures are three synthetic 1200×800 images, not a photographic quality study.
+Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating 1.3.1/current pairs, fresh Node processes, identical 18 WebP/JPEG q75 outputs verified byte-for-byte. Fixtures are three synthetic 1200×800 images, not a photographic quality study.
 
-| Build median    | 1.2 baseline |    1.3.1 |
-| --------------- | -----------: | -------: |
-| Cold            |     279.2 ms | 290.4 ms |
-| Disk cache warm |      47.3 ms |  53.0 ms |
+| Build median    |     1.3.1 |    1.4.0 |
+| --------------- | --------: | -------: |
+| Cold            | 1172.5 ms | 825.7 ms |
+| Disk cache warm |  185.0 ms | 195.6 ms |
 
-This current 1.3.1 run does not establish a build speed improvement or market-wide leadership. The cross-tool run has substantial timing variation and differing JPEG encoder defaults. HTTP medians with Imageway's built-in cache: 72.23 ms cold, 0.77 ms warm, 1,602.58 requests/s; bare IPX has no added CDN cache. See the [protocol, ranges and raw measurements](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md). StaticImage size and default-format byte selection are separate improvements; neither implies faster encoding or equal perceptual quality across codecs.
+| HTTP median      |        1.3.1 |         1.4.0 |
+| ---------------- | -----------: | ------------: |
+| Cold TTFB        |    285.81 ms |     342.68 ms |
+| Warm TTFB        |      2.75 ms |       1.34 ms |
+| Burst throughput | 375.86 req/s | 1368.56 req/s |
+| Peak RSS         |   200.36 MiB |    147.64 MiB |
+
+In this session: 29.6% less cold build time, 3.64× warm HTTP burst throughput. Up to four build workers increase cold build peak RSS (295.5 → 356.5 MiB); configure `imageway({ concurrency: 2 })` on smaller machines. Warm build and first HTTP request medians are higher. The desktop had uncontrolled background load; this is not a statistical or market-wide superiority claim. See [all samples, ranges and protocols](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md). Source snapshots remove repeated copying/hashing; encoder settings and encoded bytes are unchanged. StaticImage remains 1196 gzip bytes; full Image 3158, Svelte externalized.
 
 JPEG/PNG/WebP/AVIF/TIFF/GIF and a restricted geometric SVG dialect are exercised. EXIF orientation is applied and GPS removed by default; ICC retention is optional. HEIC/JXL depend on the installed codecs. BMP/ICO, animated AVIF/video and rich SVG are unsupported. The base component currently exceeds the requested 1.5 KiB gzip target. Provider-specific advanced transforms and paid runtime behavior need deployment-specific validation.
 

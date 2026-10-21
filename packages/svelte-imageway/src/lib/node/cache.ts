@@ -7,6 +7,42 @@ import { invariant } from '../core/errors.js';
 export function hash(value: string | Uint8Array): string {
   return createHash('sha256').update(value).digest('hex');
 }
+/** Byte/count-bounded LRU for opaque immutable values. Callers own value immutability. */
+export class ValueCache<T> {
+  private values = new Map<string, { value: T; bytes: number; expires: number }>();
+  private size = 0;
+  constructor(
+    readonly maxBytes: number,
+    private readonly now: () => number = Date.now,
+  ) {
+    invariant(maxBytes > 0, 'CACHE', 'Cache budget must be positive.');
+  }
+  get(key: string): T | undefined {
+    const entry = this.values.get(key);
+    if (!entry) return;
+    this.delete(key);
+    if (entry.expires <= this.now()) return;
+    this.values.set(key, entry);
+    this.size += entry.bytes;
+    return entry.value;
+  }
+  set(key: string, value: T, bytes: number, ttlMs: number): void {
+    this.delete(key);
+    if (!Number.isSafeInteger(bytes) || bytes <= 0 || bytes > this.maxBytes || ttlMs <= 0) return;
+    while (this.values.size >= 4096 || this.size + bytes > this.maxBytes)
+      this.delete(this.values.keys().next().value!);
+    this.values.set(key, { value, bytes, expires: this.now() + ttlMs });
+    this.size += bytes;
+  }
+  delete(key: string): void {
+    const entry = this.values.get(key);
+    if (entry) this.size -= entry.bytes;
+    this.values.delete(key);
+  }
+  get bytes(): number {
+    return this.size;
+  }
+}
 /** Byte-bounded LRU, without retaining oversized entries. */
 export class MemoryCache {
   private values = new Map<string, { bytes: Buffer; expires: number }>();

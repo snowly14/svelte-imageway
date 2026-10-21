@@ -14,6 +14,7 @@ import {
 import {
   DiskCache,
   MemoryCache,
+  ValueCache,
   SingleFlight,
 } from '../packages/svelte-imageway/src/lib/node/cache.js';
 import {
@@ -137,6 +138,30 @@ describe('source acquisition security', () => {
   });
 });
 describe('bounded caches', () => {
+  it('bounds immutable values by bytes/count and expires them without extending their lifetime', () => {
+    let now = 0;
+    const cache = new ValueCache<object>(4, () => now);
+    const first = Object.freeze({ id: 1 });
+    cache.set('a', first, 2, 10);
+    cache.set('b', Object.freeze({ id: 2 }), 2, 10);
+    expect(cache.get('a')).toBe(first);
+    cache.set('c', Object.freeze({ id: 3 }), 2, 10);
+    expect(cache.get('b')).toBeUndefined();
+    cache.set('too-large', first, 5, 10);
+    expect(cache.get('too-large')).toBeUndefined();
+    expect(cache.bytes).toBe(4);
+    now = 10;
+    expect(cache.get('a')).toBeUndefined();
+    expect(cache.get('c')).toBeUndefined();
+    expect(cache.bytes).toBe(0);
+    for (let i = 0; i < 5000; i++) cache.set(String(i), first, 0, 10);
+    expect(cache.bytes).toBe(0);
+    const counted = new ValueCache<object>(10000);
+    for (let i = 0; i < 5000; i++) counted.set(String(i), first, 1, 1000);
+    expect(counted.bytes).toBe(4096);
+    expect(counted.get('0')).toBeUndefined();
+    expect(counted.get('4999')).toBe(first);
+  });
   it('evicts LRU by bytes and never keeps mutable buffers or expired values', () => {
     let now = 0;
     const cache = new MemoryCache(4, () => now);
@@ -376,6 +401,34 @@ describe('built worker_threads pipeline', () => {
   });
 });
 describe('integrated persistent processor', () => {
+  it('owns prepared input snapshots and keeps cached outputs isolated from caller mutation', async () => {
+    const { ImageProcessor } = (await import(
+      new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url).href
+    )) as typeof import('../packages/svelte-imageway/src/lib/node/processor.js');
+    const processor = new ImageProcessor({ directory: join(directory, 'prepared') });
+    const bytes = await sharp({ create: { width: 80, height: 40, channels: 3, background: 'red' } })
+      .png()
+      .toBuffer();
+    const original = Buffer.from(bytes);
+    const prepared = processor.prepare(bytes);
+    expect(Object.isFrozen(prepared)).toBe(true);
+    bytes.fill(0);
+    const request = { key: 'prepared', w: 320 };
+    const first = await prepared.process(request, 'webp', undefined, false);
+    const expected = await processor.process(original, request, 'webp', undefined, false);
+    expect(first.data).toEqual(expected.data);
+    first.data.fill(0);
+    expect((await prepared.process(request, 'webp', undefined, false)).data).toEqual(expected.data);
+    expect(processor.metrics.transforms).toBe(1);
+    expect(() => processor.prepare(new Uint8Array())).toThrow(/byte limit/);
+    const limited = new ImageProcessor({
+      directory: join(directory, 'limited-prepared'),
+      config: defineConfig({ maxInputBytes: 1 }),
+    });
+    expect(() => limited.prepare(original)).toThrow(/byte limit/);
+    const invalid = processor.prepare(Buffer.from('bad'));
+    await expect(invalid.process(request, 'webp')).rejects.toThrow(/signature/);
+  });
   it('reuses disk output, deduplicates, and invalidates on content/quality changes', async () => {
     const url = new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url);
     const { ImageProcessor } = (await import(

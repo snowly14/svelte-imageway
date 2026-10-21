@@ -5,10 +5,22 @@ import type { ImageConfig, ImageRequest, OutputFormat } from '../core/types.js';
 import { DiskCache, hash, MemoryCache, SingleFlight } from './cache.js';
 import { loadSharp, type TransformResult } from './pipeline.js';
 import { TransformPool, sharedPool } from './pool.js';
+import { invariant } from '../core/errors.js';
 
 /** Persistent content/codec/policy-addressed processing with in-flight deduplication. */
 export interface ProcessedImage extends TransformResult {
   cacheHit: boolean;
+}
+/** An owned source snapshot. Neither its bytes nor a mutable alias are exposed. */
+export interface PreparedImageSource {
+  readonly byteLength: number;
+  readonly digest: string;
+  process(
+    input: ImageRequest,
+    format: OutputFormat,
+    qualityCap?: number,
+    preview?: boolean,
+  ): Promise<ProcessedImage>;
 }
 export class ImageProcessor {
   readonly metrics = { hit: 0, miss: 0, transforms: 0 };
@@ -36,8 +48,35 @@ export class ImageProcessor {
   }
   private config: ImageConfig;
   private onTransform?: () => void | Promise<void>;
+  /** Copy once at ingestion; repeated transforms reuse the immutable source identity. */
+  prepare(data: Uint8Array): PreparedImageSource {
+    invariant(
+      data.byteLength > 0 && data.byteLength <= this.config.maxInputBytes,
+      'INPUT_SIZE',
+      'Input exceeds configured byte limit.',
+      413,
+    );
+    const snapshot = Buffer.from(data);
+    const digest = hash(snapshot);
+    return Object.freeze({
+      byteLength: snapshot.byteLength,
+      digest,
+      process: (input: ImageRequest, format: OutputFormat, qualityCap?: number, preview = true) =>
+        this.processSource(snapshot, digest, input, format, qualityCap, preview),
+    });
+  }
   async process(
     data: Uint8Array,
+    input: ImageRequest,
+    format: OutputFormat,
+    qualityCap?: number,
+    preview = true,
+  ): Promise<ProcessedImage> {
+    return this.processSource(data, hash(data), input, format, qualityCap, preview);
+  }
+  private async processSource(
+    data: Uint8Array,
+    digest: string,
     input: ImageRequest,
     format: OutputFormat,
     qualityCap?: number,
@@ -55,7 +94,7 @@ export class ImageProcessor {
           });
     const sharp = await loadSharp();
     const key = hash(
-      `${hash(data)}:preview=${preview}:${cacheIdentity(request, format, PIPELINE_REVISION + JSON.stringify([sharp.versions, this.config]), this.config)}`,
+      `${digest}:preview=${preview}:${cacheIdentity(request, format, PIPELINE_REVISION + JSON.stringify([sharp.versions, this.config]), this.config)}`,
     );
     return this.flight.run(key, async () => {
       const cached = this.memory.get(key) ?? (await this.disk.get(key));

@@ -7,8 +7,8 @@ import { negotiateFormat, mimeType } from '../core/accept.js';
 import { verifyRequest } from '../core/signing.js';
 import type { ImageConfig } from '../core/types.js';
 import { fetchRemote, readLocal } from '../node/source.js';
-import { ImageProcessor } from '../node/processor.js';
-import { hash, MemoryCache, SingleFlight } from '../node/cache.js';
+import { ImageProcessor, type PreparedImageSource } from '../node/processor.js';
+import { hash, ValueCache, SingleFlight } from '../node/cache.js';
 
 export interface ImageHandlerOptions {
   config?: Partial<ImageConfig>;
@@ -49,8 +49,8 @@ export function createImageService(options: ImageHandlerOptions = {}) {
       hourTransforms++;
     },
   });
-  const sources = new MemoryCache(config.maxInputBytes * 2);
-  const flight = new SingleFlight<Buffer>();
+  const sources = new ValueCache<PreparedImageSource>(config.maxInputBytes * 2);
+  const flight = new SingleFlight<PreparedImageSource>();
   const metrics = { requests: 0, errors: 0, responses: 0, bytes: 0, hits: 0 };
   let minute = 0,
     requests = 0,
@@ -119,12 +119,13 @@ export function createImageService(options: ImageHandlerOptions = {}) {
           );
           bytes = await readLocal(r.key!, options.sourceRoot, config.maxInputBytes);
         }
-        sources.set(sourceIdentity, bytes, 60000);
-        return bytes;
+        const source = processor.prepare(bytes);
+        sources.set(sourceIdentity, source, source.byteLength, 60000);
+        return source;
       });
       if (r.rev)
         invariant(
-          r.rev === hash(input),
+          r.rev === input.digest,
           'REVISION',
           'Source revision does not match its content hash.',
           409,
@@ -139,7 +140,7 @@ export function createImageService(options: ImageHandlerOptions = {}) {
         'Output format is disabled by configuration.',
         415,
       );
-      const result = await processor.process(input, r, format, saveData ? 65 : undefined, false);
+      const result = await input.process(r, format, saveData ? 65 : undefined, false);
       const hit = result.cacheHit;
       if (hit) metrics.hits++;
       const outputDigest = hash(result.data);
