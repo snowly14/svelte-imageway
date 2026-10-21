@@ -1,8 +1,8 @@
 # Release policy and commands
 
-1.4.0 preparation: immutable prepared sources and bounded build parallelism, with paired byte-verified measurements. Local checks pass; publication is pending the exact source CI matrix and registry verification. See REPORT.md.
+1.4.0 is published on npm under latest and on GitHub. Immutable prepared sources and bounded build parallelism have paired byte-verified measurements. The complete CI matrix, public registry integrity/provenance verification and fresh registry consumer pass for source `571136a0f44b91fb75893d84bb71c573e24200cc`. See REPORT.md.
 
-Version 1.3.1 is published on npm under latest and on GitHub. Source/provenance commit: `06f2c634ed51759cc11091df37ce64360c49c49b`. The complete Node 22/24 Linux/macOS/Windows CI and Chromium/Firefox/WebKit checks passed; the release workflow verified registry integrity and provenance. lunar-web installed the registry package with Bun, passed strict checks/build and loaded one responsive WebP with a matching preload. Earlier versions remain immutable. Performance stretch targets remain documented, not implied by version numbering.
+Previous version 1.3.1 was published on npm under latest and on GitHub. Source/provenance commit: `06f2c634ed51759cc11091df37ce64360c49c49b`. The complete Node 22/24 Linux/macOS/Windows CI and Chromium/Firefox/WebKit checks passed; the release workflow verified registry integrity and provenance. lunar-web installed the registry package with Bun, passed strict checks/build and loaded one responsive WebP with a matching preload. Earlier versions remain immutable. Performance stretch targets remain documented, not implied by version numbering.
 
 ## Configure real identity
 
