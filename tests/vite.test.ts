@@ -13,6 +13,10 @@ let root: string;
 let imageway: typeof factory;
 beforeAll(async () => {
   root = await mkdtemp(join(tmpdir(), 'imageway-vite-'));
+  await writeFile(
+    join(root, 'package.json'),
+    JSON.stringify({ type: 'module', sideEffects: false }),
+  );
   const url = new URL('../packages/svelte-imageway/dist/vite/index.js', import.meta.url);
   imageway = (await import(url.href)).imageway;
   await writeFile(

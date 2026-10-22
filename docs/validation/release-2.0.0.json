@@ -1,0 +1,34 @@
+{
+  "verifiedAt": "2026-10-22T17:06:02.922Z",
+  "available": true,
+  "version": "2.0.0",
+  "tag": "latest",
+  "sourceCommit": "36280a43b8149b6ea3cfa920007c56152ef11397",
+  "integrity": "sha512-Qe0F1ZxUGqeCHRHIZyyp3gDt5BOMLyP2jzPKnajwSKfD3gDR2ZSoGVKU2Q29n6xAINVBgs4sslJeO92b4qYTcQ==",
+  "sha256": "5ff64a02598c0aa8741128b785fbad551ed36ae30df5e9928292bb0c007d604a",
+  "provenanceSubjectMatches": true,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/39818713025",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/39818727559",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v2.0.0",
+  "registryConsumer": {
+    "measuredAt": "2026-10-22T17:06:18.657Z",
+    "packageVersion": "2.0.0",
+    "node": "v26.11.1",
+    "installAndBuildAndTypesMs": 5733.673417,
+    "underTwoMinutes": true,
+    "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+    "dimensions": {
+      "width": 640,
+      "height": 427
+    },
+    "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+    "encoded": {
+      "width": 640,
+      "height": 427,
+      "format": "webp"
+    },
+    "preload": true,
+    "packageSource": "public npm registry: svelte-imageway@2.0.0",
+    "installedFromRegistry": true
+  }
+}

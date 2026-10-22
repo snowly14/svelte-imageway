@@ -1,6 +1,6 @@
 # Release policy and commands
 
-2.0.0 preparation: ordinary raster imports without generated declarations and explicit Image/Picture markup contracts. Local strict packed-consumer validation passes; remote 2.0 publication is pending.
+2.0.0 is published on npm under latest and on GitHub. Ordinary raster imports work without generated declarations; Image/Picture markup is explicit. CI 39818713025 and release 39818727559 pass for source 36280a43b8149b6ea3cfa920007c56152ef11397. Public integrity/provenance and a fresh registry SvelteKit consumer are verified. See REPORT.md and docs/validation/release-2.0.0.json.
 
 1.5.0 is published with parsed representation cache, frozen policy fingerprint, typed native codec inventory and JPEG XL decoder diagnostics. CI 39670903349 and release 39670903149 passed; registry integrity and provenance match source 0cc46cc9de80c17e4918317e6a5759bda10c69c0. See REPORT.md.
 
