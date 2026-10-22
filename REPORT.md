@@ -1,3 +1,11 @@
+# Photographic benchmark and asset-reference fix — 22 October 2026, 3.0.1
+
+The [new photographic comparison](bench/PHOTOGRAPHIC.md) uses 24 Kodak images and byte-identical controlled WebP output. Seven-round build medians: Imageway **1581 ms cold / 534 ms warm**, vite-imagetools **980 / 182 ms**, enhanced-img **1086 / 223 ms**. Imageway remains slower. Cold RSS medians are **407 / 235 / 237 MiB** respectively. Three default-import rounds are a different, more expensive workload. Codec SSIM/size curves, repeated SSR/hydrated mobile loading and the actual Rust kernel versus optimized JS are reported separately with all samples.
+
+The byte-equality gate discovered that the old cross-tool scripts used an ignored `q` parameter for imagetools/enhanced-img (actual default quality 80), as well as fractional-aspect resizing differences. Their historical size tables must not be used as an equal-quality ranking. The corrected comparison uses real quality directives and integer aspect-ratio widths.
+
+The real corpus also exposed a production bug: replacement strings interpreted consecutive dollar signs in Rolldown asset IDs. A replacement callback preserves IDs literally; a regression test covers this. **3.0.1 is published** from commit `5075f6a7243fbb989d656b7b898f1768edca1299`, after 247 tests and the complete OS/Node/native/browser CI. [Release receipt](docs/validation/release-3.0.1.json), [GitHub release](https://github.com/snowly14/svelte-imageway/releases/tag/v3.0.1).
+
 # 3.0.0 focused Image/Picture and Rust previews
 
 StaticImage, StaticPicture, their props types and both static subpaths are removed. Image/Picture handle ordinary imports and provider URLs with explicit img/picture markup. [Migration](docs/guides/migration-3.md), [native design and Goose evaluation](docs/adr/0019-focused-components-and-rust-previews.md).

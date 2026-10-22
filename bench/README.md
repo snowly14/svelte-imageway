@@ -1,5 +1,11 @@
 # Reproducible package benchmarks
 
+## Current photographic comparison — 22 October 2026
+
+Read the [3.0.1 photographic benchmark](PHOTOGRAPHIC.md): 24 Kodak photographs, byte-identical WebP outputs across Imageway/vite-imagetools/enhanced-img, separate default-import costs, codec size/SSIM curves, repeated mobile browser loads and a Rust versus optimized-JavaScript preview comparison. Raw samples, exact versions, hashes and limitations are included.
+
+**Historical correction:** the synthetic cross-tool scripts below used `q=75` for imagetools/enhanced-img, which ignore that parameter and used Sharp quality 80 here. Resize policies and JPEG encoders also differed. Those size/timing tables are historical evidence, not an equal-quality ranking. The photographic comparison uses each tool’s real quality directive and rejects different output bytes. The historical HTTP/cache and Lighthouse measurements remain dated and are not refreshed by the photographic suite.
+
 ## 3.0.0 Rust preview kernel — 22 October 2026
 
 Seven alternating fresh-process sets on Apple M4, Node 26.11.1. The reference is blurhash 2.0.5. The optimized JavaScript control uses the same cached sRGB/cosine lookups and arithmetic order as Rust. Times include encoding, host/WASM copies, validation and hash packing, after 25 warm-ups. This measures the optional 4x3 BlurHash preview encoder, not JPEG/WebP compression or delivery.

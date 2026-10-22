@@ -145,6 +145,10 @@ These commands use the installed package CLI. `optimize` preserves originals and
 
 ## Measurements and limits
 
+The [photographic benchmark](bench/PHOTOGRAPHIC.md) compares 24 Kodak photos with byte-identical WebP output, repeated mobile loads, codec size/SSIM curves and a Rust/optimized-JavaScript control. Imageway 3.0.1 takes **1581 ms cold / 534 ms warm** versus vite-imagetools **980 / 182 ms** on this desktop (seven rounds). Cold peak RSS is **407 / 235 MiB** respectively. Imageway does not lead this build comparison. Default automatic imports are a larger workload and are measured separately. Raw data and dispersion are public. The real-photo Rust hash median is **38 µs versus 59 µs** for optimized JavaScript, but a complete-preview speedup is not established (36.75 ms Rust / 35.28 ms JS; substantial host variation).
+
+Older cross-tool synthetic scripts passed `q=75` to imagetools/enhanced-img, which used default quality 80; those historical size figures are not an equal-quality comparison.
+
 Version 3.0 preview-only measurement: 32×32 BlurHash encoding takes 26.1 µs with optimized JavaScript versus 9.1 µs with the Rust host/kernel path (2.8×); one-time Rust initialization is about 1 ms. Full preview medians improve by about 2–7% in this local sample. Default LQIP, image codecs and HTTP processing are unchanged. [All samples and limits](bench/README.md). Client entries remain Image 3290 / Picture 3453 gzip bytes, Svelte externalized; no WASM is delivered to the browser.
 
 Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating 1.4.0/current pairs, fresh Node processes, identical encoded outputs. Synthetic fixtures are not a photographic quality study.

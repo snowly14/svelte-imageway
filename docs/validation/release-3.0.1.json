@@ -1,0 +1,11 @@
+{
+  "verifiedAt": "2026-10-22T18:37:05.639Z",
+  "available": true,
+  "version": "3.0.1",
+  "tag": "latest",
+  "sourceCommit": "5075f6a7243fbb989d656b7b898f1768edca1299",
+  "integrity": "sha512-i1DYBOO/OFza9jzrgNyGTQrPp9Nikpxl5OSngComl6v8a2XSmRnVpM0MJRccA5DSb3uXYH6TLk8Q6l0aJDKTow==",
+  "sha256": "9c681cc39e4bdb2116ad24de59d49b650f4c58283294edacd73c4958db0c15e2",
+  "provenanceSubjectMatches": true,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/39831942604"
+}

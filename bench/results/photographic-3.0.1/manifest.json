@@ -1,0 +1,36 @@
+{
+  "packageVersion": "3.0.1",
+  "productSourceCommit": "5075f6a7243fbb989d656b7b898f1768edca1299",
+  "protocol": "Raw data contains every accepted sample; rejected preparation attempts failed correctness gates before a full timed series. Source paths are repository-relative. Validate these digests after checkout. Exact per-suite git revisions are recorded in each raw environment. Timing series were run serially on one uncontrolled desktop.",
+  "results": {
+    "bench/results/photographic-3.0.1/browser-summary.json": "c4b0fb2b50fd66d81a9aa325aa3c004ca5a73f15fe4fd3c72244a186dd16844d",
+    "bench/results/photographic-3.0.1/browser.json": "503116e9516bed85a6c7a5c289589024e5eb3ddcf46fbc8abe37f043c6dcab6d",
+    "bench/results/photographic-3.0.1/build-summary.json": "87e63c1b8901d4f8127c65aec61417b696a74ecd9b03111fd3074f127b42a1ef",
+    "bench/results/photographic-3.0.1/build.json": "1f7cd3c23c419e3fb5534fad46c2997a8edfc1792c6c42bd7ffdefbfda50dc8f",
+    "bench/results/photographic-3.0.1/corpus.json": "5b14f5086f739ec64bdb4c18501128cc834aa9a57e24db19e36663bc31240c11",
+    "bench/results/photographic-3.0.1/environment.json": "c0db637c045b4691f66161d0526735ec692e063c4129cf21a416c780c78da8f8",
+    "bench/results/photographic-3.0.1/native-summary.json": "ac7258601d1a1508df91e59f5428e5b44dd143093268250515abceabe11fe075",
+    "bench/results/photographic-3.0.1/native.json": "b9ac8d0fd141f7a8d5ad1a84de9cfa92d327233497d35cf890991776241393eb",
+    "bench/results/photographic-3.0.1/quality-summary.json": "a796f1aed7213fea8a44b33099daee6e810fc15bb874a428c4ff40ac57e7f7dc",
+    "bench/results/photographic-3.0.1/quality.json": "21f211430bef34b28c1469e9c32a2eb778889305b8e5bdcb650124476a7ac7df"
+  },
+  "source": {
+    "bench/photographic/browser.ts": "f8ec6e1c64ac7f9eaa68c8cbd58e8f2b308a6d69567250e9495a40b28a1767df",
+    "bench/photographic/build-child.ts": "afce46be59e9c0cdca5bc4609517b2b80580b6277096888df408f91b04e5721c",
+    "bench/photographic/build.ts": "1367b2c3d2d25659d02eddbb16d491398dd92e4c696c1cd02773d77e5e254ab8",
+    "bench/photographic/common.ts": "3b3ab10c5ab54a4aa1d4b4ebb0080d3750839fadaab0946bb3c62854208c7c1c",
+    "bench/photographic/native-child.ts": "98e518fbd4e1a589829c0bd673282f286d2e996749848000a2e965473bbc001f",
+    "bench/photographic/native.ts": "75817515e47ead3672f507fc61a7f19e62a0e899f41c238727f23b55619e6fdb",
+    "bench/photographic/quality.ts": "bd4b1f7a217c647d7cdb34da1627b72ae826285766e42cadc40035fa2a19286a",
+    "bench/photographic/run.ts": "3212a98e3dfb6962407caa9ff6e67eaee51334d7b48cb3e19e85270b7185acda",
+    "bench/preview-js.ts": "8439f78ccb114fad47a4e08ce21887bd60fc039f2db0929f1b8a382b33fa2f2a",
+    "native/blurhash/lib.rs": "9a31a623e13d6204792094a3d18c398958af331f3150164c6ab634bee13afa1a",
+    "native/blurhash/manifest.json": "45f4575196e8838662677a277f1763b7a8850ecf630281cdc36394d08cc0a22a",
+    "packages/svelte-imageway/src/lib/node/blurhash.ts": "f4ff474f3a94a935047b6325050c10897373deb97da75f5c8594e09e185e8d70",
+    "packages/svelte-imageway/src/lib/node/blurhash-encoding.ts": "12642ae88bd1b7c5f00ad5e0d10feb00f1b00abb201f60d2a329fa5f76feb976",
+    "packages/svelte-imageway/src/lib/vite/placeholder.ts": "6cb8c9a690b65aeb56d067d41bb47f47cab08a8e3596b2e5ab02bddb04b0ced4",
+    "packages/svelte-imageway/src/lib/vite/index.ts": "d812b901477811ed62e1c6d43a5d367c231efcdfd9a802137a79cc3bc4e24a27",
+    "packages/svelte-imageway/package.json": "ee3c511b8b1811fa5363c08b981f13916fbea89e589a292975154eda4d079681",
+    "bun.lock": "428c55eb8ce99d80f68381a8dc221fd92fc6952cb5f300a6e550dad2957e7de3"
+  }
+}

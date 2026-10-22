@@ -1,0 +1,1671 @@
+{
+  "summaries": [
+    {
+      "codec": "jpeg-default",
+      "quality": 50,
+      "outputBytes": 613012,
+      "ssim": {
+        "n": 24,
+        "median": 0.9048437169514875,
+        "q1": 0.8920322561094834,
+        "q3": 0.9228993244983605,
+        "min": 0.8597254979714655,
+        "max": 0.9454706787632827
+      },
+      "ssimMean": 0.9066810784481819,
+      "encodeMs": {
+        "n": 3,
+        "median": 348.2200850000081,
+        "q1": 345.25577150000026,
+        "q3": 354.5063145000033,
+        "min": 342.2914579999924,
+        "max": 360.79254399999854
+      }
+    },
+    {
+      "codec": "jpeg-default",
+      "quality": 65,
+      "outputBytes": 775524,
+      "ssim": {
+        "n": 24,
+        "median": 0.924415718381587,
+        "q1": 0.9165320667598227,
+        "q3": 0.9376173032537006,
+        "min": 0.8936709584901044,
+        "max": 0.9566057893080087
+      },
+      "ssimMean": 0.9262876442007523,
+      "encodeMs": {
+        "n": 3,
+        "median": 398.1621640000003,
+        "q1": 384.7531855000084,
+        "q3": 405.5139139999915,
+        "min": 371.34420700001647,
+        "max": 412.86566399998264
+      }
+    },
+    {
+      "codec": "jpeg-default",
+      "quality": 75,
+      "outputBytes": 950782,
+      "ssim": {
+        "n": 24,
+        "median": 0.9393711226357342,
+        "q1": 0.9351453910976468,
+        "q3": 0.9499276217968021,
+        "min": 0.9184803081675725,
+        "max": 0.9656171285298473
+      },
+      "ssimMean": 0.9416562495590107,
+      "encodeMs": {
+        "n": 3,
+        "median": 402.34391800002777,
+        "q1": 356.621043000021,
+        "q3": 425.4380010000127,
+        "min": 310.89816800001427,
+        "max": 448.53208399999767
+      }
+    },
+    {
+      "codec": "jpeg-default",
+      "quality": 85,
+      "outputBytes": 1299590,
+      "ssim": {
+        "n": 24,
+        "median": 0.9601853376325602,
+        "q1": 0.9564566067701483,
+        "q3": 0.9685947881915943,
+        "min": 0.9427188335175265,
+        "max": 0.9776399180626033
+      },
+      "ssimMean": 0.9616520642978922,
+      "encodeMs": {
+        "n": 3,
+        "median": 359.3443320000097,
+        "q1": 348.64512350001405,
+        "q3": 395.015102499995,
+        "min": 337.94591500001843,
+        "max": 430.68587299998035
+      }
+    },
+    {
+      "codec": "jpeg-default",
+      "quality": 95,
+      "outputBytes": 2342907,
+      "ssim": {
+        "n": 24,
+        "median": 0.9874711839124589,
+        "q1": 0.9849793999532254,
+        "q3": 0.990282327451826,
+        "min": 0.9786322844068968,
+        "max": 0.9933825138125385
+      },
+      "ssimMean": 0.9871724314430544,
+      "encodeMs": {
+        "n": 3,
+        "median": 360.95699800003786,
+        "q1": 345.6811455000716,
+        "q3": 388.8246015000259,
+        "min": 330.4052930001053,
+        "max": 416.6922050000139
+      }
+    },
+    {
+      "codec": "jpeg-mozjpeg",
+      "quality": 50,
+      "outputBytes": 462503,
+      "ssim": {
+        "n": 24,
+        "median": 0.8778387219558734,
+        "q1": 0.8572915721110508,
+        "q3": 0.9039250997341362,
+        "min": 0.8141101304215298,
+        "max": 0.9314661644923777
+      },
+      "ssimMean": 0.8801892860233723,
+      "encodeMs": {
+        "n": 3,
+        "median": 738.7509559999453,
+        "q1": 736.2942064999661,
+        "q3": 798.6294154999687,
+        "min": 733.8374569999869,
+        "max": 858.507874999992
+      }
+    },
+    {
+      "codec": "jpeg-mozjpeg",
+      "quality": 65,
+      "outputBytes": 602676,
+      "ssim": {
+        "n": 24,
+        "median": 0.9021726522889821,
+        "q1": 0.8894280615107815,
+        "q3": 0.9229908263041791,
+        "min": 0.8597832339365485,
+        "max": 0.9464201688623347
+      },
+      "ssimMean": 0.9064842500943624,
+      "encodeMs": {
+        "n": 3,
+        "median": 886.9503730000288,
+        "q1": 838.5622065000643,
+        "q3": 899.2369565000172,
+        "min": 790.1740400000999,
+        "max": 911.5235400000056
+      }
+    },
+    {
+      "codec": "jpeg-mozjpeg",
+      "quality": 75,
+      "outputBytes": 758603,
+      "ssim": {
+        "n": 24,
+        "median": 0.9239847353411444,
+        "q1": 0.9159487980468839,
+        "q3": 0.9376311769782841,
+        "min": 0.8942686211597952,
+        "max": 0.9584632228219038
+      },
+      "ssimMean": 0.9267380150504185,
+      "encodeMs": {
+        "n": 3,
+        "median": 1049.519003000023,
+        "q1": 1033.7010850000224,
+        "q3": 1080.7012715000146,
+        "min": 1017.8831670000218,
+        "max": 1111.8835400000062
+      }
+    },
+    {
+      "codec": "jpeg-mozjpeg",
+      "quality": 85,
+      "outputBytes": 1061437,
+      "ssim": {
+        "n": 24,
+        "median": 0.9499607621049948,
+        "q1": 0.9464804490820876,
+        "q3": 0.9567367357871428,
+        "min": 0.9303877239047588,
+        "max": 0.9726676857167975
+      },
+      "ssimMean": 0.9513504054360418,
+      "encodeMs": {
+        "n": 3,
+        "median": 1223.0224589999998,
+        "q1": 1197.441395499991,
+        "q3": 1223.3486470000062,
+        "min": 1171.860331999982,
+        "max": 1223.6748350000125
+      }
+    },
+    {
+      "codec": "jpeg-mozjpeg",
+      "quality": 95,
+      "outputBytes": 1937019,
+      "ssim": {
+        "n": 24,
+        "median": 0.9817208116900966,
+        "q1": 0.979495163714202,
+        "q3": 0.9845893328607338,
+        "min": 0.972719656099131,
+        "max": 0.9893399185633059
+      },
+      "ssimMean": 0.9818563478267133,
+      "encodeMs": {
+        "n": 3,
+        "median": 1886.5413779999362,
+        "q1": 1869.356166999918,
+        "q3": 1942.7481254999657,
+        "min": 1852.1709559999,
+        "max": 1998.9548729999951
+      }
+    },
+    {
+      "codec": "webp",
+      "quality": 50,
+      "outputBytes": 513398,
+      "ssim": {
+        "n": 24,
+        "median": 0.9201665357458173,
+        "q1": 0.9087079388213359,
+        "q3": 0.9329520263751147,
+        "min": 0.8826334838012297,
+        "max": 0.9545317005967171
+      },
+      "ssimMean": 0.9208853806677673,
+      "encodeMs": {
+        "n": 3,
+        "median": 1093.8805429999775,
+        "q1": 1080.4026874999254,
+        "q3": 1229.403437999983,
+        "min": 1066.9248319998733,
+        "max": 1364.9263329999885
+      }
+    },
+    {
+      "codec": "webp",
+      "quality": 65,
+      "outputBytes": 623584,
+      "ssim": {
+        "n": 24,
+        "median": 0.9345113510391574,
+        "q1": 0.9281855113885604,
+        "q3": 0.9503779990721036,
+        "min": 0.9044332201266011,
+        "max": 0.9625301758958275
+      },
+      "ssimMean": 0.937423627766106,
+      "encodeMs": {
+        "n": 3,
+        "median": 1066.2352519998676,
+        "q1": 1052.6454179999273,
+        "q3": 1237.004168499927,
+        "min": 1039.055583999987,
+        "max": 1407.7730849999862
+      }
+    },
+    {
+      "codec": "webp",
+      "quality": 75,
+      "outputBytes": 711088,
+      "ssim": {
+        "n": 24,
+        "median": 0.9448677875667781,
+        "q1": 0.9377690934623271,
+        "q3": 0.9576262042945578,
+        "min": 0.9148020588907302,
+        "max": 0.9684873351918014
+      },
+      "ssimMean": 0.9468653102251245,
+      "encodeMs": {
+        "n": 3,
+        "median": 1131.7527520000003,
+        "q1": 1118.7261044999905,
+        "q3": 1244.4289399999907,
+        "min": 1105.6994569999806,
+        "max": 1357.105127999981
+      }
+    },
+    {
+      "codec": "webp",
+      "quality": 85,
+      "outputBytes": 1079668,
+      "ssim": {
+        "n": 24,
+        "median": 0.9703430441849259,
+        "q1": 0.9639694599930987,
+        "q3": 0.9789622976019621,
+        "min": 0.9544949960958816,
+        "max": 0.9851674450324545
+      },
+      "ssimMean": 0.9709630265585337,
+      "encodeMs": {
+        "n": 3,
+        "median": 1272.2248760000512,
+        "q1": 1239.8196050000697,
+        "q3": 1474.9068960000259,
+        "min": 1207.4143340000883,
+        "max": 1677.5889160000006
+      }
+    },
+    {
+      "codec": "webp",
+      "quality": 95,
+      "outputBytes": 2078986,
+      "ssim": {
+        "n": 24,
+        "median": 0.9897409783934957,
+        "q1": 0.9872478002703845,
+        "q3": 0.9930376597177393,
+        "min": 0.9843801638414098,
+        "max": 0.9964433165604272
+      },
+      "ssimMean": 0.9903249935159613,
+      "encodeMs": {
+        "n": 3,
+        "median": 1506.7053359999263,
+        "q1": 1485.2900429999572,
+        "q3": 1723.3140634999618,
+        "min": 1463.8747499999881,
+        "max": 1939.9227909999972
+      }
+    },
+    {
+      "codec": "avif",
+      "quality": 50,
+      "outputBytes": 453986,
+      "ssim": {
+        "n": 24,
+        "median": 0.922643768510631,
+        "q1": 0.9141861226382733,
+        "q3": 0.9336802448447196,
+        "min": 0.8877581996745317,
+        "max": 0.9589856949668136
+      },
+      "ssimMean": 0.9248287075170881,
+      "encodeMs": {
+        "n": 3,
+        "median": 8021.854001000087,
+        "q1": 6858.414105000033,
+        "q3": 8720.357544000039,
+        "min": 5694.974208999978,
+        "max": 9418.86108699999
+      }
+    },
+    {
+      "codec": "avif",
+      "quality": 65,
+      "outputBytes": 765041,
+      "ssim": {
+        "n": 24,
+        "median": 0.958235367962441,
+        "q1": 0.9545814983850494,
+        "q3": 0.9656443371024173,
+        "min": 0.9448292791770168,
+        "max": 0.9769117326147482
+      },
+      "ssimMean": 0.9597564910750677,
+      "encodeMs": {
+        "n": 3,
+        "median": 10668.05358200011,
+        "q1": 7655.820956500043,
+        "q3": 10740.36064500003,
+        "min": 4643.588330999977,
+        "max": 10812.66770799995
+      }
+    },
+    {
+      "codec": "avif",
+      "quality": 75,
+      "outputBytes": 1074966,
+      "ssim": {
+        "n": 24,
+        "median": 0.9771973602547408,
+        "q1": 0.9719165539686938,
+        "q3": 0.9819676737399423,
+        "min": 0.9632748541556794,
+        "max": 0.9855696160342771
+      },
+      "ssimMean": 0.9765380147490151,
+      "encodeMs": {
+        "n": 3,
+        "median": 11176.26083199997,
+        "q1": 7895.09506349999,
+        "q3": 11189.987374499993,
+        "min": 4613.929295000009,
+        "max": 11203.713917000015
+      }
+    },
+    {
+      "codec": "avif",
+      "quality": 85,
+      "outputBytes": 1443888,
+      "ssim": {
+        "n": 24,
+        "median": 0.9859145718765572,
+        "q1": 0.9832302498184431,
+        "q3": 0.9899301489042234,
+        "min": 0.9763260986602599,
+        "max": 0.9919058659256543
+      },
+      "ssimMean": 0.9859416688431363,
+      "encodeMs": {
+        "n": 3,
+        "median": 12710.145291000052,
+        "q1": 8838.996938500022,
+        "q3": 12832.359187500013,
+        "min": 4967.848585999993,
+        "max": 12954.573083999974
+      }
+    },
+    {
+      "codec": "avif",
+      "quality": 95,
+      "outputBytes": 2778787,
+      "ssim": {
+        "n": 24,
+        "median": 0.9964701382706196,
+        "q1": 0.9957059735058417,
+        "q3": 0.9975657517436789,
+        "min": 0.9951888415472561,
+        "max": 0.9985824836630895
+      },
+      "ssimMean": 0.99667133241207,
+      "encodeMs": {
+        "n": 3,
+        "median": 14753.096871999995,
+        "q1": 10404.276935000016,
+        "q3": 14852.563207000028,
+        "min": 6055.456998000038,
+        "max": 14952.029542000062
+      }
+    }
+  ],
+  "matched": [
+    {
+      "target": 0.95,
+      "codec": "jpeg-default",
+      "met": 24,
+      "total": 24,
+      "bytesOnMetSubset": 1264416,
+      "choices": [
+        {
+          "file": "kodim01.png",
+          "quality": 85,
+          "bytes": 57790,
+          "ssim": 0.9615766195606229
+        },
+        {
+          "file": "kodim02.png",
+          "quality": 95,
+          "bytes": 68445,
+          "ssim": 0.9799583888369114
+        },
+        {
+          "file": "kodim03.png",
+          "quality": 75,
+          "bytes": 22693,
+          "ssim": 0.9520948033696279
+        },
+        {
+          "file": "kodim04.png",
+          "quality": 85,
+          "bytes": 78409,
+          "ssim": 0.9564463978119404
+        },
+        {
+          "file": "kodim05.png",
+          "quality": 85,
+          "bytes": 67382,
+          "ssim": 0.9692295109626544
+        },
+        {
+          "file": "kodim06.png",
+          "quality": 85,
+          "bytes": 45787,
+          "ssim": 0.9601133914745915
+        },
+        {
+          "file": "kodim07.png",
+          "quality": 65,
+          "bytes": 24263,
+          "ssim": 0.956433488014346
+        },
+        {
+          "file": "kodim08.png",
+          "quality": 75,
+          "bytes": 48203,
+          "ssim": 0.9523987487365038
+        },
+        {
+          "file": "kodim09.png",
+          "quality": 85,
+          "bytes": 64986,
+          "ssim": 0.9580300702978606
+        },
+        {
+          "file": "kodim10.png",
+          "quality": 85,
+          "bytes": 71550,
+          "ssim": 0.9602572837905289
+        },
+        {
+          "file": "kodim11.png",
+          "quality": 85,
+          "bytes": 43928,
+          "ssim": 0.9564600097562176
+        },
+        {
+          "file": "kodim12.png",
+          "quality": 85,
+          "bytes": 32150,
+          "ssim": 0.9563526901545966
+        },
+        {
+          "file": "kodim13.png",
+          "quality": 85,
+          "bytes": 69165,
+          "ssim": 0.9566215695246509
+        },
+        {
+          "file": "kodim14.png",
+          "quality": 85,
+          "bytes": 55430,
+          "ssim": 0.954183828204042
+        },
+        {
+          "file": "kodim15.png",
+          "quality": 85,
+          "bytes": 34366,
+          "ssim": 0.9608160500956577
+        },
+        {
+          "file": "kodim16.png",
+          "quality": 85,
+          "bytes": 36059,
+          "ssim": 0.9593671541288074
+        },
+        {
+          "file": "kodim17.png",
+          "quality": 85,
+          "bytes": 76746,
+          "ssim": 0.9633725529103633
+        },
+        {
+          "file": "kodim18.png",
+          "quality": 85,
+          "bytes": 111266,
+          "ssim": 0.956386375797107
+        },
+        {
+          "file": "kodim19.png",
+          "quality": 85,
+          "bytes": 88065,
+          "ssim": 0.9593659181240602
+        },
+        {
+          "file": "kodim20.png",
+          "quality": 75,
+          "bytes": 21903,
+          "ssim": 0.9581498036660853
+        },
+        {
+          "file": "kodim21.png",
+          "quality": 75,
+          "bytes": 31033,
+          "ssim": 0.9528772622162138
+        },
+        {
+          "file": "kodim22.png",
+          "quality": 85,
+          "bytes": 44302,
+          "ssim": 0.953958192674999
+        },
+        {
+          "file": "kodim23.png",
+          "quality": 65,
+          "bytes": 17882,
+          "ssim": 0.9566057893080087
+        },
+        {
+          "file": "kodim24.png",
+          "quality": 85,
+          "bytes": 52613,
+          "ssim": 0.9624878171642661
+        }
+      ]
+    },
+    {
+      "target": 0.95,
+      "codec": "jpeg-mozjpeg",
+      "met": 24,
+      "total": 24,
+      "bytesOnMetSubset": 1516550,
+      "choices": [
+        {
+          "file": "kodim01.png",
+          "quality": 95,
+          "bytes": 81039,
+          "ssim": 0.9846999115233812
+        },
+        {
+          "file": "kodim02.png",
+          "quality": 95,
+          "bytes": 57374,
+          "ssim": 0.972719656099131
+        },
+        {
+          "file": "kodim03.png",
+          "quality": 85,
+          "bytes": 25557,
+          "ssim": 0.9590404267453121
+        },
+        {
+          "file": "kodim04.png",
+          "quality": 95,
+          "bytes": 122074,
+          "ssim": 0.9787716879907362
+        },
+        {
+          "file": "kodim05.png",
+          "quality": 85,
+          "bytes": 56421,
+          "ssim": 0.9556473326706751
+        },
+        {
+          "file": "kodim06.png",
+          "quality": 95,
+          "bytes": 67567,
+          "ssim": 0.9830799214452095
+        },
+        {
+          "file": "kodim07.png",
+          "quality": 75,
+          "bytes": 24183,
+          "ssim": 0.9584632228219038
+        },
+        {
+          "file": "kodim08.png",
+          "quality": 85,
+          "bytes": 52878,
+          "ssim": 0.9614066641565769
+        },
+        {
+          "file": "kodim09.png",
+          "quality": 85,
+          "bytes": 49976,
+          "ssim": 0.9509342217629837
+        },
+        {
+          "file": "kodim10.png",
+          "quality": 85,
+          "bytes": 57148,
+          "ssim": 0.9528401938500419
+        },
+        {
+          "file": "kodim11.png",
+          "quality": 95,
+          "bytes": 66148,
+          "ssim": 0.9812366668074672
+        },
+        {
+          "file": "kodim12.png",
+          "quality": 95,
+          "bytes": 49706,
+          "ssim": 0.9786232151817154
+        },
+        {
+          "file": "kodim13.png",
+          "quality": 95,
+          "bytes": 95425,
+          "ssim": 0.98285467186862
+        },
+        {
+          "file": "kodim14.png",
+          "quality": 95,
+          "bytes": 81191,
+          "ssim": 0.9814232515183576
+        },
+        {
+          "file": "kodim15.png",
+          "quality": 85,
+          "bytes": 28682,
+          "ssim": 0.9518078499628161
+        },
+        {
+          "file": "kodim16.png",
+          "quality": 95,
+          "bytes": 55102,
+          "ssim": 0.9820183718618356
+        },
+        {
+          "file": "kodim17.png",
+          "quality": 85,
+          "bytes": 60814,
+          "ssim": 0.9559688388010863
+        },
+        {
+          "file": "kodim18.png",
+          "quality": 95,
+          "bytes": 164610,
+          "ssim": 0.9791468745177843
+        },
+        {
+          "file": "kodim19.png",
+          "quality": 95,
+          "bytes": 132120,
+          "ssim": 0.9796112601130079
+        },
+        {
+          "file": "kodim20.png",
+          "quality": 85,
+          "bytes": 24290,
+          "ssim": 0.9649935162965004
+        },
+        {
+          "file": "kodim21.png",
+          "quality": 85,
+          "bytes": 34125,
+          "ssim": 0.9600697021264141
+        },
+        {
+          "file": "kodim22.png",
+          "quality": 95,
+          "bytes": 68269,
+          "ssim": 0.9797316391081529
+        },
+        {
+          "file": "kodim23.png",
+          "quality": 75,
+          "bytes": 18267,
+          "ssim": 0.9569375420926431
+        },
+        {
+          "file": "kodim24.png",
+          "quality": 85,
+          "bytes": 43584,
+          "ssim": 0.9516453074136078
+        }
+      ]
+    },
+    {
+      "target": 0.95,
+      "codec": "webp",
+      "met": 24,
+      "total": 24,
+      "bytesOnMetSubset": 938938,
+      "choices": [
+        {
+          "file": "kodim01.png",
+          "quality": 75,
+          "bytes": 36226,
+          "ssim": 0.957249813690977
+        },
+        {
+          "file": "kodim02.png",
+          "quality": 85,
+          "bytes": 26490,
+          "ssim": 0.9544949960958816
+        },
+        {
+          "file": "kodim03.png",
+          "quality": 85,
+          "bytes": 21570,
+          "ssim": 0.9708982262084229
+        },
+        {
+          "file": "kodim04.png",
+          "quality": 85,
+          "bytes": 61390,
+          "ssim": 0.9591488658520656
+        },
+        {
+          "file": "kodim05.png",
+          "quality": 65,
+          "bytes": 39522,
+          "ssim": 0.9583386787741508
+        },
+        {
+          "file": "kodim06.png",
+          "quality": 85,
+          "bytes": 41436,
+          "ssim": 0.9757207121794184
+        },
+        {
+          "file": "kodim07.png",
+          "quality": 50,
+          "bytes": 14496,
+          "ssim": 0.9545317005967171
+        },
+        {
+          "file": "kodim08.png",
+          "quality": 65,
+          "bytes": 36388,
+          "ssim": 0.9600293963155336
+        },
+        {
+          "file": "kodim09.png",
+          "quality": 85,
+          "bytes": 44790,
+          "ssim": 0.9548901591370942
+        },
+        {
+          "file": "kodim10.png",
+          "quality": 85,
+          "bytes": 51148,
+          "ssim": 0.9585152091405548
+        },
+        {
+          "file": "kodim11.png",
+          "quality": 85,
+          "bytes": 38048,
+          "ssim": 0.9722686025889166
+        },
+        {
+          "file": "kodim12.png",
+          "quality": 85,
+          "bytes": 23664,
+          "ssim": 0.9620683248403316
+        },
+        {
+          "file": "kodim13.png",
+          "quality": 65,
+          "bytes": 44230,
+          "ssim": 0.9515968406765478
+        },
+        {
+          "file": "kodim14.png",
+          "quality": 85,
+          "bytes": 51122,
+          "ssim": 0.9756776461562251
+        },
+        {
+          "file": "kodim15.png",
+          "quality": 85,
+          "bytes": 25768,
+          "ssim": 0.9638370792907255
+        },
+        {
+          "file": "kodim16.png",
+          "quality": 85,
+          "bytes": 29932,
+          "ssim": 0.9666509713130038
+        },
+        {
+          "file": "kodim17.png",
+          "quality": 85,
+          "bytes": 55904,
+          "ssim": 0.9640135868938897
+        },
+        {
+          "file": "kodim18.png",
+          "quality": 85,
+          "bytes": 104216,
+          "ssim": 0.9697878621614289
+        },
+        {
+          "file": "kodim19.png",
+          "quality": 85,
+          "bytes": 73654,
+          "ssim": 0.9654570393000721
+        },
+        {
+          "file": "kodim20.png",
+          "quality": 65,
+          "bytes": 13162,
+          "ssim": 0.9556340884894275
+        },
+        {
+          "file": "kodim21.png",
+          "quality": 65,
+          "bytes": 21246,
+          "ssim": 0.9509065552633619
+        },
+        {
+          "file": "kodim22.png",
+          "quality": 85,
+          "bytes": 39640,
+          "ssim": 0.9680610873850778
+        },
+        {
+          "file": "kodim23.png",
+          "quality": 65,
+          "bytes": 12210,
+          "ssim": 0.9502018136750175
+        },
+        {
+          "file": "kodim24.png",
+          "quality": 75,
+          "bytes": 32686,
+          "ssim": 0.9562325580159723
+        }
+      ]
+    },
+    {
+      "target": 0.95,
+      "codec": "avif",
+      "met": 24,
+      "total": 24,
+      "bytesOnMetSubset": 755163,
+      "choices": [
+        {
+          "file": "kodim01.png",
+          "quality": 65,
+          "bytes": 36230,
+          "ssim": 0.9606812555066632
+        },
+        {
+          "file": "kodim02.png",
+          "quality": 75,
+          "bytes": 32759,
+          "ssim": 0.9674620072727013
+        },
+        {
+          "file": "kodim03.png",
+          "quality": 65,
+          "bytes": 17050,
+          "ssim": 0.9684581505683718
+        },
+        {
+          "file": "kodim04.png",
+          "quality": 65,
+          "bytes": 44527,
+          "ssim": 0.951167676319606
+        },
+        {
+          "file": "kodim05.png",
+          "quality": 65,
+          "bytes": 42149,
+          "ssim": 0.9672372418806224
+        },
+        {
+          "file": "kodim06.png",
+          "quality": 65,
+          "bytes": 28807,
+          "ssim": 0.9608114393006918
+        },
+        {
+          "file": "kodim07.png",
+          "quality": 50,
+          "bytes": 13334,
+          "ssim": 0.9589856949668136
+        },
+        {
+          "file": "kodim08.png",
+          "quality": 65,
+          "bytes": 36073,
+          "ssim": 0.9670384638237153
+        },
+        {
+          "file": "kodim09.png",
+          "quality": 65,
+          "bytes": 29731,
+          "ssim": 0.9501155865374052
+        },
+        {
+          "file": "kodim10.png",
+          "quality": 65,
+          "bytes": 35021,
+          "ssim": 0.9545150568189449
+        },
+        {
+          "file": "kodim11.png",
+          "quality": 65,
+          "bytes": 27294,
+          "ssim": 0.9569334777963431
+        },
+        {
+          "file": "kodim12.png",
+          "quality": 65,
+          "bytes": 18110,
+          "ssim": 0.9539638556652619
+        },
+        {
+          "file": "kodim13.png",
+          "quality": 65,
+          "bytes": 47676,
+          "ssim": 0.9580261524200958
+        },
+        {
+          "file": "kodim14.png",
+          "quality": 65,
+          "bytes": 36567,
+          "ssim": 0.9546321709142149
+        },
+        {
+          "file": "kodim15.png",
+          "quality": 65,
+          "bytes": 19818,
+          "ssim": 0.9591024581666182
+        },
+        {
+          "file": "kodim16.png",
+          "quality": 65,
+          "bytes": 22044,
+          "ssim": 0.958237679548253
+        },
+        {
+          "file": "kodim17.png",
+          "quality": 65,
+          "bytes": 41523,
+          "ssim": 0.958233056376629
+        },
+        {
+          "file": "kodim18.png",
+          "quality": 65,
+          "bytes": 69338,
+          "ssim": 0.9514214288470231
+        },
+        {
+          "file": "kodim19.png",
+          "quality": 65,
+          "bytes": 47352,
+          "ssim": 0.9547933696925767
+        },
+        {
+          "file": "kodim20.png",
+          "quality": 50,
+          "bytes": 10253,
+          "ssim": 0.9512501173344831
+        },
+        {
+          "file": "kodim21.png",
+          "quality": 65,
+          "bytes": 24141,
+          "ssim": 0.9635103524086059
+        },
+        {
+          "file": "kodim22.png",
+          "quality": 65,
+          "bytes": 30118,
+          "ssim": 0.9546036455737509
+        },
+        {
+          "file": "kodim23.png",
+          "quality": 50,
+          "bytes": 10405,
+          "ssim": 0.9549642603014118
+        },
+        {
+          "file": "kodim24.png",
+          "quality": 65,
+          "bytes": 34843,
+          "ssim": 0.9651796281953179
+        }
+      ]
+    },
+    {
+      "target": 0.98,
+      "codec": "jpeg-default",
+      "met": 22,
+      "total": 24,
+      "bytesOnMetSubset": 2144278,
+      "choices": [
+        {
+          "file": "kodim01.png",
+          "quality": 95,
+          "bytes": 97204,
+          "ssim": 0.9918636091493063
+        },
+        {
+          "file": "kodim02.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim03.png",
+          "quality": 95,
+          "bytes": 57450,
+          "ssim": 0.9885320355372214
+        },
+        {
+          "file": "kodim04.png",
+          "quality": 95,
+          "bytes": 148433,
+          "ssim": 0.983747987460179
+        },
+        {
+          "file": "kodim05.png",
+          "quality": 95,
+          "bytes": 109555,
+          "ssim": 0.9933825138125385
+        },
+        {
+          "file": "kodim06.png",
+          "quality": 95,
+          "bytes": 80747,
+          "ssim": 0.9889527099088856
+        },
+        {
+          "file": "kodim07.png",
+          "quality": 95,
+          "bytes": 67594,
+          "ssim": 0.9919701836775063
+        },
+        {
+          "file": "kodim08.png",
+          "quality": 95,
+          "bytes": 104198,
+          "ssim": 0.9924053545433311
+        },
+        {
+          "file": "kodim09.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim10.png",
+          "quality": 95,
+          "bytes": 137510,
+          "ssim": 0.9814661398494748
+        },
+        {
+          "file": "kodim11.png",
+          "quality": 95,
+          "bytes": 78886,
+          "ssim": 0.9869011435350185
+        },
+        {
+          "file": "kodim12.png",
+          "quality": 95,
+          "bytes": 61164,
+          "ssim": 0.9832001141513103
+        },
+        {
+          "file": "kodim13.png",
+          "quality": 95,
+          "bytes": 112827,
+          "ssim": 0.9925004660097235
+        },
+        {
+          "file": "kodim14.png",
+          "quality": 95,
+          "bytes": 96732,
+          "ssim": 0.9883692375908466
+        },
+        {
+          "file": "kodim15.png",
+          "quality": 95,
+          "bytes": 64753,
+          "ssim": 0.9856466095321518
+        },
+        {
+          "file": "kodim16.png",
+          "quality": 95,
+          "bytes": 67121,
+          "ssim": 0.9871881154062031
+        },
+        {
+          "file": "kodim17.png",
+          "quality": 95,
+          "bytes": 143722,
+          "ssim": 0.984334138756371
+        },
+        {
+          "file": "kodim18.png",
+          "quality": 95,
+          "bytes": 197363,
+          "ssim": 0.9851944870188435
+        },
+        {
+          "file": "kodim19.png",
+          "quality": 95,
+          "bytes": 162432,
+          "ssim": 0.9852234495866868
+        },
+        {
+          "file": "kodim20.png",
+          "quality": 95,
+          "bytes": 54527,
+          "ssim": 0.9908311745352691
+        },
+        {
+          "file": "kodim21.png",
+          "quality": 95,
+          "bytes": 75295,
+          "ssim": 0.9877765830537439
+        },
+        {
+          "file": "kodim22.png",
+          "quality": 95,
+          "bytes": 80859,
+          "ssim": 0.9862079974321556
+        },
+        {
+          "file": "kodim23.png",
+          "quality": 95,
+          "bytes": 55593,
+          "ssim": 0.9877542524187147
+        },
+        {
+          "file": "kodim24.png",
+          "quality": 95,
+          "bytes": 90313,
+          "ssim": 0.9900993784240116
+        }
+      ]
+    },
+    {
+      "target": 0.98,
+      "codec": "jpeg-mozjpeg",
+      "met": 15,
+      "total": 24,
+      "bytesOnMetSubset": 1077183,
+      "choices": [
+        {
+          "file": "kodim01.png",
+          "quality": 95,
+          "bytes": 81039,
+          "ssim": 0.9846999115233812
+        },
+        {
+          "file": "kodim02.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim03.png",
+          "quality": 95,
+          "bytes": 47356,
+          "ssim": 0.9844777878235046
+        },
+        {
+          "file": "kodim04.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim05.png",
+          "quality": 95,
+          "bytes": 94511,
+          "ssim": 0.9878181420683244
+        },
+        {
+          "file": "kodim06.png",
+          "quality": 95,
+          "bytes": 67567,
+          "ssim": 0.9830799214452095
+        },
+        {
+          "file": "kodim07.png",
+          "quality": 95,
+          "bytes": 57319,
+          "ssim": 0.9893399185633059
+        },
+        {
+          "file": "kodim08.png",
+          "quality": 95,
+          "bytes": 88113,
+          "ssim": 0.9875721617858737
+        },
+        {
+          "file": "kodim09.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim10.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim11.png",
+          "quality": 95,
+          "bytes": 66148,
+          "ssim": 0.9812366668074672
+        },
+        {
+          "file": "kodim12.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim13.png",
+          "quality": 95,
+          "bytes": 95425,
+          "ssim": 0.98285467186862
+        },
+        {
+          "file": "kodim14.png",
+          "quality": 95,
+          "bytes": 81191,
+          "ssim": 0.9814232515183576
+        },
+        {
+          "file": "kodim15.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim16.png",
+          "quality": 95,
+          "bytes": 55102,
+          "ssim": 0.9820183718618356
+        },
+        {
+          "file": "kodim17.png",
+          "quality": 95,
+          "bytes": 115173,
+          "ssim": 0.9801333916963398
+        },
+        {
+          "file": "kodim18.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim19.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim20.png",
+          "quality": 95,
+          "bytes": 44386,
+          "ssim": 0.9865825427704802
+        },
+        {
+          "file": "kodim21.png",
+          "quality": 95,
+          "bytes": 61509,
+          "ssim": 0.9833052260824862
+        },
+        {
+          "file": "kodim22.png",
+          "quality": null,
+          "bytes": null,
+          "ssim": null
+        },
+        {
+          "file": "kodim23.png",
+          "quality": 95,
+          "bytes": 45834,
+          "ssim": 0.9850846775419969
+        },
+        {
+          "file": "kodim24.png",
+          "quality": 95,
+          "bytes": 76510,
+          "ssim": 0.984552473306518
+        }
+      ]
+    },
+    {
+      "target": 0.98,
+      "codec": "webp",
+      "met": 24,
+      "total": 24,
+      "bytesOnMetSubset": 1910714,
+      "choices": [
+        {
+          "file": "kodim01.png",
+          "quality": 85,
+          "bytes": 51964,
+          "ssim": 0.9820373646706665
+        },
+        {
+          "file": "kodim02.png",
+          "quality": 95,
+          "bytes": 59822,
+          "ssim": 0.9861144452102505
+        },
+        {
+          "file": "kodim03.png",
+          "quality": 95,
+          "bytes": 44748,
+          "ssim": 0.9881021758835906
+        },
+        {
+          "file": "kodim04.png",
+          "quality": 95,
+          "bytes": 131630,
+          "ssim": 0.9873239511040361
+        },
+        {
+          "file": "kodim05.png",
+          "quality": 85,
+          "bytes": 60750,
+          "ssim": 0.9849871041193504
+        },
+        {
+          "file": "kodim06.png",
+          "quality": 95,
+          "bytes": 73464,
+          "ssim": 0.992875925057258
+        },
+        {
+          "file": "kodim07.png",
+          "quality": 85,
+          "bytes": 28260,
+          "ssim": 0.9809785608383119
+        },
+        {
+          "file": "kodim08.png",
+          "quality": 85,
+          "bytes": 57246,
+          "ssim": 0.9846072197664227
+        },
+        {
+          "file": "kodim09.png",
+          "quality": 95,
+          "bytes": 118358,
+          "ssim": 0.9843801638414098
+        },
+        {
+          "file": "kodim10.png",
+          "quality": 95,
+          "bytes": 124208,
+          "ssim": 0.9858113161163409
+        },
+        {
+          "file": "kodim11.png",
+          "quality": 95,
+          "bytes": 68646,
+          "ssim": 0.9912287658494239
+        },
+        {
+          "file": "kodim12.png",
+          "quality": 95,
+          "bytes": 52440,
+          "ssim": 0.9868396708851811
+        },
+        {
+          "file": "kodim13.png",
+          "quality": 85,
+          "bytes": 67232,
+          "ssim": 0.9851674450324545
+        },
+        {
+          "file": "kodim14.png",
+          "quality": 95,
+          "bytes": 84714,
+          "ssim": 0.9935613752049715
+        },
+        {
+          "file": "kodim15.png",
+          "quality": 95,
+          "bytes": 53024,
+          "ssim": 0.9879642647071915
+        },
+        {
+          "file": "kodim16.png",
+          "quality": 95,
+          "bytes": 59314,
+          "ssim": 0.9900453880436788
+        },
+        {
+          "file": "kodim17.png",
+          "quality": 95,
+          "bytes": 126446,
+          "ssim": 0.9870193477694295
+        },
+        {
+          "file": "kodim18.png",
+          "quality": 95,
+          "bytes": 184158,
+          "ssim": 0.9916477458652737
+        },
+        {
+          "file": "kodim19.png",
+          "quality": 95,
+          "bytes": 150198,
+          "ssim": 0.9884631967317442
+        },
+        {
+          "file": "kodim20.png",
+          "quality": 95,
+          "bytes": 45974,
+          "ssim": 0.9926277332397133
+        },
+        {
+          "file": "kodim21.png",
+          "quality": 95,
+          "bytes": 66668,
+          "ssim": 0.9894365687433126
+        },
+        {
+          "file": "kodim22.png",
+          "quality": 95,
+          "bytes": 74486,
+          "ssim": 0.9893698493101096
+        },
+        {
+          "file": "kodim23.png",
+          "quality": 95,
+          "bytes": 45882,
+          "ssim": 0.986706560049001
+        },
+        {
+          "file": "kodim24.png",
+          "quality": 95,
+          "bytes": 81082,
+          "ssim": 0.9935228636991833
+        }
+      ]
+    },
+    {
+      "target": 0.98,
+      "codec": "avif",
+      "met": 24,
+      "total": 24,
+      "bytesOnMetSubset": 1524451,
+      "choices": [
+        {
+          "file": "kodim01.png",
+          "quality": 75,
+          "bytes": 49572,
+          "ssim": 0.9819538665495349
+        },
+        {
+          "file": "kodim02.png",
+          "quality": 85,
+          "bytes": 44946,
+          "ssim": 0.9808466659839321
+        },
+        {
+          "file": "kodim03.png",
+          "quality": 85,
+          "bytes": 31024,
+          "ssim": 0.9866632896002446
+        },
+        {
+          "file": "kodim04.png",
+          "quality": 85,
+          "bytes": 89954,
+          "ssim": 0.9823260315851612
+        },
+        {
+          "file": "kodim05.png",
+          "quality": 75,
+          "bytes": 56621,
+          "ssim": 0.9845822404758766
+        },
+        {
+          "file": "kodim06.png",
+          "quality": 75,
+          "bytes": 40372,
+          "ssim": 0.9801243910408162
+        },
+        {
+          "file": "kodim07.png",
+          "quality": 75,
+          "bytes": 28211,
+          "ssim": 0.9855696160342771
+        },
+        {
+          "file": "kodim08.png",
+          "quality": 75,
+          "bytes": 49300,
+          "ssim": 0.9827831182155895
+        },
+        {
+          "file": "kodim09.png",
+          "quality": 95,
+          "bytes": 160746,
+          "ssim": 0.9952138992223915
+        },
+        {
+          "file": "kodim10.png",
+          "quality": 95,
+          "bytes": 167594,
+          "ssim": 0.9956823299859906
+        },
+        {
+          "file": "kodim11.png",
+          "quality": 85,
+          "bytes": 49864,
+          "ssim": 0.9870113423056515
+        },
+        {
+          "file": "kodim12.png",
+          "quality": 85,
+          "bytes": 36029,
+          "ssim": 0.9830521875355283
+        },
+        {
+          "file": "kodim13.png",
+          "quality": 75,
+          "bytes": 64109,
+          "ssim": 0.9826514342036726
+        },
+        {
+          "file": "kodim14.png",
+          "quality": 85,
+          "bytes": 64782,
+          "ssim": 0.9880430061014502
+        },
+        {
+          "file": "kodim15.png",
+          "quality": 85,
+          "bytes": 38318,
+          "ssim": 0.9843644132526673
+        },
+        {
+          "file": "kodim16.png",
+          "quality": 85,
+          "bytes": 41391,
+          "ssim": 0.9864147637558789
+        },
+        {
+          "file": "kodim17.png",
+          "quality": 85,
+          "bytes": 83374,
+          "ssim": 0.9820649595241281
+        },
+        {
+          "file": "kodim18.png",
+          "quality": 85,
+          "bytes": 130790,
+          "ssim": 0.9841857366164938
+        },
+        {
+          "file": "kodim19.png",
+          "quality": 85,
+          "bytes": 96972,
+          "ssim": 0.983289603912748
+        },
+        {
+          "file": "kodim20.png",
+          "quality": 75,
+          "bytes": 23049,
+          "ssim": 0.9844979208143584
+        },
+        {
+          "file": "kodim21.png",
+          "quality": 85,
+          "bytes": 46245,
+          "ssim": 0.9854143799972355
+        },
+        {
+          "file": "kodim22.png",
+          "quality": 85,
+          "bytes": 54700,
+          "ssim": 0.9851912289418349
+        },
+        {
+          "file": "kodim23.png",
+          "quality": 85,
+          "bytes": 29702,
+          "ssim": 0.9844323862538396
+        },
+        {
+          "file": "kodim24.png",
+          "quality": 75,
+          "bytes": 46786,
+          "ssim": 0.9820090953111645
+        }
+      ]
+    }
+  ],
+  "caveat": "Discrete quality grid only; threshold choice is illustrative. Compare matched totals only where all 24 images meet the target; failure is retained rather than silently excluding difficult photos."
+}

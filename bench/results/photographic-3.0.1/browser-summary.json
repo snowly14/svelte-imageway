@@ -1,0 +1,692 @@
+[
+  {
+    "fixture": "kodim01.png",
+    "mode": "imageway-image",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 1380,
+      "q1": 1130,
+      "q3": 1406,
+      "min": 732,
+      "max": 1416
+    },
+    "imageBytes": 77422,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 98123,
+      "q1": 98123,
+      "q3": 98123,
+      "min": 98123,
+      "max": 98123
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim01.png",
+    "mode": "imageway-image",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 44,
+      "q1": 36,
+      "q3": 48,
+      "min": 24,
+      "max": 72
+    },
+    "imageBytes": 77422,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim01.png",
+    "mode": "imageway-picture",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 1272,
+      "q1": 922,
+      "q3": 1392,
+      "min": 752,
+      "max": 1444
+    },
+    "imageBytes": 77422,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 99877,
+      "q1": 99877,
+      "q3": 99877,
+      "min": 99877,
+      "max": 99877
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim01.png",
+    "mode": "imageway-picture",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 48,
+      "q1": 36,
+      "q3": 68,
+      "min": 28,
+      "max": 120
+    },
+    "imageBytes": 77422,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim01.png",
+    "mode": "native-responsive",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 1024,
+      "q1": 692,
+      "q3": 1070,
+      "min": 688,
+      "max": 1156
+    },
+    "imageBytes": 77422,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 89146,
+      "q1": 89146,
+      "q3": 89146,
+      "min": 89146,
+      "max": 89146
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim01.png",
+    "mode": "native-responsive",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 40,
+      "q1": 26,
+      "q3": 48,
+      "min": 20,
+      "max": 56
+    },
+    "imageBytes": 77422,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim01.png",
+    "mode": "native-original",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 4344,
+      "q1": 3984,
+      "q3": 4432,
+      "min": 3984,
+      "max": 4500
+    },
+    "imageBytes": 736501,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 747812,
+      "q1": 747812,
+      "q3": 747812,
+      "min": 747812,
+      "max": 747812
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim01.png",
+    "mode": "native-original",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 24,
+      "q1": 20,
+      "q3": 44,
+      "min": 20,
+      "max": 64
+    },
+    "imageBytes": 736501,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim01.png",
+    "mode": "enhanced-img",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 1048,
+      "q1": 866,
+      "q3": 1074,
+      "min": 700,
+      "max": 1140
+    },
+    "imageBytes": 77422,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 93189,
+      "q1": 93189,
+      "q3": 93189,
+      "min": 93189,
+      "max": 93189
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim01.png",
+    "mode": "enhanced-img",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 40,
+      "q1": 34,
+      "q3": 42,
+      "min": 20,
+      "max": 56
+    },
+    "imageBytes": 77422,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "imageway-image",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 1232,
+      "q1": 1068,
+      "q3": 1478,
+      "min": 884,
+      "max": 1532
+    },
+    "imageBytes": 107044,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 127735,
+      "q1": 127735,
+      "q3": 127735,
+      "min": 127735,
+      "max": 127735
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "imageway-image",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 48,
+      "q1": 38,
+      "q3": 50,
+      "min": 24,
+      "max": 60
+    },
+    "imageBytes": 107044,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "imageway-picture",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 1260,
+      "q1": 984,
+      "q3": 1362,
+      "min": 892,
+      "max": 1504
+    },
+    "imageBytes": 107044,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 129493,
+      "q1": 129493,
+      "q3": 129493,
+      "min": 129493,
+      "max": 129493
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "imageway-picture",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 44,
+      "q1": 28,
+      "q3": 60,
+      "min": 24,
+      "max": 72
+    },
+    "imageBytes": 107044,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "native-responsive",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 964,
+      "q1": 840,
+      "q3": 1228,
+      "min": 840,
+      "max": 1280
+    },
+    "imageBytes": 107044,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 118766,
+      "q1": 118766,
+      "q3": 118766,
+      "min": 118766,
+      "max": 118766
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "native-responsive",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 40,
+      "q1": 26,
+      "q3": 52,
+      "min": 24,
+      "max": 64
+    },
+    "imageBytes": 107044,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "native-original",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 4796,
+      "q1": 4600,
+      "q3": 4848,
+      "min": 4404,
+      "max": 4868
+    },
+    "imageBytes": 822712,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 834022,
+      "q1": 834022,
+      "q3": 834022,
+      "min": 834022,
+      "max": 834022
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "native-original",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 36,
+      "q1": 28,
+      "q3": 52,
+      "min": 24,
+      "max": 64
+    },
+    "imageBytes": 822712,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "enhanced-img",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 1216,
+      "q1": 890,
+      "q3": 1288,
+      "min": 856,
+      "max": 1336
+    },
+    "imageBytes": 107044,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 122812,
+      "q1": 122812,
+      "q3": 122812,
+      "min": 122812,
+      "max": 122812
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim13.png",
+    "mode": "enhanced-img",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 52,
+      "q1": 38,
+      "q3": 54,
+      "min": 28,
+      "max": 200
+    },
+    "imageBytes": 107044,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "imageway-image",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 928,
+      "q1": 806,
+      "q3": 1046,
+      "min": 636,
+      "max": 1176
+    },
+    "imageBytes": 23544,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 44242,
+      "q1": 44242,
+      "q3": 44242,
+      "min": 44242,
+      "max": 44242
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "imageway-image",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 44,
+      "q1": 36,
+      "q3": 44,
+      "min": 24,
+      "max": 56
+    },
+    "imageBytes": 23544,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "imageway-picture",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 824,
+      "q1": 782,
+      "q3": 860,
+      "min": 472,
+      "max": 1148
+    },
+    "imageBytes": 23544,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 45996,
+      "q1": 45996,
+      "q3": 45996,
+      "min": 45996,
+      "max": 45996
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "imageway-picture",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 52,
+      "q1": 46,
+      "q3": 58,
+      "min": 28,
+      "max": 64
+    },
+    "imageBytes": 23544,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "native-responsive",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 808,
+      "q1": 762,
+      "q3": 850,
+      "min": 416,
+      "max": 1152
+    },
+    "imageBytes": 23544,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 35267,
+      "q1": 35267,
+      "q3": 35267,
+      "min": 35267,
+      "max": 35267
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "native-responsive",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 36,
+      "q1": 34,
+      "q3": 36,
+      "min": 20,
+      "max": 44
+    },
+    "imageBytes": 23544,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "native-original",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 3452,
+      "q1": 3266,
+      "q3": 3464,
+      "min": 3084,
+      "max": 3492
+    },
+    "imageBytes": 557596,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 568906,
+      "q1": 568906,
+      "q3": 568906,
+      "min": 568906,
+      "max": 568906
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "native-original",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 44,
+      "q1": 28,
+      "q3": 52,
+      "min": 20,
+      "max": 52
+    },
+    "imageBytes": 557596,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "enhanced-img",
+    "cache": "cold",
+    "lcpMs": {
+      "n": 7,
+      "median": 848,
+      "q1": 688,
+      "q3": 874,
+      "min": 440,
+      "max": 944
+    },
+    "imageBytes": 23544,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 39314,
+      "q1": 39314,
+      "q3": 39314,
+      "min": 39314,
+      "max": 39314
+    },
+    "maxCls": 0
+  },
+  {
+    "fixture": "kodim23.png",
+    "mode": "enhanced-img",
+    "cache": "warm",
+    "lcpMs": {
+      "n": 7,
+      "median": 36,
+      "q1": 28,
+      "q3": 44,
+      "min": 20,
+      "max": 76
+    },
+    "imageBytes": 23544,
+    "resourceTransferBytes": {
+      "n": 7,
+      "median": 0,
+      "q1": 0,
+      "q3": 0,
+      "min": 0,
+      "max": 0
+    },
+    "maxCls": 0
+  }
+]
