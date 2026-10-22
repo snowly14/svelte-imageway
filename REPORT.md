@@ -1,3 +1,15 @@
+# 2.0.0 ordinary imports and explicit markup
+
+Normal local raster imports remain typed URL strings and resolve their optimized responsive metadata automatically in Imageway components. No project-generated image declaration, type reference or typegen command is needed. Image/StaticImage always render img; Picture/StaticPicture always render picture. [Architecture](docs/adr/0018-ordinary-imports-and-explicit-markup.md), [migration](docs/guides/migration-2.md).
+
+Local validation: strict TypeScript/Svelte and lint pass; 241 tests, core coverage 99.58% lines / 99.15% branches / 100% functions; packaging/exports/types pass. Chromium/WebKit: 10 pass, four optional service fixtures unconfigured. New tests cover nested-base dev laziness, native URL opt-out, original-byte preservation, registry/HMR sharing, advanced declaration errors and legacy query migration. A fresh packed SvelteKit app installs/builds/checks without an Imageway env file, serves optimized WebP, keeps original bytes for native img, renders useful SSR without JavaScript and makes one matching priority-image request. Its locally cached install/build/check took 5.8 seconds on the final run (10.7 seconds on the earlier run); this is not a network-cold timing claim.
+
+Component entries, Svelte externalized: Image 3290 gzip bytes (gate 3400), StaticImage 1391 (gate 1536). This is larger than 1.5's 3158/1196 because automatic URL resolution adds client helpers; the original full-component 1536-byte stretch target remains unmet. Older encoding/cache/HTTP benchmarks below retain their versions; no new speedup is claimed for this API change. Ordinary raster imports add build processing and retain an emitted original as well as variants; raw URL imports or autoImports:false opt out.
+
+Full remote 2.0 CI and public registry verification are pending for this preparation commit.
+
+---
+
 # 1.5.0 parsed cache and JPEG XL diagnostics
 
 Private parsed memory-cache values remove repeated metadata parsing and payload copies. A frozen validated configuration allows one policy fingerprint per processor. Source expiry, signatures, queue/worker limits and native encoders remain unchanged. Output-mutation, too-small cache, persistent reuse and caller-policy mutation regressions pass. [Decision](docs/adr/0017-parsed-cache-and-codec-diagnostics.md).
@@ -19,7 +31,7 @@ Seven alternating pairs per suite, identical encoded bytes. Cache API rates excl
 
 Typed CodecCapabilities and `codecs --json` expose actual native flags. Installed Sharp 0.35.5 has neither JXL buffer decoder nor encoder. Recognized JXL input now reports CODEC_UNAVAILABLE (415) before native decoding, including Vite metadata. Automatic JXL output is not implemented, and custom libjxl builds are unverified. [Capability/fallback guide](docs/guides/jpeg-xl.md).
 
-Local: 235 tests, lint, strict TypeScript/Svelte, core coverage 99.56% lines / 99.11% branches / 100% functions, package/tar/exports, both component budgets and a fresh packed SvelteKit consumer pass. Chromium/WebKit: 10 tests pass, four optional services unconfigured. Firefox was not rerun locally; the Linux CI browser gate is required. The test port is configurable so another project's preview can keep running. Full remote CI/public registry verification are pending for this preparation commit.
+Local: 235 tests, lint, strict TypeScript/Svelte, core coverage 99.56% lines / 99.11% branches / 100% functions, package/tar/exports, both component budgets and a fresh packed SvelteKit consumer pass. Chromium/WebKit: 10 tests pass, four optional services unconfigured. Firefox was not rerun locally; the Linux CI browser gate is required. The test port is configurable so another project's preview can keep running. The full six-job Node 22/24 Linux/macOS/Windows CI and Linux Chromium/Firefox/WebKit job passed in CI run 39670903349. Release run 39670903149 passed; npm latest 1.5.0 and registry tarball integrity/provenance were verified against source 0cc46cc9de80c17e4918317e6a5759bda10c69c0. SHA256: db46d257885c96bca8d174b9533dd4110d2ea20217a30c6f1b9c50f193a01e29. [GitHub release](https://github.com/snowly14/svelte-imageway/releases/tag/v1.5.0).
 
 ---
 

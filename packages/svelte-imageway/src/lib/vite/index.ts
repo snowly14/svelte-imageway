@@ -1,7 +1,7 @@
 import { publishAssets, publicAssetBase, type PublishOptions } from '../publish/index.js';
 import { PIPELINE_REVISION } from '../version.js';
 import type { Plugin, ResolvedConfig } from 'vite';
-import { relative, join } from 'node:path';
+import { relative, join, isAbsolute } from 'node:path';
 import { realpath } from 'node:fs/promises';
 import { availableParallelism } from 'node:os';
 import { defineConfig } from '../core/config.js';
@@ -24,11 +24,11 @@ import { placeholder } from './placeholder.js';
 import { vercel } from '../providers/vercel.js';
 import { netlify } from '../providers/netlify.js';
 import { cloudflare } from '../providers/cloudflare.js';
-import { generateImageTypes } from './typegen.js';
-export { generateImageTypes } from './typegen.js';
 
 export { parseDirectives } from './directives.js';
 export interface ImagePluginOptions {
+  /** Optimize ordinary raster imports while preserving their original URL string. Default true. */
+  autoImports?: boolean;
   /** Omit dominated default AVIF sources. Explicit format directives stay exact. Build only; default true. */
   pruneLargerFormats?: boolean;
   config?: Partial<ImageConfig>;
@@ -48,10 +48,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         ? publicAssetBase(options.publicBase)
         : undefined;
   let vite: ResolvedConfig;
-  const jobs = new Map<
-    string,
-    { file: string; run: () => Promise<Buffer>; format: OutputFormat }
-  >();
+  const jobs = new Map<string, { file: string; run: () => Promise<Buffer>; contentType: string }>();
   return {
     name: 'svelte-imageway',
     enforce: 'pre',
@@ -82,9 +79,8 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
     resolveId(id) {
       if (id === 'virtual:imageway/config') return '\0imageway:config';
     },
-    async configResolved(resolved) {
+    configResolved(resolved) {
       vite = resolved;
-      await generateImageTypes(vite.root);
     },
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
@@ -98,7 +94,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         void job
           .run()
           .then((data) => {
-            res.setHeader('Content-Type', mimeType(job.format));
+            res.setHeader('Content-Type', job.contentType);
             res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
             res.setHeader('X-Content-Type-Options', 'nosniff');
             res.end(req.method === 'HEAD' ? undefined : data);
@@ -109,8 +105,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
           });
       });
     },
-    async handleHotUpdate(ctx) {
-      if (/\.(svelte|[jt]s)$/.test(ctx.file)) await generateImageTypes(vite.root);
+    handleHotUpdate(ctx) {
       // Old URLs are content-addressed and may remain in already-rendered pages; bound their retention.
       if (jobs.size > 2048)
         for (const [key, job] of jobs) if (job.file === ctx.file) jobs.delete(key);
@@ -182,8 +177,21 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         return `${imports.join('\n')}\nexport const config={widths:${JSON.stringify(config.widths)},quality:${config.quality},formats:${JSON.stringify(options.config?.formats)},providers:{${values.join(',')}}};`;
       }
       const split = id.indexOf('?');
-      if (split < 0 || !new URLSearchParams(id.slice(split + 1)).has('img')) return;
-      const file = id.slice(0, split);
+      const file = split < 0 ? id : id.slice(0, split);
+      const query = split < 0 ? '' : id.slice(split + 1);
+      const params = new URLSearchParams(query);
+      const explicit = params.has('img');
+      const local = relative(vite.root, file);
+      const automatic =
+        options.autoImports !== false &&
+        !id.startsWith('\0') &&
+        isAbsolute(file) &&
+        !local.startsWith('..') &&
+        !isAbsolute(local) &&
+        !local.replaceAll('\\', '/').split('/').includes('node_modules') &&
+        /\.(?:jpe?g|png|webp|avif|gif|tiff?)$/i.test(file) &&
+        [...params.keys()].every((key) => ['import', 't', 'v'].includes(key));
+      if (!explicit && !automatic) return;
       this.addWatchFile(file);
       // Vite may canonicalize a Windows 8.3/temp alias between builds. Compare
       // physical paths on both sides; readLocal still rejects escaping sources.
@@ -197,7 +205,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       const sharp = await loadSharp(kind);
       const metadata = await sharp(source, { limitInputPixels: config.maxPixels }).metadata();
       const dimensions = metadata.autoOrient;
-      const directives = parseDirectives(id.slice(split + 1), dimensions.width, config);
+      const directives = parseDirectives(query, dimensions.width, config);
       const formats = [...directives.formats];
       if ((metadata.pages ?? 1) > 1 && directives.transforms.animation !== 'first') {
         for (let i = formats.length - 1; i >= 0; i--)
@@ -277,7 +285,11 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
           );
           if (vite.command === 'serve') {
             url = `${vite.base}@imageway/${digest}.${format}`;
-            jobs.set(url, { file, format, run: async () => (await run()).data });
+            jobs.set(url, {
+              file,
+              contentType: mimeType(format),
+              run: async () => (await run()).data,
+            });
           } else {
             const output = await run();
             height = output.height;
@@ -300,7 +312,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       if (
         vite.command !== 'serve' &&
         options.pruneLargerFormats !== false &&
-        !new URLSearchParams(id.slice(split + 1)).has('format')
+        !params.has('format')
       ) {
         const avif = outputs.filter((v) => v.format === 'avif');
         if (
@@ -327,7 +339,6 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
           tokenUrls.set(token, `import.meta.ROLLUP_FILE_URL_${ref}`);
           output.url = publicBase ? `${publicBase}/${filename}` : token;
         }
-      while (jobs.size > 2048) jobs.delete(jobs.keys().next().value!);
       if (!outputs.length)
         throw new ImagewayError('VARIANTS', 'No supported image variants generated.');
       const fallbackFormat = formats.includes('jpeg')
@@ -339,7 +350,21 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
             : formats.at(-1)!;
       const fallbacks = outputs.filter((v) => v.format === fallbackFormat);
       const fallback = fallbacks.at(-1)!;
+      const nativeOutputs = outputs.some((v) => v.format === 'webp')
+        ? outputs.filter((v) => v.format === 'webp')
+        : fallbacks;
+      const native = nativeOutputs.at(-1)!;
       const artifact: ImageArtifact = {
+        img:
+          native.format === fallbackFormat
+            ? undefined
+            : {
+                src: native.url,
+                srcset: nativeOutputs.map((v) => `${v.url} ${v.width}w`).join(', '),
+                width: native.width,
+                height: native.height,
+                type: mimeType(native.format),
+              },
         src: fallback.url,
         srcset: fallbacks.map((v) => `${v.url} ${v.width}w`).join(', '),
         sources: formats
@@ -362,7 +387,36 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       let expression = JSON.stringify(artifact);
       for (const [token, ref] of tokenUrls)
         expression = expression.replaceAll(token, `" + ${ref} + "`);
-      return { code: `export default ${expression};`, map: { mappings: '' } };
+      let code = `export default ${expression};`;
+      if (automatic && !explicit) {
+        // The URL remains an original-file URL for native img/CSS consumers. Only
+        // Imageway components resolve its build-generated responsive metadata.
+        const policy = JSON.stringify({
+          config: exactConfig,
+          placeholder: directives.placeholder,
+          prune: options.pruneLargerFormats,
+        });
+        const digest = hash(`${preparedSource.digest}:${policy}:${PIPELINE_REVISION}`);
+        const extension = kind;
+        let original: string;
+        if (vite.command === 'serve') {
+          const url = `${vite.base}@imageway/${digest}.${extension}`;
+          jobs.set(url, { file, contentType: `image/${kind}`, run: async () => source });
+          original = JSON.stringify(url);
+        } else {
+          const filename = `imageway/${digest}.${extension}`;
+          const ref = this.emitFile({ type: 'asset', fileName: filename, source });
+          original = publicBase
+            ? JSON.stringify(`${publicBase}/${filename}`)
+            : `import.meta.ROLLUP_FILE_URL_${ref}`;
+        }
+        const registration = hash(
+          `${vite.root}:${sourceFile}:${JSON.stringify(config)}:${publicBase ?? ''}:${PIPELINE_REVISION}`,
+        );
+        code = `import { registerImageArtifact as register } from 'svelte-imageway/core';\nconst original=${original};\nregister(original,${expression},${JSON.stringify(registration)});\nexport default original;`;
+      }
+      while (jobs.size > 2048) jobs.delete(jobs.keys().next().value!);
+      return { code, map: { mappings: '' } };
     },
   };
 }

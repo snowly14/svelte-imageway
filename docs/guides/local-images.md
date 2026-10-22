@@ -1,9 +1,11 @@
 # Local images and formats
 
-Typed imports return an ImageArtifact: `src`, `srcset`, `sources`, intrinsic width/height/aspectRatio, optional placeholder/dominantColor/hash.
+Ordinary raster imports (`import photo from "./photo.jpg"`) remain URL strings and work directly in Image/Picture/StaticImage/StaticPicture. The plugin registers responsive metadata automatically, for SSR and the browser, without a generated application type file. Raw native img retains original bytes. SVG icons and node_modules imports are not automatically transformed; `?url` bypasses processing, and `imageway({autoImports:false})` disables automatic imports.
+
+Optional advanced imports return an ImageArtifact: `src`, `srcset`, `sources`, intrinsic width/height/aspectRatio, optional placeholder/dominantColor/hash.
 
 ```ts
-import hero from './hero.jpg?img&w=400;800;1200&format=avif;webp;jpg&q=75&placeholder=lqip';
+import hero from './hero.jpg?w=400;800;1200&format=avif;webp;jpg&q=75&placeholder=lqip&img';
 ```
 
 Widths/qualities on build imports are exact, deduplicated and clamped to intrinsic width. Runtime requests use bounded ladders. Limit one import to 64 variants. Supported placeholder strategies: lqip (default, under 1 KB), color, none, thumbhash, blurhash. Hashes are decoded at build time into a browser-displayable preview; no client decoder is shipped.

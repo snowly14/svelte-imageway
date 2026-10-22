@@ -3,10 +3,11 @@
 ## Package entries
 
 - `svelte-imageway`: Image, Picture, BackgroundImage, ImageMeta, ImageConfigProvider, headless/context/types.
+- `/static` and `/static-picture`: local-only StaticImage and StaticPicture components.
 - `/props`: getImageProps and imageSizes, no Svelte runtime dependency.
 - `/core`: parseRequest, normalizeRequest, imageUrl, canonicalQuery, cacheIdentity, signRequest, verifyRequest, negotiateFormat, mimeType, defineConfig.
 - `/config` and `/types`: Node-safe configuration and ambient import declarations.
-- `/vite`: imageway plugin, parseDirectives, generateImageTypes.
+- `/vite`: imageway plugin and parseDirectives. Ordinary raster imports are automatic; no generated type file.
 - `/kit`: imageAdapter, imageStrategy, imageHandle, imagePreloadHandle, createImageService.
 - `/node`: Sharp processing/cache/source helpers and actual codec inventory.
 - `/edge`: createImageWorker, ImageBudget, cfImageTransform and binding types.

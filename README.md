@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**1.5.0.** Hybrid image delivery: build local assets ahead of time, negotiate dynamic formats at supported endpoints, and preserve explicit control. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold-build parity with vite-imagetools has not been established. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
+**2.0.0.** Ordinary local image imports work directly with `Image`, without query syntax or generated type files. `Image` always renders an `<img>`; choose `Picture` for `<picture>`. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold-build parity with vite-imagetools has not been established. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
 
 ## Before → after
 
@@ -14,7 +14,7 @@ Responsive images for Svelte 5: optimize local imports, switch image providers, 
 ```svelte
 <script lang="ts">
   import { Image } from 'svelte-imageway';
-  import hero from './hero.jpg?img';
+  import hero from './hero.jpg';
 </script>
 
 <Image src={hero} alt="A mountain trail" priority sizes="100vw" />
@@ -26,36 +26,31 @@ Finite build batches are scheduled separately from runtime request admission, so
 
 ## Lightweight local images
 
-Use `StaticImage` when `src` is a generated `?img` artifact and you do not need providers, custom source/snippet slots, transitions or the headless API:
+Use `Image` by default. It handles imported local images and dynamic provider URLs, native events, loading/error snippets and reveal transitions. `StaticImage` is an optional smaller component for imported local images or prepared artifacts only:
 
 ```svelte
 <script lang="ts">
   import StaticImage from 'svelte-imageway/static';
-  import hero from './hero.jpg?img';
+  import hero from './hero.jpg';
 </script>
 
 <StaticImage src={hero} alt="A mountain trail" priority sizes="100vw" />
 ```
 
-The measured StaticImage entry is 1,196 bytes gzip with the Svelte peer externalized; the complete Image entry remains 3,158 bytes. These are different capability sets, not a like-for-like speed comparison. StaticImage preserves responsive sources, dimensions, loading, preview removal, native events and matching priority preloads. It requires ImageArtifact and an explicit alt; dynamic strings use Image with a configured provider. It does not support Image's custom loading/error snippets or source slots. Set display size through CSS and `sizes`; artifact dimensions remain authoritative.
+Both components render `<img>` with responsive widths, dimensions, preview and matching preload. `StaticImage` omits provider URL generation, custom snippets and transitions. `StaticPicture` from `svelte-imageway/static-picture` is the equivalent local-only `<picture>` component. Display size is controlled through CSS and `sizes`; intrinsic dimensions come from the import. Measured entries: StaticImage 1391 gzip bytes (gate 1536), Image 3290 (gate 3400), Svelte externalized. Automatic URL resolution adds client helpers; these sizes are larger than 1.5's 1196/3158.
 
 Default build imports now omit AVIF only when **every** matching WebP width/height has no more bytes. This can avoid downloading a larger AVIF simply because the browser supports it. It compares encoded bytes at the configured encoder settings, not perceptual quality; both encodings are still computed to make the decision. Explicit `format=` directives remain exact. Set `imageway({ pruneLargerFormats: false })` to preserve all default formats. Development remains lazy and does not perform this build-only comparison.
 
-## Intelligent delivery in 1.2
+## Automatic local optimization
 
-- Local `?img` imports generate static responsive files. Automatic widths omit near-duplicate final sizes (less than 25% apart), preserving the largest and smallest widths. Explicit `w=` values remain exact.
-- Dynamic strings use your configured provider. Node/Kit and Edge providers now negotiate formats using the browser's `Accept` header by default. Their responses vary on `Accept, Save-Data`; configure any intermediate CDN to honor these headers. This avoids listing each format in HTML and lets the endpoint cache the requested representation. It does not create an endpoint automatically.
-- Imported artifacts retain `<picture>` sources. Without format sources or a custom source snippet, `Image` renders a plain `<img>`.
-- Set `formatStrategy="picture"` on `Image` (or in `ImageConfigProvider`) to force explicit provider sources. A configured format allowlist also retains explicit formats. Other providers keep their capability-specific behavior.
-- Quality remains a deliberate encoder setting (75 by default), not an unverified perceptual quality algorithm. Originals remain untouched.
+- Import a local JPEG/PNG/WebP/AVIF/GIF/TIFF normally. The Vite plugin generates bounded responsive variants, intrinsic dimensions and a preview. Automatic widths omit near-duplicate final sizes; explicit advanced widths remain exact.
+- The imported value stays a **URL string to the original file**. Native `<img src={hero}>` retains original-file behavior. `Image`, `Picture`, backgrounds and metadata resolve the associated optimized artifact automatically, on the server and client.
+- `Image` selects the generated WebP representation when available (otherwise the configured fallback), with a width `srcset`. `Picture` exposes AVIF/WebP/fallback sources for browser format selection. One component instance does not download every generated variant.
+- Dynamic strings require a configured provider to optimize them. Supported endpoints negotiate formats from `Accept`; responses vary on `Accept, Save-Data`. An upload/blob URL does not create an optimizer automatically.
+- Quality defaults to 75. Originals stay unchanged. Automatic format pruning compares encoded bytes at the configured encoder settings, not perceptual quality.
+- Ordinary SVG icons and package dependency assets retain Vite's behavior. Use an explicit artifact import for approved geometric SVG processing. `?url` bypasses automatic raster optimization; `imageway({autoImports:false})` disables it for a project.
 
-Generate custom query declarations before type checking, without starting Vite:
-
-```sh
-bun x svelte-imageway typegen
-```
-
-For CI, run type generation before your application's check script. Keep the `svelte-imageway/types` reference below for standard `?img` imports, including newly added imports before the dev server runs. Generated imports are `ImageArtifact`, never `any`; Vite validates actual source existence at build time.
+No `imageway-env.d.ts`, `app.d.ts` reference, type-generation command or per-image declaration is needed. Normal import types stay Vite's URL strings. Advanced imports return a bundled `ImageArtifact` type; actual file existence and directives are checked during dev/build.
 
 ## Start in three steps
 
@@ -64,7 +59,7 @@ For CI, run type generation before your application's check script. Keep the `sv
 Install the package in your existing Svelte 5 / Vite 8 project:
 
 ```sh
-bun add svelte-imageway@1.5.0
+bun add svelte-imageway@2.0.0
 ```
 
 Releases use the `latest` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).
@@ -86,23 +81,21 @@ export default defineConfig({
 });
 ```
 
-For plain Svelte/Vite, use `svelte()` in place of `sveltekit()`. Add this reference to `src/app.d.ts` (or your Vite environment declaration):
-
-```ts
-/// <reference types="svelte-imageway/types" />
-```
+For plain Svelte/Vite, use `svelte()` in place of `sveltekit()`. No Imageway type file is required.
 
 ### 3. Import and render
 
-Use the component example above and start your existing dev script with `bun run dev`. Local imports require no account or configuration file. `bun x svelte-imageway init` can prepare the plugin, types and example in a supported literal Vite config.
+Use the component example above and start your existing dev script with `bun run dev`. Local imports require no account or configuration file. `bun x svelte-imageway init` can prepare the plugin and example in a supported literal Vite config.
 
-Custom imports are supported:
+Optional advanced artifact imports are supported when you need per-image encoding directives:
 
 ```ts
-import hero from './hero.jpg?img&w=400;800;1200&format=avif;webp;jpg&q=75&placeholder=lqip';
+import hero from './hero.jpg?w=400;800;1200&format=avif;webp;jpg&q=75&placeholder=lqip&img';
 ```
 
-The artifact contains `src`, `srcset`, `sources`, `width`, `height`, `aspectRatio` and optional preview data. Run dev/build after adding directive combinations to generate exact TypeScript declarations. Dev transforms run on demand; builds use a persistent disk cache and bounded reusable workers. Build assets have content hashes and can use immutable CDN caching.
+The artifact contains `src`, `srcset`, `sources`, `width`, `height`, `aspectRatio` and optional preview data. Directives must end in `&img` (or use plain `?img`) so the bundled declarations match them without project-generated files. Dev transforms run on demand; builds use a persistent disk cache and bounded reusable workers. Build assets have content hashes and can use immutable CDN caching.
+
+See the [2.0 migration guide](docs/guides/migration-2.md) for existing projects.
 
 ## Components and headless API
 
@@ -115,7 +108,7 @@ The artifact contains `src`, `srcset`, `sources`, `width`, `height`, `aspectRati
 | `ImageConfigProvider` | Configuration for a component subtree                                              |
 | `getImageProps`       | Image attributes for your own markup; also available from `/props`                 |
 
-`Image` forwards HTML attributes and `onload`/`onerror`; loading/error snippets are available. Reduced-motion users skip the reveal animation. Dimensions and previews work in SSR and without JavaScript. For a URL string, supply intrinsic `width` and `height` from your CMS or application.
+`Image` forwards HTML attributes and `onload`/`onerror`; loading/error snippets are available. Reduced-motion users skip the reveal animation. Dimensions and previews work in SSR and without JavaScript. For dynamic URLs, supply intrinsic `width` and `height` from your CMS or application; ordinary local imports provide them automatically.
 
 ## Change providers in configuration
 
@@ -174,7 +167,7 @@ Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating 1.4.0/cur
 | Burst throughput | 8389.203 req/s | 9344.921 req/s |
 | Peak RSS         |    147.594 MiB |    148.344 MiB |
 
-The processor table measures prepared memory-cache hits, excluding native encoding and warm-up; it is not HTTP or codec throughput. The final HTTP burst median is 11.4% higher; cold TTFB is essentially unchanged. Host load is uncontrolled and an earlier noisier trial plus a same-code A/A control are retained in [all samples and protocols](bench/README.md). No market-wide or statistical superiority claim is made. Encoder settings and encoded bytes are unchanged. StaticImage remains 1196 gzip bytes; full Image 3158, Svelte externalized.
+The processor table measures prepared memory-cache hits, excluding native encoding and warm-up; it is not HTTP or codec throughput. The final HTTP burst median is 11.4% higher; cold TTFB is essentially unchanged. Host load is uncontrolled and an earlier noisier trial plus a same-code A/A control are retained in [all samples and protocols](bench/README.md). No market-wide or statistical superiority claim is made. Encoder settings and encoded bytes are unchanged. Those measurements cover version 1.5.0. Version 2.0 changes component/API behavior; it does not claim a new encoding or HTTP speedup.
 
 JPEG XL browser support and installed native-codec support are separate. `bun x svelte-imageway codecs --json` reports actual capabilities; standard Sharp binaries in this environment cannot decode/encode JXL. Existing hosted JXL files can be supplied through typed artifacts with generated WebP/JPEG fallbacks. [JPEG XL guide](docs/guides/jpeg-xl.md).
 

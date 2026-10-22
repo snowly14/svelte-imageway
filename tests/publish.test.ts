@@ -112,7 +112,7 @@ it('rewrites only owned image URLs in a real Vite build and emits the upload man
     await writeFile(join(root, 'index.html'), '<script type="module" src="/main.js"></script>');
     await writeFile(
       join(root, 'main.js'),
-      "import a from './a.png?img&w=320&format=webp'; console.log(a, '/unrelated.svg');",
+      "import a from './a.png?w=320&format=webp&img'; console.log(a, '/unrelated.svg');",
     );
     await build({
       root,

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { resolveImageArtifact } from '../core/artifact.js';
   import type { ImageArtifact } from '../core/types.js';
   let {
     src,
@@ -15,7 +16,7 @@
     alt?: string;
     origin?: string;
   } = $props();
-  const artifact = $derived(typeof src === 'string' ? undefined : src);
+  const artifact = $derived(resolveImageArtifact(src));
   const url = $derived(
     origin
       ? new URL(artifact?.src ?? (src as string), origin).href

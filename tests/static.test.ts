@@ -12,11 +12,25 @@ beforeAll(async () => {
   );
   const { js } = compile(source, { generate: 'server', filename: 'StaticImage.svelte' });
   await mkdir('.local', { recursive: true });
-  await writeFile('.local/static-ssr-test.mjs', js.code);
+  await writeFile(
+    '.local/static-ssr-test.mjs',
+    js.code.replace(/(['"])\.\.\/core\/(artifact|errors)\.js\1/g, (_match, _quote, name: string) =>
+      JSON.stringify(
+        new URL(`../packages/svelte-imageway/dist/core/${name}.js`, import.meta.url).href,
+      ),
+    ),
+  );
   component = (await import(new URL('../.local/static-ssr-test.mjs', import.meta.url).href))
     .default;
 });
 const image = {
+  img: {
+    src: '/large.webp',
+    srcset: '/small.webp 320w, /large.webp 640w',
+    width: 640,
+    height: 400,
+    type: 'image/webp',
+  },
   src: '/large.jpg',
   srcset: '/small.jpg 320w, /large.jpg 640w',
   sources: [{ type: 'image/webp', srcset: '/small.webp 320w, /large.webp 640w' }],
@@ -31,6 +45,8 @@ it('SSR reserves dimensions, escapes alt, and preloads the same responsive sourc
     props: { src: image, alt: '<script>alert(1)</script>', priority: true, sizes: '50vw' },
   });
   expect(body).toContain('width="640"');
+  expect(body).not.toContain('<picture');
+  expect(body).not.toContain('<source');
   expect(body).toContain('height="400"');
   expect(body).toContain('loading="eager"');
   expect(body).toContain('&lt;script>');

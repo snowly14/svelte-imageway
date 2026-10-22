@@ -22,9 +22,9 @@ interface Element {
 /** Conservative syntax-based codemod; ambiguous artifact shapes/transform directives remain review items. */
 export async function migrate(root: string, from: string, write = false) {
   invariant(
-    ['enhanced-img', 'imagetools'].includes(from),
+    ['enhanced-img', 'imagetools', 'imageway-v1'].includes(from),
     'MIGRATE_SOURCE',
-    'Use --from enhanced-img or --from imagetools.',
+    'Use --from enhanced-img, imagetools or imageway-v1.',
   );
   const ts = await import('typescript');
   const changed: string[] = [],
@@ -61,8 +61,18 @@ export async function migrate(root: string, from: string, write = false) {
           const [path, query] = node.text.split('?');
           if (!query) continue;
           const p = new URLSearchParams(query);
-          if (!(from === 'enhanced-img' ? p.has('enhanced') : p.get('as') === 'picture')) continue;
-          if ([...p.keys()].some((v) => !['enhanced', 'as', 'w', 'format', 'q'].includes(v))) {
+          if (
+            !(from === 'imageway-v1'
+              ? p.has('img')
+              : from === 'enhanced-img'
+                ? p.has('enhanced')
+                : p.get('as') === 'picture')
+          )
+            continue;
+          if (
+            from !== 'imageway-v1' &&
+            [...p.keys()].some((v) => !['enhanced', 'as', 'w', 'format', 'q'].includes(v))
+          ) {
             review.push(
               relative(root, file).split(sep).join('/') +
                 ': unsupported import directives; unchanged.',
@@ -71,7 +81,9 @@ export async function migrate(root: string, from: string, write = false) {
           }
           p.delete('enhanced');
           p.delete('as');
-          const directives = ['img', ...[...p].map(([k, v]) => `${k}=${v}`)].join('&');
+          p.delete('img');
+          const directives = (p.size ? p.toString() + '&' : '') + 'img';
+          if (node.text === path + '?' + directives) continue;
           edits.push({
             start: script.offset + node.getStart(ast),
             end: script.offset + node.end,
@@ -131,7 +143,7 @@ export async function migrate(root: string, from: string, write = false) {
       }
       walk(fragment);
       if (used) {
-        imports.unshift('import { Image as ImagewayImageAlias } from "svelte-imageway";');
+        imports.unshift('import { Picture as ImagewayImageAlias } from "svelte-imageway";');
         const text = '\n' + imports.join('\n') + '\n';
         edits.push({
           start: insertion ?? 0,

@@ -1,10 +1,10 @@
 # Getting started
 
-Imageway is a Svelte 5 image toolkit with three delivery layers: build artifacts, native providers and a self-hosted image service. Version 0.1.0 is a local preview; the public npm name has been checked but no release is published yet. Use the packed artifact until the maintainer publishes `next`.
+Imageway is a Svelte 5 image toolkit with three delivery layers: build artifacts, native providers and a self-hosted image service.
 
 ## Three steps
 
-1. Install `bun add svelte-imageway@next` after publication, or `bun add /absolute/path/svelte-imageway-0.1.0.tgz` for this checkout. Sharp is an optional native dependency: local imports need a supported Sharp build; managed providers do not.
+1. Install `bun add svelte-imageway@2.0.0`. Sharp is an optional native dependency: local imports need a supported Sharp build; managed providers do not.
 2. Add `imageway()` before `sveltekit()` in `vite.config.ts`:
 
 ```ts
@@ -13,18 +13,18 @@ import { imageway } from 'svelte-imageway/vite';
 export default defineConfig({ plugins: [imageway(), sveltekit()] });
 ```
 
-3. Import a local artifact and render an image:
+3. Import a local image and render an image:
 
 ```svelte
 <script lang="ts">
   import { Image } from 'svelte-imageway';
-  import hero from './hero.jpg?img';
+  import hero from './hero.jpg';
 </script>
 
 <Image src={hero} alt="A trail through the mountains" priority sizes="100vw" />
 ```
 
-`bun x svelte-imageway init` can prepare the plugin, ambient types and an example in a literal Vite configuration. No remote provider or account is required for local imports. Build output contains hashed images; use immutable caching on these assets.
+`bun x svelte-imageway init` can prepare the plugin and an example in a literal Vite configuration. No generated declaration file is needed. No remote provider or account is required for local imports. Build output contains hashed images; use immutable caching on these assets.
 
 ## Central configuration
 

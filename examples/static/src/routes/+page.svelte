@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Image, ImageMeta } from 'svelte-imageway';
-  import hero from '../landscape.png?img&w=320;640;960&format=avif;webp;jpg';
+  import hero from '../landscape.png';
 </script>
 
 <svelte:head><title>Imageway SvelteKit example</title></svelte:head>

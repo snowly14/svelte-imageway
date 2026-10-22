@@ -86,7 +86,16 @@ export interface ImageSource {
   height?: number;
 }
 /** Result of a typed image import; contains no server implementation. */
+export interface ImageRepresentation {
+  src: string;
+  srcset: string;
+  width: number;
+  height: number;
+  type?: string;
+}
 export interface ImageArtifact {
+  /** Single-format representation for img components. Older artifacts use their fallback. */
+  img?: ImageRepresentation;
   src: string;
   srcset: string;
   sources: ImageSource[];

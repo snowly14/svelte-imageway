@@ -9,9 +9,16 @@ import type {
   ImageArtifact,
   ImageProvider,
 } from '../packages/svelte-imageway/src/lib/core/types.js';
-import type { ImageProps } from '../packages/svelte-imageway/src/lib/component-types.js';
+import type {
+  ImageProps,
+  PictureProps,
+} from '../packages/svelte-imageway/src/lib/component-types.js';
 import type { StaticImageProps } from '../packages/svelte-imageway/src/lib/static-props.js';
 import { local } from '../packages/svelte-imageway/src/lib/providers/local.js';
+import {
+  registerImageArtifact,
+  resolveImageArtifact,
+} from '../packages/svelte-imageway/src/lib/core/artifact.js';
 const artifact: ImageArtifact = {
   src: '/fallback.png',
   srcset: '/small.png 320w, /large.png 640w',
@@ -23,7 +30,46 @@ const artifact: ImageArtifact = {
   placeholder: 'data:image/webp;base64,YWJj',
 };
 describe('headless and type contract', () => {
-  it('keeps the minimal component artifact-only with required alt and native events', () => {
+  it('resolves normal URL imports and replaces HMR identities without losing shared originals', () => {
+    registerImageArtifact('/registered-original.jpg', artifact, 'module-a');
+    registerImageArtifact('/registered-original.jpg', artifact, 'module-b');
+    expect(getImageProps({ src: '/registered-original.jpg', alt: '' })).toMatchObject({
+      src: artifact.src,
+      width: 640,
+      height: 400,
+    });
+    registerImageArtifact('/updated-original.jpg', artifact, 'module-a');
+    expect(resolveImageArtifact('/registered-original.jpg')).toBe(artifact);
+    registerImageArtifact('/updated-original.jpg', artifact, 'module-b');
+    expect(resolveImageArtifact('/registered-original.jpg')).toBeUndefined();
+    expect(resolveImageArtifact('/updated-original.jpg')).toBe(artifact);
+  });
+  it('keeps img presentation separate and rejects picture-only component props', () => {
+    const img = {
+      ...artifact,
+      img: {
+        src: '/large.webp',
+        srcset: '/small.webp 320w, /large.webp 640w',
+        width: 640,
+        height: 400,
+        type: 'image/webp',
+      },
+    };
+    const native = getImageProps({ src: img, alt: '', formatStrategy: 'img' });
+    expect(native.src).toBe('/large.webp');
+    expect(native.srcset).toContain('/small.webp');
+    expect(native.sources).toEqual([]);
+    expect(getImageProps({ src: artifact, alt: '', formatStrategy: 'img' }).src).toBe(artifact.src);
+    const picture: PictureProps = { src: artifact, alt: '', sources: artifact.sources };
+    expect(picture.sources).toBe(artifact.sources);
+    // @ts-expect-error Image never renders picture sources.
+    const invalid: ImageProps = { src: artifact, alt: '', sources: artifact.sources };
+    // @ts-expect-error Use Picture, rather than changing Image markup through a strategy.
+    const strategy: ImageProps = { src: artifact, alt: '', formatStrategy: 'picture' };
+    void invalid;
+    void strategy;
+  });
+  it('keeps the minimal component local-only with required alt and native events', () => {
     const props: StaticImageProps = {
       src: artifact,
       alt: '',
@@ -33,8 +79,7 @@ describe('headless and type contract', () => {
         expectTypeOf(event).not.toBeAny();
       },
     };
-    expectTypeOf(props.src).toEqualTypeOf<ImageArtifact>();
-    // @ts-expect-error Dynamic strings require Image plus a configured provider.
+    expectTypeOf(props.src).toEqualTypeOf<ImageArtifact | string>();
     const dynamic: StaticImageProps = { src: '/photo.jpg', alt: '' };
     // @ts-expect-error An explicit alt is required for accessibility.
     const missingAlt: StaticImageProps = { src: artifact };

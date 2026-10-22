@@ -64,10 +64,19 @@ if (installed === resolve('packages/svelte-imageway/package.json'))
 await run('node', ['node_modules/svelte-imageway/dist/cli/index.js', 'init', root]);
 await writeFile(
   join(root, 'src/routes/+page.svelte'),
-  '<script lang="ts">import StaticImage from "svelte-imageway/static"; import hero from "./hero.png?img&w=320;640&format=webp;jpg";</script>\n<StaticImage src={hero} alt="Original synthetic landscape" priority sizes="100vw" />\n',
+  '<script lang="ts">import { Image } from "svelte-imageway"; import hero from "./hero.png"; const original: string = hero;</script>\n<Image src={hero} alt="Original synthetic landscape" priority sizes="640px" />\n<img data-testid="original" src={original} alt="Original file" width="64" />\n',
 );
 await run('bun', ['run', 'build']);
 await run('bun', ['run', 'check']);
+for (const name of ['src/imageway-env.d.ts', 'src/imageway.d.ts', 'imageway-env.d.ts']) {
+  if (
+    await readFile(join(root, name), 'utf8').then(
+      () => true,
+      () => false,
+    )
+  )
+    throw new Error('Consumer unexpectedly relies on a generated type file: ' + name);
+}
 const readyMs = performance.now() - started;
 const server = spawn(
   'node',
@@ -96,6 +105,8 @@ try {
     const page = await browser.newPage();
     await page.goto('http://127.0.0.1:4191');
     const image = page.getByAltText('Original synthetic landscape');
+    if (await image.evaluate((img) => img.parentElement?.tagName === 'PICTURE'))
+      throw new Error('Image unexpectedly rendered picture.');
     await image.evaluate((img: HTMLImageElement) => img.decode());
     const dimensions = await image.evaluate((img: HTMLImageElement) => ({
       width: img.naturalWidth,
@@ -105,6 +116,37 @@ try {
       throw new Error('Packed image/preload failed.');
     const response = await fetch(await image.evaluate((img: HTMLImageElement) => img.currentSrc));
     const encoded = await sharp(Buffer.from(await response.arrayBuffer())).metadata();
+    const originalUrl = await page.getByTestId('original').getAttribute('src');
+    const originalResponse = await fetch(new URL(originalUrl!, 'http://127.0.0.1:4191'));
+    if (
+      !Buffer.from(await originalResponse.arrayBuffer()).equals(
+        await readFile(join(root, 'src/routes/hero.png')),
+      )
+    )
+      throw new Error('Ordinary import no longer preserves original bytes.');
+    const requests = await page.evaluate(
+      () =>
+        performance
+          .getEntriesByType('resource')
+          .filter((entry) => entry.name.includes('/imageway/') && !entry.name.endsWith('.png'))
+          .length,
+    );
+    if (requests !== 1)
+      throw new Error('Priority image was downloaded more than once: ' + requests);
+    const noJs = await browser.newContext({ javaScriptEnabled: false });
+    try {
+      const ssrPage = await noJs.newPage();
+      await ssrPage.goto('http://127.0.0.1:4191');
+      const ssrImage = ssrPage.getByAltText('Original synthetic landscape');
+      if (
+        !(await ssrImage.getAttribute('srcset'))?.includes('640w') ||
+        !(await ssrImage.getAttribute('width'))
+      )
+        throw new Error('Ordinary import SSR metadata is missing without JavaScript.');
+    } finally {
+      await noJs.close();
+    }
+
     if (encoded.width !== 640 || encoded.format !== 'webp')
       throw new Error('Packed import did not serve the optimized variant.');
     const report = {

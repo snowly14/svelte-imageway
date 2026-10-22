@@ -13,6 +13,22 @@ import sharp from 'sharp';
 const cli = fileURLToPath(
   new URL('../packages/svelte-imageway/dist/cli/index.js', import.meta.url),
 );
+it('migrates legacy query ordering with backups and preserves encoded parameter boundaries', async () => {
+  const root = await mkdtemp(join(tmpdir(), 'imageway-v1-'));
+  try {
+    const path = join(root, 'consumer.ts');
+    const source = 'import image from "./photo.jpg?img&w=320;640&q=75%26w%3D1";';
+    await writeFile(path, source);
+    expect((await migrate(root, 'imageway-v1')).changed).toEqual(['consumer.ts']);
+    expect(await readFile(path, 'utf8')).toBe(source);
+    await migrate(root, 'imageway-v1', true);
+    expect(await readFile(path, 'utf8')).toContain('photo.jpg?w=320%3B640&q=75%26w%3D1&img');
+    expect(await readFile(path + '.imageway-backup', 'utf8')).toBe(source);
+    expect((await migrate(root, 'imageway-v1')).changed).toEqual([]);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
 it('reports actual installed buffer codecs through the compiled CLI', () => {
   for (const runtime of ['node', 'bun']) {
     const report = JSON.parse(
@@ -46,10 +62,6 @@ it('executes the compiled CLI with Node, Bun and a bin symlink', async () => {
       ).toContain('optimize');
     }
     expect(() => execFileSync('node', [cli, 'unknown'], { stdio: 'pipe' })).toThrow();
-    execFileSync('node', [cli, 'typegen', root]);
-    expect(await readFile(join(root, 'imageway-env.d.ts'), 'utf8')).toContain(
-      'reference types="svelte-imageway/types"',
-    );
   } finally {
     await rm(root, { recursive: true, force: true });
   }
@@ -114,7 +126,7 @@ it('migrates supported static enhanced markup/imports with backup and leaves amb
     expect(await readFile(path, 'utf8')).toBe(source);
     await migrate(root, 'enhanced-img', true);
     const output = await readFile(path, 'utf8');
-    expect(output).toContain('hero.jpg?img&w=640');
+    expect(output).toContain('hero.jpg?w=640&img');
     expect(output).toContain('<ImagewayImageAlias src={hero}');
     expect(output).toContain('./a.png?img');
     expect(await readFile(path + '.imageway-backup', 'utf8')).toBe(source);

@@ -80,11 +80,12 @@ export async function init(root: string, dryRun = false) {
   if (!dryRun && source !== updated) await writeFile(path, updated);
   const created: string[] = [];
   for (const [file, content] of Object.entries({
-    'src/imageway.d.ts': '/// <reference types="svelte-imageway/types" />\n',
-    'src/lib/imageway-example.svg':
-      '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500"><rect width="800" height="500" fill="#dcefe9"/><path d="M0 500L250 100L500 500M300 500L600 150L800 500" fill="#286a59"/></svg>\n',
+    'src/lib/imageway-example.png': Buffer.from(
+      'iVBORw0KGgoAAAANSUhEUgAAAGAAAAA8CAIAAAAWtijjAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAt0lEQVR4nO3ZwQ2DQADEQMq5ltxC+i8gFZAPipbHSFeB5TUHXOeTc+4hXOicn4oAFEA9WQmDAigG9b9HjYkFUAzKxFpdaDUogGJQJpYG9c7vCiIdQDEoE0uDmvdYpAMoBmVizbvjohhAMSgTax4gL6sBFIMysTSoeYxFOoBiUCbWPDouigEUgzKxXnL8WQ2gGJSJpUHNeyzSARSDMrHm3XFRDKAYlIk1D5CX1QCKQZlYGtQ8xnfnC7TnqK3Te8a4AAAAAElFTkSuQmCC',
+      'base64',
+    ),
     'src/lib/ImagewayExample.svelte':
-      '<script lang="ts">\n  import { Image } from "svelte-imageway";\n  import hero from "./imageway-example.svg?img";\n</script>\n\n<Image src={hero} alt="Illustrated mountain landscape" priority />\n',
+      '<script lang="ts">\n  import { Image } from "svelte-imageway";\n  import hero from "./imageway-example.png";\n</script>\n\n<Image src={hero} alt="Example landscape placeholder" priority />\n',
   }))
     if (await create(join(root, file), content, dryRun)) created.push(file);
   return {

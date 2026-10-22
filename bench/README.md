@@ -1,5 +1,9 @@
 # Reproducible package benchmarks
 
+## 2.0.0 API and bundle validation — 22 October 2026
+
+Image 3290 gzip bytes, StaticImage 1391, Svelte peer externalized. [Current measured entries](results/component-size.json), [1.5.0 entries](results/component-size-1.5.0.json). Automatic URL metadata resolution adds bytes, while img/picture contracts are now explicit. Both regression gates pass (3400 and 1536 respectively); the original 1536-byte full-Image stretch goal remains unmet. No encoder or HTTP speedup is claimed for 2.0. Older performance tables below keep their measured versions.
+
 ## 1.5.0 parsed representation cache — 21 October 2026
 
 Seven alternating baseline/current pairs against published 1.4.0 source `62e4343` (implementation `571136a`), Apple M4, Node 26.11.1. Each processor child starts fresh with an empty disk cache, prepares the synthetic source and excludes the native first transform plus 20 warm-ups. It then measures sequential prepared-source memory-cache hits. Default memory limits apply. Outputs are byte-identical across variants. These are API cache lookups, not encoder, browser or CDN throughput.

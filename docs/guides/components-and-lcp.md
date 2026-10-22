@@ -1,6 +1,6 @@
 # Components, art direction and LCP
 
-`Image` and `Picture` share `src`, required `alt`, native img attributes, dimensions, sizes, priority, loading/decoding/fetchpriority, fit/position, provider, placeholder, class/style, onload/onerror and loading/error snippets. Use `alt=""` explicitly for decorative images. Localized alt is an ordinary translated string. Svelte 5 runes/snippets only.
+`Image` always renders img; `Picture` always renders picture. Only Picture accepts sources and source snippets. Both accept normal local imports and share `src`, required `alt`, native img attributes, dimensions, sizes, priority, loading/decoding/fetchpriority, fit/position, provider, placeholder, class/style, onload/onerror and loading/error snippets. Use `alt=""` explicitly for decorative images. Localized alt is an ordinary translated string. Svelte 5 runes/snippets only.
 
 ```svelte
 <Picture
@@ -32,6 +32,6 @@ Placeholders use inline CSS and remain useful without JS. Reduced motion disable
 
 The full Image entry currently exceeds the 1.5 KiB gzip target; see the measured bundle report and issue 0001. Headless markup avoids component state when an application does not need snippets/transitions.
 
-## Artifact-only lightweight component (1.3)
+## Optional local-only lightweight components
 
-`import StaticImage from 'svelte-imageway/static'` accepts a typed `?img` artifact and a required alt. It preserves responsive sources, native events, intrinsic dimensions, previews, lazy loading and matching priority preloads. It intentionally omits provider URL generation, custom snippets and transition behavior; use Image for those capabilities. Its 1536-byte gzip regression gate is separate from the complete Image entry.
+`import StaticImage from 'svelte-imageway/static'` accepts a normal local image import or typed artifact and a required alt. It preserves responsive widths, native events, intrinsic dimensions, previews, lazy loading and matching priority preloads. It intentionally omits provider URL generation, custom snippets and transition behavior; use Image for those capabilities. `StaticPicture` from `/static-picture` retains explicit format sources in picture markup. The StaticImage 1536-byte gzip regression gate is separate from the complete Image entry.

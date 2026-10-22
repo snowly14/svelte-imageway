@@ -26,7 +26,7 @@ for (let pair = 0; pair < 7; pair++) {
       ['landscape.png', 'texture.jpg', 'chart.png']
         .map(
           (file, i) =>
-            `import p${i} from './${file}?img&w=320;640;960&format=webp;jpg&q=75&placeholder=none'; console.log(p${i});`,
+            `import p${i} from './${file}?w=320;640;960&format=webp;jpg&q=75&placeholder=none&img'; console.log(p${i});`,
         )
         .join('\n'),
     );

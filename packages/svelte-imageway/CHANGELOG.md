@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 2.0.0
+
+### Major Changes
+
+- Optimize ordinary local raster imports without query syntax or generated type files, while preserving their original URL-string contract. Image and StaticImage now render img only; use Picture and the new StaticPicture for explicit picture markup. Public declaration entries include the bundled advanced-import types automatically. Remove the obsolete typegen command and generated declarations; advanced artifact imports use ?img or directives ending in &img.
+
 ## 1.5.0
 
 ### Minor Changes

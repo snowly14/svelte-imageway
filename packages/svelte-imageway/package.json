@@ -1,6 +1,6 @@
 {
   "name": "svelte-imageway",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "One image model for Svelte 5: builds, providers, a self-hosted service, and publication.",
   "type": "module",
   "license": "MIT",
@@ -143,6 +143,11 @@
       "types": "./dist/static.d.ts",
       "svelte": "./dist/static.js",
       "default": "./dist/static.js"
+    },
+    "./static-picture": {
+      "types": "./dist/static-picture.d.ts",
+      "svelte": "./dist/static-picture.js",
+      "default": "./dist/static-picture.js"
     }
   },
   "peerDependencies": {

@@ -8,11 +8,12 @@ import type {
   OutputFormat,
 } from './core/types.js';
 import { invariant } from './core/errors.js';
+import { imageRepresentation, resolveImageArtifact } from './core/artifact.js';
 
 /** Public browser configuration; intentionally contains no private server fields. */
 export interface ImageContextConfig {
   /** Auto uses server negotiation where supported; picture forces explicit sources. */
-  formatStrategy?: 'auto' | 'picture';
+  formatStrategy?: 'auto' | 'picture' | 'img';
   provider?: ImageProvider;
   providers?: Readonly<Record<string, ImageProvider>>;
   widths?: readonly number[];
@@ -35,7 +36,7 @@ export interface ImageOptions extends Omit<
   quality?: number;
   provider?: ImageProvider;
   config?: ImageContextConfig;
-  formatStrategy?: 'auto' | 'picture';
+  formatStrategy?: 'auto' | 'picture' | 'img';
   class?: string;
   style?: string;
   transitionName?: string;
@@ -86,7 +87,12 @@ export function getImageProps(
     style: customStyle,
     ...native
   } = options;
-  const artifact = typeof src === 'string' ? undefined : src;
+  const nativeOnly = (formatStrategy ?? config.formatStrategy) === 'img';
+  const resolved = resolveImageArtifact(src);
+  const artifact =
+    resolved && nativeOnly
+      ? { ...resolved, ...imageRepresentation(resolved), sources: [] }
+      : resolved;
   const original = artifact?.src ?? (src as string);
   const provider = explicit ?? selectProvider(original, config);
   let fallback = original;
@@ -114,7 +120,7 @@ export function getImageProps(
       const request = { ...source, fit, position, q: quality ?? config.quality ?? 75 };
       const formats =
         provider.capabilities.explicitFormat === false ||
-        ((formatStrategy ?? config.formatStrategy ?? 'auto') === 'auto' &&
+        ((formatStrategy ?? config.formatStrategy ?? 'auto') !== 'picture' &&
           provider.capabilities.autoFormat === true &&
           !config.formats)
           ? []
@@ -125,7 +131,12 @@ export function getImageProps(
                 (!provider.capabilities.maxWidthByFormat?.[v] ||
                   Math.max(...widths) <= provider.capabilities.maxWidthByFormat[v]!),
             );
-      const fallbackFormat = formats.includes('jpeg') ? 'jpeg' : formats.at(-1);
+      const fallbackFormat =
+        nativeOnly && formats.includes('webp')
+          ? 'webp'
+          : formats.includes('jpeg')
+            ? 'jpeg'
+            : formats.at(-1);
       const srcsetFor = (format: OutputFormat | 'auto') =>
         widths.map((w) => `${provider.buildUrl({ ...request, w, format })} ${w}w`).join(', ');
       fallback = provider.buildUrl({
@@ -134,7 +145,7 @@ export function getImageProps(
         format: fallbackFormat ?? 'auto',
       });
       srcset = srcsetFor(fallbackFormat ?? 'auto');
-      sources = formats
+      sources = (nativeOnly ? [] : formats)
         .filter((v) => v !== fallbackFormat)
         .map((format) => ({ type: `image/${format}`, srcset: srcsetFor(format) }));
     }

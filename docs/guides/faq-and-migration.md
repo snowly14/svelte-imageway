@@ -4,7 +4,7 @@
 
 **Why is my transform rejected?** Check runtime vs build directive names, locked preset values, width/quality ladders, allowed origins, actual codec inventory and provider capability subset. Detailed safe errors are returned; debug logs exclude IP/source secrets.
 
-**Why does a dynamic URL have no srcset?** A URL alone cannot select a CDN or discover intrinsic dimensions safely in the browser. Configure a provider and supply dimensions. Local `?img` imports work without a provider.
+**Why does a dynamic URL have no srcset?** A URL alone cannot select a CDN or discover intrinsic dimensions safely in the browser. Configure a provider and supply dimensions. Normal local imports work without a provider.
 
 **Why is Sharp missing?** Native optional installation may be unsupported or disabled by your package manager. Install a compatible Sharp build with Bun, check codecCapabilities, or choose a native provider. Do not import server entries into a browser bundle.
 
@@ -16,4 +16,4 @@
 
 **How do I migrate?** Run `migrate --from enhanced-img` or `--from imagetools` without --write, inspect planned changes/review items, then apply with backups and run init. Imagetools picture object shapes differ; convert consumers to Image src. Remove the old plugin after the new build passes. Restore from .imageway-backup when reviewing a failed migration. The CLI never rewrites unsupported operations blindly.
 
-**Why no 1.0 label?** Gzip size, benchmark parity, exotic codecs and live cloud/CI verification are measurable acceptance requirements. The report keeps failures and unverified infrastructure visible. 0.1 is for evaluation; reaching 1.0 requires resolving those gates.
+**How do I upgrade to 2.0?** Follow the [migration guide](migration-2.md). Version numbers describe API compatibility; unresolved performance stretch targets remain visible in REPORT.md.

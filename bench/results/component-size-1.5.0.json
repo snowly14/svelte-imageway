@@ -1,0 +1,21 @@
+{
+  "measuredAt": "2026-10-21T20:26:17.602Z",
+  "packageVersion": "1.5.0",
+  "static": {
+    "entry": "StaticImage.svelte",
+    "runtime": "Svelte peer externalized",
+    "rawBytes": 2743,
+    "gzipBytes": 1196,
+    "gzipLevel": 9,
+    "targetBytes": 1536
+  },
+  "full": {
+    "entry": "Image.svelte plus all Imageway helpers",
+    "runtime": "Svelte peer externalized",
+    "rawBytes": 7623,
+    "gzipBytes": 3158,
+    "gzipLevel": 9,
+    "targetBytes": 1536
+  },
+  "baselineReference": "62e4343"
+}

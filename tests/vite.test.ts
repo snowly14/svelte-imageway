@@ -85,11 +85,134 @@ describe('import directives and placeholders', () => {
   );
 });
 describe('real Vite build and dev', () => {
+  it('serves ordinary imports lazily beneath a non-root dev base and preserves original bytes', async () => {
+    await rm(join(root, 'node_modules/.cache/svelte-imageway'), { recursive: true, force: true });
+    const server = await createServer({
+      root,
+      base: '/nested/',
+      configFile: false,
+      logLevel: 'silent',
+      resolve: {
+        alias: {
+          'svelte-imageway/core': fileURLToPath(
+            new URL('../packages/svelte-imageway/dist/core/index.js', import.meta.url),
+          ),
+        },
+      },
+      plugins: [imageway()],
+      server: { port: 0 },
+    });
+    try {
+      await server.listen();
+      const port = (server.httpServer!.address() as { port: number }).port;
+      const base = `http://localhost:${port}`;
+      const response = await fetch(base + '/nested/hero.png?import');
+      expect(response.status).toBe(200);
+      const code = await response.text();
+      const original = code.match(/const original\s*=\s*"([^"]+)"/)![1]!;
+      expect(original).toMatch(/^\/nested\/@imageway\//);
+      const raw = await fetch(base + original);
+      expect(raw.headers.get('content-type')).toBe('image/png');
+      expect(Buffer.from(await raw.arrayBuffer())).toEqual(await readFile(join(root, 'hero.png')));
+      await expect(readdir(join(root, 'node_modules/.cache/svelte-imageway'))).rejects.toThrow();
+      const variant = code.match(/(\/nested\/@imageway\/[a-f\d]+\.webp) 320w/)![1]!;
+      const optimized = await fetch(base + variant);
+      expect(optimized.headers.get('content-type')).toBe('image/webp');
+      expect((await sharp(Buffer.from(await optimized.arrayBuffer())).metadata()).width).toBe(320);
+    } finally {
+      await server.close();
+    }
+  });
+  it('keeps ordinary imports as original URLs and registers responsive metadata in production', async () => {
+    const { runInNewContext } = await import('node:vm');
+    const entry = join(root, 'ordinary.js');
+    await writeFile(
+      entry,
+      "import image from './hero.png'; import {resolveImageArtifact} from 'svelte-imageway/core'; globalThis.result={image,artifact:resolveImageArtifact(image)};",
+    );
+    await build({
+      root,
+      configFile: false,
+      logLevel: 'silent',
+      base: '/nested/',
+      resolve: {
+        alias: {
+          'svelte-imageway/core': fileURLToPath(
+            new URL('../packages/svelte-imageway/dist/core/index.js', import.meta.url),
+          ),
+        },
+      },
+      plugins: [imageway({ config: { widths: [320, 800], formats: ['webp', 'jpeg'] } })],
+      build: { outDir: 'ordinary', minify: false, rolldownOptions: { input: entry } },
+    });
+    const scripts = await readdir(join(root, 'ordinary/assets'));
+    const code = await readFile(
+      join(
+        root,
+        'ordinary/assets',
+        scripts.find((f) => f.endsWith('.js'))!,
+      ),
+      'utf8',
+    );
+    const context = {
+      URL,
+      document: { baseURI: 'https://example.test/nested/' },
+      location: { href: 'https://example.test/nested/' },
+      result: undefined as
+        | undefined
+        | {
+            image: string;
+            artifact: import('../packages/svelte-imageway/src/lib/core/types.js').ImageArtifact;
+          },
+    };
+    runInNewContext(code, context);
+    const { image, artifact } = context.result!;
+    expect(typeof image).toBe('string');
+    expect(image).toContain('/nested/imageway/');
+    expect(artifact).toMatchObject({ width: 800, height: 600, img: { type: 'image/webp' } });
+    expect(artifact.img!.srcset).toContain('320w');
+    expect(
+      await readFile(
+        join(
+          root,
+          'ordinary',
+          new URL(image, 'https://example.test').pathname.replace('/nested/', ''),
+        ),
+      ),
+    ).toEqual(await readFile(join(root, 'hero.png')));
+    expect(code).not.toMatch(/node:|sharp|ROLLUP_FILE_URL/);
+  });
+  it('preserves explicit native URL imports and the automatic-import opt-out', async () => {
+    for (const autoImports of [true, false]) {
+      const server = await createServer({
+        root,
+        configFile: false,
+        logLevel: 'silent',
+        plugins: [imageway({ autoImports })],
+        resolve: {
+          alias: {
+            'svelte-imageway/core': fileURLToPath(
+              new URL('../packages/svelte-imageway/dist/core/index.js', import.meta.url),
+            ),
+          },
+        },
+        server: { middlewareMode: true },
+      });
+      try {
+        const native = await server.transformRequest('/hero.png?url');
+        expect(native?.code).not.toContain('registerImageArtifact');
+        const ordinary = await server.transformRequest('/hero.png');
+        expect(ordinary?.code.includes('registerImageArtifact')).toBe(autoImports);
+      } finally {
+        await server.close();
+      }
+    }
+  });
   it('deduplicates actual srcset widths when a height constraint collapses requested sizes', async () => {
     const entry = join(root, 'height-entry.js');
     await writeFile(
       entry,
-      "import image from './hero.png?img&w=320;640&h=100&fit=inside&format=webp&placeholder=none'; console.log(image);",
+      "import image from './hero.png?w=320;640&h=100&fit=inside&format=webp&placeholder=none&img'; console.log(image);",
     );
     await build({
       root,
@@ -118,7 +241,7 @@ describe('real Vite build and dev', () => {
     const entry = join(root, 'svg-entry.js');
     await writeFile(
       entry,
-      "import image from './small.svg?img&format=svg&placeholder=none'; console.log(image);",
+      "import image from './small.svg?format=svg&placeholder=none&img'; console.log(image);",
     );
     await expect(
       build({
@@ -134,7 +257,7 @@ describe('real Vite build and dev', () => {
     const entry = join(root, 'prune.js');
     await writeFile(
       entry,
-      "import hero from './hero.png?img&w=320&placeholder=none'; console.log(hero);",
+      "import hero from './hero.png?w=320&placeholder=none&img'; console.log(hero);",
     );
     for (const pruneLargerFormats of [false, true]) {
       const outDir = `prune-${pruneLargerFormats}`;
@@ -160,7 +283,7 @@ describe('real Vite build and dev', () => {
     // Explicit format directives retain all requested formats even if one is larger.
     await writeFile(
       entry,
-      "import hero from './hero.png?img&w=320&format=avif;webp&placeholder=none'; console.log(hero);",
+      "import hero from './hero.png?w=320&format=avif;webp&placeholder=none&img'; console.log(hero);",
     );
     await build({
       root,
@@ -262,15 +385,13 @@ describe('real Vite build and dev', () => {
   });
 });
 describe('actual TypeScript consumer imports', () => {
-  it('generates specific directive types and preserves their numeric fields', async () => {
+  it('types canonical imports directly from the package without generated files', async () => {
     const { symlink, mkdir } = await import('node:fs/promises');
     const { execFileSync } = await import('node:child_process');
-    const { generateImageTypes } =
-      await import('../packages/svelte-imageway/src/lib/vite/typegen.js');
     const consumer = join(root, 'consumer.ts');
     await writeFile(
       consumer,
-      "import image from './hero.png?img&w=400;800&format=webp;jpg'; const width: number = image.width; void width;",
+      "import type { ImageArtifact } from 'svelte-imageway/core'; import image from './hero.png?w=400;800&format=webp;jpg&img'; const typed: ImageArtifact = image; void typed; const width: number = image.width; void width;",
     );
     await mkdir(join(root, 'node_modules'), { recursive: true });
     await symlink(
@@ -278,7 +399,6 @@ describe('actual TypeScript consumer imports', () => {
       join(root, 'node_modules/svelte-imageway'),
       process.platform === 'win32' ? 'junction' : 'dir',
     );
-    const env = await generateImageTypes(root);
     const compiler = fileURLToPath(new URL('../node_modules/typescript/bin/tsc', import.meta.url));
     const args = [
       compiler,
@@ -292,12 +412,18 @@ describe('actual TypeScript consumer imports', () => {
       '--target',
       'es2022',
       consumer,
-      env,
     ];
     execFileSync('node', args, { stdio: 'pipe' });
+    await expect(readFile(join(root, 'imageway-env.d.ts'), 'utf8')).rejects.toThrow();
+    await expect(readFile(join(root, 'src/imageway-env.d.ts'), 'utf8')).rejects.toThrow();
     await writeFile(
       consumer,
-      "import image from './hero.png?img&w=400;800&format=webp;jpg'; const width: string = image.width; void width;",
+      "import type { ImageArtifact } from 'svelte-imageway/core'; import image from './hero.png?w=400;800&format=webp;jpg&img'; const typed: ImageArtifact = image; void typed; const width: string = image.width; void width;",
+    );
+    expect(() => execFileSync('node', args, { stdio: 'pipe' })).toThrow();
+    await writeFile(
+      consumer,
+      "import type { ImageArtifact } from 'svelte-imageway/core'; import wrong from './missing.txt?unrelated'; const image: ImageArtifact = wrong; void image;",
     );
     expect(() => execFileSync('node', args, { stdio: 'pipe' })).toThrow();
   });

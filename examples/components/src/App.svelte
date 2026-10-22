@@ -1,6 +1,8 @@
 <script lang="ts">
   import { Image, Picture, BackgroundImage, ImageMeta, StaticImage } from 'svelte-imageway';
-  import hero from './landscape.png?img&w=320;640;960&format=avif;webp;png';
+  import StaticPicture from 'svelte-imageway/static-picture';
+  import hero from './landscape.png';
+  import directed from './landscape.png?w=320;640;960&format=avif;webp;png&img';
   let events = $state(0);
 </script>
 
@@ -31,12 +33,18 @@
       {
         type: 'image/webp',
         media: '(min-width: 640px)',
-        srcset: hero.sources.find((v) => v.type === 'image/webp')!.srcset,
+        srcset: directed.sources.find((v) => v.type === 'image/webp')!.srcset,
         width: 960,
         height: 640,
       },
     ]}
     data-testid="picture"
+  />
+  <StaticPicture
+    src={hero}
+    alt="Static picture landscape"
+    sizes="320px"
+    data-testid="static-picture"
   />
   <Image
     src="/missing-image.jpg"

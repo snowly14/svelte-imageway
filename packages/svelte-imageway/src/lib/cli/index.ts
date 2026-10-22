@@ -11,7 +11,6 @@ import { templates } from './templates.js';
 import { invariant } from '../core/errors.js';
 const help = `svelte-imageway <command> [directory] [options]
   init [dir] --dry-run                 Configure a literal Vite plugin array and example
-  typegen [dir]                       Generate typed image imports without starting Vite
   codecs --json                       Inspect installed native decoder/encoder capabilities
   optimize [dir] --dry-run --watch     Write variants to imageway-output, preserve originals
     --output <dir> --width <px> --quality <q> --format webp|avif|jpeg|png
@@ -19,7 +18,7 @@ const help = `svelte-imageway <command> [directory] [options]
   deploy cloudflare|docker --output <dir>  Generate configuration, never create paid resources
   purge --endpoint <https-url> --key|--prefix|--tag <value> --yes
     --token-env IMAGEWAY_PURGE_TOKEN   Protected Worker purge API; no token in arguments
-  migrate [dir] --from enhanced-img|imagetools --write
+  migrate [dir] --from enhanced-img|imagetools|imageway-v1 --write
   --json --help --version              Plain output respects NO_COLOR; no telemetry
 `;
 interface Args {
@@ -106,11 +105,6 @@ export async function main(argv = process.argv.slice(2), cwd = process.cwd()): P
                 )
                 .join('\n'),
         );
-        return 0;
-      }
-      case 'typegen': {
-        const { generateImageTypes } = await import('../vite/typegen.js');
-        output(await generateImageTypes(root));
         return 0;
       }
       case 'init':

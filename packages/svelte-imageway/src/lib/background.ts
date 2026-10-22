@@ -1,11 +1,14 @@
 import type { ImageArtifact } from './core/types.js';
+import { resolveImageArtifact } from './core/artifact.js';
 /** Escape URLs for a quoted CSS string, including HTML raw-text delimiters. */
 export function cssUrl(src: string): string {
   return `url("${[...src].map((c) => (c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127 || /[\\"<>]/.test(c) ? `\\${c.charCodeAt(0).toString(16)} ` : c)).join('')}")`;
 }
 /** Native image-set with an ordinary URL fallback; responsive widths map into densities. */
 export function backgroundStyle(src: ImageArtifact | string): string {
-  if (typeof src === 'string') return `background-image:${cssUrl(src)}`;
+  const artifact = resolveImageArtifact(src);
+  if (!artifact) return `background-image:${cssUrl(src as string)}`;
+  src = artifact;
   const variants = [
     ...src.sources.flatMap((source) =>
       source.srcset.split(',').map((v) => ({ value: v.trim(), type: source.type })),

@@ -33,7 +33,11 @@ export async function exists(path: string): Promise<boolean> {
     throw e;
   }
 }
-export async function create(path: string, source: string, dryRun = false): Promise<boolean> {
+export async function create(
+  path: string,
+  source: string | Uint8Array,
+  dryRun = false,
+): Promise<boolean> {
   if (await exists(path)) return false;
   if (!dryRun) {
     await mkdir(dirname(path), { recursive: true });

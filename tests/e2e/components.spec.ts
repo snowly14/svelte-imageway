@@ -5,8 +5,20 @@ test('minimal static component loads responsive bytes, clears its preview and wo
   browser,
 }) => {
   await page.goto('/');
+  expect(await page.getByTestId('hero').evaluate((img) => img.parentElement?.tagName)).not.toBe(
+    'PICTURE',
+  );
+  expect(
+    await page.getByTestId('static-image').evaluate((img) => img.parentElement?.tagName),
+  ).not.toBe('PICTURE');
+  expect(await page.getByTestId('picture').evaluate((img) => img.parentElement?.tagName)).toBe(
+    'PICTURE',
+  );
+  expect(
+    await page.getByTestId('static-picture').evaluate((img) => img.parentElement?.tagName),
+  ).toBe('PICTURE');
   const image = page.getByTestId('static-image');
-  await expect(image).toHaveAttribute('width', '960');
+  await expect(image).toHaveAttribute('width', '1200');
   await expect(image).toHaveAttribute('loading', 'lazy');
   await expect
     .poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0))
@@ -44,10 +56,11 @@ test('native loading, matching preload, dimensions, art direction, events, error
   await expect(page.locator('link[rel="preload"][as="image"]')).toHaveCount(1);
   const preload = page.locator('link[rel="preload"][as="image"]');
   expect(await preload.getAttribute('imagesrcset')).toContain('320w');
-  expect(await preload.getAttribute('type')).toBe('image/avif');
-  await expect(hero).toHaveAttribute('width', '960');
-  await expect(hero).toHaveAttribute('height', '640');
-  expect(await hero.evaluate((img) => getComputedStyle(img).aspectRatio)).toBe('960 / 640');
+  expect(await preload.getAttribute('imagesrcset')).toBe(await hero.getAttribute('srcset'));
+  expect(await hero.evaluate((img: HTMLImageElement) => img.currentSrc)).toMatch(/\.webp$/);
+  await expect(hero).toHaveAttribute('width', '1200');
+  await expect(hero).toHaveAttribute('height', '800');
+  expect(await hero.evaluate((img) => getComputedStyle(img).aspectRatio)).toBe('1200 / 800');
   await expect(page.getByTestId('events')).toHaveText('Loads: 1');
   await expect(page.getByRole('status')).toHaveText('Image unavailable');
   expect(
