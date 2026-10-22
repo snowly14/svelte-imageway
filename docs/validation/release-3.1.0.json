@@ -1,0 +1,51 @@
+{
+  "verifiedAt": "2026-10-22T22:36:03.937Z",
+  "available": true,
+  "version": "3.1.0",
+  "tag": "latest",
+  "sourceCommit": "200eee170bad6db307cc24cacd8d996e91e087fe",
+  "integrity": "sha512-zeIlbuHP2PPzlUVVHZ6WxLO9DPeHv3Ra11K6gi0e0o5V+LOTMVw9NwHFdkiZXu84TOazIjuO23zUQTdPIdiJSw==",
+  "sha256": "9c209ce1faef304334f7b71223f29801f5ebf50381244337a16ced2130828146",
+  "provenanceSubjectMatches": true,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/39865607197",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/39865607238",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.0",
+  "integrityMatches": true,
+  "provenanceSourceMatches": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "ciBrowserTests": {
+    "passed": 15,
+    "skippedOptionalServices": 6,
+    "failed": 0
+  },
+  "registryArchiveConsumer": {
+    "measuredAt": "2026-10-22T22:36:10.179Z",
+    "archive": "npm registry tarball verified by SHA-512 before installation",
+    "packageVersion": "3.1.0",
+    "node": "v26.11.1",
+    "installAndBuildAndTypesMs": 5233.014541,
+    "underTwoMinutes": true,
+    "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+    "dimensions": {
+      "width": 640,
+      "height": 427
+    },
+    "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+    "encoded": {
+      "width": 640,
+      "height": 427,
+      "format": "webp"
+    },
+    "preload": true,
+    "nativePreviewStrategy": "blurhash",
+    "archiveSha256": "9c209ce1faef304334f7b71223f29801f5ebf50381244337a16ced2130828146"
+  },
+  "native": {
+    "bytes": 2081,
+    "sha256": "16ee3f31b97e7f1c050dd7ccc32f9c6b12dd481f1dbb6cc635d6560052afb365",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "dominantColourExport": true
+  }
+}
