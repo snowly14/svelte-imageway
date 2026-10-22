@@ -181,26 +181,29 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       const query = split < 0 ? '' : id.slice(split + 1);
       const params = new URLSearchParams(query);
       const explicit = params.has('img');
-      const local = relative(vite.root, file);
       const automatic =
         options.autoImports !== false &&
         !id.startsWith('\0') &&
         isAbsolute(file) &&
-        !local.startsWith('..') &&
-        !isAbsolute(local) &&
-        !local.replaceAll('\\', '/').split('/').includes('node_modules') &&
+        !file.replaceAll('\\', '/').split('/').includes('node_modules') &&
         /\.(?:jpe?g|png|webp|avif|gif|tiff?)$/i.test(file) &&
         [...params.keys()].every((key) => ['import', 't', 'v'].includes(key));
       if (!explicit && !automatic) return;
-      this.addWatchFile(file);
       // Vite may canonicalize a Windows 8.3/temp alias between builds. Compare
-      // physical paths on both sides; readLocal still rejects escaping sources.
+      // physical paths before testing automatic-import containment too; readLocal
+      // still rejects explicitly requested imports escaping the source root.
       const [sourceRoot, sourceFile] = await Promise.all([realpath(vite.root), realpath(file)]);
-      const source = await readLocal(
-        relative(sourceRoot, sourceFile).replaceAll('\\', '/'),
-        sourceRoot,
-        config.maxInputBytes,
-      );
+      const local = relative(sourceRoot, sourceFile).replaceAll('\\', '/');
+      if (
+        !explicit &&
+        (local === '..' ||
+          local.startsWith('../') ||
+          isAbsolute(local) ||
+          local.split('/').includes('node_modules'))
+      )
+        return;
+      this.addWatchFile(file);
+      const source = await readLocal(local, sourceRoot, config.maxInputBytes);
       const kind = sniff(source);
       const sharp = await loadSharp(kind);
       const metadata = await sharp(source, { limitInputPixels: config.maxPixels }).metadata();
