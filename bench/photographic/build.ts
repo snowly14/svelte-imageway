@@ -24,7 +24,7 @@ export async function builds() {
         ? ''
         : engine.startsWith('imageway')
           ? '?img&w=256;384;512&format=webp&q=75&placeholder=none'
-          : `?${engine === 'enhanced-img' ? 'enhanced&' : ''}w=256;384;512&format=webp&q=75&as=picture`;
+          : `?${engine === 'enhanced-img' ? 'enhanced&' : ''}w=256;384;512&format=webp&quality=75&as=picture`;
     await writeFile(
       join(dir, 'main.js'),
       names
