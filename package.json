@@ -37,7 +37,8 @@
     "native:rebuild": "bun scripts/native.ts --rebuild",
     "native:verify": "bun scripts/native.ts --verify",
     "bench:preview": "bun bench/preview.ts",
-    "bench:photos": "bun bench/photographic/run.ts"
+    "bench:photos": "bun bench/photographic/run.ts",
+    "bench:improvements": "bun bench/improvements/run.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",

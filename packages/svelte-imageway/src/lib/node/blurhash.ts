@@ -7,9 +7,12 @@ interface Kernel {
   tables_ptr(): number;
   output_ptr(): number;
   coefficients(width: number, height: number): number;
+  dominant_colour(width: number, height: number): number;
 }
 export interface BlurhashEncoder {
   encode(pixels: Uint8Array, width: number, height: number): string;
+  /** Undefined preserves libvips tie-breaking when histogram maxima are ambiguous. */
+  dominantColor(pixels: Uint8Array, width: number, height: number): string | undefined;
 }
 function validate(pixels: Uint8Array, width: number, height: number): void {
   invariant(
@@ -21,7 +24,7 @@ function validate(pixels: Uint8Array, width: number, height: number): void {
       height <= 32 &&
       pixels.length === width * height * 4,
     'PREVIEW_PIXELS',
-    'BlurHash requires matching RGBA pixels with dimensions between 1 and 32.',
+    'Preview math requires matching RGBA pixels with dimensions between 1 and 32.',
   );
 }
 /** One fixed-memory, synchronous instance per module/worker; never shipped to the browser. */
@@ -30,7 +33,7 @@ export async function createBlurhashEncoder(bytes: Uint8Array): Promise<Blurhash
   const exports = instance.exports;
   invariant(
     exports.memory instanceof WebAssembly.Memory &&
-      ['pixels_ptr', 'tables_ptr', 'output_ptr', 'coefficients'].every(
+      ['pixels_ptr', 'tables_ptr', 'output_ptr', 'coefficients', 'dominant_colour'].every(
         (key) => typeof exports[key] === 'function',
       ),
     'PREVIEW_ABI',
@@ -47,6 +50,12 @@ export async function createBlurhashEncoder(bytes: Uint8Array): Promise<Blurhash
   let previousWidth = 0,
     previousHeight = 0;
   return {
+    dominantColor(input, width, height) {
+      validate(input, width, height);
+      pixels.set(input);
+      const packed = kernel.dominant_colour(width, height);
+      return packed ? `#${packed.toString(16).padStart(6, '0')}` : undefined;
+    },
     encode(input, width, height) {
       validate(input, width, height);
       if (width !== previousWidth || height !== previousHeight) {
@@ -70,7 +79,7 @@ export async function createBlurhashEncoder(bytes: Uint8Array): Promise<Blurhash
   };
 }
 let encoder: Promise<BlurhashEncoder> | undefined;
-/** Lazily compiled only for the explicit blurhash preview strategy. */
+/** Lazily compiled for build preview colour/hash math; none never loads the kernel. */
 export function getBlurhashEncoder(): Promise<BlurhashEncoder> {
   return (encoder ??= readFile(new URL('./blurhash.wasm', import.meta.url)).then(
     createBlurhashEncoder,

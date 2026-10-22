@@ -121,6 +121,12 @@ describe('v1 request contract', () => {
 });
 describe('configuration', () => {
   it('is immutable and denies remote input by default', () => {
+    expect(Object.isFrozen(defaults)).toBe(true);
+    for (const preset of Object.values(defaults.presets)) {
+      expect(Object.isFrozen(preset)).toBe(true);
+      expect(Object.isFrozen(preset.values)).toBe(true);
+      expect(Object.isFrozen(preset.overrides)).toBe(true);
+    }
     const values = [320, 640];
     const r = defineConfig({ widths: values, allowedOrigins: ['https://images.example'] });
     values.push(1280);

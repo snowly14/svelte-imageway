@@ -1,44 +1,52 @@
 import type { ImageConfig } from './types.js';
 import { invariant } from './errors.js';
 
-/** Safe defaults: remote processing is denied until origins are explicitly authorized. */
-export const defaults: ImageConfig = Object.freeze({
-  widths: Object.freeze([320, 480, 640, 768, 960, 1280, 1600, 1920, 2560]),
-  qualities: Object.freeze([50, 65, 75, 85, 95]),
-  formats: Object.freeze(['avif', 'webp', 'jpeg'] as const),
-  quality: 75,
-  maxDimension: 4096,
-  maxPixels: 40_000_000,
-  maxInputBytes: 20_000_000,
-  maxOutputBytes: 20_000_000,
-  timeoutMs: 10_000,
-  allowedOrigins: Object.freeze([]),
-  endpoint: '/_img/v1',
-  placeholder: 'lqip',
-  presets: Object.freeze<ImageConfig['presets']>({
-    thumb: {
-      values: { w: 320, h: 320, fit: 'cover' },
-      overrides: ['format', 'q', 'dpr'],
-      revision: '1',
-    },
-    card: {
-      values: { w: 640, fit: 'inside' },
-      overrides: ['w', 'format', 'q', 'dpr'],
-      revision: '1',
-    },
-    hero: {
-      values: { w: 1920, fit: 'inside' },
-      overrides: ['w', 'format', 'q', 'dpr'],
-      revision: '1',
-    },
-    og: { values: { w: 1200, h: 630, fit: 'cover', format: 'jpeg' }, overrides: [], revision: '1' },
-  }),
-});
-for (const preset of Object.values(defaults.presets)) {
-  Object.freeze(preset.values);
-  Object.freeze(preset.overrides);
-  Object.freeze(preset);
+function createDefaults(): ImageConfig {
+  const defaults: ImageConfig = Object.freeze({
+    widths: Object.freeze([320, 480, 640, 768, 960, 1280, 1600, 1920, 2560]),
+    qualities: Object.freeze([50, 65, 75, 85, 95]),
+    formats: Object.freeze(['avif', 'webp', 'jpeg'] as const),
+    quality: 75,
+    maxDimension: 4096,
+    maxPixels: 40_000_000,
+    maxInputBytes: 20_000_000,
+    maxOutputBytes: 20_000_000,
+    timeoutMs: 10_000,
+    allowedOrigins: Object.freeze([]),
+    endpoint: '/_img/v1',
+    placeholder: 'lqip',
+    presets: Object.freeze<ImageConfig['presets']>({
+      thumb: {
+        values: { w: 320, h: 320, fit: 'cover' },
+        overrides: ['format', 'q', 'dpr'],
+        revision: '1',
+      },
+      card: {
+        values: { w: 640, fit: 'inside' },
+        overrides: ['w', 'format', 'q', 'dpr'],
+        revision: '1',
+      },
+      hero: {
+        values: { w: 1920, fit: 'inside' },
+        overrides: ['w', 'format', 'q', 'dpr'],
+        revision: '1',
+      },
+      og: {
+        values: { w: 1200, h: 630, fit: 'cover', format: 'jpeg' },
+        overrides: [],
+        revision: '1',
+      },
+    }),
+  });
+  for (const preset of Object.values(defaults.presets)) {
+    Object.freeze(preset.values);
+    Object.freeze(preset.overrides);
+    Object.freeze(preset);
+  }
+  return defaults;
 }
+/** Safe defaults; creation is pure so component-only bundles can omit server policies. */
+export const defaults: ImageConfig = /* @__PURE__ */ createDefaults();
 const formats = ['avif', 'webp', 'jpeg', 'png', 'gif', 'svg'];
 /** Define and validate a central configuration. Secrets are intentionally excluded. */
 export function defineConfig(input: Partial<ImageConfig> = {}): ImageConfig {

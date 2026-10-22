@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**3.0.1.** Ordinary local image imports work directly with `Image`, without query syntax or generated type files. `Image` always renders an `<img>`; choose `Picture` for `<picture>`. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold-build parity with vite-imagetools has not been established. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
+**3.1.0.** Ordinary local image imports work directly with `Image`, without query syntax or generated type files. `Image` always renders an `<img>`; choose `Picture` for `<picture>`. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold-build parity with vite-imagetools has not been established. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
 
 ## Before → after
 
@@ -30,7 +30,7 @@ Use `Image` for ordinary local imports and configured dynamic provider URLs. It 
 
 Use `Picture` for multiple format sources, art direction and source snippets. It always renders picture with an img fallback. Both components use the same image pipeline; no separate static component is needed. StaticImage, StaticPicture and their subpaths were removed in 3.0. [Migration guide](docs/guides/migration-3.md).
 
-The optional `blurhash` preview encoder now runs a bounded Rust kernel compiled to WebAssembly on the server/build only. It ships precompiled, needs no consumer Rust installation, uses fixed 64 KiB memory and never enters the browser bundle. Image resizing/encoding still uses native Sharp/libvips. This change does not speed up JPEG/WebP encoders or the default LQIP strategy. [Native design and Goose evaluation](docs/adr/0019-focused-components-and-rust-previews.md).
+Build previews now use Rust for dominant-colour histograms in **LQIP (the default), color, ThumbHash and BlurHash**, as well as the BlurHash projection. The precompiled 2081-byte WASM module has fixed 64 KiB memory, requires no consumer Rust installation and stays outside browser bundles. Tied histogram maxima retain Sharp’s exact colour choice. Image resizing/encoding still uses native Sharp/libvips. [Native preview design](docs/adr/0020-native-preview-colour-and-lazy-build-tools.md), [earlier Goose evaluation](docs/adr/0019-focused-components-and-rust-previews.md).
 
 Default build imports now omit AVIF only when **every** matching WebP width/height has no more bytes. This can avoid downloading a larger AVIF simply because the browser supports it. It compares encoded bytes at the configured encoder settings, not perceptual quality; both encodings are still computed to make the decision. Explicit `format=` directives remain exact. Set `imageway({ pruneLargerFormats: false })` to preserve all default formats. Development remains lazy and does not perform this build-only comparison.
 

@@ -18,7 +18,6 @@ import { hash } from '../node/cache.js';
 import { readLocal } from '../node/source.js';
 import { loadSharp, sniff } from '../node/pipeline.js';
 import { ImageProcessor } from '../node/processor.js';
-import { optimize } from 'svgo';
 import { parseDirectives } from './directives.js';
 import { placeholder } from './placeholder.js';
 import { vercel } from '../providers/vercel.js';
@@ -267,6 +266,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
             if (format !== 'svg') return preparedSource.process(request, format, undefined, false);
             if (kind !== 'svg')
               throw new ImagewayError('SVG', 'Only approved SVG inputs can produce SVG output.');
+            const { optimize } = await import('svgo');
             const optimized = optimize(source.toString('utf8'), { multipass: true }).data;
             if (Buffer.byteLength(optimized) > config.maxOutputBytes)
               throw new ImagewayError(

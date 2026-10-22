@@ -16,6 +16,32 @@ function fixture(width: number, height: number, seed: number): Uint8Array {
   });
 }
 describe('bounded Rust BlurHash kernel', () => {
+  it('matches libvips dominant colour for unique maxima and defers ambiguous ties', async () => {
+    const encoder = await getBlurhashEncoder();
+    let unique = 0;
+    for (let seed = 1; seed <= 100; seed++) {
+      const width = (seed % 32) + 1;
+      const height = ((seed * 7) % 32) + 1;
+      const pixels = fixture(width, height, seed);
+      const snapshot = pixels.slice();
+      const actual = encoder.dominantColor(pixels, width, height);
+      if (actual) {
+        const { r, g, b } = (await sharp(pixels, { raw: { width, height, channels: 4 } }).stats())
+          .dominant;
+        expect(actual).toBe(`#${[r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')}`);
+        unique++;
+      }
+      expect(pixels).toEqual(snapshot);
+    }
+    expect(unique).toBeGreaterThan(10);
+    expect(encoder.dominantColor(Uint8Array.of(255, 0, 0, 0), 1, 1)).toBe('#f80808');
+    expect(
+      encoder.dominantColor(Uint8Array.of(255, 0, 0, 255, 0, 255, 0, 255), 2, 1),
+    ).toBeUndefined();
+    expect(encoder.dominantColor(Uint8Array.of(0, 0, 255, 255), 1, 1)).toBe('#0808f8');
+    expect(() => encoder.dominantColor(new Uint8Array(4), 33, 1)).toThrow();
+    expect(() => encoder.dominantColor(new Uint8Array(3), 1, 1)).toThrow();
+  });
   it('matches reference hashes and decoded pixels across sizes, alpha and seeded inputs', async () => {
     const encoder = await getBlurhashEncoder();
     for (let seed = 1; seed <= 80; seed++) {

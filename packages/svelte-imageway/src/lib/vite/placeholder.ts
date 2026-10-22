@@ -17,16 +17,23 @@ export async function placeholder(
     413,
   );
   const sharp = await loadSharp();
-  const { data: pixels, info } = await sharp(data, { limitInputPixels: limits.maxPixels })
-    .timeout({ seconds: Math.max(1, Math.ceil(limits.timeoutMs / 1000)) })
-    .autoOrient()
-    .resize({ width: 32, height: 32, fit: 'inside', withoutEnlargement: true })
-    .ensureAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true });
+  const [decoded, encoder] = await Promise.all([
+    sharp(data, { limitInputPixels: limits.maxPixels })
+      .timeout({ seconds: Math.max(1, Math.ceil(limits.timeoutMs / 1000)) })
+      .autoOrient()
+      .resize({ width: 32, height: 32, fit: 'inside', withoutEnlargement: true })
+      .ensureAlpha()
+      .raw()
+      .toBuffer({ resolveWithObject: true }),
+    getBlurhashEncoder(),
+  ]);
+  const { data: pixels, info } = decoded;
   const raw = { width: info.width, height: info.height, channels: 4 as const };
-  const { r, g, b } = (await sharp(pixels, { raw }).stats()).dominant;
-  const dominantColor = `#${[r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')}`;
+  let dominantColor = encoder.dominantColor(pixels, info.width, info.height);
+  if (!dominantColor) {
+    const { r, g, b } = (await sharp(pixels, { raw }).stats()).dominant;
+    dominantColor = `#${[r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')}`;
+  }
   if (strategy === 'color') return { dominantColor };
   if (strategy === 'lqip') {
     const small = await sharp(pixels, { raw })
@@ -45,7 +52,7 @@ export async function placeholder(
     };
   }
   const { decode } = await import('blurhash');
-  const hash = (await getBlurhashEncoder()).encode(pixels, info.width, info.height);
+  const hash = encoder.encode(pixels, info.width, info.height);
   const preview = await sharp(Buffer.from(decode(hash, 16, 16)), {
     raw: { width: 16, height: 16, channels: 4 },
   })
