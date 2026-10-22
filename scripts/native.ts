@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdtemp, rm, copyFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdtemp, rm, copyFile, chmod } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -46,6 +46,7 @@ if (rebuild || process.argv.includes('--verify')) {
     const bytes = await readFile(output);
     if (rebuild) {
       await copyFile(output, artifact);
+      await chmod(artifact, 0o644);
       await writeFile(
         manifestPath,
         JSON.stringify(
