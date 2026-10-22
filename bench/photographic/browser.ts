@@ -71,6 +71,10 @@ export async function browserBench() {
           resolve: {
             alias: [
               {
+                find: /^svelte-imageway\/core$/,
+                replacement: resolve('packages/svelte-imageway/dist/core/index.js'),
+              },
+              {
                 find: /^svelte-imageway$/,
                 replacement: resolve('packages/svelte-imageway/dist/index.js'),
               },

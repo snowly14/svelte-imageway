@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 3.0.1
+
+### Patch Changes
+
+- Preserve consecutive dollar signs in Vite/Rolldown emitted asset references. Avoid interpreting asset identifiers as JavaScript replacement-string patterns, which could otherwise fail production builds for particular image contents. Add a regression test and a photographic benchmark protocol.
+
 ## 3.0.0
 
 ### Major Changes

@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**3.0.0.** Ordinary local image imports work directly with `Image`, without query syntax or generated type files. `Image` always renders an `<img>`; choose `Picture` for `<picture>`. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold-build parity with vite-imagetools has not been established. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
+**3.0.1.** Ordinary local image imports work directly with `Image`, without query syntax or generated type files. `Image` always renders an `<img>`; choose `Picture` for `<picture>`. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold-build parity with vite-imagetools has not been established. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
 
 ## Before → after
 

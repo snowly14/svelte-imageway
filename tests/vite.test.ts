@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
-import { build, createServer } from 'vite';
+import { build, createServer, resolveConfig } from 'vite';
 import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -89,6 +89,25 @@ describe('import directives and placeholders', () => {
   );
 });
 describe('real Vite build and dev', () => {
+  it('preserves consecutive dollar signs in emitted asset references', async () => {
+    const plugin = imageway();
+    const config = await resolveConfig({ root, configFile: false, logLevel: 'silent' }, 'build');
+    if (typeof plugin.configResolved !== 'function' || typeof plugin.load !== 'function')
+      throw Error('Expected plugin lifecycle functions.');
+    await plugin.configResolved.call({} as ThisParameterType<typeof plugin.configResolved>, config);
+    const result = await plugin.load.call(
+      {
+        addWatchFile() {},
+        emitFile() {
+          return 'asset$$reference';
+        },
+      } as unknown as ThisParameterType<typeof plugin.load>,
+      join(root, 'hero.png') + '?img&w=400&format=webp&placeholder=none',
+    );
+    if (!result || typeof result === 'string') throw Error('Expected a generated image module.');
+    expect(result.code).toContain('import.meta.ROLLUP_FILE_URL_asset$$reference');
+    expect(result.code).not.toContain('import.meta.ROLLUP_FILE_URL_asset$reference');
+  });
   it('serves ordinary imports lazily beneath a non-root dev base and preserves original bytes', async () => {
     await rm(join(root, 'node_modules/.cache/svelte-imageway'), { recursive: true, force: true });
     const server = await createServer({

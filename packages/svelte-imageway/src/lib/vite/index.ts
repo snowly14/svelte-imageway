@@ -389,7 +389,8 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
       // Replace references inside srcsets too; JSON escaping must not turn asset expressions into strings.
       let expression = JSON.stringify(artifact);
       for (const [token, ref] of tokenUrls)
-        expression = expression.replaceAll(token, `" + ${ref} + "`);
+        // A string replacement interprets $$ as $, corrupting valid Rolldown references.
+        expression = expression.replaceAll(token, () => `" + ${ref} + "`);
       let code = `export default ${expression};`;
       if (automatic && !explicit) {
         // The URL remains an original-file URL for native img/CSS consumers. Only

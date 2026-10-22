@@ -2,6 +2,7 @@ import { build } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { digest } from './common.ts';
 
 const [engine, root] = process.argv.slice(2) as [string, string];
@@ -19,6 +20,16 @@ await build({
   root,
   configFile: false,
   logLevel: 'silent',
+  resolve: {
+    alias: [
+      {
+        find: /^svelte-imageway\/core$/,
+        replacement: fileURLToPath(
+          new URL('../../packages/svelte-imageway/dist/core/index.js', import.meta.url),
+        ),
+      },
+    ],
+  },
   plugins: [...plugins, svelte()],
   build: { outDir: 'dist', minify: true, assetsInlineLimit: 0 },
 });

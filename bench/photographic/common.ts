@@ -8,7 +8,7 @@ import sharp from 'sharp';
 
 export const execute = promisify(execFile);
 export const root = resolve('.local/photographic');
-export const results = resolve('bench/results/photographic-3.0.0');
+export const results = resolve('bench/results/photographic-3.0.1');
 export const corpus = join(root, 'corpus');
 export const names = Array.from(
   { length: 24 },
