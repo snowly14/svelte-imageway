@@ -1,0 +1,50 @@
+{
+  "verifiedAt": "2026-10-22T17:54:54.809Z",
+  "available": true,
+  "version": "3.0.0",
+  "tag": "latest",
+  "sourceCommit": "988fc34af9b5e8d7bf41ea10bf26fcb3fe861aea",
+  "integrity": "sha512-zPkessTaofcMYpkQc26QdrVmRVYrcmJSLuJyBxPg5wrtqkgwIEbR/pf6IGqd6pnppklb78nICw3IJ2dsJs4j6Q==",
+  "sha256": "e13f3668a463107c3b0b6b705c4fc3a42f95e0db2ccafb99b14beba4bba08a5e",
+  "provenanceSubjectMatches": true,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/39824245768",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/39824246208",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.0.0",
+  "nativeKernel": {
+    "compiler": "rustc 1.99.0",
+    "target": "wasm32-unknown-unknown",
+    "sourceSha256": "9a31a623e13d6204792094a3d18c398958af331f3150164c6ab634bee13afa1a",
+    "wasmSha256": "ee2016ca5a01982542b30992d84747132922b7a44e44e1ae147fe81ebb6fed6d",
+    "bytes": 1719,
+    "memoryBytes": 65536,
+    "installedWasmSha256": "ee2016ca5a01982542b30992d84747132922b7a44e44e1ae147fe81ebb6fed6d",
+    "ciRebuildPassed": true
+  },
+  "browsers": {
+    "expected": 15,
+    "skipped": 6,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "registryConsumer": {
+    "measuredAt": "2026-10-22T17:56:11.930Z",
+    "packageSource": "public npm registry: svelte-imageway@3.0.0",
+    "packageVersion": "3.0.0",
+    "node": "v26.11.1",
+    "installAndBuildAndTypesMs": 15311.189542,
+    "underTwoMinutes": true,
+    "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+    "dimensions": {
+      "width": 640,
+      "height": 427
+    },
+    "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+    "encoded": {
+      "width": 640,
+      "height": 427,
+      "format": "webp"
+    },
+    "preload": true,
+    "nativePreviewStrategy": "blurhash"
+  }
+}

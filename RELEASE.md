@@ -1,6 +1,6 @@
 # Release policy and commands
 
-3.0.0 preparation removes StaticImage/StaticPicture and adds a bounded Rust/WASM encoder for optional BlurHash previews. Local checks pass; remote CI/native rebuild and public publication are pending. See REPORT.md.
+3.0.0 is published on npm under latest and on GitHub. StaticImage/StaticPicture are removed; optional BlurHash previews use a bounded Rust/WASM kernel. CI 39824245768 and release 39824246208 pass for source 988fc34af9b5e8d7bf41ea10bf26fcb3fe861aea, including native artifact reproduction and Linux browsers. Registry integrity/provenance and a fresh registry consumer are verified. See docs/validation/release-3.0.0.json. See REPORT.md.
 
 2.0.0 is published on npm under latest and on GitHub. Ordinary raster imports work without generated declarations; Image/Picture markup is explicit. CI 39818713025 and release 39818727559 pass for source 36280a43b8149b6ea3cfa920007c56152ef11397. Public integrity/provenance and a fresh registry SvelteKit consumer are verified. See REPORT.md and docs/validation/release-2.0.0.json.
 
