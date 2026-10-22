@@ -35,7 +35,7 @@ const corpora = [
     name: 'synthetic',
     dir: '.local/bench/fixtures',
     names: ['landscape.png', 'texture.jpg', 'chart.png'],
-    formats: 'webp;jpg',
+    formats: 'webp',
   },
 ];
 const inputs = [];
@@ -85,7 +85,7 @@ for (const corpus of corpora) {
         expected ??= actual;
         if (
           actual !== expected ||
-          result.assets.length !== (corpus.name === 'photographic' ? 72 : 18)
+          result.assets.length !== (corpus.name === 'photographic' ? 72 : 9)
         )
           throw Error(`Output identity failed: ${corpus.name}/${engine}/${round}/${cache}`);
         rows.push({
@@ -102,7 +102,7 @@ for (const corpus of corpora) {
               environment: env,
               baselineVersion: '3.0.1',
               protocol:
-                'Seven rotated/interleaved fresh-Node rounds per corpus, cold deletes all tool disk caches; immediate warm fresh-process repeat. Photographic: 24 pinned Kodak inputs, WebP q75. Synthetic: three deterministic 1200x800 fixtures, WebP+JPEG q75. Widths 288/384/480 produce integer heights. Explicit fit=inside, no preview, no inlining. Imageway q=75; competitors quality=75. Identical asset byte/SHA multisets across engines, rounds and cache states required. Native concurrency uses each tool defaults. buildMs starts before tool import and ends before asset verification; common Vite/Svelte imports outside timer for all engines. processWallMs includes setup/verification. OS cache unflushed, single uncontrolled desktop.',
+                'Seven rotated/interleaved fresh-Node rounds per corpus, cold deletes all tool disk caches; immediate warm fresh-process repeat. Photographic: 24 pinned Kodak inputs. Synthetic: three deterministic 1200x800 fixtures. WebP q75, widths 288/384/480 produce integer heights. Explicit fit=inside, no preview, no inlining. Imageway q=75; competitors quality=75. Identical asset byte/SHA multisets across engines, rounds and cache states required. Native concurrency uses each tool defaults. buildMs starts before tool import and ends before asset verification; common Vite/Svelte imports outside timer for all engines. processWallMs includes setup/verification. OS cache unflushed, single uncontrolled desktop.',
               inputs,
               rows,
             },

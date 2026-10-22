@@ -2,7 +2,7 @@ import { build } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { digest } from './common.ts';
 
 const [engine, root] = process.argv.slice(2) as [string, string];
@@ -10,7 +10,7 @@ const packageRoot =
   process.argv[4] ?? fileURLToPath(new URL('../../packages/svelte-imageway', import.meta.url));
 const started = performance.now();
 const plugins = engine.startsWith('imageway')
-  ? [(await import(join(packageRoot, 'dist/vite/index.js'))).imageway()]
+  ? [(await import(pathToFileURL(join(packageRoot, 'dist/vite/index.js')).href)).imageway()]
   : engine === 'imagetools'
     ? [
         (await import('vite-imagetools')).imagetools({
