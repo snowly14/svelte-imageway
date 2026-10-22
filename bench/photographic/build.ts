@@ -23,8 +23,8 @@ export async function builds() {
       engine === 'imageway-auto'
         ? ''
         : engine.startsWith('imageway')
-          ? '?img&w=256;384;512&format=webp&q=75&fit=inside&placeholder=none'
-          : `?${engine === 'enhanced-img' ? 'enhanced&' : ''}w=256;384;512&format=webp&quality=75&fit=inside&as=picture`;
+          ? '?img&w=288;384;480&format=webp&q=75&fit=inside&placeholder=none'
+          : `?${engine === 'enhanced-img' ? 'enhanced&' : ''}w=288;384;480&format=webp&quality=75&fit=inside&as=picture`;
     await writeFile(
       join(dir, 'main.js'),
       names
@@ -66,7 +66,7 @@ export async function builds() {
         await save('build', {
           environment: env,
           protocol:
-            'Seven interleaved fresh-Node rounds; each cold build deletes tool disk cache; immediate warm build keeps cache. 24 Kodak PNGs, 256/384/512px, WebP q75, no preview. Every output SHA-256 multiset must match across all tools and cache states. imageway-control is identical source A/A. Default automatic imports are a separate three-round workload. buildMs includes candidate module loading, Vite build and emitted assets; processWallMs additionally includes process startup and post-build validation. Native/thread concurrency uses each tool default; not normalized. Node/libvips versions shared.',
+            'Seven interleaved fresh-Node rounds; each cold build deletes tool disk cache; immediate warm build keeps cache. 24 Kodak PNGs, 288/384/480px, WebP q75, no preview. Every output SHA-256 multiset must match across all tools and cache states. imageway-control is identical source A/A. Default automatic imports are a separate three-round workload. buildMs includes candidate module loading, Vite build and emitted assets; processWallMs additionally includes process startup and post-build validation. Native/thread concurrency uses each tool default; not normalized. Node/libvips versions shared.',
           rows,
         });
         console.log(
