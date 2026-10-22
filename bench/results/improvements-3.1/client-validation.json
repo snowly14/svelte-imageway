@@ -1,0 +1,54 @@
+{
+  "browser": "156.0.8078.4",
+  "protocol": "Untimed verification of all four final SSR/client fixtures; strict hydration recovery disabled, explicit post-hydrate marker, no console warnings/errors or failed responses; img/picture semantics, one image request and identical selected WebP bytes.",
+  "rows": [
+    {
+      "scenario": "Image",
+      "variant": "before",
+      "pictures": 0,
+      "images": 1,
+      "source": "/imageway/a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994.webp",
+      "width": 389,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "errors": []
+    },
+    {
+      "scenario": "Image",
+      "variant": "after",
+      "pictures": 0,
+      "images": 1,
+      "source": "/imageway/a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994.webp",
+      "width": 389,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "errors": []
+    },
+    {
+      "scenario": "Picture",
+      "variant": "before",
+      "pictures": 1,
+      "images": 1,
+      "source": "/imageway/a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994.webp",
+      "width": 389,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "errors": []
+    },
+    {
+      "scenario": "Picture",
+      "variant": "after",
+      "pictures": 1,
+      "images": 1,
+      "source": "/imageway/a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994.webp",
+      "width": 389,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "errors": []
+    }
+  ]
+}

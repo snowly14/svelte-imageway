@@ -3,7 +3,12 @@ import { imageway } from '../packages/svelte-imageway/src/lib/vite/index.js';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { gzipSync } from 'node:zlib';
 import { writeFile } from 'node:fs/promises';
+import { resolve, join } from 'node:path';
 const picture = process.argv.includes('--picture');
+const packageRoot = resolve(
+  process.argv.find((arg) => arg.startsWith('--package-root='))?.slice('--package-root='.length) ??
+    'packages/svelte-imageway',
+);
 const result = await build({
   configFile: false,
   logLevel: 'silent',
@@ -12,9 +17,7 @@ const result = await build({
     write: false,
     minify: true,
     lib: {
-      entry: picture
-        ? 'packages/svelte-imageway/dist/components/Picture.svelte'
-        : 'packages/svelte-imageway/dist/components/Image.svelte',
+      entry: join(packageRoot, 'dist/components', picture ? 'Picture.svelte' : 'Image.svelte'),
       formats: ['es'],
     },
     rolldownOptions: { external: (id) => id === 'svelte' || id.startsWith('svelte/') },

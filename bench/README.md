@@ -1,6 +1,10 @@
 # Reproducible package benchmarks
 
-## Current photographic comparison — 22 October 2026
+## Current 3.1.0 comparison — 23 October 2026
+
+[Build, preview, Rust and component results](IMPROVEMENTS-3.1.md): paired npm 3.0.1 baseline, byte-identical photographic and synthetic WebP comparisons with both competitors, full-preview/histogram controls, SSR/client validation and all raw samples. Warm LQIP builds improve 298→62 ms locally; default cold encoding and the 1.5 KiB component stretch remain open. Cross-tool build/RSS leadership is not achieved.
+
+## Historical photographic comparison — 22 October 2026
 
 Read the [3.0.1 photographic benchmark](PHOTOGRAPHIC.md): 24 Kodak photographs, byte-identical WebP outputs across Imageway/vite-imagetools/enhanced-img, separate default-import costs, codec size/SSIM curves, repeated mobile browser loads and a Rust versus optimized-JavaScript preview comparison. Raw samples, exact versions, hashes and limitations are included.
 

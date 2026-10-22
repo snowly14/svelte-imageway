@@ -31,6 +31,7 @@ await sharp(
   .png()
   .toFile(join(fixtures, 'chart.png'));
 const names = ['landscape.png', 'texture.jpg', 'chart.png'];
+if (process.argv.includes('--fixtures-only')) process.exit(0);
 const rows: Record<string, unknown>[] = [];
 for (let run = 0; run < 3; run++)
   for (const engine of ['imageway', 'imagetools', 'enhanced-img']) {

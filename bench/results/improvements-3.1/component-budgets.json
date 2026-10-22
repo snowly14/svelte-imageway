@@ -1,0 +1,38 @@
+{
+  "Image": {
+    "before": {
+      "entry": "Image.svelte plus all Imageway helpers",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 8036,
+      "gzipBytes": 3305,
+      "gzipLevel": 9,
+      "targetBytes": 1536
+    },
+    "after": {
+      "entry": "Image.svelte plus all Imageway helpers",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 7931,
+      "gzipBytes": 3277,
+      "gzipLevel": 9,
+      "targetBytes": 1536
+    }
+  },
+  "Picture": {
+    "before": {
+      "entry": "Picture.svelte",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 8844,
+      "gzipBytes": 3470,
+      "gzipLevel": 9,
+      "targetBytes": 1536
+    },
+    "after": {
+      "entry": "Picture.svelte",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 8761,
+      "gzipBytes": 3446,
+      "gzipLevel": 9,
+      "targetBytes": 1536
+    }
+  }
+}

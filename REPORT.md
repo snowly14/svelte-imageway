@@ -1,3 +1,17 @@
+# 3.1.0 build/cache/Rust improvements — 23 October 2026
+
+[Complete protocol, medians, dispersion and raw samples](bench/IMPROVEMENTS-3.1.md). Public API and codec settings are preserved. Rust adds a bounded dominant-colour histogram for every build preview strategy; native encoding stays in Sharp/libvips. Warm builds reuse validated, bounded preview metadata; raster builds avoid loading SVGO.
+
+Seven paired 24-photo LQIP build medians: **550→425 ms cold, 298→62 ms warm**. Cold RSS **413→402 MiB**, warm **252→224 MiB**. Default automatic-import cold build barely changes (**5919→5835 ms**, only three pairs); warm **323→89 ms**. Image/preview bytes match the published 3.0.1 baseline throughout. Full LQIP generation without preview-cache reuse: **9.617→5.799 ms/photo**. Optimized-JS/Rust histogram control: **4.151 / 3.053 µs**, including host overhead; most complete-preview savings come from avoiding unused Sharp statistics.
+
+Controlled cross-tool photos, seven rounds: Imageway **379 ms cold / 60 ms warm**, imagetools **329 / 51**, enhanced-img **327 / 57**. Cold RSS **398 / 241 / 244 MiB**. Synthetic medians: Imageway **105 / 37 ms**, imagetools **68 / 32**, enhanced-img **70 / 35**. **Build/RSS leadership remains unmet**. Both comparisons enforce identical WebP output, correct quality directives and integer widths; a mixed-codec pilot was rejected rather than ranked.
+
+Isolated Svelte-external entries: Image **3290→3277 gzip bytes**, Picture **3453→3446**. Regression budgets pass; **1536-byte full-Image stretch remains unmet**. Complete fixture JS changes **19010→18993** for Image and **20742→20749** for Picture; the seven-byte Picture regression is retained and disclosed. No meaningful whole-page transfer gain is claimed.
+
+Local validation passes: lint, strict TS/Svelte, **255 unit tests**, native byte-identical rebuild, packaging/exports/types, both budgets, Chromium/WebKit **10 pass / four optional-service skips**, four strict SSR/hydration benchmark fixtures, fresh packed SvelteKit consumer. Native/contributor details: [ADR 20](docs/adr/0020-native-preview-colour-and-lazy-build-tools.md), [contributing](CONTRIBUTING.md). HTTP performance and paid deployments are not remeasured. Release CI/publication evidence will be appended after verification.
+
+---
+
 # Photographic benchmark and asset-reference fix — 22 October 2026, 3.0.1
 
 The [new photographic comparison](bench/PHOTOGRAPHIC.md) uses 24 Kodak images and byte-identical controlled WebP output. Seven-round build medians: Imageway **1581 ms cold / 534 ms warm**, vite-imagetools **980 / 182 ms**, enhanced-img **1086 / 223 ms**. Imageway remains slower. Cold RSS medians are **407 / 235 / 237 MiB** respectively. Three default-import rounds are a different, more expensive workload. Codec SSIM/size curves, repeated SSR/hydrated mobile loading and the actual Rust kernel versus optimized JS are reported separately with all samples.

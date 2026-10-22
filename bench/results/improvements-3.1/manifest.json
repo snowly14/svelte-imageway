@@ -1,0 +1,155 @@
+{
+  "protocol": "SHA-256 of formatted result files, report and relevant source/harness files. Result data measured before this documentation commit; product commits are recorded in each raw environment and described in the report. Untracked diagnostic profile source is included here explicitly. This manifest is not a signature.",
+  "files": [
+    {
+      "path": "bench/results/improvements-3.1/build-summary.json",
+      "bytes": 8321,
+      "sha256": "089e82dcc61ac8878eb9a4bdc85aaefe7bc089297068ea84df7bde0c63ea09ec"
+    },
+    {
+      "path": "bench/results/improvements-3.1/build.json",
+      "bytes": 817744,
+      "sha256": "d15836499aca38dc6cb2d32d2bb9de927eb7e033f9c4198d7a76571c4ac06414"
+    },
+    {
+      "path": "bench/results/improvements-3.1/client-summary.json",
+      "bytes": 2770,
+      "sha256": "6f21a96b431f3ba9c32ddd2087ab94f8d4d2179b84f46ce1d451ba4984221dcb"
+    },
+    {
+      "path": "bench/results/improvements-3.1/client-validation.json",
+      "bytes": 1853,
+      "sha256": "16d3ad5711eb193b40a6a8854fe52caf897f9a893b7c0e8fe37f835171ec7585"
+    },
+    {
+      "path": "bench/results/improvements-3.1/client.json",
+      "bytes": 27932,
+      "sha256": "ffa0854e4c4b5f4895bd15d3037dbffa7882de4e1f540fb7bb2f4dec620f0555"
+    },
+    {
+      "path": "bench/results/improvements-3.1/comparison-summary.json",
+      "bytes": 11045,
+      "sha256": "2d2b331f4850089cc101ff5406ac773ab0ac64ccc910c37eb70fd89b6b8c278b"
+    },
+    {
+      "path": "bench/results/improvements-3.1/comparison.json",
+      "bytes": 984736,
+      "sha256": "08da7c6026b16e8168bf98a9dbdfc8ab32accb4a503296acb92f6cdaacafe253"
+    },
+    {
+      "path": "bench/results/improvements-3.1/component-budgets.json",
+      "bytes": 877,
+      "sha256": "2b588bb505d310c944de69fd295b683b74d2ad6a696198fecd629ae596894e56"
+    },
+    {
+      "path": "bench/results/improvements-3.1/histogram-summary.json",
+      "bytes": 2158,
+      "sha256": "ee379d8b51f073ad7e347adb990bfcf3cf83a55e69001909ef149cb15244516a"
+    },
+    {
+      "path": "bench/results/improvements-3.1/histogram.json",
+      "bytes": 9797,
+      "sha256": "ee9338840ffccb1bdc382caf0b4c2ec823c44780c3b63ce8035f684015f55b1a"
+    },
+    {
+      "path": "bench/results/improvements-3.1/preview-summary.json",
+      "bytes": 8321,
+      "sha256": "58c68e88f12f314b51d40cb1bbbe02255429b54f9d5af5fc2d3e31a184b46b82"
+    },
+    {
+      "path": "bench/results/improvements-3.1/preview.json",
+      "bytes": 29457,
+      "sha256": "1a37e0a6e39bf78acc6fc7a4eccef55ca74884db336c3c04c7fd73927d437838"
+    },
+    {
+      "path": "bench/results/improvements-3.1/profiles.json",
+      "bytes": 8298,
+      "sha256": "4690ff2896d386246dbad857744e1cc86514e95df60a1b55c272ac22286406d1"
+    },
+    {
+      "path": "bench/IMPROVEMENTS-3.1.md",
+      "bytes": 11449,
+      "sha256": "df96a1b701c7d9bf7c3aa718f14f7b56e22914fb34c1b6b82fad33a34b424163"
+    },
+    {
+      "path": "bench/improvements/run.ts",
+      "bytes": 7971,
+      "sha256": "76f32fb542e3877e52a634446e42f423aac18fa380e8660cbee4acad0340f0f6"
+    },
+    {
+      "path": "bench/improvements/child.ts",
+      "bytes": 6543,
+      "sha256": "5e6c84959eba2632be60156e6f28042356176106bebc37a65275457c203d9652"
+    },
+    {
+      "path": "bench/improvements/compare.ts",
+      "bytes": 5846,
+      "sha256": "ea514d3c2f8e7928d22b02cd26713c2cba2025bd3b754cf6674da962494e255c"
+    },
+    {
+      "path": "bench/improvements/histogram.ts",
+      "bytes": 1336,
+      "sha256": "9e09070cbfe5e14f89605ad4812b97342d2e367d27d96f2f0207cb727cb0f4e5"
+    },
+    {
+      "path": "bench/improvements/profile.ts",
+      "bytes": 2651,
+      "sha256": "8f4e76ef24aebfffbe16de51f66243f74a6ae664f8159e89717d847c8a9701c1"
+    },
+    {
+      "path": "bench/improvements/verify-client.ts",
+      "bytes": 4669,
+      "sha256": "c4284ac0874d8f7ddcb690225211325ffda6f874e565cb2505a2cfe174f17b67"
+    },
+    {
+      "path": "bench/photographic/build-child.ts",
+      "bytes": 2013,
+      "sha256": "6e36e71a7675f84fc369f8e6c7fe4ab2b3e9b8adaa652f091930cac0b3396537"
+    },
+    {
+      "path": "bench/photographic/common.ts",
+      "bytes": 4226,
+      "sha256": "3b3ab10c5ab54a4aa1d4b4ebb0080d3750839fadaab0946bb3c62854208c7c1c"
+    },
+    {
+      "path": "bench/run.ts",
+      "bytes": 4679,
+      "sha256": "d774641fbe1bb49d7bc55a7c5fc2a18db78cbb91240dbfdaa95cb60ebb7662c0"
+    },
+    {
+      "path": "scripts/bundle-budget.ts",
+      "bytes": 2105,
+      "sha256": "dabe6b9fcaa078e1f78a1c43435b39211e6ead5ba6545f4ef1a7d3d981b54755"
+    },
+    {
+      "path": "native/blurhash/lib.rs",
+      "bytes": 3579,
+      "sha256": "2c527751b1cbcece2c0e02995ef1a5e3e2ea43ade506aeb3583bb08a78d648d3"
+    },
+    {
+      "path": "native/blurhash/manifest.json",
+      "bytes": 282,
+      "sha256": "3a906c7f07948d9fc7c14adc8f0bccaa7544eacd8210533ced010de05769bbb9"
+    },
+    {
+      "path": "packages/svelte-imageway/src/lib/node/blurhash.wasm",
+      "bytes": 2081,
+      "sha256": "16ee3f31b97e7f1c050dd7ccc32f9c6b12dd481f1dbb6cc635d6560052afb365"
+    },
+    {
+      "path": "packages/svelte-imageway/src/lib/node/blurhash.ts",
+      "bytes": 3467,
+      "sha256": "6668de292124ce5df84e28705b4d4a5ebdf23c6182af74a1ebf8af87aac1463e"
+    },
+    {
+      "path": "packages/svelte-imageway/src/lib/vite/placeholder.ts",
+      "bytes": 2719,
+      "sha256": "f5deff5709cb0ce7c3debc1933404d98ff2e7898ee2a5238109d3ac896b7fc80"
+    },
+    {
+      "path": "packages/svelte-imageway/src/lib/vite/preview-cache.ts",
+      "bytes": 2927,
+      "sha256": "a4ca18aef2248e54ee4a6bbbe1bba4dc146a5a4f8341d373ddcf6cf59c3b36e5"
+    }
+  ]
+}
