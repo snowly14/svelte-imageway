@@ -20,6 +20,7 @@ import { loadSharp, sniff } from '../node/pipeline.js';
 import { ImageProcessor } from '../node/processor.js';
 import { parseDirectives } from './directives.js';
 import { placeholder } from './placeholder.js';
+import { PreviewCache } from './preview-cache.js';
 import { vercel } from '../providers/vercel.js';
 import { netlify } from '../providers/netlify.js';
 import { cloudflare } from '../providers/cloudflare.js';
@@ -47,6 +48,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         ? publicAssetBase(options.publicBase)
         : undefined;
   let vite: ResolvedConfig;
+  let previews: PreviewCache;
   const jobs = new Map<string, { file: string; run: () => Promise<Buffer>; contentType: string }>();
   return {
     name: 'svelte-imageway',
@@ -80,6 +82,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
     },
     configResolved(resolved) {
       vite = resolved;
+      previews = new PreviewCache(join(vite.root, 'node_modules/.cache/svelte-imageway-previews'));
     },
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
@@ -382,7 +385,13 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         width: fallback.width,
         height: fallback.height,
         aspectRatio: fallback.width / fallback.height,
-        ...(await placeholder(source, directives.placeholder, config)),
+        ...(await previews.resolve(
+          preparedSource.digest,
+          directives.placeholder,
+          config,
+          sharp.versions,
+          () => placeholder(source, directives.placeholder, config),
+        )),
         hash: preparedSource.digest,
       };
       options.onProgress?.({ file: relative(vite.root, file), variants: outputs.length });

@@ -6,6 +6,7 @@
 
 - Calculate build-preview dominant colours with a bounded Rust histogram instead of requesting unused Sharp statistics. Keep libvips tie-breaking for ambiguous maxima and overlap WASM initialization with preview decoding. Default LQIP, color, BlurHash and ThumbHash previews use the same 64 KiB precompiled module, with identical image and preview outputs.
 - Load SVGO only for SVG output and make default-policy initialization removable from component-only browser bundles. Image/Picture behavior, image codec settings and runtime worker/resource limits are unchanged.
+- Reuse bounded persistent preview metadata on warm builds, invalidating on source, strategy, codec or security-policy changes. Regenerate malformed entries and preserve source admission. Trim redundant component derivation and avoid copying resolved artifacts.
 
 ## 3.0.1
 

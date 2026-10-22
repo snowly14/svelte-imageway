@@ -87,19 +87,17 @@ export function getImageProps(
     style: customStyle,
     ...native
   } = options;
-  const nativeOnly = (formatStrategy ?? config.formatStrategy) === 'img';
-  const resolved = resolveImageArtifact(src);
-  const artifact =
-    resolved && nativeOnly
-      ? { ...resolved, ...imageRepresentation(resolved), sources: [] }
-      : resolved;
-  const original = artifact?.src ?? (src as string);
+  const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
+  const nativeOnly = strategy === 'img';
+  const artifact = resolveImageArtifact(src);
+  const representation = artifact && nativeOnly ? imageRepresentation(artifact) : artifact;
+  const original = representation?.src ?? (src as string);
   const provider = explicit ?? selectProvider(original, config);
   let fallback = original;
-  let srcset = artifact?.srcset;
-  let sources = artifact?.sources ?? [];
-  const width = options.width ?? artifact?.width,
-    height = options.height ?? artifact?.height;
+  let srcset = representation?.srcset;
+  let sources = nativeOnly ? [] : (artifact?.sources ?? []);
+  const width = options.width ?? representation?.width,
+    height = options.height ?? representation?.height;
   if (provider && !artifact && !original.startsWith('data:')) {
     provider.validate();
     const widths = [
@@ -120,9 +118,7 @@ export function getImageProps(
       const request = { ...source, fit, position, q: quality ?? config.quality ?? 75 };
       const formats =
         provider.capabilities.explicitFormat === false ||
-        ((formatStrategy ?? config.formatStrategy ?? 'auto') !== 'picture' &&
-          provider.capabilities.autoFormat === true &&
-          !config.formats)
+        (strategy !== 'picture' && provider.capabilities.autoFormat === true && !config.formats)
           ? []
           : provider.capabilities.formats.filter(
               (v) =>

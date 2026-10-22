@@ -6,9 +6,11 @@ import { fileURLToPath } from 'node:url';
 import { digest } from './common.ts';
 
 const [engine, root] = process.argv.slice(2) as [string, string];
+const packageRoot =
+  process.argv[4] ?? fileURLToPath(new URL('../../packages/svelte-imageway', import.meta.url));
 const started = performance.now();
 const plugins = engine.startsWith('imageway')
-  ? [(await import('../../packages/svelte-imageway/dist/vite/index.js')).imageway()]
+  ? [(await import(join(packageRoot, 'dist/vite/index.js'))).imageway()]
   : engine === 'imagetools'
     ? [
         (await import('vite-imagetools')).imagetools({
@@ -24,9 +26,7 @@ await build({
     alias: [
       {
         find: /^svelte-imageway\/core$/,
-        replacement: fileURLToPath(
-          new URL('../../packages/svelte-imageway/dist/core/index.js', import.meta.url),
-        ),
+        replacement: join(packageRoot, 'dist/core/index.js'),
       },
     ],
   },

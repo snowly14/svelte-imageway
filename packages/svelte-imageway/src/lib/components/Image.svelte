@@ -20,13 +20,13 @@
     ...rest
   }: Props = $props();
   const config = getImageConfig();
-  const image = $derived.by(() => {
+  const attributes = $derived.by(() => {
     invariant(
       customSources === undefined && source === undefined && formatStrategy === undefined,
       'PICTURE_REQUIRED',
       'Use Picture for sources, source snippets or picture format strategy.',
     );
-    return getImageProps({
+    const { sources, placeholder, ...native } = getImageProps({
       ...rest,
       src,
       alt,
@@ -35,16 +35,10 @@
       formatStrategy: 'img',
       loading: typeof loadingProp === 'string' ? loadingProp : undefined,
     });
-  });
-  const attributes = $derived.by(() => {
-    const { sources, placeholder, ...native } = image;
     void sources;
     void placeholder;
     return native;
   });
-  const loadingSnippet = $derived(
-    loadingContent ?? (typeof loadingProp === 'function' ? loadingProp : undefined),
-  );
 </script>
 
 <svelte:head>
@@ -63,6 +57,6 @@
   {attributes}
   {onload}
   {onerror}
-  loading={loadingSnippet}
+  loading={loadingContent ?? (typeof loadingProp === 'function' ? loadingProp : undefined)}
   error={errorContent ?? error}
 />

@@ -38,9 +38,6 @@
     void placeholder;
     return native;
   });
-  const loadingSnippet = $derived(
-    loadingContent ?? (typeof loadingProp === 'function' ? loadingProp : undefined),
-  );
   const sources = $derived(customSources ?? image.sources);
   const preload = $derived(sources[0]);
 </script>
@@ -80,6 +77,6 @@
   {attributes}
   {onload}
   {onerror}
-  loading={loadingSnippet}
+  loading={loadingContent ?? (typeof loadingProp === 'function' ? loadingProp : undefined)}
   error={errorContent ?? error}
 />
