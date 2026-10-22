@@ -40,12 +40,12 @@ export async function browserBench() {
         code = `<script>import { ${mode === 'imageway-image' ? 'Image' : 'Picture'} as Photo } from 'svelte-imageway';import photo from './hero.png';</script><Photo src={photo} alt="Kodak photograph" priority sizes="100vw" />`;
       else if (mode === 'enhanced-img')
         code =
-          '<script>import photo from "./hero.png?enhanced&w=256;384;512;768&format=webp&quality=75";</script><svelte:head><link rel="preload" as="image" href={photo.img.src} imagesrcset={photo.sources.webp} imagesizes="100vw" fetchpriority="high" /></svelte:head><enhanced:img src={photo} sizes="100vw" alt="Kodak photograph" loading="eager" decoding="async" fetchpriority="high" />';
+          '<script>import photo from "./hero.png?enhanced&w=256;384;512;768&format=webp&quality=75";</script><svelte:head><link rel="preload" as="image" href={photo.img.src} imagesrcset={photo.sources.webp} imagesizes="100vw" fetchpriority="high" /></svelte:head><enhanced:img src={photo} sizes="100vw" alt="Kodak photograph" loading="eager" decoding="sync" fetchpriority="high" />';
       else if (mode === 'native-responsive')
         code = `<svelte:head>${nativeHead}</svelte:head>${native}`;
       else {
         const metadata = await sharp(join(corpus, fixture)).metadata();
-        code = `<svelte:head><link rel="preload" as="image" href="/original.png" fetchpriority="high" /></svelte:head><img src="/original.png" alt="Kodak photograph" width="${metadata.width}" height="${metadata.height}" loading="eager" decoding="async" fetchpriority="high" />`;
+        code = `<svelte:head><link rel="preload" as="image" href="/original.png" fetchpriority="high" /></svelte:head><img src="/original.png" alt="Kodak photograph" width="${metadata.width}" height="${metadata.height}" loading="eager" decoding="sync" fetchpriority="high" />`;
       }
       await writeFile(
         join(directory, 'App.svelte'),
@@ -106,7 +106,10 @@ export async function browserBench() {
       };
       const rendered = page();
       if (mode === 'imageway-image') {
-        native = rendered.body.match(/<img\b[^>]*>/)?.[0] ?? '';
+        native = (rendered.body.match(/<img\b[^>]*>/)?.[0] ?? '').replace(
+          / on(?:load|error)="[^"]*"/g,
+          '',
+        );
         nativeHead = rendered.head.match(/<link\b[^>]*>/)?.[0] ?? '';
         if (!native || !nativeHead) throw Error('Expected SSR image and preload.');
       }
