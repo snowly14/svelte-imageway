@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 3.0.0
+
+### Major Changes
+
+- Remove StaticImage, StaticPicture and their subpaths/types; Image and Picture handle both ordinary local imports and dynamic provider URLs. Replace the optional 4x3 BlurHash encoder with a bounded Rust WebAssembly kernel, loaded only during server/build preview processing. The fixed 64 KiB module ships precompiled with verified source/artifact hashes; consumers need no Rust compiler. Native image encoding continues through Sharp/libvips. Document the breaking migration and measured preview-only performance.
+
 ## 2.0.0
 
 ### Major Changes

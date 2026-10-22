@@ -3,7 +3,7 @@ import { imageway } from '../packages/svelte-imageway/src/lib/vite/index.js';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { gzipSync } from 'node:zlib';
 import { writeFile } from 'node:fs/promises';
-const minimal = process.argv.includes('--static');
+const picture = process.argv.includes('--picture');
 const result = await build({
   configFile: false,
   logLevel: 'silent',
@@ -12,8 +12,8 @@ const result = await build({
     write: false,
     minify: true,
     lib: {
-      entry: minimal
-        ? 'packages/svelte-imageway/dist/components/StaticImage.svelte'
+      entry: picture
+        ? 'packages/svelte-imageway/dist/components/Picture.svelte'
         : 'packages/svelte-imageway/dist/components/Image.svelte',
       formats: ['es'],
     },
@@ -27,20 +27,20 @@ const js = chunks
   .filter((v) => v.type === 'chunk')
   .map((v) => v.code)
   .join('\n');
-if (/node:|worker_threads|require\(["']sharp/.test(js))
+if (/node:|worker_threads|WebAssembly|blurhash\.wasm|require\(["']sharp/.test(js))
   throw new Error('Server code leaked into the client entry.');
 const gzip = gzipSync(js, { level: 9 }).length;
 const report = {
-  entry: minimal ? 'StaticImage.svelte' : 'Image.svelte plus all Imageway helpers',
+  entry: picture ? 'Picture.svelte' : 'Image.svelte plus all Imageway helpers',
   runtime: 'Svelte peer externalized',
   rawBytes: Buffer.byteLength(js),
   gzipBytes: gzip,
   gzipLevel: 9,
   targetBytes: 1536,
 };
-await writeFile(minimal ? '.local/static-component.js' : '.local/base-component.js', js);
+await writeFile(picture ? '.local/picture-component.js' : '.local/base-component.js', js);
 await writeFile(
-  minimal ? '.local/static-budget.json' : '.local/bundle-budget.json',
+  picture ? '.local/picture-budget.json' : '.local/bundle-budget.json',
   JSON.stringify(report, null, 2) + '\n',
 );
 console.log(JSON.stringify(report, null, 2));

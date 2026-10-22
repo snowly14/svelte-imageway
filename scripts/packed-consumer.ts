@@ -62,6 +62,14 @@ const installed = await realpath(join(root, 'node_modules/svelte-imageway/packag
 if (installed === resolve('packages/svelte-imageway/package.json'))
   throw new Error('Consumer unexpectedly linked the workspace.');
 await run('node', ['node_modules/svelte-imageway/dist/cli/index.js', 'init', root]);
+const viteConfigPath = join(root, 'vite.config.ts');
+await writeFile(
+  viteConfigPath,
+  (await readFile(viteConfigPath, 'utf8')).replace(
+    '__imagewayPlugin()',
+    "__imagewayPlugin({config:{placeholder:'blurhash'}})",
+  ),
+);
 await writeFile(
   join(root, 'src/routes/+page.svelte'),
   '<script lang="ts">import { Image } from "svelte-imageway"; import hero from "./hero.png"; const original: string = hero;</script>\n<Image src={hero} alt="Original synthetic landscape" priority sizes="640px" />\n<img data-testid="original" src={original} alt="Original file" width="64" />\n',
@@ -162,6 +170,7 @@ try {
         'Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.',
       encoded: { width: encoded.width, height: encoded.height, format: encoded.format },
       preload: true,
+      nativePreviewStrategy: 'blurhash',
     };
     await writeFile('.local/packed-consumer.json', JSON.stringify(report, null, 2) + '\n');
     console.log(JSON.stringify(report));

@@ -1,5 +1,26 @@
 # Reproducible package benchmarks
 
+## 3.0.0 Rust preview kernel — 22 October 2026
+
+Seven alternating fresh-process sets on Apple M4, Node 26.11.1. The reference is blurhash 2.0.5. The optimized JavaScript control uses the same cached sRGB/cosine lookups and arithmetic order as Rust. Times include encoding, host/WASM copies, validation and hash packing, after 25 warm-ups. This measures the optional 4x3 BlurHash preview encoder, not JPEG/WebP compression or delivery.
+
+| RGBA input | Reference JS | Optimized JS | Rust/WASM host path |
+| ---------- | -----------: | -----------: | ------------------: |
+| 32×32      |     435.2 µs |      26.1 µs |              9.1 µs |
+| 32×21      |     282.7 µs |      17.6 µs |              6.5 µs |
+| 12×8       |      39.8 µs |       3.4 µs |              1.9 µs |
+
+The lookup rewrite accounts for most of the difference from the original JS encoder; Rust adds about 2.8× versus the optimized JS control for 32×32. Rust strategy initialization has a roughly 0.9–1.0 ms median per fresh child and fixed 64 KiB instance memory. First-operation timings are retained separately. Do not multiply these kernel ratios into full image processing rates.
+
+Complete Sharp+BlurHash previews compared against the published 2.0.0 baseline: synthetic square 5.393 → 5.004 ms median; landscape PNG 12.471 → 12.250 ms. These descriptive local differences are about 7.2% and 1.8%; host noise is uncontrolled, particularly relevant to the smaller gain. Complete output digests match, including the preview image and hash. Default LQIP, JPEG/WebP codecs, HTTP rates and total builds were not accelerated by this kernel. [Every sample and initialization timing](results/preview-rust.json).
+
+Image entry: 3290 gzip bytes; Picture: 3453, Svelte externalized. Both component regression gates pass (3400/3600). The original full-Image 1536-byte stretch goal remains unmet. Rust WASM is 1719 bytes, loaded only on build/server paths, and absent from browser entries. StaticImage/StaticPicture were removed. [Current sizes](results/component-size.json), [historical 2.0 sizes](results/component-size-2.0.0.json).
+
+```sh
+# Extract the verified published 2.0.0 npm archive outside source directories, then:
+bun run bench:preview <2.0.0-package>/dist/vite/placeholder.js
+```
+
 ## 2.0.0 API and bundle validation — 22 October 2026
 
 Image 3290 gzip bytes, StaticImage 1391, Svelte peer externalized. [Current measured entries](results/component-size.json), [1.5.0 entries](results/component-size-1.5.0.json). Automatic URL metadata resolution adds bytes, while img/picture contracts are now explicit. Both regression gates pass (3400 and 1536 respectively); the original 1536-byte full-Image stretch goal remains unmet. No encoder or HTTP speedup is claimed for 2.0. Older performance tables below keep their measured versions.
@@ -121,7 +142,7 @@ bun run build
 bun run bench:build
 IMAGEWAY_BENCH_BASELINE_REF=<source-commit> bun run bench:compare <baseline-dist>/vite/index.js
 bun run bench:runtime
-bun run check:static-budget
+bun run check:picture-budget
 bun run check:budget
 ```
 

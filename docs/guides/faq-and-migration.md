@@ -16,4 +16,4 @@
 
 **How do I migrate?** Run `migrate --from enhanced-img` or `--from imagetools` without --write, inspect planned changes/review items, then apply with backups and run init. Imagetools picture object shapes differ; convert consumers to Image src. Remove the old plugin after the new build passes. Restore from .imageway-backup when reviewing a failed migration. The CLI never rewrites unsupported operations blindly.
 
-**How do I upgrade to 2.0?** Follow the [migration guide](migration-2.md). Version numbers describe API compatibility; unresolved performance stretch targets remain visible in REPORT.md.
+**How do I upgrade to 3.0?** Follow the [migration guide](migration-3.md). Version numbers describe API compatibility; unresolved performance stretch targets remain visible in REPORT.md.

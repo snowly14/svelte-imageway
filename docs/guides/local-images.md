@@ -1,6 +1,6 @@
 # Local images and formats
 
-Ordinary raster imports (`import photo from "./photo.jpg"`) remain URL strings and work directly in Image/Picture/StaticImage/StaticPicture. The plugin registers responsive metadata automatically, for SSR and the browser, without a generated application type file. Raw native img retains original bytes. SVG icons and node_modules imports are not automatically transformed; `?url` bypasses processing, and `imageway({autoImports:false})` disables automatic imports.
+Ordinary raster imports (`import photo from "./photo.jpg"`) remain URL strings and work directly in Image/Picture. The plugin registers responsive metadata automatically, for SSR and the browser, without a generated application type file. Raw native img retains original bytes. SVG icons and node_modules imports are not automatically transformed; `?url` bypasses processing, and `imageway({autoImports:false})` disables automatic imports.
 
 Optional advanced imports return an ImageArtifact: `src`, `srcset`, `sources`, intrinsic width/height/aspectRatio, optional placeholder/dominantColor/hash.
 
@@ -25,3 +25,5 @@ imageway({ concurrency: 2 });
 ```
 
 Each imported source is prepared once for its variants. Encoder settings, pixel/byte limits and individual worker deadlines are preserved.
+
+The optional blurhash strategy uses the bundled Rust/WebAssembly 4x3 encoder. The fixed 64 KiB kernel validates dimensions (1–32) and has no host imports or memory growth. Loading is lazy, per build/server module instance; its one-time cost and preview-only benchmarks are reported separately. The default lqip strategy and image codecs do not use this kernel. No Rust toolchain is needed in consuming applications.

@@ -32,6 +32,6 @@ Placeholders use inline CSS and remain useful without JS. Reduced motion disable
 
 The full Image entry currently exceeds the 1.5 KiB gzip target; see the measured bundle report and issue 0001. Headless markup avoids component state when an application does not need snippets/transitions.
 
-## Optional local-only lightweight components
+## One component per markup contract
 
-`import StaticImage from 'svelte-imageway/static'` accepts a normal local image import or typed artifact and a required alt. It preserves responsive widths, native events, intrinsic dimensions, previews, lazy loading and matching priority preloads. It intentionally omits provider URL generation, custom snippets and transition behavior; use Image for those capabilities. `StaticPicture` from `/static-picture` retains explicit format sources in picture markup. The StaticImage 1536-byte gzip regression gate is separate from the complete Image entry.
+Image handles local imports and provider URLs. Picture adds explicit format sources and art direction. StaticImage and StaticPicture were removed in 3.0; use the [migration guide](migration-3.md).

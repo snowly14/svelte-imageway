@@ -6,3 +6,5 @@
 *.webp -text
 *.avif -text
 *.tgz -text
+native/blurhash/* text eol=lf
+*.wasm binary

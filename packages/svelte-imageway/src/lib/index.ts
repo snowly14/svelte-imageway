@@ -7,7 +7,3 @@ export { default as ImageConfigProvider } from './components/ImageConfigProvider
 export * from './props.js';
 export * from './context.js';
 export type { ImageProps, PictureProps } from './component-types.js';
-export { default as StaticImage } from './components/StaticImage.svelte';
-export type { StaticImageProps } from './static-props.js';
-export { default as StaticPicture } from './components/StaticPicture.svelte';
-export type { StaticImageProps as StaticPictureProps } from './static-props.js';

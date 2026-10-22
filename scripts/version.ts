@@ -5,7 +5,7 @@ const base = 'packages/svelte-imageway/src/lib';
 const hash = createHash('sha256');
 for (const folder of ['core', 'node', 'edge'])
   for (const file of (await readdir(join(base, folder))).sort())
-    if (file.endsWith('.ts')) {
+    if (file.endsWith('.ts') || file.endsWith('.wasm')) {
       hash.update(`${folder}/${file}\n`);
       hash.update(await readFile(join(base, folder, file)));
     }

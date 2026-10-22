@@ -1,5 +1,6 @@
 import type { ImageConfig } from '../core/types.js';
 import { loadSharp } from '../node/pipeline.js';
+import { getBlurhashEncoder } from '../node/blurhash.js';
 import { defaults } from '../core/config.js';
 import { invariant } from '../core/errors.js';
 /** Generate one small display-ready preview per import; none performs no preview decode. */
@@ -43,8 +44,8 @@ export async function placeholder(
       placeholder: thumbHashToDataURL(hash),
     };
   }
-  const { encode, decode } = await import('blurhash');
-  const hash = encode(new Uint8ClampedArray(pixels), info.width, info.height, 4, 3);
+  const { decode } = await import('blurhash');
+  const hash = (await getBlurhashEncoder()).encode(pixels, info.width, info.height);
   const preview = await sharp(Buffer.from(decode(hash, 16, 16)), {
     raw: { width: 16, height: 16, channels: 4 },
   })

@@ -1,15 +1,7 @@
 {
-  "measuredAt": "2026-10-22T16:56:06.511859+00:00",
-  "packageVersion": "2.0.0",
-  "static": {
-    "entry": "StaticImage.svelte",
-    "runtime": "Svelte peer externalized",
-    "rawBytes": 3018,
-    "gzipBytes": 1391,
-    "gzipLevel": 9,
-    "targetBytes": 1536
-  },
-  "full": {
+  "measuredAt": "2026-10-22T17:34:38.259764+00:00",
+  "packageVersion": "3.0.0",
+  "image": {
     "entry": "Image.svelte plus all Imageway helpers",
     "runtime": "Svelte peer externalized",
     "rawBytes": 7995,
@@ -17,6 +9,13 @@
     "gzipLevel": 9,
     "targetBytes": 1536
   },
-  "baselineReference": "0cc46cc",
-  "note": "2.0 adds automatic local URL resolution and separates img/picture APIs; this is a capability and size change, not a speedup claim."
+  "picture": {
+    "entry": "Picture.svelte",
+    "runtime": "Svelte peer externalized",
+    "rawBytes": 8802,
+    "gzipBytes": 3453,
+    "gzipLevel": 9,
+    "targetBytes": 1536
+  },
+  "note": "StaticImage and StaticPicture were removed. Rust preview WASM is server/build-only and excluded from client entries."
 }

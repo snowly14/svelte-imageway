@@ -1,5 +1,7 @@
 # Release policy and commands
 
+3.0.0 preparation removes StaticImage/StaticPicture and adds a bounded Rust/WASM encoder for optional BlurHash previews. Local checks pass; remote CI/native rebuild and public publication are pending. See REPORT.md.
+
 2.0.0 is published on npm under latest and on GitHub. Ordinary raster imports work without generated declarations; Image/Picture markup is explicit. CI 39818713025 and release 39818727559 pass for source 36280a43b8149b6ea3cfa920007c56152ef11397. Public integrity/provenance and a fresh registry SvelteKit consumer are verified. See REPORT.md and docs/validation/release-2.0.0.json.
 
 1.5.0 is published with parsed representation cache, frozen policy fingerprint, typed native codec inventory and JPEG XL decoder diagnostics. CI 39670903349 and release 39670903149 passed; registry integrity and provenance match source 0cc46cc9de80c17e4918317e6a5759bda10c69c0. See REPORT.md.
@@ -41,7 +43,7 @@ Bun remains the dependency manager and runs all scripts/builds/packing. [Bun pub
 The prepared `release.yml` runs only by manual dispatch on main, in the `npm` environment. Configure that environment's required reviewers and npm trusted publisher before enabling it. It verifies the exact requested version and repository metadata, runs the package gate, and executes:
 
 ```sh
-npm publish .local/pack/svelte-imageway-2.0.0.tgz --tag latest --access public --provenance
+npm publish .local/pack/svelte-imageway-3.0.0.tgz --tag latest --access public --provenance
 ```
 
 That command is for the supported CI/OIDC environment, not a promise of provenance on an arbitrary local shell. Check the registry and GitHub release before announcing publication; an uploaded GitHub repository does not imply that npm publication succeeded. Paid cloud deployment is outside this package release. Verify the registry tar integrity, metadata, latest dist-tag and provenance before announcing a release.

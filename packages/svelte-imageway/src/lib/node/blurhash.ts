@@ -1,0 +1,78 @@
+import { readFile } from 'node:fs/promises';
+import { invariant } from '../core/errors.js';
+import { packBlurhash } from './blurhash-encoding.js';
+interface Kernel {
+  memory: WebAssembly.Memory;
+  pixels_ptr(): number;
+  tables_ptr(): number;
+  output_ptr(): number;
+  coefficients(width: number, height: number): number;
+}
+export interface BlurhashEncoder {
+  encode(pixels: Uint8Array, width: number, height: number): string;
+}
+function validate(pixels: Uint8Array, width: number, height: number): void {
+  invariant(
+    Number.isSafeInteger(width) &&
+      Number.isSafeInteger(height) &&
+      width > 0 &&
+      height > 0 &&
+      width <= 32 &&
+      height <= 32 &&
+      pixels.length === width * height * 4,
+    'PREVIEW_PIXELS',
+    'BlurHash requires matching RGBA pixels with dimensions between 1 and 32.',
+  );
+}
+/** One fixed-memory, synchronous instance per module/worker; never shipped to the browser. */
+export async function createBlurhashEncoder(bytes: Uint8Array): Promise<BlurhashEncoder> {
+  const { instance } = await WebAssembly.instantiate(new Uint8Array(bytes));
+  const exports = instance.exports;
+  invariant(
+    exports.memory instanceof WebAssembly.Memory &&
+      ['pixels_ptr', 'tables_ptr', 'output_ptr', 'coefficients'].every(
+        (key) => typeof exports[key] === 'function',
+      ),
+    'PREVIEW_ABI',
+    'Invalid bundled BlurHash kernel.',
+  );
+  const kernel = exports as unknown as Kernel;
+  const pixels = new Uint8Array(kernel.memory.buffer, kernel.pixels_ptr(), 4096);
+  const tables = new Float64Array(kernel.memory.buffer, kernel.tables_ptr(), 480);
+  const coefficients = new Float64Array(kernel.memory.buffer, kernel.output_ptr(), 36);
+  for (let i = 0; i < 256; i++) {
+    const v = i / 255;
+    tables[i] = v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  }
+  let previousWidth = 0,
+    previousHeight = 0;
+  return {
+    encode(input, width, height) {
+      validate(input, width, height);
+      if (width !== previousWidth || height !== previousHeight) {
+        for (let i = 0; i < 4; i++)
+          for (let x = 0; x < width; x++)
+            tables[256 + i * 32 + x] = Math.cos((Math.PI * i * x) / width);
+        for (let j = 0; j < 3; j++)
+          for (let y = 0; y < height; y++)
+            tables[384 + j * 32 + y] = Math.cos((Math.PI * j * y) / height);
+        previousWidth = width;
+        previousHeight = height;
+      }
+      pixels.set(input);
+      invariant(
+        kernel.coefficients(width, height) === 1,
+        'PREVIEW_PIXELS',
+        'BlurHash kernel rejected the dimensions.',
+      );
+      return packBlurhash(coefficients);
+    },
+  };
+}
+let encoder: Promise<BlurhashEncoder> | undefined;
+/** Lazily compiled only for the explicit blurhash preview strategy. */
+export function getBlurhashEncoder(): Promise<BlurhashEncoder> {
+  return (encoder ??= readFile(new URL('./blurhash.wasm', import.meta.url)).then(
+    createBlurhashEncoder,
+  ));
+}

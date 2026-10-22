@@ -71,7 +71,7 @@ jobs:
       - run: bun run format:check
       - run: bun run package:check
       - run: bun run check:budget
-      - run: bun run check:static-budget
+      - run: bun run check:picture-budget
       # Bun handles installs, builds, scripts and tar creation. Its publish command
       # cannot generate provenance; npm is used only to publish the audited tarball.
       - name: Publish audited package with provenance

@@ -4,7 +4,7 @@ Imageway is a Svelte 5 image toolkit with three delivery layers: build artifacts
 
 ## Three steps
 
-1. Install `bun add svelte-imageway@2.0.0`. Sharp is an optional native dependency: local imports need a supported Sharp build; managed providers do not.
+1. Install `bun add svelte-imageway@3.0.0`. Sharp is an optional native dependency: local imports need a supported Sharp build; managed providers do not.
 2. Add `imageway()` before `sveltekit()` in `vite.config.ts`:
 
 ```ts

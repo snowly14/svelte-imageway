@@ -2,7 +2,7 @@
 
 Responsive images for Svelte 5: optimize local imports, switch image providers, or run your own image service with the same components.
 
-**2.0.0.** Ordinary local image imports work directly with `Image`, without query syntax or generated type files. `Image` always renders an `<img>`; choose `Picture` for `<picture>`. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold-build parity with vite-imagetools has not been established. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
+**3.0.0.** Ordinary local image imports work directly with `Image`, without query syntax or generated type files. `Image` always renders an `<img>`; choose `Picture` for `<picture>`. The original performance stretch targets remain open: the Image entry exceeds 1.5 KiB gzip and cold-build parity with vite-imagetools has not been established. Version numbering does not imply those benchmark targets were met. See [REPORT.md](REPORT.md).
 
 ## Before → after
 
@@ -24,20 +24,13 @@ Imageway generates responsive AVIF/WebP/fallback assets, reserves dimensions and
 
 Finite build batches are scheduled separately from runtime request admission, so waiting for other variants does not consume an individual transform deadline. Per-transform decoding limits and runtime request limits remain enforced.
 
-## Lightweight local images
+## Image or Picture
 
-Use `Image` by default. It handles imported local images and dynamic provider URLs, native events, loading/error snippets and reveal transitions. `StaticImage` is an optional smaller component for imported local images or prepared artifacts only:
+Use `Image` for ordinary local imports and configured dynamic provider URLs. It renders an img, with responsive widths, dimensions, preview, loading/error snippets and a matching priority preload.
 
-```svelte
-<script lang="ts">
-  import StaticImage from 'svelte-imageway/static';
-  import hero from './hero.jpg';
-</script>
+Use `Picture` for multiple format sources, art direction and source snippets. It always renders picture with an img fallback. Both components use the same image pipeline; no separate static component is needed. StaticImage, StaticPicture and their subpaths were removed in 3.0. [Migration guide](docs/guides/migration-3.md).
 
-<StaticImage src={hero} alt="A mountain trail" priority sizes="100vw" />
-```
-
-Both components render `<img>` with responsive widths, dimensions, preview and matching preload. `StaticImage` omits provider URL generation, custom snippets and transitions. `StaticPicture` from `svelte-imageway/static-picture` is the equivalent local-only `<picture>` component. Display size is controlled through CSS and `sizes`; intrinsic dimensions come from the import. Measured entries: StaticImage 1391 gzip bytes (gate 1536), Image 3290 (gate 3400), Svelte externalized. Automatic URL resolution adds client helpers; these sizes are larger than 1.5's 1196/3158.
+The optional `blurhash` preview encoder now runs a bounded Rust kernel compiled to WebAssembly on the server/build only. It ships precompiled, needs no consumer Rust installation, uses fixed 64 KiB memory and never enters the browser bundle. Image resizing/encoding still uses native Sharp/libvips. This change does not speed up JPEG/WebP encoders or the default LQIP strategy. [Native design and Goose evaluation](docs/adr/0019-focused-components-and-rust-previews.md).
 
 Default build imports now omit AVIF only when **every** matching WebP width/height has no more bytes. This can avoid downloading a larger AVIF simply because the browser supports it. It compares encoded bytes at the configured encoder settings, not perceptual quality; both encodings are still computed to make the decision. Explicit `format=` directives remain exact. Set `imageway({ pruneLargerFormats: false })` to preserve all default formats. Development remains lazy and does not perform this build-only comparison.
 
@@ -59,7 +52,7 @@ No `imageway-env.d.ts`, `app.d.ts` reference, type-generation command or per-ima
 Install the package in your existing Svelte 5 / Vite 8 project:
 
 ```sh
-bun add svelte-imageway@2.0.0
+bun add svelte-imageway@3.0.0
 ```
 
 Releases use the `latest` tag. Source code and downloadable archives are available on [GitHub](https://github.com/snowly14/svelte-imageway).
@@ -95,7 +88,7 @@ import hero from './hero.jpg?w=400;800;1200&format=avif;webp;jpg&q=75&placeholde
 
 The artifact contains `src`, `srcset`, `sources`, `width`, `height`, `aspectRatio` and optional preview data. Directives must end in `&img` (or use plain `?img`) so the bundled declarations match them without project-generated files. Dev transforms run on demand; builds use a persistent disk cache and bounded reusable workers. Build assets have content hashes and can use immutable CDN caching.
 
-See the [2.0 migration guide](docs/guides/migration-2.md) for existing projects.
+See the [3.0 migration guide](docs/guides/migration-3.md) and [earlier 2.0 migration](docs/guides/migration-2.md) for existing projects.
 
 ## Components and headless API
 
@@ -151,6 +144,8 @@ bun x svelte-imageway migrate ./src --from enhanced-img
 These commands use the installed package CLI. `optimize` preserves originals and supports dry-run/watch. Audit findings exit 1; command errors exit 2. Deploy generates configuration and instructions; it does not create paid resources. Migration previews changes and backs up writes; unsupported patterns require review. Protected Worker purge requires an environment token and `--yes`.
 
 ## Measurements and limits
+
+Version 3.0 preview-only measurement: 32×32 BlurHash encoding takes 26.1 µs with optimized JavaScript versus 9.1 µs with the Rust host/kernel path (2.8×); one-time Rust initialization is about 1 ms. Full preview medians improve by about 2–7% in this local sample. Default LQIP, image codecs and HTTP processing are unchanged. [All samples and limits](bench/README.md). Client entries remain Image 3290 / Picture 3453 gzip bytes, Svelte externalized; no WASM is delivered to the browser.
 
 Measured on 21 October 2026, Apple M4, Node 26.11.1: seven alternating 1.4.0/current pairs, fresh Node processes, identical encoded outputs. Synthetic fixtures are not a photographic quality study.
 

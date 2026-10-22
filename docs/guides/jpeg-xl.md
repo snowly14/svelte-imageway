@@ -29,7 +29,7 @@ A component can present an already encoded/hosted JXL source, alongside the pack
 
 ```svelte
 <script lang="ts">
-  import StaticPicture from 'svelte-imageway/static-picture';
+  import { Picture } from 'svelte-imageway';
   import type { ImageArtifact } from 'svelte-imageway/core';
   import fallback from './hero.jpg?w=1200&format=webp;jpg&img';
 
@@ -39,7 +39,7 @@ A component can present an already encoded/hosted JXL source, alongside the pack
   };
 </script>
 
-<StaticPicture src={hero} alt="A mountain landscape" sizes="100vw" />
+<Picture src={hero} alt="A mountain landscape" sizes="100vw" />
 ```
 
 Supply the actual hosted file at that URL, encoded from the same image/crop and with the declared width. This example describes existing-file presentation; the import generates the WebP/JPEG fallbacks. A browser that supports image/jxl can select that source, and others can select the fallbacks. Format support alone is not a perceptual-quality benchmark.

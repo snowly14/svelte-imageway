@@ -25,3 +25,9 @@ for (const entry of Object.values(pkg.exports)) {
   const source = await readFile(file, 'utf8');
   if (!source.startsWith(reference)) await writeFile(file, reference + source);
 }
+
+await copyFile(
+  'packages/svelte-imageway/src/lib/node/blurhash.wasm',
+  join(root, 'node/blurhash.wasm'),
+);
+await copyFile('native/blurhash/NOTICE', join(root, 'node/BLURHASH-NOTICE'));

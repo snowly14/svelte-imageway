@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('minimal static component loads responsive bytes, clears its preview and works without JavaScript', async ({
+test('local Image component loads responsive bytes, clears its preview and works without JavaScript', async ({
   page,
   browser,
 }) => {
@@ -9,15 +9,15 @@ test('minimal static component loads responsive bytes, clears its preview and wo
     'PICTURE',
   );
   expect(
-    await page.getByTestId('static-image').evaluate((img) => img.parentElement?.tagName),
+    await page.getByTestId('local-image').evaluate((img) => img.parentElement?.tagName),
   ).not.toBe('PICTURE');
   expect(await page.getByTestId('picture').evaluate((img) => img.parentElement?.tagName)).toBe(
     'PICTURE',
   );
   expect(
-    await page.getByTestId('static-picture').evaluate((img) => img.parentElement?.tagName),
+    await page.getByTestId('local-picture').evaluate((img) => img.parentElement?.tagName),
   ).toBe('PICTURE');
-  const image = page.getByTestId('static-image');
+  const image = page.getByTestId('local-image');
   await expect(image).toHaveAttribute('width', '1200');
   await expect(image).toHaveAttribute('loading', 'lazy');
   await expect
@@ -31,9 +31,9 @@ test('minimal static component loads responsive bytes, clears its preview and wo
   try {
     const plain = await context.newPage();
     await plain.goto('/');
-    await expect(plain.getByTestId('static-image')).toBeVisible();
+    await expect(plain.getByTestId('local-image')).toBeVisible();
     expect(
-      await plain.getByTestId('static-image').evaluate((img: HTMLImageElement) => img.naturalWidth),
+      await plain.getByTestId('local-image').evaluate((img: HTMLImageElement) => img.naturalWidth),
     ).toBeGreaterThan(0);
   } finally {
     await context.close();

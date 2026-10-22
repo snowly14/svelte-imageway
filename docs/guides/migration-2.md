@@ -1,5 +1,7 @@
 # Upgrade to 2.0
 
+Historical guide for the 2.x API. Version 3 removes StaticImage/StaticPicture; continue with [the 3.0 migration](migration-3.md).
+
 Version 2.0 changes the markup contract and removes generated image declarations. Upgrade with `bun add svelte-imageway@2.0.0`, keeping `imageway()` before the Svelte plugin.
 
 ```svelte

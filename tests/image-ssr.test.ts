@@ -1,27 +1,38 @@
 import { beforeAll, expect, it } from 'vitest';
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { compile } from 'svelte/compiler';
+import { writeFile, mkdir } from 'node:fs/promises';
+import { build } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { imageway } from '../packages/svelte-imageway/src/lib/vite/index.js';
 import { render } from 'svelte/server';
 import type { Component } from 'svelte';
-import type { StaticImageProps } from '../packages/svelte-imageway/src/lib/static-props.js';
-let component: Component<StaticImageProps>;
+import type {
+  ImageProps,
+  PictureProps,
+} from '../packages/svelte-imageway/src/lib/component-types.js';
+let component: Component<ImageProps>;
+let picture: Component<PictureProps>;
 beforeAll(async () => {
-  const source = await readFile(
-    'packages/svelte-imageway/src/lib/components/StaticImage.svelte',
-    'utf8',
-  );
-  const { js } = compile(source, { generate: 'server', filename: 'StaticImage.svelte' });
   await mkdir('.local', { recursive: true });
   await writeFile(
-    '.local/static-ssr-test.mjs',
-    js.code.replace(/(['"])\.\.\/core\/(artifact|errors)\.js\1/g, (_match, _quote, name: string) =>
-      JSON.stringify(
-        new URL(`../packages/svelte-imageway/dist/core/${name}.js`, import.meta.url).href,
-      ),
-    ),
+    '.local/image-ssr-entry.ts',
+    'export {default as Image} from "../packages/svelte-imageway/src/lib/components/Image.svelte"; export {default as Picture} from "../packages/svelte-imageway/src/lib/components/Picture.svelte";',
   );
-  component = (await import(new URL('../.local/static-ssr-test.mjs', import.meta.url).href))
-    .default;
+  await build({
+    configFile: false,
+    logLevel: 'silent',
+    plugins: [imageway(), svelte()],
+    build: {
+      ssr: '.local/image-ssr-entry.ts',
+      outDir: '.local/image-ssr-test',
+      rolldownOptions: {
+        external: (id) => id === 'svelte' || id.startsWith('svelte/'),
+        output: { entryFileNames: 'image.mjs' },
+      },
+    },
+  });
+  const bundle = await import(new URL('../.local/image-ssr-test/image.mjs', import.meta.url).href);
+  component = bundle.Image;
+  picture = bundle.Picture;
 });
 const image = {
   img: {
@@ -54,7 +65,7 @@ it('SSR reserves dimensions, escapes alt, and preloads the same responsive sourc
   expect(head).toContain('rel="preload"');
   expect(head).toContain('imagesrcset="/small.webp 320w, /large.webp 640w"');
   expect(head).toContain('imagesizes="50vw"');
-  expect(head).toContain('type="image/webp"');
+  expect(head).toContain('href="/large.webp"');
 });
 it('rejects unsafe preview CSS and allows previews to be disabled', () => {
   const hostile = render(component, {
@@ -69,4 +80,15 @@ it('rejects unsafe preview CSS and allows previews to be disabled', () => {
   expect(disabled.body).not.toContain('base64');
   expect(disabled.body).toContain('loading="lazy"');
   expect(disabled.head).not.toContain('rel="preload"');
+});
+
+it('Picture preserves explicit sources and preloads its first format during SSR', () => {
+  const { body, head } = render(picture, {
+    props: { src: image, alt: 'Landscape', priority: true },
+  });
+  expect(body).toContain('<picture>');
+  expect(body).toContain('<source');
+  expect(body).toContain('type="image/webp"');
+  expect(body).toContain('src="/large.jpg"');
+  expect(head).toContain('imagesrcset="/small.webp 320w, /large.webp 640w"');
 });

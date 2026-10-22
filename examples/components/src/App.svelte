@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { Image, Picture, BackgroundImage, ImageMeta, StaticImage } from 'svelte-imageway';
-  import StaticPicture from 'svelte-imageway/static-picture';
+  import { Image, Picture, BackgroundImage, ImageMeta } from 'svelte-imageway';
   import hero from './landscape.png';
   import directed from './landscape.png?w=320;640;960&format=avif;webp;png&img';
   let events = $state(0);
@@ -19,12 +18,12 @@
     data-testid="hero"
   />
   <p data-testid="events">Loads: {events}</p>
-  <StaticImage
+  <Image
     src={hero}
-    alt="Static landscape"
+    alt="Local landscape"
     sizes="320px"
     style="width:320px"
-    data-testid="static-image"
+    data-testid="local-image"
   />
   <Picture
     src={hero}
@@ -40,12 +39,7 @@
     ]}
     data-testid="picture"
   />
-  <StaticPicture
-    src={hero}
-    alt="Static picture landscape"
-    sizes="320px"
-    data-testid="static-picture"
-  />
+  <Picture src={hero} alt="Picture landscape" sizes="320px" data-testid="local-picture" />
   <Image
     src="/missing-image.jpg"
     width={200}

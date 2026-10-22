@@ -13,7 +13,6 @@ import type {
   ImageProps,
   PictureProps,
 } from '../packages/svelte-imageway/src/lib/component-types.js';
-import type { StaticImageProps } from '../packages/svelte-imageway/src/lib/static-props.js';
 import { local } from '../packages/svelte-imageway/src/lib/providers/local.js';
 import {
   registerImageArtifact,
@@ -69,8 +68,8 @@ describe('headless and type contract', () => {
     void invalid;
     void strategy;
   });
-  it('keeps the minimal component local-only with required alt and native events', () => {
-    const props: StaticImageProps = {
+  it('keeps Image props typed for local imports, dynamic URLs and native events', () => {
+    const props: ImageProps = {
       src: artifact,
       alt: '',
       priority: true,
@@ -80,11 +79,10 @@ describe('headless and type contract', () => {
       },
     };
     expectTypeOf(props.src).toEqualTypeOf<ImageArtifact | string>();
-    const dynamic: StaticImageProps = { src: '/photo.jpg', alt: '' };
+    const dynamic: ImageProps = { src: '/photo.jpg', alt: '' };
     // @ts-expect-error An explicit alt is required for accessibility.
-    const missingAlt: StaticImageProps = { src: artifact };
-    // @ts-expect-error Providers are intentionally absent from the lightweight contract.
-    const provider: StaticImageProps = { src: artifact, alt: '', provider: local() };
+    const missingAlt: ImageProps = { src: artifact };
+    const provider: ImageProps = { src: artifact, alt: '', provider: local() };
     void dynamic;
     void missingAlt;
     void provider;

@@ -44,9 +44,17 @@ for (const required of [
   'package.json',
   'dist/cli/index.js',
   'dist/node/sharp-worker.js',
+  'dist/node/blurhash.wasm',
+  'dist/node/BLURHASH-NOTICE',
   'dist/components/Image.d.svelte.ts',
 ])
   if (!files.includes('package/' + required)) throw new Error('Missing packed file: ' + required);
+if (
+  files.some((file) =>
+    /(?:StaticImage|StaticPicture|static-props|\/static(?:-picture)?\.)/.test(file),
+  )
+)
+  throw new Error('Removed static image API leaked into the package.');
 // ESM-only is the supported contract. Legacy Node10 resolution and CJS require
 // are not advertised; no internal-resolution rules are disabled.
 await run('bun', ['run', 'attw', '--profile', 'esm-only', archive]);

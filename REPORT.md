@@ -1,3 +1,17 @@
+# 3.0.0 focused Image/Picture and Rust previews
+
+StaticImage, StaticPicture, their props types and both static subpaths are removed. Image/Picture handle ordinary imports and provider URLs with explicit img/picture markup. [Migration](docs/guides/migration-3.md), [native design and Goose evaluation](docs/adr/0019-focused-components-and-rust-previews.md).
+
+Optional BlurHash projection now uses a 1719-byte Rust/WebAssembly kernel with no host imports, allocator or memory growth and fixed 64 KiB memory. Host and Rust dimension checks bound RGBA access. Consumers need no Rust compiler; build checks the source/artifact fingerprints, and a separate CI job recompiles with Rust 1.99.0 and compares exact bytes. Native codec work remains Sharp/libvips; default LQIP and JPEG/WebP encoding are unchanged.
+
+Seven alternating fresh-process sets: 32×32 complete hash encoding 435.2 µs reference JS / 26.1 µs optimized JS / 9.1 µs Rust. Most of the gain versus reference comes from cached lookups; Rust adds about 2.8× over that optimized control. One-time strategy initialization is about 1 ms. Full previews show 5.393 → 5.004 ms for a synthetic square and 12.471 → 12.250 ms for a landscape, with identical output digests. These approximately 7.2%/1.8% descriptive local differences have no statistical or general encoding/delivery claim. [All samples, sizes and caveats](bench/README.md).
+
+Local gates: 246 tests, strict TypeScript/Svelte, lint, package exports/tar/type validation and source/artifact recompile verification pass. Reference parity covers 80 seeded inputs plus solid colors, non-square sizes, alpha, malformed sizes, memory-growth rejection and complete Sharp previews. Image 3290 / Picture 3453 gzip bytes, Svelte externalized; regression gates 3400/3600 pass. The original full-Image 1536-byte stretch goal remains unmet. A fresh packed strict SvelteKit consumer runs actual BlurHash previews from the installed WASM without generated type files or a consumer Rust compiler, preserves original bytes, renders useful SSR without JavaScript and downloads one matching priority image. Its cached local install/build/check took 5.0 seconds; not a cold-network claim.
+
+Local Chromium/WebKit: 10 pass, four optional service fixtures unconfigured. Remote 3.0.0 CI/native rebuild, Linux browser validation and public publication are pending for this preparation commit.
+
+---
+
 # 2.0.0 ordinary imports and explicit markup
 
 Normal local raster imports remain typed URL strings and resolve their optimized responsive metadata automatically in Imageway components. No project-generated image declaration, type reference or typegen command is needed. Image/StaticImage always render img; Picture/StaticPicture always render picture. [Architecture](docs/adr/0018-ordinary-imports-and-explicit-markup.md), [migration](docs/guides/migration-2.md).
