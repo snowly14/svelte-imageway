@@ -40,6 +40,7 @@
         "publint": "0.3.25",
         "saxes": "6.0.0",
         "sharp": "0.35.5",
+        "ssim.js": "3.5.0",
         "svelte": "5.57.2",
         "svelte-check": "^4.7.7",
         "svgo": "4.1.0",
@@ -1192,6 +1193,8 @@
     "speedline-core": ["speedline-core@1.4.3", "", { "dependencies": { "@types/node": "*", "image-ssim": "^0.2.0", "jpeg-js": "^0.4.1" } }, "sha512-DI7/OuAUD+GMpR6dmu8lliO2Wg5zfeh+/xsdyJZCzd8o5JgFUjCeLsBDuZjIQJdwXS3J0L/uZYrELKYqx+PXog=="],
 
     "srvx": ["srvx@1.0.6", "", { "bin": { "srvx": "./bin/srvx.mjs" } }, "sha512-QeTKgAhk8OSsfeq60bl3wuVs9PmBftzmk7owBInA/F1YQne+TRw0UcPymNpURldAmx8hfmM2PNNGH/zgo3GpLA=="],
+
+    "ssim.js": ["ssim.js@3.5.0", "", {}, "sha512-Aj6Jl2z6oDmgYFFbQqK7fght19bXdOxY7Tj03nF+03M9gCBAjeIiO8/PlEGMfKDwYpw4q6iBqVq2YuREorGg/g=="],
 
     "std-env": ["std-env@4.3.0", "", {}, "sha512-OtU/EgQ1kIm5KwqQpBC6ZEMXrZRui11w8zgfTWp8cdO9B8OaPsbA8bTHO2P+HNo1VlUTGMVBwPhydu6poeXiag=="],
 

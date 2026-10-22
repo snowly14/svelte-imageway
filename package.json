@@ -36,7 +36,8 @@
     "native:check": "bun scripts/native.ts",
     "native:rebuild": "bun scripts/native.ts --rebuild",
     "native:verify": "bun scripts/native.ts --verify",
-    "bench:preview": "bun bench/preview.ts"
+    "bench:preview": "bun bench/preview.ts",
+    "bench:photos": "bun bench/photographic/run.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "0.18.5",
@@ -74,6 +75,7 @@
     "publint": "0.3.25",
     "saxes": "6.0.0",
     "sharp": "0.35.5",
+    "ssim.js": "3.5.0",
     "svelte": "5.57.2",
     "svelte-check": "^4.7.7",
     "svgo": "4.1.0",
