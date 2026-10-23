@@ -4,6 +4,8 @@
 
 ### Patch Changes
 
+- Disable active reveal animations for reduced-motion users by matching the animated selector's specificity. Cover Image and Picture in the browser regression.
+
 - Reduce Image/Picture client overhead while preserving their markup and lifecycle behavior. Move bounded ThumbHash LPQA/DCT encoding into the precompiled Rust preview kernel with byte-identical reference output, fixed memory and no browser WASM. Rewrite the README around installation, normal imports, component choice, uploads and reproducible performance results.
 
 ## 3.1.0

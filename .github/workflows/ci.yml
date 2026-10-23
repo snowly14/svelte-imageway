@@ -61,6 +61,9 @@ jobs:
       - run: bun run playwright install --with-deps chromium firefox webkit
       - run: bun run package:check
       - run: bun scripts/packed-consumer.ts
+      - run: bun scripts/packed-consumer.ts
+        env:
+          IMAGEWAY_CONSUMER_PLACEHOLDER: thumbhash
       - run: bun run test:e2e
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()

@@ -120,7 +120,8 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    img {
+    img,
+    img.fade {
       transition: none;
       animation: none;
     }

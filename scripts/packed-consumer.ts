@@ -5,6 +5,9 @@ import { resolve, join } from 'node:path';
 import { chromium } from '@playwright/test';
 import sharp from 'sharp';
 const exec = promisify(execFile);
+const previewStrategy = process.env.IMAGEWAY_CONSUMER_PLACEHOLDER ?? 'blurhash';
+if (!['blurhash', 'thumbhash'].includes(previewStrategy))
+  throw new Error('IMAGEWAY_CONSUMER_PLACEHOLDER must be blurhash or thumbhash.');
 const root = resolve('.local/packed-consumer');
 const version: string = JSON.parse(
   await readFile('packages/svelte-imageway/package.json', 'utf8'),
@@ -67,7 +70,7 @@ await writeFile(
   viteConfigPath,
   (await readFile(viteConfigPath, 'utf8')).replace(
     '__imagewayPlugin()',
-    "__imagewayPlugin({config:{placeholder:'blurhash'}})",
+    `__imagewayPlugin({config:{placeholder:${JSON.stringify(previewStrategy)}}})`,
   ),
 );
 await writeFile(
@@ -170,7 +173,7 @@ try {
         'Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.',
       encoded: { width: encoded.width, height: encoded.height, format: encoded.format },
       preload: true,
-      nativePreviewStrategy: 'blurhash',
+      nativePreviewStrategy: previewStrategy,
     };
     await writeFile('.local/packed-consumer.json', JSON.stringify(report, null, 2) + '\n');
     console.log(JSON.stringify(report));

@@ -115,6 +115,14 @@ test('native loading, matching preload, dimensions, art direction, events, error
   );
   await page.emulateMedia({ reducedMotion: 'reduce' });
   expect(await hero.evaluate((img) => getComputedStyle(img).transitionDuration)).toBe('0s');
+  for (const id of ['hero', 'local-picture']) {
+    expect(
+      await page.getByTestId(id).evaluate((img) => {
+        img.classList.add('fade');
+        return getComputedStyle(img).animationName;
+      }),
+    ).toBe('none');
+  }
   expect(errors).toEqual([]);
 });
 test('served images have no layout shift and cached navigation remains visible', async ({
