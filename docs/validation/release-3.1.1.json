@@ -1,0 +1,77 @@
+{
+  "verifiedAt": "2026-10-23T16:29:36.780Z",
+  "available": true,
+  "version": "3.1.1",
+  "tag": "latest",
+  "sourceCommit": "85ab05af2c8f4a6bee05d7de5110c5f5d8fdec6f",
+  "integrity": "sha512-5eAJeGTx5/0gmT5M0BznZsXRmZKEU4T6lkz5m+pHowUG6/8NS8CbreH5XAroVNgCsty5R2FU/OhefcuiM14R9A==",
+  "sha256": "ecfff55255330f5722912f3d3c122e58b5fe4beafcaafe1cf78f0c03f92d76d7",
+  "provenanceSubjectMatches": true,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/39986435978",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/39986435676",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.1",
+  "integrityMatches": true,
+  "provenanceSourceMatches": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "ciBrowserTests": {
+    "passed": 18,
+    "skippedOptionalServices": 6,
+    "failed": 0
+  },
+  "native": {
+    "bytes": 4570,
+    "sha256": "1e62389915160a533c3ae15d83c61229e3b7bad1def2f46ee9830fd2676e0477",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "installedThumbHashReferenceParity": true,
+    "ownedHashOutput": true
+  },
+  "registryArchiveConsumers": [
+    {
+      "measuredAt": "2026-10-23T16:29:57.204Z",
+      "archive": "verified npm registry archive",
+      "packageVersion": "3.1.1",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 16986.133417,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "blurhash",
+      "archiveSha256": "ecfff55255330f5722912f3d3c122e58b5fe4beafcaafe1cf78f0c03f92d76d7"
+    },
+    {
+      "measuredAt": "2026-10-23T16:30:17.056Z",
+      "archive": "verified npm registry archive",
+      "packageVersion": "3.1.1",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 16671.849292,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "thumbhash",
+      "archiveSha256": "ecfff55255330f5722912f3d3c122e58b5fe4beafcaafe1cf78f0c03f92d76d7"
+    }
+  ],
+  "githubArchiveSha256Matches": true
+}
