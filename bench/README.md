@@ -1,6 +1,10 @@
 # Reproducible package benchmarks
 
-## Current 3.1.0 comparison — 23 October 2026
+## Current 3.1.1 component/native comparison — 23 October 2026
+
+[Direct Image/Picture and Rust ThumbHash](PATCH-3.1.1.md): pinned npm baseline, seven alternating kernel/full-preview sets, cosine-cached JS control, complete byte identity, JS **and CSS** budgets, real SSR/client pages and no-JS checks. Isolated entries shrink; a page with both is effectively unchanged after extra CSS. LQIP, image codecs and full-build leadership are not claimed.
+
+## 3.1.0 build comparison — 23 October 2026
 
 [Build, preview, Rust and component results](IMPROVEMENTS-3.1.md): paired npm 3.0.1 baseline, byte-identical photographic and synthetic WebP comparisons with both competitors, full-preview/histogram controls, SSR/client validation and all raw samples. Warm LQIP builds improve 298→62 ms locally; default cold encoding and the 1.5 KiB component stretch remain open. Cross-tool build/RSS leadership is not achieved.
 

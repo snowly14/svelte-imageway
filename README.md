@@ -100,7 +100,9 @@ Quality 75 is the default encoder setting, not a guarantee of equal perceptual q
 
 For a WebP-only local workflow, set `formats: ['webp']` to avoid encoding other formats. By default, production builds omit AVIF only when **every matching WebP size is no larger**. Both formats must be encoded before that byte comparison. Explicit format directives stay exact; `pruneLargerFormats: false` retains all default formats.
 
-Preview strategies are `lqip` (default), `color`, `thumbhash`, `blurhash` and `none`. Previews are generated on the build/server side. Rust handles colour histograms and hash projections in a precompiled, fixed-memory module; Sharp handles image codecs. The browser receives display-ready previews, not a hash decoder or Rust runtime. [Native architecture and contributor steps](CONTRIBUTING.md).
+Local-import preview strategies are `lqip` (default), `color`, `thumbhash`, `blurhash` and `none`. Previews are generated on the build/server side. Rust handles colour histograms and hash projections in a precompiled, fixed-memory module; Sharp handles image codecs. The browser receives display-ready previews, not a hash decoder or Rust runtime. [Native architecture and contributor steps](CONTRIBUTING.md).
+
+Hash previews include a display-ready data URL as well as the compact hash. That data URL can be larger than LQIP; hash length alone is not the transferred preview size.
 
 When a specific image needs custom settings, advanced imports return a typed `ImageArtifact`:
 
@@ -159,7 +161,7 @@ The CLI can also prepare deployment files and migration previews. It does not pr
 
 Measurements include the protocol, machine, medians, dispersion and raw samples. [Latest results and release verification](REPORT.md) · [Reproduction](bench/README.md).
 
-The 3.1 photographic comparison improved cached builds substantially but still trailed vite-imagetools/enhanced-img in controlled build latency and cold RSS. The full-featured Image component also remains above the original 1.5 KiB gzip stretch target. Current work measures JavaScript **and CSS**, complete preview processing and kernel-only controls separately; a faster Rust loop is not presented as an image-codec or network speedup.
+The 3.1 photographic comparison improved cached builds substantially but still trailed vite-imagetools/enhanced-img in controlled build latency and cold RSS. The full-featured Image component also remains above the original 1.5 KiB gzip stretch target. The [3.1.1 comparison](bench/PATCH-3.1.1.md) reduces isolated Image/Picture JavaScript to **3109/3247 gzip bytes**, with Svelte externalized. A page using both components is effectively unchanged after counting the extra CSS (three bytes larger in this fixture). The patch also fixes active reveal animations for reduced-motion users. Rust ThumbHash encoding takes **56.8 µs**, compared with **137.9 µs reference JS / 100.3 µs optimized JS** in the same local experiment. The report separates JavaScript, CSS, complete previews and kernel-only controls; no codec or network speedup is claimed.
 
 Paid cloud deployments are unverified. JPEG XL/HEIC support depends on the installed native codecs; use `codecs --json` to check. Rich SVG, video conversion and a browser WASM optimizer are not included. [Format details](docs/guides/local-images.md) · [JPEG XL](docs/guides/jpeg-xl.md).
 

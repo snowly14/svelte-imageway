@@ -1,0 +1,130 @@
+{
+  "protocol": "SHA-256 of result files, report and relevant native/component/harness/gate sources. Source commits for native and client measurements are identified separately in raw environments and report. This is a fingerprint manifest, not a signature.",
+  "files": [
+    {
+      "path": "bench/results/patch-3.1.1/client-validation.json",
+      "bytes": 2052,
+      "sha256": "f7c8d2b650499b65c569d1b90914ec59cc9b0f9549fd5c86ddee0f6324a2b029"
+    },
+    {
+      "path": "bench/results/patch-3.1.1/clients.json",
+      "bytes": 36287,
+      "sha256": "072b91936040930eda3c952cf2cbe1c5b09be6f452451f20e309c7658907fe50"
+    },
+    {
+      "path": "bench/results/patch-3.1.1/component-budgets.json",
+      "bytes": 1197,
+      "sha256": "6c98096c5a1b1f5c9a11164f8fce6f66c7db4058b2876fa4e30d5bbb385d85a2"
+    },
+    {
+      "path": "bench/results/patch-3.1.1/preview-summary.json",
+      "bytes": 5879,
+      "sha256": "bccae37d7d8d3e8bef0183e28ec467b83949da968713039feb682d8767b543a1"
+    },
+    {
+      "path": "bench/results/patch-3.1.1/previews.json",
+      "bytes": 21266,
+      "sha256": "826afe74e051134adc01c5f7f9214657cca859054242b4e608b03d654d0f5c1c"
+    },
+    {
+      "path": "bench/thumbhash/child.ts",
+      "bytes": 3224,
+      "sha256": "152b44fe3a420265b34d015d7b10b9653287ed25e8b05b39563dba140b6f8e6c"
+    },
+    {
+      "path": "bench/thumbhash/client-child.ts",
+      "bytes": 3043,
+      "sha256": "63a92956c648bb50fb45979afc97152d1e4ceda298e56c02a28f0333b4c168af"
+    },
+    {
+      "path": "bench/thumbhash/client.ts",
+      "bytes": 3767,
+      "sha256": "77d2ca7236222ddaed155522f979ae6f52c62c5c683cbcf42aaa7f5f9d2e57e1"
+    },
+    {
+      "path": "bench/thumbhash/control.ts",
+      "bytes": 4125,
+      "sha256": "0b48da6809522e1096b0d89ede80fbb4c0d39b5f7c5225f0d4faec51d5453e17"
+    },
+    {
+      "path": "bench/thumbhash/run.ts",
+      "bytes": 3724,
+      "sha256": "50bc475fcee0bc62a6618c17270ec987db47cee2ea3a2bb5814a957b12fc1dea"
+    },
+    {
+      "path": "bench/thumbhash/verify-client.ts",
+      "bytes": 5711,
+      "sha256": "4903bfe565fb64ad62f41ab7edb0a772846c658489d7f506901a136fe99ca89b"
+    },
+    {
+      "path": "bench/PATCH-3.1.1.md",
+      "bytes": 9599,
+      "sha256": "3becd41e90119923b7fe40b29ddcacd28cbcae1b95cbce8473dec44c7527faef"
+    },
+    {
+      "path": "native/blurhash/lib.rs",
+      "bytes": 8355,
+      "sha256": "95cfad5455a51ead711a11c12852343b84f7930b5b906b0c74cb0e9a6fa14915"
+    },
+    {
+      "path": "native/blurhash/NOTICE",
+      "bytes": 2360,
+      "sha256": "b2419d36499fdb38c654c543e6fcf11e17f731993ec79394d499f3a1ad9a90b5"
+    },
+    {
+      "path": "native/blurhash/manifest.json",
+      "bytes": 282,
+      "sha256": "280f689d52aba992fe1f56b77d5a6e53403d8a5a3d981217fe53d28bfac846db"
+    },
+    {
+      "path": "packages/svelte-imageway/src/lib/node/blurhash.wasm",
+      "bytes": 4570,
+      "sha256": "1e62389915160a533c3ae15d83c61229e3b7bad1def2f46ee9830fd2676e0477"
+    },
+    {
+      "path": "packages/svelte-imageway/src/lib/node/blurhash.ts",
+      "bytes": 4650,
+      "sha256": "bab33e3ba307c5c0521dcb2faf367ef42af3156fa97c3ed997a665a0ff8cae67"
+    },
+    {
+      "path": "packages/svelte-imageway/src/lib/vite/placeholder.ts",
+      "bytes": 2704,
+      "sha256": "a1815fa48469e5cd4da6ec920ae3243d7d4b83fff9fba41c3e8779cf55725167"
+    },
+    {
+      "path": "packages/svelte-imageway/src/lib/components/Image.svelte",
+      "bytes": 2729,
+      "sha256": "2befb97766ea468bafb52437ef1e83402d3de57699261a6c5526e7655763b2c4"
+    },
+    {
+      "path": "packages/svelte-imageway/src/lib/components/Picture.svelte",
+      "bytes": 3070,
+      "sha256": "47ee219588bdc5d47e507db42a823b6c5527329bc47a8b7e434d1fde7381ae3f"
+    },
+    {
+      "path": "scripts/bundle-budget.ts",
+      "bytes": 2689,
+      "sha256": "17d436bffb55d5c5259973f141b50901c198528b6f956de291f97f10c5c3e25c"
+    },
+    {
+      "path": "scripts/packed-consumer.ts",
+      "bytes": 7623,
+      "sha256": "d21e62125113a0afcb9b8c09a17e0ef5c9b18465f0c9dc40c6980ecc52b4fa2f"
+    },
+    {
+      "path": "tests/blurhash.test.ts",
+      "bytes": 7712,
+      "sha256": "1109d274520f7f699d75f7449542f3695e5888d4831bb54e45426eb817b4f8ea"
+    },
+    {
+      "path": "tests/e2e/components.spec.ts",
+      "bytes": 7576,
+      "sha256": "747749e33071e3b54f913ba86e308e26e4a579305a66865e22b2eadba23c1667"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 2324,
+      "sha256": "a2d03c8d219b2cd80479464aec63396df4bb53c13b7f6d472315f65ca5b82918"
+    }
+  ]
+}

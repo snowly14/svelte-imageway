@@ -1,3 +1,17 @@
+# 3.1.1 components, README and native ThumbHash — 23 October 2026
+
+[Complete paired measurements and raw samples](bench/PATCH-3.1.1.md), against the SHA-pinned npm 3.1.0 package. Image/Picture now render directly with their existing lifecycle and markup; the private wrapper component is removed. The README is rewritten around installation, normal imports, Image/Picture, configuration, uploads, APIs and current evidence; its obsolete pinned install command is removed.
+
+Isolated entries with Svelte externalized: **Image 3292→3109 JS gzip bytes**, **Picture 3463→3247** in this same-harness comparison. JS+CSS totals **3505→3329 / 3676→3465**. The paired baseline includes normal filename-derived compiler identifiers and differs slightly from the older independently located budget. Real pages including Svelte save **131 / 148 bytes** for Image/Picture; a page using both **grows 3 bytes total**, with **46 extra CSS bytes**. That regression is retained and disclosed. The original full-Image **1536-byte target remains unmet**. JS budgets tighten to 3200/3350, with new total JS+CSS gates 3500/3650.
+
+A browser reproduction also exposed an existing reduced-motion specificity bug: active reveal animations could continue despite the preference. Both scoped styles now match the active selector. The regression failed before the fix and passes for both Image/Picture; corrected CSS is included in these final sizes.
+
+Rust adds bounded ThumbHash LPQA/DCT/packing in the existing fixed 64 KiB, precompiled module (**4570 bytes**). Seven alternating sets over 24 photos: **137.9 µs reference JS / 100.3 µs bounded cached JS / 56.8 µs Rust**, including host copies and owned output. Complete ThumbHash previews are **17.503→16.143 ms/photo**, with overlapping host-noisy ranges; LQIP control **19.596→19.143 ms**. No LQIP/codec/full-build/HTTP speedup is established. Every hash and complete preview digest matches the published baseline. [Native design, bounds and fallback](docs/adr/0021-direct-components-and-native-thumbhash.md).
+
+Local gates pass: strict TS/Svelte, lint, **257 tests**, package/exports/types, source/artifact rebuild, both tightened component budgets, fresh packed SvelteKit consumer, Chromium/WebKit **12 pass / four optional-service skips** and six strict SSR/client/no-JS benchmark fixtures. [Product-source CI](https://github.com/snowly14/svelte-imageway/actions/runs/39983086198) passes all six OS/Node combinations, native and Linux browsers. Final release-source CI and registry evidence will be appended after publication verification. Cross-tool build/RSS gaps from 3.1 remain open; no paid cloud verification is claimed.
+
+---
+
 # 3.1.0 build/cache/Rust improvements — 23 October 2026
 
 [Complete protocol, medians, dispersion and raw samples](bench/IMPROVEMENTS-3.1.md). Public API and codec settings are preserved. Rust adds a bounded dominant-colour histogram for every build preview strategy; native encoding stays in Sharp/libvips. Warm builds reuse validated, bounded preview metadata; raster builds avoid loading SVGO.
