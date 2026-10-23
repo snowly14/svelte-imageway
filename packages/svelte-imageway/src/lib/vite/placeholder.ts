@@ -43,8 +43,8 @@ export async function placeholder(
     return { dominantColor, placeholder: `data:image/webp;base64,${small.toString('base64')}` };
   }
   if (strategy === 'thumbhash') {
-    const { rgbaToThumbHash, thumbHashToDataURL } = await import('thumbhash');
-    const hash = rgbaToThumbHash(info.width, info.height, pixels);
+    const { thumbHashToDataURL } = await import('thumbhash');
+    const hash = encoder.thumbHash(pixels, info.width, info.height);
     return {
       dominantColor,
       placeholderHash: Buffer.from(hash).toString('base64'),

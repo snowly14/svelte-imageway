@@ -1,5 +1,46 @@
 import { expect, test } from '@playwright/test';
 
+test('Image and Picture preserve loading/error snippets, callback context and recovery on src changes', async ({
+  page,
+}) => {
+  let release!: () => void;
+  const pending = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route('**/lifecycle-missing.png', async (route) => {
+    await pending;
+    await route.abort();
+  });
+  try {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await page.getByTestId('lifecycle').locator('summary').click();
+    for (const index of [0, 1])
+      await expect(page.getByTestId(`life-loading-${index}`)).toBeVisible();
+    release();
+    for (const index of [0, 1]) {
+      const error = page.getByTestId(`life-error-${index}`);
+      await expect(error).toBeVisible();
+      expect(await error.evaluate((element) => element.parentElement?.tagName)).not.toBe('PICTURE');
+    }
+    await page.getByRole('button', { name: 'Use valid lifecycle image' }).click();
+    for (const index of [0, 1]) {
+      const image = page.getByTestId(`life-image-${index}`);
+      await expect
+        .poll(() => image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0))
+        .toBe(true);
+      await expect(page.getByTestId(`life-error-${index}`)).toHaveCount(0);
+      await expect(page.getByTestId(`life-loading-${index}`)).toHaveCount(0);
+      await expect
+        .poll(() => image.evaluate((img) => getComputedStyle(img).backgroundImage))
+        .toBe('none');
+    }
+    await expect(page.getByTestId('life-loads')).toHaveText('2');
+    await expect(page.getByTestId('life-context')).toHaveText('true');
+  } finally {
+    release();
+  }
+});
+
 test('local Image component loads responsive bytes, clears its preview and works without JavaScript', async ({
   page,
   browser,

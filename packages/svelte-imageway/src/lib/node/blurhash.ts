@@ -8,11 +8,14 @@ interface Kernel {
   output_ptr(): number;
   coefficients(width: number, height: number): number;
   dominant_colour(width: number, height: number): number;
+  thumbhash_ptr(): number;
+  thumbhash(width: number, height: number): number;
 }
 export interface BlurhashEncoder {
   encode(pixels: Uint8Array, width: number, height: number): string;
   /** Undefined preserves libvips tie-breaking when histogram maxima are ambiguous. */
   dominantColor(pixels: Uint8Array, width: number, height: number): string | undefined;
+  thumbHash(pixels: Uint8Array, width: number, height: number): Uint8Array;
 }
 function validate(pixels: Uint8Array, width: number, height: number): void {
   invariant(
@@ -33,15 +36,22 @@ export async function createBlurhashEncoder(bytes: Uint8Array): Promise<Blurhash
   const exports = instance.exports;
   invariant(
     exports.memory instanceof WebAssembly.Memory &&
-      ['pixels_ptr', 'tables_ptr', 'output_ptr', 'coefficients', 'dominant_colour'].every(
-        (key) => typeof exports[key] === 'function',
-      ),
+      [
+        'pixels_ptr',
+        'tables_ptr',
+        'output_ptr',
+        'coefficients',
+        'dominant_colour',
+        'thumbhash_ptr',
+        'thumbhash',
+      ].every((key) => typeof exports[key] === 'function'),
     'PREVIEW_ABI',
-    'Invalid bundled BlurHash kernel.',
+    'Invalid bundled preview kernel. Reinstall svelte-imageway or rebuild its native artifact.',
   );
   const kernel = exports as unknown as Kernel;
   const pixels = new Uint8Array(kernel.memory.buffer, kernel.pixels_ptr(), 4096);
-  const tables = new Float64Array(kernel.memory.buffer, kernel.tables_ptr(), 480);
+  const tables = new Float64Array(kernel.memory.buffer, kernel.tables_ptr(), 928);
+  const thumb = new Uint8Array(kernel.memory.buffer, kernel.thumbhash_ptr(), 32);
   const coefficients = new Float64Array(kernel.memory.buffer, kernel.output_ptr(), 36);
   for (let i = 0; i < 256; i++) {
     const v = i / 255;
@@ -49,7 +59,30 @@ export async function createBlurhashEncoder(bytes: Uint8Array): Promise<Blurhash
   }
   let previousWidth = 0,
     previousHeight = 0;
+  let thumbWidth = 0,
+    thumbHeight = 0;
   return {
+    thumbHash(input, width, height) {
+      validate(input, width, height);
+      if (width !== thumbWidth || height !== thumbHeight) {
+        for (let i = 0; i < 7; i++) {
+          for (let x = 0; x < width; x++)
+            tables[480 + i * 32 + x] = Math.cos((Math.PI / width) * i * (x + 0.5));
+          for (let y = 0; y < height; y++)
+            tables[704 + i * 32 + y] = Math.cos((Math.PI / height) * i * (y + 0.5));
+        }
+        thumbWidth = width;
+        thumbHeight = height;
+      }
+      pixels.set(input);
+      const length = kernel.thumbhash(width, height);
+      invariant(
+        length > 0 && length <= 25,
+        'PREVIEW_PIXELS',
+        'ThumbHash kernel rejected the dimensions.',
+      );
+      return thumb.slice(0, length);
+    },
     dominantColor(input, width, height) {
       validate(input, width, height);
       pixels.set(input);

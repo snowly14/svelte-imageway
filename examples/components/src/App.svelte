@@ -3,6 +3,7 @@
   import hero from './landscape.png';
   import directed from './landscape.png?w=320;640;960&format=avif;webp;png&img';
   let events = $state(0);
+  import Lifecycle from './Lifecycle.svelte';
 </script>
 
 <ImageMeta src={hero} origin="https://example.com" alt="Procedural landscape" />
@@ -64,6 +65,10 @@
   />
   <div style="height:2000px"></div>
   <Image src={hero} alt="Below-fold landscape" sizes="auto, 100vw" data-testid="lazy" />
+  <details data-testid="lifecycle">
+    <summary>Image lifecycle verification</summary>
+    <Lifecycle />
+  </details>
 </main>
 
 <style>

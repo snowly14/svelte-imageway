@@ -33,12 +33,19 @@ const js = chunks
 if (/node:|worker_threads|WebAssembly|blurhash\.wasm|require\(["']sharp/.test(js))
   throw new Error('Server code leaked into the client entry.');
 const gzip = gzipSync(js, { level: 9 }).length;
+const css = chunks
+  .filter((v) => v.type === 'asset' && v.fileName.endsWith('.css'))
+  .map((v) => (v.type === 'asset' ? v.source : ''))
+  .map((v) => (typeof v === 'string' ? Buffer.from(v) : Buffer.from(v)));
 const report = {
   entry: picture ? 'Picture.svelte' : 'Image.svelte plus all Imageway helpers',
   runtime: 'Svelte peer externalized',
   rawBytes: Buffer.byteLength(js),
   gzipBytes: gzip,
   gzipLevel: 9,
+  cssBytes: css.reduce((n, value) => n + value.length, 0),
+  cssGzipBytes: css.reduce((n, value) => n + gzipSync(value, { level: 9 }).length, 0),
+  totalGzipBytes: gzip + css.reduce((n, value) => n + gzipSync(value, { level: 9 }).length, 0),
   targetBytes: 1536,
 };
 await writeFile(picture ? '.local/picture-component.js' : '.local/base-component.js', js);
@@ -48,8 +55,13 @@ await writeFile(
 );
 console.log(JSON.stringify(report, null, 2));
 
-const limit = process.argv.find((v) => v.startsWith('--budget='))?.split('=')[1];
-if (limit && (!Number.isSafeInteger(Number(limit)) || Number(limit) <= 0))
-  throw new Error('Invalid size budget.');
-if (limit && gzip > Number(limit))
-  throw new Error(`Image entry is ${gzip} gzip bytes; budget is ${limit}.`);
+for (const [option, bytes] of [
+  ['budget', gzip],
+  ['total-budget', report.totalGzipBytes],
+] as const) {
+  const limit = process.argv.find((v) => v.startsWith(`--${option}=`))?.split('=')[1];
+  if (limit && (!Number.isSafeInteger(Number(limit)) || Number(limit) <= 0))
+    throw new Error('Invalid size budget.');
+  if (limit && bytes > Number(limit))
+    throw new Error(`Image ${option} is ${bytes} gzip bytes; limit is ${limit}.`);
+}

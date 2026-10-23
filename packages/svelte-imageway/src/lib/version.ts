@@ -1,3 +1,3 @@
 // Generated at build time from the package version and processing sources.
-export const PACKAGE_VERSION = "3.1.0";
-export const PIPELINE_REVISION = "a3e12facf360ae74ac24690d713522259cae87568c5d43ce17fe3ec0c9fb0950";
+export const PACKAGE_VERSION = "3.1.1";
+export const PIPELINE_REVISION = "d17162feaa95ad06af3b4827ad05bef9a4222104e90aa7353b52ddb4f9f08c36";

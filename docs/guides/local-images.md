@@ -26,4 +26,4 @@ imageway({ concurrency: 2 });
 
 Each imported source is prepared once for its variants. Encoder settings, pixel/byte limits and individual worker deadlines are preserved.
 
-The optional blurhash strategy uses the bundled Rust/WebAssembly 4x3 encoder. The fixed 64 KiB kernel validates dimensions (1–32) and has no host imports or memory growth. Loading is lazy, per build/server module instance; its one-time cost and preview-only benchmarks are reported separately. The default lqip strategy and image codecs do not use this kernel. No Rust toolchain is needed in consuming applications.
+Build previews use the bundled Rust/WebAssembly kernel for dominant-colour histograms. BlurHash projection and ThumbHash LPQA/DCT encoding also use this bounded module; display-preview decoding remains on the server/build side. The fixed 64 KiB kernel validates dimensions (1–32), has no host imports or memory growth, and requires no consumer Rust toolchain. Sharp/libvips still decodes, resizes and encodes image formats. See the current REPORT.md for measured scope and remaining limits.

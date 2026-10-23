@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 3.1.1
+
+### Patch Changes
+
+- Reduce Image/Picture client overhead while preserving their markup and lifecycle behavior. Move bounded ThumbHash LPQA/DCT encoding into the precompiled Rust preview kernel with byte-identical reference output, fixed memory and no browser WASM. Rewrite the README around installation, normal imports, component choice, uploads and reproducible performance results.
+
 ## 3.1.0
 
 ### Minor Changes
