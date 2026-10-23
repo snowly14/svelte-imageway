@@ -8,8 +8,8 @@
     },
     {
       "path": "bench/results/patch-3.1.1/clients.json",
-      "bytes": 36287,
-      "sha256": "072b91936040930eda3c952cf2cbe1c5b09be6f452451f20e309c7658907fe50"
+      "bytes": 36295,
+      "sha256": "b5c1d315f4e25e232d7bda9ad6510fa096d4aeb090a421eb2f08b314cd3073e1"
     },
     {
       "path": "bench/results/patch-3.1.1/component-budgets.json",
@@ -59,7 +59,7 @@
     {
       "path": "bench/PATCH-3.1.1.md",
       "bytes": 9599,
-      "sha256": "3becd41e90119923b7fe40b29ddcacd28cbcae1b95cbce8473dec44c7527faef"
+      "sha256": "c86e269843113da57e68bb300fd75702f14cd6bd01d9cb17e841bd4eeb087d9b"
     },
     {
       "path": "native/blurhash/lib.rs",
@@ -126,5 +126,6 @@
       "bytes": 2324,
       "sha256": "a2d03c8d219b2cd80479464aec63396df4bb53c13b7f6d472315f65ca5b82918"
     }
-  ]
+  ],
+  "nativeSourcesMatchMeasuredCommit": true
 }
