@@ -1,0 +1,1004 @@
+{
+  "complete": true,
+  "environment": {
+    "measuredAt": "2026-10-25T21:28:07.771Z",
+    "sourceCommit": "1b9b7510487c1d531c048d39349235e91c153b27",
+    "harnessDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "27.0.0",
+    "cpu": "Apple M4",
+    "logicalCpus": 10,
+    "memoryBytes": 17179869184,
+    "loadAverage": [1.68994140625, 1.9345703125, 3.66552734375],
+    "node": "v26.11.1",
+    "bun": "1.4.3",
+    "versions": {
+      "svelte-imageway": "3.1.3",
+      "vite": "8.3.4",
+      "sharp": "0.35.5",
+      "vite-imagetools": "12.0.1",
+      "@sveltejs/enhanced-img": "1.0.0",
+      "svelte": "5.57.2",
+      "@playwright/test": "1.64.1",
+      "ssim.js": "3.5.0"
+    },
+    "sharp": {
+      "aom": "3.15.1",
+      "archive": "3.8.9",
+      "cairo": "1.18.6",
+      "cgif": "0.5.4",
+      "exif": "0.6.26",
+      "expat": "2.8.5",
+      "ffi": "3.8.0",
+      "fontconfig": "2.18.3",
+      "freetype": "2.14.3",
+      "fribidi": "1.0.17",
+      "glib": "2.90.0",
+      "harfbuzz": "14.5.0",
+      "heif": "1.23.5",
+      "highway": "1.4.0",
+      "imagequant": "2.4.1",
+      "lcms": "2.19.1",
+      "mozjpeg": "0826579",
+      "pango": "1.58.2",
+      "pixman": "0.46.4",
+      "png": "1.6.58",
+      "proxy-libintl": "0.5",
+      "rsvg": "2.63.2",
+      "tiff": "4.7.2",
+      "uhdr": "2.0.2",
+      "vips": "8.18.7",
+      "webp": "1.6.0",
+      "xml2": "2.15.4",
+      "zlib-ng": "2.3.3",
+      "sharp": "0.35.5"
+    },
+    "limits": "Single uncontrolled desktop host; OS filesystem cache is not flushed. Cold means empty tool disk cache, not cold OS/page cache. No simultaneous benchmark suites. No production CDN, Next.js or serverless measurement."
+  },
+  "baseline": {
+    "version": "3.1.2",
+    "tarSha256": "f136df477dc8cc625caf0d9a39e39242a92c0cb7ee307a48956f89d7ed664644"
+  },
+  "corpus": [
+    {
+      "name": "kodim01.png",
+      "sha256": "a56e27cbf5f843c048b6af1d6e090760e9c92fadba88b7dee0205918a37523bd"
+    },
+    {
+      "name": "kodim02.png",
+      "sha256": "4f4b74a79237e311d72cad958237b5f7088d8bce1c82305ebefe1a70e3022dfd"
+    },
+    {
+      "name": "kodim03.png",
+      "sha256": "e25ca1ff2f0c0cb5fdfd5f9b0a0bb21ac4c3de3c84a67f35b09a85d3306249db"
+    },
+    {
+      "name": "kodim04.png",
+      "sha256": "e3b946107c5d3441c022f678d0c3caf1e224d81b1604ba840a4f88e562de61aa"
+    },
+    {
+      "name": "kodim05.png",
+      "sha256": "10349e963c5c813d327852f82c1795fa4148d69fedffc4c589bee458e3ac3d53"
+    },
+    {
+      "name": "kodim06.png",
+      "sha256": "363510303b715d4cbc384e1ce227e466b613a09e1b71ae985882bf8e7fbd9b18"
+    },
+    {
+      "name": "kodim07.png",
+      "sha256": "b77d3f006f42414bb242222e0482e750c0fb9e5ee8d4bed2f6f11c5605fe54a4"
+    },
+    {
+      "name": "kodim08.png",
+      "sha256": "ba23983c76b4832ee0e8af0592664756841a16779acd69f792e268fb6d13d6e7"
+    },
+    {
+      "name": "kodim09.png",
+      "sha256": "6a4361c2fc194feb4edaa9f9a4a0620fb9943e460ac7fdf037fb0f6dd6607a7d"
+    },
+    {
+      "name": "kodim10.png",
+      "sha256": "9dfb70f5867c29ff9ed6313683f19b3d867849e40fbc0c4c54a4a89df341cf23"
+    },
+    {
+      "name": "kodim11.png",
+      "sha256": "7936814b58b5387fce2e4e2488b4ec830dadd95fa9520f358ddb30990b50f2b6"
+    },
+    {
+      "name": "kodim12.png",
+      "sha256": "d78c37c2f04f23761ed2367dd77e2db584ddd4c3950833fecf89f199a8126980"
+    },
+    {
+      "name": "kodim13.png",
+      "sha256": "bc34a3ce58dea09dce1704c997171602de90cb34d0c8503a988b77f473d39b08"
+    },
+    {
+      "name": "kodim14.png",
+      "sha256": "55a94550ff18f3246c4074fd32b77b0c74447c26b6ad274d564d999c0450ba6e"
+    },
+    {
+      "name": "kodim15.png",
+      "sha256": "7538cbb80cb9103606c48b806eae57d56c885c7f90b9b3be70a41160f9cbb683"
+    },
+    {
+      "name": "kodim16.png",
+      "sha256": "a89c7268ccd4718ba424a99fc4643c572cf692ca6eae887185ceb4e9f11d2e54"
+    },
+    {
+      "name": "kodim17.png",
+      "sha256": "37afcc89fbdcb76d9518e04b2fc011027e2f4cd14b3b2f83cefd721641a47c5b"
+    },
+    {
+      "name": "kodim18.png",
+      "sha256": "1a9258c365988961d87a0598725b609139c303ad48a5aad6c503c3b1a87849aa"
+    },
+    {
+      "name": "kodim19.png",
+      "sha256": "b7450b264b1b0a411390d8931b112c27905a992520fc90569dc4b920aa32bbdc"
+    },
+    {
+      "name": "kodim20.png",
+      "sha256": "3b46c71e3b92a563820ba32936be8330c586c41f938efd94be938386aae4328a"
+    },
+    {
+      "name": "kodim21.png",
+      "sha256": "ac958597c82073f6bb65129c68f72b651db5b9efd82e11547d07350214bc268b"
+    },
+    {
+      "name": "kodim22.png",
+      "sha256": "1cee58eb1f2d9c7ebb254d208a03c783ce6cf2c4d8c2cf45e235dd23b4ce1b29"
+    },
+    {
+      "name": "kodim23.png",
+      "sha256": "e3111a2fd4da24af15d6459ef9eacfe54106b38e27b4a21821b75c3f5d2d5baf"
+    },
+    {
+      "name": "kodim24.png",
+      "sha256": "1071c68372cc5a01435c2c225a5cf7d4bb803846ec08bb6b3d6721b156d7cb96"
+    }
+  ],
+  "protocol": "Seven alternating fresh-Node sets; 24 pinned Kodak photos. Kernel: prepared hashes/source decoding excluded; 25 warmup batches then 500 timed batches=12000 owned 16x16 RGBA results, consumed by checksum. Reference blurhash2.0.5; cachedJS caches base83/cosine/sRGB/coefficients but uses reference power gamma; thresholdJS additionally uses same 2048-bin gamma hint/255 thresholds/conservative 1e-7 boundary fallback as Rust. Rust includes ASCII copy/validation, exact boundary fallback and owned pixel copy. Incremental initialization excludes common imports; native gamma tables initialize lazily in first batch, JS controls initialize during factory setup. Complete previews: no preview-cache reuse, first24-photo batch, one warmup,72timed sequential operations; complete JSON digest must match. LQIP/ThumbHash unchanged controls. All suites serial on uncontrolled desktop.",
+  "rows": [
+    {
+      "initializationMs": 0.0015420000000005984,
+      "firstBatchMs": 2.3218750000000057,
+      "perOperationMs": 0.031576923666666666,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 140328960,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "referenceJS",
+      "pair": 0
+    },
+    {
+      "initializationMs": 0.09591600000001677,
+      "firstBatchMs": 1.299917000000022,
+      "perOperationMs": 0.009134104166666667,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 137543680,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "cachedJS",
+      "pair": 0
+    },
+    {
+      "initializationMs": 0.36354199999999537,
+      "firstBatchMs": 1.2372919999999965,
+      "perOperationMs": 0.006815562500000001,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 148914176,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "thresholdJS",
+      "pair": 0
+    },
+    {
+      "initializationMs": 2.468166999999994,
+      "firstBatchMs": 0.5473750000000166,
+      "perOperationMs": 0.002981583333333333,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149946368,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "rust",
+      "pair": 0
+    },
+    {
+      "initializationMs": 0.8721250000000111,
+      "firstBatchMs": 0.5431250000000034,
+      "perOperationMs": 0.003016743083333334,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 148619264,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "rust",
+      "pair": 1
+    },
+    {
+      "initializationMs": 0.3747910000000161,
+      "firstBatchMs": 1.2404579999999896,
+      "perOperationMs": 0.006873215249999999,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149962752,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "thresholdJS",
+      "pair": 1
+    },
+    {
+      "initializationMs": 0.10062500000000796,
+      "firstBatchMs": 1.3481250000000102,
+      "perOperationMs": 0.009166399333333334,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138592256,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "cachedJS",
+      "pair": 1
+    },
+    {
+      "initializationMs": 0.0013329999999882602,
+      "firstBatchMs": 2.365333000000021,
+      "perOperationMs": 0.032334052083333335,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 140984320,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "referenceJS",
+      "pair": 1
+    },
+    {
+      "initializationMs": 0.0012499999999988631,
+      "firstBatchMs": 2.359541000000007,
+      "perOperationMs": 0.03200233683333333,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 139739136,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "referenceJS",
+      "pair": 2
+    },
+    {
+      "initializationMs": 0.11795799999998735,
+      "firstBatchMs": 1.7506250000000136,
+      "perOperationMs": 0.009319913249999999,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 137625600,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "cachedJS",
+      "pair": 2
+    },
+    {
+      "initializationMs": 0.37420900000000756,
+      "firstBatchMs": 1.2540419999999983,
+      "perOperationMs": 0.006816923583333335,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 150159360,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "thresholdJS",
+      "pair": 2
+    },
+    {
+      "initializationMs": 0.866250000000008,
+      "firstBatchMs": 0.5585829999999987,
+      "perOperationMs": 0.0029638333333333335,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149848064,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "rust",
+      "pair": 2
+    },
+    {
+      "initializationMs": 0.8613330000000019,
+      "firstBatchMs": 0.5557499999999891,
+      "perOperationMs": 0.0030247013333333326,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149585920,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "rust",
+      "pair": 3
+    },
+    {
+      "initializationMs": 0.3854169999999897,
+      "firstBatchMs": 1.2757090000000062,
+      "perOperationMs": 0.00686171175,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149815296,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "thresholdJS",
+      "pair": 3
+    },
+    {
+      "initializationMs": 0.0978330000000085,
+      "firstBatchMs": 1.3688750000000027,
+      "perOperationMs": 0.009189750000000002,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 137723904,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "cachedJS",
+      "pair": 3
+    },
+    {
+      "initializationMs": 0.0015420000000005984,
+      "firstBatchMs": 2.437874999999991,
+      "perOperationMs": 0.03207978816666667,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 140738560,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "referenceJS",
+      "pair": 3
+    },
+    {
+      "initializationMs": 0.0016249999999899956,
+      "firstBatchMs": 2.3481250000000102,
+      "perOperationMs": 0.032151232583333335,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 140673024,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "referenceJS",
+      "pair": 4
+    },
+    {
+      "initializationMs": 0.09545799999997939,
+      "firstBatchMs": 1.3354170000000067,
+      "perOperationMs": 0.00914618058333333,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138854400,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "cachedJS",
+      "pair": 4
+    },
+    {
+      "initializationMs": 0.3694580000000087,
+      "firstBatchMs": 1.2347500000000196,
+      "perOperationMs": 0.0068784929999999985,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 148602880,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "thresholdJS",
+      "pair": 4
+    },
+    {
+      "initializationMs": 0.9247080000000096,
+      "firstBatchMs": 0.5591249999999945,
+      "perOperationMs": 0.0029786597500000007,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149569536,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "rust",
+      "pair": 4
+    },
+    {
+      "initializationMs": 0.9211250000000177,
+      "firstBatchMs": 0.5601660000000095,
+      "perOperationMs": 0.0029664375000000003,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149094400,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "rust",
+      "pair": 5
+    },
+    {
+      "initializationMs": 0.3830829999999992,
+      "firstBatchMs": 1.2834589999999935,
+      "perOperationMs": 0.007065298666666666,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 147783680,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "thresholdJS",
+      "pair": 5
+    },
+    {
+      "initializationMs": 0.10858300000001009,
+      "firstBatchMs": 1.5652919999999995,
+      "perOperationMs": 0.010403736166666669,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 137248768,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "cachedJS",
+      "pair": 5
+    },
+    {
+      "initializationMs": 0.0015830000000107702,
+      "firstBatchMs": 2.4183749999999975,
+      "perOperationMs": 0.0321214375,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 140804096,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "referenceJS",
+      "pair": 5
+    },
+    {
+      "initializationMs": 0.0014590000000112013,
+      "firstBatchMs": 2.3850830000000087,
+      "perOperationMs": 0.03231776741666667,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 140443648,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "referenceJS",
+      "pair": 6
+    },
+    {
+      "initializationMs": 0.10087500000000205,
+      "firstBatchMs": 1.2503329999999835,
+      "perOperationMs": 0.009165836833333333,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138788864,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "cachedJS",
+      "pair": 6
+    },
+    {
+      "initializationMs": 0.3792500000000132,
+      "firstBatchMs": 1.383624999999995,
+      "perOperationMs": 0.006844781250000002,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149602304,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "thresholdJS",
+      "pair": 6
+    },
+    {
+      "initializationMs": 0.8626669999999876,
+      "firstBatchMs": 0.5661670000000072,
+      "perOperationMs": 0.0027681006666666667,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149782528,
+      "node": "v26.11.1",
+      "scenario": "kernel",
+      "variant": "rust",
+      "pair": 6
+    },
+    {
+      "initializationMs": 5.808542000000003,
+      "firstBatchMs": 132.850208,
+      "perOperationMs": 5.241816541666667,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140460032,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "before",
+      "pair": 0
+    },
+    {
+      "initializationMs": 3.474708000000007,
+      "firstBatchMs": 128.386667,
+      "perOperationMs": 5.679877902777778,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140853248,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "after",
+      "pair": 0
+    },
+    {
+      "initializationMs": 2.572833000000003,
+      "firstBatchMs": 137.45379100000002,
+      "perOperationMs": 5.60670601388889,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140476416,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "after",
+      "pair": 1
+    },
+    {
+      "initializationMs": 2.3091249999999945,
+      "firstBatchMs": 145.710917,
+      "perOperationMs": 5.553181138888889,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 142868480,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "before",
+      "pair": 1
+    },
+    {
+      "initializationMs": 2.1817920000000015,
+      "firstBatchMs": 132.63441699999998,
+      "perOperationMs": 5.232372694444444,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140623872,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "before",
+      "pair": 2
+    },
+    {
+      "initializationMs": 2.060291999999997,
+      "firstBatchMs": 129.368542,
+      "perOperationMs": 5.372511569444445,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140197888,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "after",
+      "pair": 2
+    },
+    {
+      "initializationMs": 2.145333000000001,
+      "firstBatchMs": 129.62379099999998,
+      "perOperationMs": 5.184292833333334,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140328960,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "after",
+      "pair": 3
+    },
+    {
+      "initializationMs": 2.1535829999999976,
+      "firstBatchMs": 136.711875,
+      "perOperationMs": 5.26086111111111,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140247040,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "before",
+      "pair": 3
+    },
+    {
+      "initializationMs": 2.272749999999995,
+      "firstBatchMs": 136.293208,
+      "perOperationMs": 5.426435180555556,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140410880,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "before",
+      "pair": 4
+    },
+    {
+      "initializationMs": 2.1950839999999943,
+      "firstBatchMs": 130.74291699999998,
+      "perOperationMs": 5.188074652777777,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140345344,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "after",
+      "pair": 4
+    },
+    {
+      "initializationMs": 2.168042,
+      "firstBatchMs": 128.152083,
+      "perOperationMs": 5.1933975694444445,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140509184,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "after",
+      "pair": 5
+    },
+    {
+      "initializationMs": 2.0873749999999944,
+      "firstBatchMs": 130.54087499999997,
+      "perOperationMs": 5.195755791666667,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140083200,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "before",
+      "pair": 5
+    },
+    {
+      "initializationMs": 2.126375000000003,
+      "firstBatchMs": 132.037417,
+      "perOperationMs": 5.197593180555555,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140656640,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "before",
+      "pair": 6
+    },
+    {
+      "initializationMs": 2.1896249999999995,
+      "firstBatchMs": 130.128083,
+      "perOperationMs": 5.326571180555555,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140427264,
+      "node": "v26.11.1",
+      "scenario": "blurhash",
+      "variant": "after",
+      "pair": 6
+    },
+    {
+      "initializationMs": 2.3034999999999997,
+      "firstBatchMs": 137.262959,
+      "perOperationMs": 5.459725694444445,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 139902976,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "before",
+      "pair": 0
+    },
+    {
+      "initializationMs": 2.391083999999992,
+      "firstBatchMs": 135.39041600000002,
+      "perOperationMs": 5.417751736111111,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140066816,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "after",
+      "pair": 0
+    },
+    {
+      "initializationMs": 2.139832999999996,
+      "firstBatchMs": 132.945084,
+      "perOperationMs": 5.3851458333333335,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141049856,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "after",
+      "pair": 1
+    },
+    {
+      "initializationMs": 2.090582999999995,
+      "firstBatchMs": 134.344709,
+      "perOperationMs": 5.451289361111112,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140443648,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "before",
+      "pair": 1
+    },
+    {
+      "initializationMs": 2.2220419999999947,
+      "firstBatchMs": 132.520667,
+      "perOperationMs": 5.4631961805555544,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140378112,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "before",
+      "pair": 2
+    },
+    {
+      "initializationMs": 2.1692500000000052,
+      "firstBatchMs": 137.633292,
+      "perOperationMs": 5.540328694444445,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141164544,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "after",
+      "pair": 2
+    },
+    {
+      "initializationMs": 2.235166999999997,
+      "firstBatchMs": 135.172208,
+      "perOperationMs": 5.4061516111111105,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140460032,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "after",
+      "pair": 3
+    },
+    {
+      "initializationMs": 2.217624999999998,
+      "firstBatchMs": 133.44608300000002,
+      "perOperationMs": 5.387162611111112,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141737984,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "before",
+      "pair": 3
+    },
+    {
+      "initializationMs": 2.1441250000000096,
+      "firstBatchMs": 133.078,
+      "perOperationMs": 5.408769097222222,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141541376,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "before",
+      "pair": 4
+    },
+    {
+      "initializationMs": 2.267916999999997,
+      "firstBatchMs": 133.37479100000002,
+      "perOperationMs": 5.366902208333333,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140427264,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "after",
+      "pair": 4
+    },
+    {
+      "initializationMs": 2.0940829999999977,
+      "firstBatchMs": 136.61975,
+      "perOperationMs": 5.549755791666666,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140017664,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "after",
+      "pair": 5
+    },
+    {
+      "initializationMs": 2.075375000000008,
+      "firstBatchMs": 136.330417,
+      "perOperationMs": 5.428946763888889,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140345344,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "before",
+      "pair": 5
+    },
+    {
+      "initializationMs": 2.1929170000000013,
+      "firstBatchMs": 132.941625,
+      "perOperationMs": 5.407407402777777,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140165120,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "before",
+      "pair": 6
+    },
+    {
+      "initializationMs": 2.122917000000001,
+      "firstBatchMs": 133.05174999999997,
+      "perOperationMs": 5.389557861111111,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141131776,
+      "node": "v26.11.1",
+      "scenario": "lqip",
+      "variant": "after",
+      "pair": 6
+    },
+    {
+      "initializationMs": 2.262166999999991,
+      "firstBatchMs": 124.75258300000002,
+      "perOperationMs": 5.045048041666667,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 135446528,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "before",
+      "pair": 0
+    },
+    {
+      "initializationMs": 2.0887499999999974,
+      "firstBatchMs": 124.26783300000001,
+      "perOperationMs": 5.061633097222223,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136527872,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "after",
+      "pair": 0
+    },
+    {
+      "initializationMs": 2.456084000000004,
+      "firstBatchMs": 127.801917,
+      "perOperationMs": 5.117544555555557,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136265728,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "after",
+      "pair": 1
+    },
+    {
+      "initializationMs": 2.15762500000001,
+      "firstBatchMs": 125.436125,
+      "perOperationMs": 5.011692125000001,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136921088,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "before",
+      "pair": 1
+    },
+    {
+      "initializationMs": 2.1617920000000055,
+      "firstBatchMs": 123.269291,
+      "perOperationMs": 5.000265041666667,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 135708672,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "before",
+      "pair": 2
+    },
+    {
+      "initializationMs": 2.139833000000003,
+      "firstBatchMs": 125.8795,
+      "perOperationMs": 4.985913194444444,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136577024,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "after",
+      "pair": 2
+    },
+    {
+      "initializationMs": 2.2034579999999977,
+      "firstBatchMs": 123.764291,
+      "perOperationMs": 4.9913194444444455,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136675328,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "after",
+      "pair": 3
+    },
+    {
+      "initializationMs": 2.1056659999999994,
+      "firstBatchMs": 123.943791,
+      "perOperationMs": 5.073470486111112,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136560640,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "before",
+      "pair": 3
+    },
+    {
+      "initializationMs": 2.1035830000000004,
+      "firstBatchMs": 127.61920899999998,
+      "perOperationMs": 5.101442708333334,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136675328,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "before",
+      "pair": 4
+    },
+    {
+      "initializationMs": 2.169708,
+      "firstBatchMs": 124.071958,
+      "perOperationMs": 5.007671875000001,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136282112,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "after",
+      "pair": 4
+    },
+    {
+      "initializationMs": 2.065125000000002,
+      "firstBatchMs": 124.45754200000002,
+      "perOperationMs": 4.982148722222222,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136396800,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "after",
+      "pair": 5
+    },
+    {
+      "initializationMs": 2.0492920000000083,
+      "firstBatchMs": 123.84504199999999,
+      "perOperationMs": 4.996133111111111,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136609792,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "before",
+      "pair": 5
+    },
+    {
+      "initializationMs": 2.197291000000007,
+      "firstBatchMs": 124.64437500000001,
+      "perOperationMs": 4.983599541666667,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136429568,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "before",
+      "pair": 6
+    },
+    {
+      "initializationMs": 2.1382079999999988,
+      "firstBatchMs": 124.51416700000001,
+      "perOperationMs": 5.179796874999999,
+      "checksum": 311763,
+      "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+      "peakRssBytes": 136642560,
+      "node": "v26.11.1",
+      "scenario": "thumbhash",
+      "variant": "after",
+      "pair": 6
+    }
+  ]
+}

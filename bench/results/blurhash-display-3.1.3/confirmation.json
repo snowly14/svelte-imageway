@@ -1,0 +1,884 @@
+{
+  "complete": true,
+  "environment": {
+    "measuredAt": "2026-10-25T21:34:21.263Z",
+    "sourceCommit": "833622f309f1e2e5cb2c894903b855d89e877323",
+    "harnessDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "27.0.0",
+    "cpu": "Apple M4",
+    "logicalCpus": 10,
+    "memoryBytes": 17179869184,
+    "loadAverage": [1.1787109375, 1.58203125, 2.9130859375],
+    "node": "v26.11.1",
+    "bun": "1.4.3",
+    "versions": {
+      "svelte-imageway": "3.1.3",
+      "vite": "8.3.4",
+      "sharp": "0.35.5",
+      "vite-imagetools": "12.0.1",
+      "@sveltejs/enhanced-img": "1.0.0",
+      "svelte": "5.57.2",
+      "@playwright/test": "1.64.1",
+      "ssim.js": "3.5.0"
+    },
+    "sharp": {
+      "aom": "3.15.1",
+      "archive": "3.8.9",
+      "cairo": "1.18.6",
+      "cgif": "0.5.4",
+      "exif": "0.6.26",
+      "expat": "2.8.5",
+      "ffi": "3.8.0",
+      "fontconfig": "2.18.3",
+      "freetype": "2.14.3",
+      "fribidi": "1.0.17",
+      "glib": "2.90.0",
+      "harfbuzz": "14.5.0",
+      "heif": "1.23.5",
+      "highway": "1.4.0",
+      "imagequant": "2.4.1",
+      "lcms": "2.19.1",
+      "mozjpeg": "0826579",
+      "pango": "1.58.2",
+      "pixman": "0.46.4",
+      "png": "1.6.58",
+      "proxy-libintl": "0.5",
+      "rsvg": "2.63.2",
+      "tiff": "4.7.2",
+      "uhdr": "2.0.2",
+      "vips": "8.18.7",
+      "webp": "1.6.0",
+      "xml2": "2.15.4",
+      "zlib-ng": "2.3.3",
+      "sharp": "0.35.5"
+    },
+    "limits": "Single uncontrolled desktop host; OS filesystem cache is not flushed. Cold means empty tool disk cache, not cold OS/page cache. No simultaneous benchmark suites. No production CDN, Next.js or serverless measurement."
+  },
+  "baseline": {
+    "version": "3.1.2",
+    "tarSha256": "f136df477dc8cc625caf0d9a39e39242a92c0cb7ee307a48956f89d7ed664644"
+  },
+  "corpus": [
+    {
+      "name": "kodim01.png",
+      "sha256": "a56e27cbf5f843c048b6af1d6e090760e9c92fadba88b7dee0205918a37523bd"
+    },
+    {
+      "name": "kodim02.png",
+      "sha256": "4f4b74a79237e311d72cad958237b5f7088d8bce1c82305ebefe1a70e3022dfd"
+    },
+    {
+      "name": "kodim03.png",
+      "sha256": "e25ca1ff2f0c0cb5fdfd5f9b0a0bb21ac4c3de3c84a67f35b09a85d3306249db"
+    },
+    {
+      "name": "kodim04.png",
+      "sha256": "e3b946107c5d3441c022f678d0c3caf1e224d81b1604ba840a4f88e562de61aa"
+    },
+    {
+      "name": "kodim05.png",
+      "sha256": "10349e963c5c813d327852f82c1795fa4148d69fedffc4c589bee458e3ac3d53"
+    },
+    {
+      "name": "kodim06.png",
+      "sha256": "363510303b715d4cbc384e1ce227e466b613a09e1b71ae985882bf8e7fbd9b18"
+    },
+    {
+      "name": "kodim07.png",
+      "sha256": "b77d3f006f42414bb242222e0482e750c0fb9e5ee8d4bed2f6f11c5605fe54a4"
+    },
+    {
+      "name": "kodim08.png",
+      "sha256": "ba23983c76b4832ee0e8af0592664756841a16779acd69f792e268fb6d13d6e7"
+    },
+    {
+      "name": "kodim09.png",
+      "sha256": "6a4361c2fc194feb4edaa9f9a4a0620fb9943e460ac7fdf037fb0f6dd6607a7d"
+    },
+    {
+      "name": "kodim10.png",
+      "sha256": "9dfb70f5867c29ff9ed6313683f19b3d867849e40fbc0c4c54a4a89df341cf23"
+    },
+    {
+      "name": "kodim11.png",
+      "sha256": "7936814b58b5387fce2e4e2488b4ec830dadd95fa9520f358ddb30990b50f2b6"
+    },
+    {
+      "name": "kodim12.png",
+      "sha256": "d78c37c2f04f23761ed2367dd77e2db584ddd4c3950833fecf89f199a8126980"
+    },
+    {
+      "name": "kodim13.png",
+      "sha256": "bc34a3ce58dea09dce1704c997171602de90cb34d0c8503a988b77f473d39b08"
+    },
+    {
+      "name": "kodim14.png",
+      "sha256": "55a94550ff18f3246c4074fd32b77b0c74447c26b6ad274d564d999c0450ba6e"
+    },
+    {
+      "name": "kodim15.png",
+      "sha256": "7538cbb80cb9103606c48b806eae57d56c885c7f90b9b3be70a41160f9cbb683"
+    },
+    {
+      "name": "kodim16.png",
+      "sha256": "a89c7268ccd4718ba424a99fc4643c572cf692ca6eae887185ceb4e9f11d2e54"
+    },
+    {
+      "name": "kodim17.png",
+      "sha256": "37afcc89fbdcb76d9518e04b2fc011027e2f4cd14b3b2f83cefd721641a47c5b"
+    },
+    {
+      "name": "kodim18.png",
+      "sha256": "1a9258c365988961d87a0598725b609139c303ad48a5aad6c503c3b1a87849aa"
+    },
+    {
+      "name": "kodim19.png",
+      "sha256": "b7450b264b1b0a411390d8931b112c27905a992520fc90569dc4b920aa32bbdc"
+    },
+    {
+      "name": "kodim20.png",
+      "sha256": "3b46c71e3b92a563820ba32936be8330c586c41f938efd94be938386aae4328a"
+    },
+    {
+      "name": "kodim21.png",
+      "sha256": "ac958597c82073f6bb65129c68f72b651db5b9efd82e11547d07350214bc268b"
+    },
+    {
+      "name": "kodim22.png",
+      "sha256": "1cee58eb1f2d9c7ebb254d208a03c783ce6cf2c4d8c2cf45e235dd23b4ce1b29"
+    },
+    {
+      "name": "kodim23.png",
+      "sha256": "e3111a2fd4da24af15d6459ef9eacfe54106b38e27b4a21821b75c3f5d2d5baf"
+    },
+    {
+      "name": "kodim24.png",
+      "sha256": "1071c68372cc5a01435c2c225a5cf7d4bb803846ec08bb6b3d6721b156d7cb96"
+    }
+  ],
+  "reason": "Primary seven-set study showed a1.6% worse complete BlurHash median despite a faster isolated kernel, with overlapping ranges. Prespecified15additional fresh-process sets interleave BlurHash and unchanged LQIP cases, alternating their order; retain both studies, do not replace or pool away the initial regression. Same child protocol: first24-photo batch, one warmup,72timed sequential previews, no preview-cache reuse. Initialization excludes common static imports. All outputs match by complete JSON digest. Serial uncontrolled desktop.",
+  "rows": [
+    {
+      "initializationMs": 5.157958000000001,
+      "firstBatchMs": 135.90325,
+      "perOperationMs": 5.254047458333333,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140050432,
+      "node": "v26.11.1",
+      "pair": 0,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 3.875542000000003,
+      "firstBatchMs": 128.700333,
+      "perOperationMs": 5.5634982638888895,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 142753792,
+      "node": "v26.11.1",
+      "pair": 0,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.121667000000002,
+      "firstBatchMs": 135.008917,
+      "perOperationMs": 5.4036047499999995,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141344768,
+      "node": "v26.11.1",
+      "pair": 0,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.1517079999999993,
+      "firstBatchMs": 132.984125,
+      "perOperationMs": 5.409932875,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140312576,
+      "node": "v26.11.1",
+      "pair": 0,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.070333000000005,
+      "firstBatchMs": 133.918583,
+      "perOperationMs": 5.468164347222222,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140279808,
+      "node": "v26.11.1",
+      "pair": 1,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.2678749999999965,
+      "firstBatchMs": 136.8075,
+      "perOperationMs": 5.4391568333333336,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141230080,
+      "node": "v26.11.1",
+      "pair": 1,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.1309169999999966,
+      "firstBatchMs": 129.405458,
+      "perOperationMs": 5.153412027777779,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140312576,
+      "node": "v26.11.1",
+      "pair": 1,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.4441250000000068,
+      "firstBatchMs": 132.095583,
+      "perOperationMs": 5.215611680555556,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140181504,
+      "node": "v26.11.1",
+      "pair": 1,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.0772089999999963,
+      "firstBatchMs": 131.23004199999997,
+      "perOperationMs": 5.230339694444445,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140001280,
+      "node": "v26.11.1",
+      "pair": 2,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.179125000000006,
+      "firstBatchMs": 129.031834,
+      "perOperationMs": 5.163303819444446,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140066816,
+      "node": "v26.11.1",
+      "pair": 2,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.107083000000003,
+      "firstBatchMs": 133.38725,
+      "perOperationMs": 5.5892905,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140869632,
+      "node": "v26.11.1",
+      "pair": 2,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.297333000000002,
+      "firstBatchMs": 134.493584,
+      "perOperationMs": 5.420354166666667,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140115968,
+      "node": "v26.11.1",
+      "pair": 2,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.155583,
+      "firstBatchMs": 132.762542,
+      "perOperationMs": 5.394873847222223,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140165120,
+      "node": "v26.11.1",
+      "pair": 3,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.1942909999999998,
+      "firstBatchMs": 133.802167,
+      "perOperationMs": 5.373903930555555,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141426688,
+      "node": "v26.11.1",
+      "pair": 3,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.0676249999999996,
+      "firstBatchMs": 128.44425,
+      "perOperationMs": 5.171914930555555,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140312576,
+      "node": "v26.11.1",
+      "pair": 3,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.2557919999999996,
+      "firstBatchMs": 131.17,
+      "perOperationMs": 5.207022569444444,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140541952,
+      "node": "v26.11.1",
+      "pair": 3,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.3499999999999943,
+      "firstBatchMs": 134.978291,
+      "perOperationMs": 5.198232055555556,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140476416,
+      "node": "v26.11.1",
+      "pair": 4,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.018957999999998,
+      "firstBatchMs": 127.968834,
+      "perOperationMs": 5.17582348611111,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140247040,
+      "node": "v26.11.1",
+      "pair": 4,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.231584000000005,
+      "firstBatchMs": 134.312458,
+      "perOperationMs": 5.403892361111111,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141000704,
+      "node": "v26.11.1",
+      "pair": 4,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.0835419999999942,
+      "firstBatchMs": 133.25512500000002,
+      "perOperationMs": 5.391884833333333,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140214272,
+      "node": "v26.11.1",
+      "pair": 4,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.0467080000000024,
+      "firstBatchMs": 133.84254099999998,
+      "perOperationMs": 5.396178819444445,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140181504,
+      "node": "v26.11.1",
+      "pair": 5,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.075792000000007,
+      "firstBatchMs": 133.261417,
+      "perOperationMs": 5.558631944444444,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140263424,
+      "node": "v26.11.1",
+      "pair": 5,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.093709000000004,
+      "firstBatchMs": 128.986208,
+      "perOperationMs": 5.1774375,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140197888,
+      "node": "v26.11.1",
+      "pair": 5,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.254708000000001,
+      "firstBatchMs": 131.486042,
+      "perOperationMs": 5.208848958333333,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140378112,
+      "node": "v26.11.1",
+      "pair": 5,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.185874999999996,
+      "firstBatchMs": 131.393292,
+      "perOperationMs": 5.210270250000001,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140066816,
+      "node": "v26.11.1",
+      "pair": 6,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.1398750000000035,
+      "firstBatchMs": 129.58379100000002,
+      "perOperationMs": 5.16153125,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140263424,
+      "node": "v26.11.1",
+      "pair": 6,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.1993750000000034,
+      "firstBatchMs": 133.020625,
+      "perOperationMs": 5.376784138888889,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141836288,
+      "node": "v26.11.1",
+      "pair": 6,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.091458000000003,
+      "firstBatchMs": 137.979,
+      "perOperationMs": 5.436103583333334,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140197888,
+      "node": "v26.11.1",
+      "pair": 6,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.1416249999999977,
+      "firstBatchMs": 133.15625,
+      "perOperationMs": 5.4068929444444445,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141377536,
+      "node": "v26.11.1",
+      "pair": 7,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.2031670000000005,
+      "firstBatchMs": 134.113125,
+      "perOperationMs": 5.405496527777778,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140574720,
+      "node": "v26.11.1",
+      "pair": 7,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.067875000000001,
+      "firstBatchMs": 127.88737499999999,
+      "perOperationMs": 5.173126152777777,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140869632,
+      "node": "v26.11.1",
+      "pair": 7,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.175582999999996,
+      "firstBatchMs": 131.000458,
+      "perOperationMs": 5.217287041666666,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 139722752,
+      "node": "v26.11.1",
+      "pair": 7,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.121165999999995,
+      "firstBatchMs": 131.411709,
+      "perOperationMs": 5.342803819444445,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140951552,
+      "node": "v26.11.1",
+      "pair": 8,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.0704590000000067,
+      "firstBatchMs": 127.97316599999999,
+      "perOperationMs": 5.175171875,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140541952,
+      "node": "v26.11.1",
+      "pair": 8,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.3806669999999954,
+      "firstBatchMs": 133.058833,
+      "perOperationMs": 5.40875463888889,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141066240,
+      "node": "v26.11.1",
+      "pair": 8,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.1656250000000057,
+      "firstBatchMs": 132.280667,
+      "perOperationMs": 5.393132513888889,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140083200,
+      "node": "v26.11.1",
+      "pair": 8,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.107625000000006,
+      "firstBatchMs": 134.449208,
+      "perOperationMs": 5.373922458333334,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140083200,
+      "node": "v26.11.1",
+      "pair": 9,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.139958,
+      "firstBatchMs": 132.648166,
+      "perOperationMs": 5.3938420138888885,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140558336,
+      "node": "v26.11.1",
+      "pair": 9,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.364166999999995,
+      "firstBatchMs": 133.333833,
+      "perOperationMs": 5.225326388888889,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140328960,
+      "node": "v26.11.1",
+      "pair": 9,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.0330829999999978,
+      "firstBatchMs": 131.597416,
+      "perOperationMs": 5.223685180555555,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140181504,
+      "node": "v26.11.1",
+      "pair": 9,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.191999999999993,
+      "firstBatchMs": 131.517125,
+      "perOperationMs": 5.200134263888888,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140443648,
+      "node": "v26.11.1",
+      "pair": 10,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.158292000000003,
+      "firstBatchMs": 128.55504200000001,
+      "perOperationMs": 5.183943291666666,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140066816,
+      "node": "v26.11.1",
+      "pair": 10,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.0555420000000026,
+      "firstBatchMs": 132.890875,
+      "perOperationMs": 5.437460638888889,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140378112,
+      "node": "v26.11.1",
+      "pair": 10,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.110624999999999,
+      "firstBatchMs": 133.84324999999998,
+      "perOperationMs": 5.504220486111112,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141328384,
+      "node": "v26.11.1",
+      "pair": 10,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.060707999999991,
+      "firstBatchMs": 133.911459,
+      "perOperationMs": 5.596995944444445,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140410880,
+      "node": "v26.11.1",
+      "pair": 11,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.114958999999999,
+      "firstBatchMs": 134.27991600000001,
+      "perOperationMs": 5.499813666666666,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140460032,
+      "node": "v26.11.1",
+      "pair": 11,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.265416000000002,
+      "firstBatchMs": 128.59675,
+      "perOperationMs": 5.160617486111111,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 139689984,
+      "node": "v26.11.1",
+      "pair": 11,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.156708000000002,
+      "firstBatchMs": 132.56162500000002,
+      "perOperationMs": 5.1882430555555565,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140197888,
+      "node": "v26.11.1",
+      "pair": 11,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.097583,
+      "firstBatchMs": 130.757084,
+      "perOperationMs": 5.203056708333333,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140541952,
+      "node": "v26.11.1",
+      "pair": 12,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.100625000000008,
+      "firstBatchMs": 129.344583,
+      "perOperationMs": 5.225334486111111,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140722176,
+      "node": "v26.11.1",
+      "pair": 12,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.3025419999999954,
+      "firstBatchMs": 133.69150000000002,
+      "perOperationMs": 5.414907416666666,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 139853824,
+      "node": "v26.11.1",
+      "pair": 12,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.2825420000000065,
+      "firstBatchMs": 132.306375,
+      "perOperationMs": 5.37893461111111,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141459456,
+      "node": "v26.11.1",
+      "pair": 12,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.1995839999999873,
+      "firstBatchMs": 132.87574999999998,
+      "perOperationMs": 5.386291666666667,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140034048,
+      "node": "v26.11.1",
+      "pair": 13,
+      "scenario": "lqip",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.1742920000000012,
+      "firstBatchMs": 132.618083,
+      "perOperationMs": 5.364532402777778,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 141557760,
+      "node": "v26.11.1",
+      "pair": 13,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.081417000000002,
+      "firstBatchMs": 129.741333,
+      "perOperationMs": 5.235666083333332,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140312576,
+      "node": "v26.11.1",
+      "pair": 13,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.295625000000001,
+      "firstBatchMs": 134.70545900000002,
+      "perOperationMs": 5.243941555555556,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140574720,
+      "node": "v26.11.1",
+      "pair": 13,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.1799999999999997,
+      "firstBatchMs": 133.682625,
+      "perOperationMs": 5.204911458333333,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140279808,
+      "node": "v26.11.1",
+      "pair": 14,
+      "scenario": "blurhash",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.277957999999991,
+      "firstBatchMs": 128.1445,
+      "perOperationMs": 5.172277208333332,
+      "checksum": 14319,
+      "digest": "a78c00b1c94d5ba902ea4b92e1c6275cc2e96b58c9ae18a26c74586c531960d1",
+      "peakRssBytes": 140099584,
+      "node": "v26.11.1",
+      "pair": 14,
+      "scenario": "blurhash",
+      "variant": "after"
+    },
+    {
+      "initializationMs": 2.102209000000002,
+      "firstBatchMs": 132.52491600000002,
+      "perOperationMs": 5.376344319444445,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140361728,
+      "node": "v26.11.1",
+      "pair": 14,
+      "scenario": "lqip",
+      "variant": "before"
+    },
+    {
+      "initializationMs": 2.0531250000000014,
+      "firstBatchMs": 133.215417,
+      "perOperationMs": 5.414621527777777,
+      "checksum": 11775,
+      "digest": "200c3149fd870808267008bb8b4b7fac10275ed50ceccae737612d8358a3b98b",
+      "peakRssBytes": 140066816,
+      "node": "v26.11.1",
+      "pair": 14,
+      "scenario": "lqip",
+      "variant": "after"
+    }
+  ]
+}

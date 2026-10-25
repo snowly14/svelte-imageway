@@ -1,0 +1,302 @@
+{
+  "protocol": "Untimed post-benchmark diagnostics only. Fixed-memory native export counts exact gamma fallback channels for24pinned Kodak hashes. Two fresh-Node --cpu-prof runs show main-thread self-sample estimates including setup/hash preparation; native Sharp threads are not profiled. CPU profiler overhead is excluded from every timed table. Full profiles remain ignored local artifacts identified by SHA.",
+  "wasmSha256": "f5210d8d5c1848daac7423da051a96c98b721eb490808def178bfc5c5c97130d",
+  "fallbackChannels": 1,
+  "totalChannels": 18432,
+  "fallback": [
+    {
+      "name": "kodim01.png",
+      "hash": "LCE2:$xtR,S4~UkCWCayRQRjayWV",
+      "channels": 0
+    },
+    {
+      "name": "kodim02.png",
+      "hash": "L3Gro0}?a1mm}?OX;N9]@]#9TIt*",
+      "channels": 0
+    },
+    {
+      "name": "kodim03.png",
+      "hash": "LHD+#SshY4Iu?[s%%KRoKQM~-7ae",
+      "channels": 0
+    },
+    {
+      "name": "kodim04.png",
+      "hash": "LAFqOP4:Iv^*|6cDtmv$}unScYxt",
+      "channels": 0
+    },
+    {
+      "name": "kodim05.png",
+      "hash": "LABMlEx[J~t7~o%LSdt6tSkCs9ou",
+      "channels": 0
+    },
+    {
+      "name": "kodim06.png",
+      "hash": "LwHCAIxtWXt6~ot7Rlj[-:ofWCa#",
+      "channels": 0
+    },
+    {
+      "name": "kodim07.png",
+      "hash": "LBECXYyES0~Bo}s;kCo|kDX5ixIV",
+      "channels": 1
+    },
+    {
+      "name": "kodim08.png",
+      "hash": "L8F$FY03xx~V?dpco~x[N3u4%MtR",
+      "channels": 0
+    },
+    {
+      "name": "kodim09.png",
+      "hash": "L5Fib}_N9~.7?w-:%Lt701ITMcVy",
+      "channels": 0
+    },
+    {
+      "name": "kodim10.png",
+      "hash": "L9E3bc%g?^xuIsWZX9xu01x[oIxt",
+      "channels": 0
+    },
+    {
+      "name": "kodim11.png",
+      "hash": "L9BWrIt+9^%1+1r@RkS2.mnP$hR*",
+      "channels": 0
+    },
+    {
+      "name": "kodim12.png",
+      "hash": "LHJ8tZpd9b?[*J%#IVt7tm.7IVMy",
+      "channels": 0
+    },
+    {
+      "name": "kodim13.png",
+      "hash": "LCD,12V@4n-:X.D%Di%f?wR%Djxu",
+      "channels": 0
+    },
+    {
+      "name": "kodim14.png",
+      "hash": "L9Dlfixu0PxY.T_1-PIq0-yD,?s+",
+      "channels": 0
+    },
+    {
+      "name": "kodim15.png",
+      "hash": "LtGIx{.7?]kpODkqRks:IUV[V@of",
+      "channels": 0
+    },
+    {
+      "name": "kodim16.png",
+      "hash": "LOD0PzM|oK%K_MWCayxtR:juWBt6",
+      "channels": 0
+    },
+    {
+      "name": "kodim17.png",
+      "hash": "L3A^B$?^0Nmj00Di4nNK00-:-:Xn",
+      "channels": 0
+    },
+    {
+      "name": "kodim18.png",
+      "hash": "L4Acn{}@xS-o9#^iRRxF6_5qESMx",
+      "channels": 0
+    },
+    {
+      "name": "kodim19.png",
+      "hash": "LEFFQmxaR:^%%%E3kCoL02NHxZ9b",
+      "channels": 0
+    },
+    {
+      "name": "kodim20.png",
+      "hash": "L~NK6JaejYxt~qf6aeoeW@t6fkRk",
+      "channels": 0
+    },
+    {
+      "name": "kodim21.png",
+      "hash": "LQDct1niM}bcyZofWDj]ESkCt6of",
+      "channels": 0
+    },
+    {
+      "name": "kodim22.png",
+      "hash": "LPE.qXnhELt7~Ws,NFj[%gxsaKR+",
+      "channels": 0
+    },
+    {
+      "name": "kodim23.png",
+      "hash": "LFFrRxy-0LDP-rENOm-OJBvzx@S~",
+      "channels": 0
+    },
+    {
+      "name": "kodim24.png",
+      "hash": "LMEM8o?uo|.7~p-;%Lx]?u-pxtog",
+      "channels": 0
+    }
+  ],
+  "profiles": [
+    {
+      "mode": "referenceJS",
+      "profileSha256": "be866e9fadc877d0c3883eea76b74240dc831f327af96f61a829c6db73671b5d",
+      "topSelfSamples": [
+        {
+          "function": "U",
+          "module": "file://node_modules/.bun/blurhash@2.0.5/node_modules/blurhash/dist/index.mjs",
+          "sampledMs": 335.277
+        },
+        {
+          "function": "(idle)",
+          "module": "",
+          "sampledMs": 110.594
+        },
+        {
+          "function": "h",
+          "module": "file://node_modules/.bun/blurhash@2.0.5/node_modules/blurhash/dist/index.mjs",
+          "sampledMs": 74
+        },
+        {
+          "function": "__require",
+          "module": "node:internal/deps/amaro/dist/index",
+          "sampledMs": 17.357
+        },
+        {
+          "function": "",
+          "module": "file://bench/blurhash-display/child.ts",
+          "sampledMs": 16.292
+        },
+        {
+          "function": "f",
+          "module": "file://node_modules/.bun/blurhash@2.0.5/node_modules/blurhash/dist/index.mjs",
+          "sampledMs": 6.507
+        },
+        {
+          "function": "(garbage collector)",
+          "module": "",
+          "sampledMs": 5.017
+        },
+        {
+          "function": "dlopen",
+          "module": "",
+          "sampledMs": 5.01
+        },
+        {
+          "function": "",
+          "module": "file://bench/blurhash-display/child.ts",
+          "sampledMs": 4.875
+        },
+        {
+          "function": "",
+          "module": "file://node_modules/.bun/blurhash@2.0.5/node_modules/blurhash/dist/index.mjs",
+          "sampledMs": 3.764
+        },
+        {
+          "function": "Module",
+          "module": "",
+          "sampledMs": 2.48
+        },
+        {
+          "function": "",
+          "module": "file://node_modules/.bun/sharp@0.35.5+664724dec0ad8d9e/node_modules/sharp/dist/output.mjs",
+          "sampledMs": 2.259
+        },
+        {
+          "function": "compileForInternalLoader",
+          "module": "node:internal/bootstrap/realm",
+          "sampledMs": 1.302
+        },
+        {
+          "function": "consoleCall",
+          "module": "",
+          "sampledMs": 1.294
+        },
+        {
+          "function": "open",
+          "module": "",
+          "sampledMs": 1.261
+        },
+        {
+          "function": "D",
+          "module": "file://node_modules/.bun/blurhash@2.0.5/node_modules/blurhash/dist/index.mjs",
+          "sampledMs": 1.258
+        }
+      ]
+    },
+    {
+      "mode": "rust",
+      "profileSha256": "c5c217df6b6ee423f43fb0f1a5239012a048916a840764fc5e1352bd76fabfb4",
+      "topSelfSamples": [
+        {
+          "function": "(idle)",
+          "module": "",
+          "sampledMs": 117.728
+        },
+        {
+          "function": "wasm-function[1]",
+          "module": "wasm://wasm/44e9dd9a",
+          "sampledMs": 22.602
+        },
+        {
+          "function": "__require",
+          "module": "node:internal/deps/amaro/dist/index",
+          "sampledMs": 17.574
+        },
+        {
+          "function": "wasm-function[1]",
+          "module": "wasm://wasm/44e9dd9a",
+          "sampledMs": 10.048
+        },
+        {
+          "function": "dlopen",
+          "module": "",
+          "sampledMs": 5.026
+        },
+        {
+          "function": "wasm-function[1]",
+          "module": "wasm://wasm/44e9dd9a",
+          "sampledMs": 5.023
+        },
+        {
+          "function": "f",
+          "module": "file://node_modules/.bun/blurhash@2.0.5/node_modules/blurhash/dist/index.mjs",
+          "sampledMs": 4.712
+        },
+        {
+          "function": "(program)",
+          "module": "",
+          "sampledMs": 3.756
+        },
+        {
+          "function": "(garbage collector)",
+          "module": "",
+          "sampledMs": 1.476
+        },
+        {
+          "function": "compileForInternalLoader",
+          "module": "node:internal/bootstrap/realm",
+          "sampledMs": 1.305
+        },
+        {
+          "function": "readFileUtf8",
+          "module": "",
+          "sampledMs": 1.262
+        },
+        {
+          "function": "Module",
+          "module": "",
+          "sampledMs": 1.261
+        },
+        {
+          "function": "afterLoad",
+          "module": "node:internal/modules/esm/loader",
+          "sampledMs": 1.261
+        },
+        {
+          "function": "wasm-function[105]",
+          "module": "wasm://wasm/00ad0bc6",
+          "sampledMs": 1.26
+        },
+        {
+          "function": "wasm-function[362]",
+          "module": "wasm://wasm/00ad0bc6",
+          "sampledMs": 1.26
+        },
+        {
+          "function": "parse",
+          "module": "",
+          "sampledMs": 1.26
+        }
+      ]
+    }
+  ]
+}

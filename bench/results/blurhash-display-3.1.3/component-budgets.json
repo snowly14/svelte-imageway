@@ -1,0 +1,39 @@
+{
+  "protocol": "Candidate complete entries at same compiler/path as3.1.2, Svelte externalized; JSgzip9 and separately compressed CSS. Source/helper equality against published baseline proves no client source change; no size improvement claimed.",
+  "version": "3.1.3",
+  "rows": [
+    {
+      "component": "image",
+      "entry": "Image.svelte plus all Imageway helpers",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 6775,
+      "gzipBytes": 3012,
+      "gzipLevel": 9,
+      "cssBytes": 408,
+      "cssGzipBytes": 220,
+      "totalGzipBytes": 3232,
+      "targetBytes": 1536
+    },
+    {
+      "component": "picture",
+      "entry": "Picture.svelte",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 7507,
+      "gzipBytes": 3160,
+      "gzipLevel": 9,
+      "cssBytes": 401,
+      "cssGzipBytes": 218,
+      "totalGzipBytes": 3378,
+      "targetBytes": 1536
+    }
+  ],
+  "unchangedClientFiles": {
+    "components/Image.svelte": "a19e247e3e4c5bb879384332274cbd80176d98743d262d8fe06adf4ad952dcbc",
+    "components/Picture.svelte": "ad9dfa998c800b0e16f711818105e86e717e71f908173c6482d5ba3256857b4a",
+    "props.js": "bfc2223c880fd05e9b8346454641bacc7a888dcc58f34faa2139fdfc90bd8940",
+    "context.js": "74b280788ac3f1515ac5f75aa0edc6709b28ae8fe8160be5629314b79c3f8c3e",
+    "core/artifact.js": "5951f651ce7f47ed9ad5be0109d2b44be67f91cc784a5c5ee2a5af7f4894e740",
+    "core/errors.js": "0de710951210aa448639cedf670c0a515e957b7f7445f50941bca1f17692cdec"
+  },
+  "requested2000ByteTargetMet": false
+}

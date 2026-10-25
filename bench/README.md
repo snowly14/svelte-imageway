@@ -1,6 +1,10 @@
 # Reproducible package benchmarks
 
-## Current 3.1.2 display preview/component comparison — 25 October 2026
+## Current 3.1.3 BlurHash display comparison — 25 October 2026
+
+[Bounded Rust BlurHash decoding](BLURHASH-DISPLAY-3.1.3.md): SHA-pinned npm 3.1.2, two optimized JS controls, exact gamma-boundary fallback, independent native rebuild, byte-identical full previews, seven cold/warm build pairs and refreshed photographic/synthetic imagetools/enhanced-img comparisons. A separate 15-set confirmation investigates the initial full-preview regression without replacing it. Kernel wins do not establish a large whole-pipeline gain; cold build RSS increases and cross-tool gaps remain visible. Client sources and the unmet 2000-byte goal are unchanged.
+
+## Previous 3.1.2 display preview/component comparison — 25 October 2026
 
 [Native ThumbHash display previews and leaner components](LEAN-PREVIEW-3.1.2.md): seven alternating sets against SHA-pinned npm 3.1.1, bounded optimized JS controls, byte-identical PNG output, initialization/RSS, registered-import attribute derivation, isolated JS+CSS, complete SSR/client pages and no-JS checks. The 2000-byte complete-entry target remains unmet. No new codec/build/HTTP ranking is claimed.
 

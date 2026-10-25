@@ -100,7 +100,7 @@ Quality 75 is the default encoder setting, not a guarantee of equal perceptual q
 
 For a WebP-only local workflow, set `formats: ['webp']` to avoid encoding other formats. By default, production builds omit AVIF only when **every matching WebP size is no larger**. Both formats must be encoded before that byte comparison. Explicit format directives stay exact; `pruneLargerFormats: false` retains all default formats.
 
-Local-import preview strategies are `lqip` (default), `color`, `thumbhash`, `blurhash` and `none`. Previews are generated on the build/server side. Rust handles colour histograms, hash projections, and ThumbHash display decoding/PNG assembly in a precompiled, fixed-memory module; Sharp handles image codecs. The browser receives display-ready previews, not a hash decoder or Rust runtime. [Native architecture and contributor steps](CONTRIBUTING.md).
+Local-import preview strategies are `lqip` (default), `color`, `thumbhash`, `blurhash` and `none`. Previews are generated on the build/server side. Rust handles colour histograms, hash projections, and ThumbHash/BlurHash display decoding (plus ThumbHash PNG assembly) in a precompiled, fixed-memory module; Sharp handles image codecs. The browser receives display-ready previews, not a hash decoder or Rust runtime. [Native architecture and contributor steps](CONTRIBUTING.md).
 
 Hash previews include a display-ready data URL as well as the compact hash. That data URL can be larger than LQIP; hash length alone is not the transferred preview size.
 
@@ -161,11 +161,11 @@ The CLI can also prepare deployment files and migration previews. It does not pr
 
 Measurements include the protocol, machine, medians, dispersion and raw samples. [Latest results and release verification](REPORT.md) · [Reproduction](bench/README.md).
 
-The [3.1.2 comparison](bench/LEAN-PREVIEW-3.1.2.md) measures complete Image/Picture entries at **3012/3160 JavaScript gzip bytes**, with Svelte externalized, plus **220/218 CSS bytes**. The requested **under-2000-byte goal remains unmet**. Real client fixtures including Svelte shrink by **500/462 bytes**; a page using both saves **458 bytes total**, including a two-byte CSS increase. Public APIs and lifecycle behavior are preserved.
+The [3.1.3 comparison](bench/BLURHASH-DISPLAY-3.1.3.md) expands Rust to generated BlurHash display decoding. Seven alternating sets measure **2.98 µs/hash**, versus **6.86 µs** for the best bounded JS control and **32.12 µs** for the reference. Exact rounding-boundary channels retain the reference JS conversion; complete pixel and preview bytes match. The native module stays at a fixed **64 KiB**, and both hash reference packages are development dependencies rather than published runtime requirements.
 
-In seven alternating local sets, Rust ThumbHash display decoding takes **13.9 µs**, compared with **83.2 µs reference JS / 32.0 µs bounded optimized JS**. Decoding plus a byte-identical PNG takes **25.3 / 110.1 / 40.8 µs** respectively. Complete ThumbHash previews improve only about **2.8%** in that session; LQIP remains effectively unchanged. Already optimized imports also avoid unnecessary provider lookup. The report separates initialization, kernels, complete previews, client assets and process RSS, including small memory/CSS regressions.
+That kernel result does **not** establish a large end-to-end gain: the first complete-preview study is **1.6% slower**, while a separate 15-set confirmation is **0.7% faster**. Both remain published. Cold BlurHash build RSS grows about **3.3 MiB**. Current controlled photographic cold/warm builds are **363/61 ms**, versus **318/51** for imagetools and **317/53** for enhanced-img, with higher cold RSS. The report retains all initialization, memory, cache, corpus and timing details; no build/HTTP leadership is claimed.
 
-The dated [3.1 photographic comparison](bench/IMPROVEMENTS-3.1.md) still trails vite-imagetools/enhanced-img in controlled build latency and cold RSS. Those build/codec/HTTP paths are not rebenchmarked in 3.1.2, and no leadership is claimed.
+Client sources are unchanged. Complete Image/Picture entries remain **3012/3160 JavaScript gzip bytes** with Svelte externalized, plus **220/218 CSS bytes**. The requested **under-2000-byte goal remains unmet**. [Next measured tranche](docs/planning/next-performance-tranche.md).
 
 Paid cloud deployments are unverified. JPEG XL/HEIC support depends on the installed native codecs; use `codecs --json` to check. Rich SVG, video conversion and a browser WASM optimizer are not included. [Format details](docs/guides/local-images.md) · [JPEG XL](docs/guides/jpeg-xl.md).
 
