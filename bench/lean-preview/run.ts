@@ -1,3 +1,4 @@
+import { verifyCorpus } from './corpus.ts';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { execute, environment, summary, digest } from '../photographic/common.ts';
@@ -7,6 +8,7 @@ if (digest(await readFile('.local/lean-3.2/baseline.tgz')) !== tarSha256)
   throw Error('Expected verified npm 3.1.1 archive.');
 const directory = resolve('bench/results/lean-preview-3.1.2');
 await mkdir(directory, { recursive: true });
+const corpus = await verifyCorpus();
 const env = await environment();
 const rows: Array<{
   pair: number;
@@ -52,6 +54,7 @@ for (const [scenario, variants] of [
           {
             complete: rows.length === 84,
             environment: env,
+            corpus,
             baseline: { version: '3.1.1', tarSha256 },
             protocol:
               'Seven alternating fresh-Node sets; 24 pinned Kodak photographs. Kernel setup decodes outside timer; 25 warmup batches then 200 timed batches = 4800 calls. All variants consume output via base64/checksum. Rust includes validation, hash copy, owned RGBA output for decode or synchronous PNG base64. cachedJS reuses bounded cosine/coefficient scratch; cachedPNG adds fixed typed-array PNG/CRC/base64 control. Initialization is incremental after common static imports, not whole-process startup. Complete previews: first 24-image batch, one warmup batch, 72 timed sequential previews, no persistent preview cache. LQIP unchanged control. Props: 24 registered URL artifacts, 100 warmup batches then 10000 batches (240000 calls), empty provider map; canonical attribute digest must match. All output digests must match. Serial suites on uncontrolled desktop.',

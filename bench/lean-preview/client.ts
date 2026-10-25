@@ -1,3 +1,4 @@
+import { verifyCorpus } from './corpus.ts';
 import { cp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { environment, execute, digest } from '../photographic/common.ts';
@@ -9,6 +10,7 @@ if (
   throw Error('Unexpected baseline archive.');
 const resultDir = resolve('bench/results/lean-preview-3.1.2');
 await mkdir(resultDir, { recursive: true });
+const corpus = await verifyCorpus();
 const env = await environment();
 const rows: Array<{
   scenario: string;
@@ -63,7 +65,9 @@ for (const scenario of ['Image', 'Picture', 'Both']) {
         join(resultDir, 'clients.json'),
         JSON.stringify(
           {
+            complete: rows.length === 42,
             environment: env,
+            corpus,
             protocol:
               'Seven alternating fresh-process builds per Image/Picture/Both fixture, actual ordinary import and SSR/hydration entry. Same compiler, published 3.1.1 baseline vs candidate, empty tool cache each time. No timing claim; gzip9 JS and CSS counted separately and summed per emitted file, including Svelte. Image byte/SHA multisets must match; no server WASM in browser. Both fixture detects duplicated CSS/runtime overhead.',
             rows,
