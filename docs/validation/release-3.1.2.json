@@ -1,0 +1,86 @@
+{
+  "verifiedAt": "2026-10-25T14:34:53.769Z",
+  "available": true,
+  "version": "3.1.2",
+  "tag": "latest",
+  "sourceCommit": "9ff9db07b2918d725371f4a2dffd969d040b5688",
+  "integrity": "sha512-lHEgRdpcFzTqxbQcqk18LgI1fofsdyCtO5F9azPu2UisP4oHQFA7NPELxUvPH2AUMogUuXAQfGyaiHlVIv5CxQ==",
+  "sha256": "f136df477dc8cc625caf0d9a39e39242a92c0cb7ee307a48956f89d7ed664644",
+  "provenanceSubjectMatches": true,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/40202547095",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/40202546015",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.2",
+  "archiveBytes": 89073,
+  "integrityMatches": true,
+  "provenanceSourceMatches": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "ciBrowserTests": {
+    "passed": 18,
+    "skippedOptionalServices": 6,
+    "failed": 0
+  },
+  "native": {
+    "bytes": 11111,
+    "sha256": "be6080f60cdc265debf6d224f9097c1dc023ad76dff13f6bb13d2b0a0b324112",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "installedThumbHashEncodeDecodePNGReferenceParity": true,
+    "seededCases": 20,
+    "ownedPixelOutput": true,
+    "runtimeThumbHashDependencyRemoved": true,
+    "installedReadmeMatchesGeneratedSource": true
+  },
+  "readmeRegression": {
+    "staleArchiveRejected": true,
+    "restoredArchivePasses": true
+  },
+  "githubArchiveSha256Matches": true,
+  "requested2000ByteTargetMet": false,
+  "registryArchiveConsumers": [
+    {
+      "measuredAt": "2026-10-25T14:34:59.788Z",
+      "archive": "verified npm registry archive",
+      "packageVersion": "3.1.2",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4967.190375,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "blurhash",
+      "archiveSha256": "f136df477dc8cc625caf0d9a39e39242a92c0cb7ee307a48956f89d7ed664644"
+    },
+    {
+      "measuredAt": "2026-10-25T14:35:05.137Z",
+      "archive": "verified npm registry archive",
+      "packageVersion": "3.1.2",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4686.413208,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "thumbhash",
+      "archiveSha256": "f136df477dc8cc625caf0d9a39e39242a92c0cb7ee307a48956f89d7ed664644"
+    }
+  ]
+}
