@@ -1,0 +1,105 @@
+{
+  "verifiedAt": "2026-10-25T22:09:27.283Z",
+  "available": true,
+  "version": "3.1.3",
+  "tag": "latest",
+  "sourceCommit": "13fec31c9fbb8f5848d892957e8fd25aaffa75b1",
+  "integrity": "sha512-61VcszPAvk4fcFUA0pgC2Ndkf8/ysu9Uqyf2T9vWPnD4URiDanchPyIf3+/wGTFFiWYBbcn/q84Mt9SfB/Eu6w==",
+  "sha256": "50d85026796f70e6ccab5a89be785e0059ec157da8a237019d3da867bf2ea63a",
+  "provenanceSubjectMatches": true,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/40237833159",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/40237832757",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.3",
+  "archiveBytes": 91241,
+  "integrityMatches": true,
+  "provenanceSourceMatches": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "ciBrowserTests": {
+    "passed": 18,
+    "skippedOptionalServices": 6,
+    "failed": 0
+  },
+  "native": {
+    "bytes": 13978,
+    "sha256": "f5210d8d5c1848daac7423da051a96c98b721eb490808def178bfc5c5c97130d",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "installedThumbHashEncodeDecodePNGReferenceParity": true,
+    "seededCases": 20,
+    "ownedPixelOutput": true,
+    "runtimeThumbHashDependencyRemoved": true,
+    "runtimeBlurHashDependencyRemoved": true,
+    "installedBlurHashEncodeDecodeReferenceParity": true,
+    "installedReadmeMatchesReleaseSource": true
+  },
+  "githubArchiveSha256Matches": true,
+  "githubChecksumFileMatches": true,
+  "requested2000ByteTargetMet": false,
+  "registryArchiveConsumers": [
+    {
+      "measuredAt": "2026-10-25T22:12:32.694Z",
+      "archive": "verified npm registry archive",
+      "packageVersion": "3.1.3",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4774.035,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "blurhash",
+      "archiveSha256": "50d85026796f70e6ccab5a89be785e0059ec157da8a237019d3da867bf2ea63a"
+    },
+    {
+      "measuredAt": "2026-10-25T22:12:37.472Z",
+      "archive": "verified npm registry archive",
+      "packageVersion": "3.1.3",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4114.700625,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "thumbhash",
+      "archiveSha256": "50d85026796f70e6ccab5a89be785e0059ec157da8a237019d3da867bf2ea63a"
+    }
+  ],
+  "supplementaryControlCI": "https://github.com/snowly14/svelte-imageway/actions/runs/40240389184",
+  "supplementaryControlCICommit": "f1d0828103deb5b69a625603a7f56e7ced01131a",
+  "supplementaryControlCIPassed": true,
+  "releaseSourceUnitTests": 262,
+  "currentSuiteUnitTests": 269,
+  "differentialTestBatching": {
+    "sourceCases": 1024,
+    "batches": 8,
+    "casesPerBatch": 128,
+    "perTestTimeoutMs": 30000,
+    "allAssertionsRetained": true,
+    "reason": "Supplementary same-store assertions exceeded one30-second test deadline on LinuxNode22/Windows; batching preserves all coverage without increasing deadlines."
+  },
+  "sameStoreStudy": {
+    "sourceCommit": "240cbda45ff1b08dd75c67ac6e844f57cc262d5d",
+    "plainUint8ArrayOutputs": true,
+    "optimizedJSMedianMicroseconds": 6.739854166666665,
+    "rustMedianMicroseconds": 2.940874999999998,
+    "completeByteParity": true
+  }
+}
