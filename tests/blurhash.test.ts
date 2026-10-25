@@ -1,3 +1,10 @@
+import {
+  createBlurhashDecodeControl,
+  gammaThresholds,
+  gammaBand,
+  referenceSrgb,
+  alphabet,
+} from '../bench/blurhash-display/control.js';
 import { readFile } from 'node:fs/promises';
 import { describe, expect, it } from 'vitest';
 import { encode, decode } from 'blurhash';
@@ -19,6 +26,118 @@ function fixture(width: number, height: number, seed: number): Uint8Array {
   });
 }
 describe('bounded Rust BlurHash kernel', () => {
+  it('decodes generated BlurHash previews byte-for-byte and retains owned pixels', async () => {
+    const encoder = await getBlurhashEncoder();
+    const cached = createBlurhashDecodeControl(),
+      thresholds = createBlurhashDecodeControl(true);
+    for (let seed = 1; seed <= 1024; seed++) {
+      const width = (seed % 32) + 1,
+        height = ((seed * 7) % 32) + 1,
+        pixels = fixture(width, height, seed);
+      const hash = encoder.encode(pixels, width, height);
+      const expected = new Uint8Array(decode(hash, 16, 16));
+      expect(new Uint8Array(cached(hash))).toEqual(expected);
+      expect(new Uint8Array(thresholds(hash))).toEqual(expected);
+      const actual = encoder.decodeBlurHash(hash);
+      expect(actual).toEqual(expected);
+      encoder.encode(fixture(3, 2, seed), 3, 2);
+      encoder.thumbHash(pixels, width, height);
+      encoder.thumbHashDataURL(rgbaToThumbHash(width, height, pixels));
+      expect(actual).toEqual(expected);
+      actual.fill(0);
+      expect(encoder.decodeBlurHash(hash)).toEqual(expected);
+    }
+    for (let color = 0; color < 256; color++) {
+      const pixels = new Uint8Array(4).fill(color),
+        hash = encoder.encode(pixels, 1, 1);
+      expect(encoder.decodeBlurHash(hash)).toEqual(new Uint8Array(decode(hash, 16, 16)));
+    }
+    for (const hash of [
+      '',
+      'L'.repeat(27),
+      'L'.repeat(29),
+      '!'.repeat(28),
+      'L' + 'é'.repeat(27),
+      'L' + '😀'.repeat(13) + 'x',
+      'L~' + '~~~~' + '00'.repeat(11),
+      'L0' + '0000' + '~~'.repeat(11),
+    ])
+      expect(() => encoder.decodeBlurHash(hash)).toThrow();
+  });
+  it('matches reference decoding for arbitrary valid 4x3 coefficient extremes', async () => {
+    const kernel = await getBlurhashEncoder();
+    const base83 = (value: number, length: number) =>
+      Array.from(
+        { length },
+        (_, i) => alphabet[Math.floor(value / 83 ** (length - i - 1)) % 83],
+      ).join('');
+    let state = 123;
+    const random = () => {
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      return state;
+    };
+    for (let sample = 0; sample < 1024; sample++) {
+      let hash = 'L' + alphabet[sample % 83] + base83(random() & 0xffffff, 4);
+      for (let i = 0; i < 11; i++)
+        hash += base83(sample % 3 === 0 ? 6858 : sample % 3 === 1 ? 0 : random() % 6859, 2);
+      expect(kernel.decodeBlurHash(hash)).toEqual(new Uint8Array(decode(hash, 16, 16)));
+    }
+  });
+  it('keeps all sRGB boundaries exact and bounds native fallback storage', async () => {
+    const { instance } = await WebAssembly.instantiate(await readFile(url));
+    const k = instance.exports as unknown as {
+      memory: WebAssembly.Memory;
+      thumbhash_ptr(): number;
+      tables_ptr(): number;
+      pixels_ptr(): number;
+      blurhash_tables_ptr(): number;
+      gamma_lookup_ptr(): number;
+      blurhash_fallback_ptr(): number;
+      blurhash_linear_ptr(): number;
+      blurhash_decode(n: number): number;
+    };
+    const hash = new Uint8Array(k.memory.buffer, k.thumbhash_ptr(), 32);
+    const zero =
+      'L0' + '0000' + (alphabet[Math.floor(3429 / 83)]! + alphabet[3429 % 83]!).repeat(11);
+    hash.set(Buffer.from(zero));
+    const tables = new Float64Array(k.memory.buffer, k.blurhash_tables_ptr(), 367),
+      thresholds = gammaThresholds();
+    tables.set(thresholds, 112);
+    for (let i = 0; i < 4; i++)
+      for (let x = 0; x < 16; x++) tables[i * 16 + x] = Math.cos((Math.PI * x * i) / 16);
+    for (let j = 0; j < 3; j++)
+      for (let y = 0; y < 16; y++) tables[64 + j * 16 + y] = Math.cos((Math.PI * y * j) / 16);
+    const lookup = new Uint8Array(k.memory.buffer, k.gamma_lookup_ptr(), 2048);
+    for (let i = 0; i < 2048; i++) lookup[i] = referenceSrgb(i / 2048);
+    const srgb = new Float64Array(k.memory.buffer, k.tables_ptr(), 928),
+      pixels = new Uint8Array(k.memory.buffer, k.pixels_ptr(), 4096),
+      linear = new Float64Array(k.memory.buffer, k.blurhash_linear_ptr(), 768),
+      fallback = new Uint16Array(k.memory.buffer, k.blurhash_fallback_ptr(), 768);
+    for (let code = 0; code < 255; code++)
+      for (const delta of [-2 * gammaBand, -gammaBand / 2, 0, gammaBand / 2, 2 * gammaBand]) {
+        const value = thresholds[code]! + delta;
+        srgb[0] = value;
+        const count = k.blurhash_decode(28);
+        if (Math.abs(delta) < gammaBand) {
+          expect(count).toBe(769);
+          expect(Array.from(fallback)).toEqual(Array.from({ length: 768 }, (_, i) => i));
+          expect(linear[0]).toBe(value);
+          expect(linear[767]).toBe(value);
+        } else {
+          expect(count).toBe(1);
+          expect(pixels[0]).toBe(referenceSrgb(value));
+          expect(pixels[1022]).toBe(referenceSrgb(value));
+        }
+      }
+    for (const length of [0, 27, 29, 0xffffffff]) expect(k.blurhash_decode(length)).toBe(0);
+    for (let i = 0; i < 28; i++) {
+      hash.set(Buffer.from(zero));
+      hash[i] = 0;
+      pixels.fill(90);
+      expect(k.blurhash_decode(28)).toBe(0);
+      expect(pixels.every((v) => v === 90)).toBe(true);
+    }
+  });
   it('matches ThumbHash bytes across opaque/transparent inputs and retains output ownership', async () => {
     const encoder = await getBlurhashEncoder();
     const control = createThumbHashControl();
@@ -224,6 +343,12 @@ describe('bounded Rust BlurHash kernel', () => {
     const expected = encode(new Uint8ClampedArray(pixels), info.width, info.height, 4, 3);
     const result = await placeholder(source, 'blurhash');
     expect(result.placeholderHash).toBe(expected);
+    const reference = await sharp(Buffer.from(decode(expected, 16, 16)), {
+      raw: { width: 16, height: 16, channels: 4 },
+    })
+      .webp({ quality: 20 })
+      .toBuffer();
+    expect(result.placeholder).toBe(`data:image/webp;base64,${reference.toString('base64')}`);
     expect(
       (await sharp(Buffer.from(result.placeholder!.split(',')[1]!, 'base64')).metadata()).format,
     ).toBe('webp');

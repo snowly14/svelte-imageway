@@ -433,3 +433,138 @@ pub extern "C" fn coefficients(width: u32, height: u32) -> u32 {
 fn panic(_: &core::panic::PanicInfo) -> ! {
     core::arch::wasm32::unreachable()
 }
+
+// Fixed 4x3 BlurHash -> 16x16 RGBA display path. All storage is shared only by
+// synchronous calls; CHANNEL is reused for rare exact-JS gamma fallback values.
+static mut BLUR_TABLES: [f64; 367] = [0.0; 367]; // 112 cosines, 255 gamma transitions
+static mut GAMMA_LOOKUP: [u8; 2048] = [0; 2048];
+static mut BLUR_FALLBACK: [u16; 768] = [0; 768];
+#[no_mangle]
+pub extern "C" fn blurhash_tables_ptr() -> *mut f64 {
+    &raw mut BLUR_TABLES as *mut f64
+}
+#[no_mangle]
+pub extern "C" fn gamma_lookup_ptr() -> *mut u8 {
+    &raw mut GAMMA_LOOKUP as *mut u8
+}
+#[no_mangle]
+pub extern "C" fn blurhash_fallback_ptr() -> *mut u16 {
+    &raw mut BLUR_FALLBACK as *mut u16
+}
+#[no_mangle]
+pub extern "C" fn blurhash_linear_ptr() -> *mut f64 {
+    &raw mut CHANNEL as *mut f64
+}
+
+fn base83_digit(value: u8) -> Option<u32> {
+    match value {
+        b'0'..=b'9' => Some((value - b'0') as u32),
+        b'A'..=b'Z' => Some((value - b'A') as u32 + 10),
+        b'a'..=b'z' => Some((value - b'a') as u32 + 36),
+        _ => b"#$%*+,-.:;=?@[]^_{|}~"
+            .iter()
+            .position(|&c| c == value)
+            .map(|i| i as u32 + 62),
+    }
+}
+unsafe fn read83(start: usize, length: usize) -> Option<u32> {
+    let mut value = 0;
+    for i in start..start + length {
+        value = value * 83 + base83_digit(THUMB[i])?;
+    }
+    Some(value)
+}
+// Transition estimates never decide values near a rounding boundary: the host
+// uses the reference power expression for those channels. Bounds are validated
+// by the host when initializing the gamma table.
+unsafe fn blur_gamma(value: f64) -> u32 {
+    if value <= 0.0 {
+        return 0;
+    }
+    if value >= 1.0 {
+        return 255;
+    }
+    let mut code = GAMMA_LOOKUP[(value * 2048.0) as usize] as usize;
+    while code < 255 && value >= BLUR_TABLES[112 + code] {
+        code += 1;
+    }
+    if (code > 0 && (value - BLUR_TABLES[111 + code]).abs() <= 1e-7)
+        || (code < 255 && (value - BLUR_TABLES[112 + code]).abs() <= 1e-7)
+    {
+        256
+    } else {
+        code as u32
+    }
+}
+#[no_mangle]
+pub extern "C" fn blurhash_decode(length: u32) -> u32 {
+    if length != 28 {
+        return 0;
+    }
+    // SAFETY: the fixed representation has 28 ASCII bytes, 12 RGB coefficients,
+    // 256 output pixels and at most 768 fallback channels. Every hash value is
+    // checked before coefficient or output access. No dimensions are caller-controlled.
+    unsafe {
+        if THUMB[0] != b'L' {
+            return 0;
+        }
+        let Some(maximum) = read83(1, 1) else {
+            return 0;
+        };
+        let scale = (maximum + 1) as f64 / 166.0;
+        let Some(dc) = read83(2, 4) else {
+            return 0;
+        };
+        if dc > 0xffffff {
+            return 0;
+        }
+        OUTPUT[0] = TABLES[(dc >> 16) as usize];
+        OUTPUT[1] = TABLES[((dc >> 8) & 255) as usize];
+        OUTPUT[2] = TABLES[(dc & 255) as usize];
+        for i in 1..12 {
+            let Some(value) = read83(4 + i * 2, 2) else {
+                return 0;
+            };
+            if value > 6858 {
+                return 0;
+            }
+            let channels = [value / 361, value / 19 % 19, value % 19];
+            for c in 0..3 {
+                let value = (channels[c] as f64 - 9.0) / 9.0;
+                let magnitude = value.abs();
+                OUTPUT[i * 3 + c] =
+                    if value < 0.0 { -1.0 } else { 1.0 } * (magnitude * magnitude) * scale;
+            }
+        }
+        let mut fallback = 0;
+        for y in 0..16 {
+            for x in 0..16 {
+                let mut rgb = [0.0; 3];
+                for j in 0..3 {
+                    for i in 0..4 {
+                        let basis = BLUR_TABLES[i * 16 + x] * BLUR_TABLES[64 + j * 16 + y];
+                        let offset = (i + j * 4) * 3;
+                        for c in 0..3 {
+                            rgb[c] += OUTPUT[offset + c] * basis;
+                        }
+                    }
+                }
+                let pixel = y * 16 + x;
+                for c in 0..3 {
+                    let quantized = blur_gamma(rgb[c]);
+                    if quantized == 256 {
+                        let channel = pixel * 3 + c;
+                        CHANNEL[channel] = rgb[c];
+                        BLUR_FALLBACK[fallback] = channel as u16;
+                        fallback += 1;
+                        PIXELS[pixel * 4 + c] = 0;
+                    } else {
+                        PIXELS[pixel * 4 + c] = quantized as u8;
+                    }
+                }
+                PIXELS[pixel * 4 + 3] = 255;
+            }
+        }
+        fallback as u32 + 1
+    }
+}

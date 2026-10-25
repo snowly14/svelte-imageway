@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { invariant } from '../core/errors.js';
-import { packBlurhash } from './blurhash-encoding.js';
+import { packBlurhash, linearToSrgb } from './blurhash-encoding.js';
 interface Kernel {
   memory: WebAssembly.Memory;
   pixels_ptr(): number;
@@ -14,8 +14,15 @@ interface Kernel {
   decode_tables_ptr(): number;
   png_ptr(): number;
   rgba_png(width: number, height: number): number;
+  blurhash_tables_ptr(): number;
+  gamma_lookup_ptr(): number;
+  blurhash_fallback_ptr(): number;
+  blurhash_linear_ptr(): number;
+  blurhash_decode(length: number): number;
 }
 export interface BlurhashEncoder {
+  /** Exact display path for the internally generated 4x3 hash at 16x16 pixels. */
+  decodeBlurHash(hash: string): Uint8Array;
   encode(pixels: Uint8Array, width: number, height: number): string;
   /** Undefined preserves libvips tie-breaking when histogram maxima are ambiguous. */
   dominantColor(pixels: Uint8Array, width: number, height: number): string | undefined;
@@ -54,6 +61,11 @@ export async function createBlurhashEncoder(bytes: Uint8Array): Promise<Blurhash
         'png_ptr',
         'decode_tables_ptr',
         'rgba_png',
+        'blurhash_tables_ptr',
+        'gamma_lookup_ptr',
+        'blurhash_fallback_ptr',
+        'blurhash_linear_ptr',
+        'blurhash_decode',
       ].every((key) => typeof exports[key] === 'function'),
     'PREVIEW_ABI',
     'Invalid bundled preview kernel. Reinstall svelte-imageway or rebuild its native artifact.',
@@ -68,6 +80,30 @@ export async function createBlurhashEncoder(bytes: Uint8Array): Promise<Blurhash
   for (let i = 0; i < 256; i++) {
     const v = i / 255;
     tables[i] = v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  }
+  const blurTables = new Float64Array(kernel.memory.buffer, kernel.blurhash_tables_ptr(), 367);
+  const gammaLookup = new Uint8Array(kernel.memory.buffer, kernel.gamma_lookup_ptr(), 2048);
+  const fallback = new Uint16Array(kernel.memory.buffer, kernel.blurhash_fallback_ptr(), 768);
+  const linear = new Float64Array(kernel.memory.buffer, kernel.blurhash_linear_ptr(), 768);
+  let blurReady = false;
+  function prepareBlurDecode() {
+    if (blurReady) return;
+    for (let i = 0; i < 4; i++)
+      for (let x = 0; x < 16; x++) blurTables[i * 16 + x] = Math.cos((Math.PI * x * i) / 16);
+    for (let j = 0; j < 3; j++)
+      for (let y = 0; y < 16; y++) blurTables[64 + j * 16 + y] = Math.cos((Math.PI * y * j) / 16);
+    for (let i = 0; i < 255; i++) {
+      const v = (i + 0.5) / 255;
+      const boundary = v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+      invariant(
+        linearToSrgb(boundary - 1e-7) === i && linearToSrgb(boundary + 1e-7) === i + 1,
+        'PREVIEW_ABI',
+        'Runtime sRGB rounding does not match preview bounds.',
+      );
+      blurTables[112 + i] = boundary;
+    }
+    for (let i = 0; i < 2048; i++) gammaLookup[i] = linearToSrgb(i / 2048);
+    blurReady = true;
   }
   let previousWidth = 0,
     previousHeight = 0;
@@ -107,6 +143,27 @@ export async function createBlurhashEncoder(bytes: Uint8Array): Promise<Blurhash
     return { w, h };
   }
   return {
+    decodeBlurHash(hash) {
+      invariant(
+        typeof hash === 'string' && hash.length === 28 && hash[0] === 'L',
+        'PREVIEW_HASH',
+        'BlurHash display requires the generated 4x3 hash.',
+      );
+      prepareBlurDecode();
+      for (let i = 0; i < 28; i++) {
+        const code = hash.charCodeAt(i);
+        invariant(code < 128, 'PREVIEW_HASH', 'Invalid bounded BlurHash.');
+        thumb[i] = code;
+      }
+      const count = kernel.blurhash_decode(28);
+      invariant(count > 0 && count <= 769, 'PREVIEW_HASH', 'Invalid bounded BlurHash.');
+      for (let i = 0; i < count - 1; i++) {
+        const channel = fallback[i]!;
+        invariant(channel < 768, 'PREVIEW_ABI', 'Invalid preview fallback index.');
+        pixels[Math.floor(channel / 3) * 4 + (channel % 3)] = linearToSrgb(linear[channel]!);
+      }
+      return pixels.slice(0, 1024);
+    },
     thumbHashDataURL(hash) {
       const { w, h } = decodeThumb(hash);
       const length = kernel.rgba_png(w, h);

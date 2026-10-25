@@ -20,6 +20,8 @@ if (rebuild || process.argv.includes('--verify')) {
     const output = join(directory, 'blurhash.wasm');
     await exec('rustc', [
       source,
+      '-D',
+      'warnings',
       '--crate-type',
       'cdylib',
       '--edition',

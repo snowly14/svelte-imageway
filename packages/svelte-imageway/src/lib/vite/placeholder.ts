@@ -50,9 +50,8 @@ export async function placeholder(
       placeholder: encoder.thumbHashDataURL(hash),
     };
   }
-  const { decode } = await import('blurhash');
   const hash = encoder.encode(pixels, info.width, info.height);
-  const preview = await sharp(Buffer.from(decode(hash, 16, 16)), {
+  const preview = await sharp(encoder.decodeBlurHash(hash), {
     raw: { width: 16, height: 16, channels: 4 },
   })
     .webp({ quality: 20 })

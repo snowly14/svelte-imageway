@@ -6,7 +6,7 @@ function base83(value: number, length: number): string {
   for (let i = length - 1; i >= 0; i--) result += alphabet[Math.floor(value / 83 ** i) % 83];
   return result;
 }
-function srgb(value: number): number {
+export function linearToSrgb(value: number): number {
   const v = Math.max(0, Math.min(1, value));
   return v <= 0.0031308
     ? Math.trunc(v * 12.92 * 255 + 0.5)
@@ -22,7 +22,9 @@ export function packBlurhash(coefficients: Float64Array): string {
     base83(21, 1) +
     base83(quantized, 1) +
     base83(
-      (srgb(coefficients[0]!) << 16) + (srgb(coefficients[1]!) << 8) + srgb(coefficients[2]!),
+      (linearToSrgb(coefficients[0]!) << 16) +
+        (linearToSrgb(coefficients[1]!) << 8) +
+        linearToSrgb(coefficients[2]!),
       4,
     );
   for (let i = 3; i < 36; i += 3) {

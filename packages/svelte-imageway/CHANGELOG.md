@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 3.1.3
+
+### Patch Changes
+
+- Decode generated BlurHash display previews with the bounded precompiled Rust kernel, preserving exact pixel/WebP output and fixed 64 KiB memory. Validate gamma rounding boundaries, retain exact JS conversion for boundary channels, remove the BlurHash runtime dependency and avoid a redundant preview pixel copy. Public component and provider APIs remain stable.
+
 ## 3.1.2
 
 ### Patch Changes
