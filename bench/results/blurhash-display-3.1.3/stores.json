@@ -1,0 +1,545 @@
+{
+  "complete": true,
+  "environment": {
+    "measuredAt": "2026-10-25T22:05:20.421Z",
+    "sourceCommit": "240cbda45ff1b08dd75c67ac6e844f57cc262d5d",
+    "harnessDiffSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "27.0.0",
+    "cpu": "Apple M4",
+    "logicalCpus": 10,
+    "memoryBytes": 17179869184,
+    "loadAverage": [1.341796875, 1.09716796875, 1.2548828125],
+    "node": "v26.11.1",
+    "bun": "1.4.3",
+    "versions": {
+      "svelte-imageway": "3.1.3",
+      "vite": "8.3.4",
+      "sharp": "0.35.5",
+      "vite-imagetools": "12.0.1",
+      "@sveltejs/enhanced-img": "1.0.0",
+      "svelte": "5.57.2",
+      "@playwright/test": "1.64.1",
+      "ssim.js": "3.5.0"
+    },
+    "sharp": {
+      "aom": "3.15.1",
+      "archive": "3.8.9",
+      "cairo": "1.18.6",
+      "cgif": "0.5.4",
+      "exif": "0.6.26",
+      "expat": "2.8.5",
+      "ffi": "3.8.0",
+      "fontconfig": "2.18.3",
+      "freetype": "2.14.3",
+      "fribidi": "1.0.17",
+      "glib": "2.90.0",
+      "harfbuzz": "14.5.0",
+      "heif": "1.23.5",
+      "highway": "1.4.0",
+      "imagequant": "2.4.1",
+      "lcms": "2.19.1",
+      "mozjpeg": "0826579",
+      "pango": "1.58.2",
+      "pixman": "0.46.4",
+      "png": "1.6.58",
+      "proxy-libintl": "0.5",
+      "rsvg": "2.63.2",
+      "tiff": "4.7.2",
+      "uhdr": "2.0.2",
+      "vips": "8.18.7",
+      "webp": "1.6.0",
+      "xml2": "2.15.4",
+      "zlib-ng": "2.3.3",
+      "sharp": "0.35.5"
+    },
+    "limits": "Single uncontrolled desktop host; OS filesystem cache is not flushed. Cold means empty tool disk cache, not cold OS/page cache. No simultaneous benchmark suites. No production CDN, Next.js or serverless measurement."
+  },
+  "corpus": [
+    {
+      "name": "kodim01.png",
+      "sha256": "a56e27cbf5f843c048b6af1d6e090760e9c92fadba88b7dee0205918a37523bd"
+    },
+    {
+      "name": "kodim02.png",
+      "sha256": "4f4b74a79237e311d72cad958237b5f7088d8bce1c82305ebefe1a70e3022dfd"
+    },
+    {
+      "name": "kodim03.png",
+      "sha256": "e25ca1ff2f0c0cb5fdfd5f9b0a0bb21ac4c3de3c84a67f35b09a85d3306249db"
+    },
+    {
+      "name": "kodim04.png",
+      "sha256": "e3b946107c5d3441c022f678d0c3caf1e224d81b1604ba840a4f88e562de61aa"
+    },
+    {
+      "name": "kodim05.png",
+      "sha256": "10349e963c5c813d327852f82c1795fa4148d69fedffc4c589bee458e3ac3d53"
+    },
+    {
+      "name": "kodim06.png",
+      "sha256": "363510303b715d4cbc384e1ce227e466b613a09e1b71ae985882bf8e7fbd9b18"
+    },
+    {
+      "name": "kodim07.png",
+      "sha256": "b77d3f006f42414bb242222e0482e750c0fb9e5ee8d4bed2f6f11c5605fe54a4"
+    },
+    {
+      "name": "kodim08.png",
+      "sha256": "ba23983c76b4832ee0e8af0592664756841a16779acd69f792e268fb6d13d6e7"
+    },
+    {
+      "name": "kodim09.png",
+      "sha256": "6a4361c2fc194feb4edaa9f9a4a0620fb9943e460ac7fdf037fb0f6dd6607a7d"
+    },
+    {
+      "name": "kodim10.png",
+      "sha256": "9dfb70f5867c29ff9ed6313683f19b3d867849e40fbc0c4c54a4a89df341cf23"
+    },
+    {
+      "name": "kodim11.png",
+      "sha256": "7936814b58b5387fce2e4e2488b4ec830dadd95fa9520f358ddb30990b50f2b6"
+    },
+    {
+      "name": "kodim12.png",
+      "sha256": "d78c37c2f04f23761ed2367dd77e2db584ddd4c3950833fecf89f199a8126980"
+    },
+    {
+      "name": "kodim13.png",
+      "sha256": "bc34a3ce58dea09dce1704c997171602de90cb34d0c8503a988b77f473d39b08"
+    },
+    {
+      "name": "kodim14.png",
+      "sha256": "55a94550ff18f3246c4074fd32b77b0c74447c26b6ad274d564d999c0450ba6e"
+    },
+    {
+      "name": "kodim15.png",
+      "sha256": "7538cbb80cb9103606c48b806eae57d56c885c7f90b9b3be70a41160f9cbb683"
+    },
+    {
+      "name": "kodim16.png",
+      "sha256": "a89c7268ccd4718ba424a99fc4643c572cf692ca6eae887185ceb4e9f11d2e54"
+    },
+    {
+      "name": "kodim17.png",
+      "sha256": "37afcc89fbdcb76d9518e04b2fc011027e2f4cd14b3b2f83cefd721641a47c5b"
+    },
+    {
+      "name": "kodim18.png",
+      "sha256": "1a9258c365988961d87a0598725b609139c303ad48a5aad6c503c3b1a87849aa"
+    },
+    {
+      "name": "kodim19.png",
+      "sha256": "b7450b264b1b0a411390d8931b112c27905a992520fc90569dc4b920aa32bbdc"
+    },
+    {
+      "name": "kodim20.png",
+      "sha256": "3b46c71e3b92a563820ba32936be8330c586c41f938efd94be938386aae4328a"
+    },
+    {
+      "name": "kodim21.png",
+      "sha256": "ac958597c82073f6bb65129c68f72b651db5b9efd82e11547d07350214bc268b"
+    },
+    {
+      "name": "kodim22.png",
+      "sha256": "1cee58eb1f2d9c7ebb254d208a03c783ce6cf2c4d8c2cf45e235dd23b4ce1b29"
+    },
+    {
+      "name": "kodim23.png",
+      "sha256": "e3111a2fd4da24af15d6459ef9eacfe54106b38e27b4a21821b75c3f5d2d5baf"
+    },
+    {
+      "name": "kodim24.png",
+      "sha256": "1071c68372cc5a01435c2c225a5cf7d4bb803846ec08bb6b3d6721b156d7cb96"
+    }
+  ],
+  "reason": "Supplementary fairness check: original JS controls return Uint8ClampedArray like the reference; native returns owned Uint8Array. Add plain Uint8Array controls with otherwise identical cached-power/threshold algorithms to isolate store representation. Seven rotated/interleaved fresh-Node sets, same child protocol (25warmup batches,12000timed owned results, ASCII validation/copy and exact gamma fallback included for native). Product unchanged from release source13fec31. Retain primary studies; do not replace their results.",
+  "rows": [
+    {
+      "initializationMs": 0.09999999999999432,
+      "firstBatchMs": 1.3687910000000159,
+      "perOperationMs": 0.009100770833333332,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138854400,
+      "node": "v26.11.1",
+      "pair": 0,
+      "variant": "cachedJS"
+    },
+    {
+      "initializationMs": 0.3900830000000042,
+      "firstBatchMs": 1.2665000000000077,
+      "perOperationMs": 0.0067774166666666694,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 148586496,
+      "node": "v26.11.1",
+      "pair": 0,
+      "variant": "thresholdJS"
+    },
+    {
+      "initializationMs": 0.10983300000000895,
+      "firstBatchMs": 1.5244580000000099,
+      "perOperationMs": 0.008994107666666667,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138674176,
+      "node": "v26.11.1",
+      "pair": 0,
+      "variant": "cachedU8"
+    },
+    {
+      "initializationMs": 0.3886669999999981,
+      "firstBatchMs": 1.2647090000000105,
+      "perOperationMs": 0.0066956492500000004,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149176320,
+      "node": "v26.11.1",
+      "pair": 0,
+      "variant": "thresholdU8"
+    },
+    {
+      "initializationMs": 2.839250000000021,
+      "firstBatchMs": 0.5786669999999958,
+      "perOperationMs": 0.0029642083333333343,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149585920,
+      "node": "v26.11.1",
+      "pair": 0,
+      "variant": "rust"
+    },
+    {
+      "initializationMs": 0.10525000000001228,
+      "firstBatchMs": 1.512958999999995,
+      "perOperationMs": 0.009086909750000002,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138559488,
+      "node": "v26.11.1",
+      "pair": 1,
+      "variant": "cachedJS"
+    },
+    {
+      "initializationMs": 0.8795420000000149,
+      "firstBatchMs": 0.5800409999999943,
+      "perOperationMs": 0.002978354166666667,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149831680,
+      "node": "v26.11.1",
+      "pair": 1,
+      "variant": "rust"
+    },
+    {
+      "initializationMs": 0.3937919999999906,
+      "firstBatchMs": 1.2627500000000111,
+      "perOperationMs": 0.006782187499999999,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149651456,
+      "node": "v26.11.1",
+      "pair": 1,
+      "variant": "thresholdU8"
+    },
+    {
+      "initializationMs": 0.10445799999999394,
+      "firstBatchMs": 1.5509169999999983,
+      "perOperationMs": 0.00906440975,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138706944,
+      "node": "v26.11.1",
+      "pair": 1,
+      "variant": "cachedU8"
+    },
+    {
+      "initializationMs": 0.3658330000000092,
+      "firstBatchMs": 1.2382910000000038,
+      "perOperationMs": 0.006885093749999998,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 151437312,
+      "node": "v26.11.1",
+      "pair": 1,
+      "variant": "thresholdJS"
+    },
+    {
+      "initializationMs": 0.11395799999999667,
+      "firstBatchMs": 1.6663330000000087,
+      "perOperationMs": 0.009097260416666666,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 137641984,
+      "node": "v26.11.1",
+      "pair": 2,
+      "variant": "cachedU8"
+    },
+    {
+      "initializationMs": 0.36066600000000903,
+      "firstBatchMs": 1.28125,
+      "perOperationMs": 0.006716149249999998,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149651456,
+      "node": "v26.11.1",
+      "pair": 2,
+      "variant": "thresholdU8"
+    },
+    {
+      "initializationMs": 0.9922500000000127,
+      "firstBatchMs": 0.6135830000000055,
+      "perOperationMs": 0.002940874999999998,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149553152,
+      "node": "v26.11.1",
+      "pair": 2,
+      "variant": "rust"
+    },
+    {
+      "initializationMs": 0.1074999999999875,
+      "firstBatchMs": 1.5830829999999878,
+      "perOperationMs": 0.009106083333333336,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 137199616,
+      "node": "v26.11.1",
+      "pair": 2,
+      "variant": "cachedJS"
+    },
+    {
+      "initializationMs": 0.3741669999999999,
+      "firstBatchMs": 1.4194999999999993,
+      "perOperationMs": 0.006975739583333334,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 145620992,
+      "node": "v26.11.1",
+      "pair": 2,
+      "variant": "thresholdJS"
+    },
+    {
+      "initializationMs": 0.10316700000001333,
+      "firstBatchMs": 1.3993339999999819,
+      "perOperationMs": 0.009058066000000002,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 137412608,
+      "node": "v26.11.1",
+      "pair": 3,
+      "variant": "cachedU8"
+    },
+    {
+      "initializationMs": 0.3702920000000063,
+      "firstBatchMs": 1.2912079999999833,
+      "perOperationMs": 0.006804920166666664,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 148815872,
+      "node": "v26.11.1",
+      "pair": 3,
+      "variant": "thresholdJS"
+    },
+    {
+      "initializationMs": 0.1039169999999956,
+      "firstBatchMs": 1.4427909999999997,
+      "perOperationMs": 0.009059770833333335,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 137314304,
+      "node": "v26.11.1",
+      "pair": 3,
+      "variant": "cachedJS"
+    },
+    {
+      "initializationMs": 0.8984169999999949,
+      "firstBatchMs": 0.5409589999999866,
+      "perOperationMs": 0.0029075972499999995,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149667840,
+      "node": "v26.11.1",
+      "pair": 3,
+      "variant": "rust"
+    },
+    {
+      "initializationMs": 0.40800000000001546,
+      "firstBatchMs": 1.2507500000000107,
+      "perOperationMs": 0.006739854166666665,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 150437888,
+      "node": "v26.11.1",
+      "pair": 3,
+      "variant": "thresholdU8"
+    },
+    {
+      "initializationMs": 0.9033750000000111,
+      "firstBatchMs": 0.5909580000000005,
+      "perOperationMs": 0.0028963437499999996,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149897216,
+      "node": "v26.11.1",
+      "pair": 4,
+      "variant": "rust"
+    },
+    {
+      "initializationMs": 0.09837500000000432,
+      "firstBatchMs": 1.3079999999999927,
+      "perOperationMs": 0.009100739583333331,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 137543680,
+      "node": "v26.11.1",
+      "pair": 4,
+      "variant": "cachedJS"
+    },
+    {
+      "initializationMs": 0.37129200000001106,
+      "firstBatchMs": 1.3240830000000017,
+      "perOperationMs": 0.006840045166666665,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 148717568,
+      "node": "v26.11.1",
+      "pair": 4,
+      "variant": "thresholdJS"
+    },
+    {
+      "initializationMs": 0.09687500000001137,
+      "firstBatchMs": 1.369792000000018,
+      "perOperationMs": 0.008982763916666667,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138182656,
+      "node": "v26.11.1",
+      "pair": 4,
+      "variant": "cachedU8"
+    },
+    {
+      "initializationMs": 0.4193750000000023,
+      "firstBatchMs": 1.5162919999999929,
+      "perOperationMs": 0.006816736083333332,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149028864,
+      "node": "v26.11.1",
+      "pair": 4,
+      "variant": "thresholdU8"
+    },
+    {
+      "initializationMs": 0.852958000000001,
+      "firstBatchMs": 0.5681249999999807,
+      "perOperationMs": 0.0029385277499999985,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149848064,
+      "node": "v26.11.1",
+      "pair": 5,
+      "variant": "rust"
+    },
+    {
+      "initializationMs": 0.3881250000000023,
+      "firstBatchMs": 1.283124999999984,
+      "perOperationMs": 0.006729843750000001,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149356544,
+      "node": "v26.11.1",
+      "pair": 5,
+      "variant": "thresholdU8"
+    },
+    {
+      "initializationMs": 0.11604200000002152,
+      "firstBatchMs": 1.545583000000022,
+      "perOperationMs": 0.009100017416666668,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138215424,
+      "node": "v26.11.1",
+      "pair": 5,
+      "variant": "cachedU8"
+    },
+    {
+      "initializationMs": 0.39116600000002677,
+      "firstBatchMs": 1.3975420000000156,
+      "perOperationMs": 0.006734718749999999,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149176320,
+      "node": "v26.11.1",
+      "pair": 5,
+      "variant": "thresholdJS"
+    },
+    {
+      "initializationMs": 0.10104200000000674,
+      "firstBatchMs": 1.610749999999996,
+      "perOperationMs": 0.009259569499999998,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138805248,
+      "node": "v26.11.1",
+      "pair": 5,
+      "variant": "cachedJS"
+    },
+    {
+      "initializationMs": 0.36095799999998235,
+      "firstBatchMs": 1.249541999999991,
+      "perOperationMs": 0.006953270833333335,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 148471808,
+      "node": "v26.11.1",
+      "pair": 6,
+      "variant": "thresholdJS"
+    },
+    {
+      "initializationMs": 0.10262500000001751,
+      "firstBatchMs": 1.4329999999999927,
+      "perOperationMs": 0.0090768125,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138412032,
+      "node": "v26.11.1",
+      "pair": 6,
+      "variant": "cachedU8"
+    },
+    {
+      "initializationMs": 0.36958300000000577,
+      "firstBatchMs": 1.3174999999999955,
+      "perOperationMs": 0.0068036250000000015,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149782528,
+      "node": "v26.11.1",
+      "pair": 6,
+      "variant": "thresholdU8"
+    },
+    {
+      "initializationMs": 0.9078329999999823,
+      "firstBatchMs": 0.5469170000000076,
+      "perOperationMs": 0.002960871500000001,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 149848064,
+      "node": "v26.11.1",
+      "pair": 6,
+      "variant": "rust"
+    },
+    {
+      "initializationMs": 0.0977500000000191,
+      "firstBatchMs": 1.3780000000000143,
+      "perOperationMs": 0.009130475666666669,
+      "checksum": 13964000,
+      "digest": "9059ebff7d1929172593fd1e38e7cb9464041733913a0514afb3bdbc3bcc6197",
+      "peakRssBytes": 138641408,
+      "node": "v26.11.1",
+      "pair": 6,
+      "variant": "cachedJS"
+    }
+  ]
+}

@@ -6,7 +6,7 @@ The isolated decoder wins against two optimized JS controls. **A large end-to-en
 
 ## Source, machine and protocol
 
-Baseline: verified npm **3.1.2**, archive SHA-256 `f136df477dc8cc625caf0d9a39e39242a92c0cb7ee307a48956f89d7ed664644`. Primary kernel, preview and build sources/harness match commit **1b9b7510487c1d531c048d39349235e91c153b27**. The confirmation matches **833622f309f1e2e5cb2c894903b855d89e877323**; only its additional harness changes, with identical product sources. Environment records retain empty tracked-source diff fingerprints. Incomplete runs cannot support claims: final primary previews/build/comparison/confirmation carry `complete: true` and **70/56/112/60 rows** respectively.
+Baseline: verified npm **3.1.2**, archive SHA-256 `f136df477dc8cc625caf0d9a39e39242a92c0cb7ee307a48956f89d7ed664644`. Primary kernel, preview and build sources/harness match commit **1b9b7510487c1d531c048d39349235e91c153b27**. The confirmation matches **833622f309f1e2e5cb2c894903b855d89e877323**; only its additional harness changes, with identical product sources. Environment records retain empty tracked-source diff fingerprints. Incomplete runs cannot support claims: final primary previews/build/comparison/confirmation/store checks carry `complete: true` and **70/56/112/60/35 rows** respectively.
 
 Apple M4, 10 logical CPUs, 16 GiB, Darwin 27 arm64; Node 26.11.1, Bun 1.4.3, Vite 8.3.4, Svelte 5.57.2, Sharp 0.35.5/libvips 8.18.7, Rust 1.99.0, BlurHash reference 2.0.5. The 24 Kodak SHA-256s are revalidated before suites. The three deterministic synthetic 1200×800 inputs have their byte/digest manifests retained. Suites run serially, without concurrent heavy local checks, on an uncontrolled desktop. Starting load averages are approximately **1.69/1.93/3.67**, **2.25/2.02/3.62**, **2.82/2.18/3.63** for preview/build/comparison. OS caches are not flushed. Medians and interpolated Q1–Q3 are descriptive, not statistical-significance or universal-production claims.
 
@@ -24,6 +24,20 @@ Hashes and source decoding are prepared outside timing. Each fresh process measu
 | Rust, exact boundary fallback |           2.98 |   2.97–3.00 |                  0.559 |                         0.872 |                      142.66 |
 
 Rust delivers about **2.30×** the best optimized JS throughput, **3.08×** cached power JS and **10.8×** the reference here. Most reference-to-control savings are algorithm/scratch reuse; they are not all attributable to Rust. Native initialization is larger and cannot be hidden behind warm throughput. Process RSS includes source/hash preparation, imports and JIT; it is not the kernel allocation or a production memory forecast. [Every sample](results/blurhash-display-3.1.3/previews.json), [summaries/ranges](results/blurhash-display-3.1.3/summary.json).
+
+### Additional check with identical output stores
+
+The original JS controls return `Uint8ClampedArray`, following the reference; the native method returns owned `Uint8Array`. A supplementary seven-set rotated/interleaved study adds plain `Uint8Array` JS controls with otherwise identical cached-power and threshold algorithms. Product code remains identical to the published release source. This checks whether the store representation explains the kernel win, without replacing the original study. Sources/harness match commit **240cbda45ff1b08dd75c67ac6e844f57cc262d5d**.
+
+| Supplementary decoder         | Median µs/hash |  Q1–Q3 µs |
+| ----------------------------- | -------------: | --------: |
+| Cached power JS, clamped      |           9.10 | 9.09–9.12 |
+| Cached threshold JS, clamped  |           6.84 | 6.79–6.92 |
+| Cached power JS, plain U8     |           9.06 | 9.03–9.09 |
+| Cached threshold JS, plain U8 |           6.74 | 6.72–6.79 |
+| Rust, plain U8                |           2.94 | 2.92–2.96 |
+
+The same-store comparison still gives about **2.29×** native throughput. Plain stores reduce the threshold JS median slightly; they do not explain most of the gain. All owned byte digests match. This is a later measurement period, not a pooled replacement for the first table. [All samples and context](results/blurhash-display-3.1.3/stores.json), [summaries/initialization/RSS](results/blurhash-display-3.1.3/stores-summary.json). Initialization remains larger for Rust; process RSS is **142.72/142.89 MiB** for the plain threshold JS/native paths and is not a production memory forecast.
 
 ## Exactness, memory and CPU diagnostics
 
@@ -100,6 +114,7 @@ bun bench/blurhash-display/build.ts
 bun bench/blurhash-display/compare.ts
 bun bench/blurhash-display/confirmation.ts
 bun bench/blurhash-display/diagnostic.ts
+bun bench/blurhash-display/stores.ts
 bun run native:verify
 bun run check:budget
 bun run check:picture-budget

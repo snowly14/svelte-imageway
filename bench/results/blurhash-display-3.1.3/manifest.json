@@ -3,6 +3,7 @@
   "primaryMeasuredCommit": "1b9b7510487c1d531c048d39349235e91c153b27",
   "confirmationMeasuredCommit": "833622f309f1e2e5cb2c894903b855d89e877323",
   "productUnchangedSinceMeasurements": true,
+  "sameStoreMeasuredCommit": "240cbda45ff1b08dd75c67ac6e844f57cc262d5d",
   "allStudiesComplete": true,
   "allOutputParityGatesPass": true,
   "requested2000ByteTargetMet": false,
@@ -27,7 +28,9 @@
     "bench/results/blurhash-display-3.1.3/confirmation-summary.json": "2da0b6d09f58cacc1faebeb05d07621d2efbb02d3a0d83d4e21e3228b573c5cd",
     "bench/results/blurhash-display-3.1.3/diagnostics.json": "a6a214fde536569467146d2eee96822afc13bdf664f071aae641d912840c3286",
     "bench/results/blurhash-display-3.1.3/component-budgets.json": "e1ff915a4db72cdd8af3b1a9c7086e4c8d3857fc7c0f1c23cb39dd8eab3efe4f",
-    "bench/BLURHASH-DISPLAY-3.1.3.md": "e98293b599418cfd89127b48143cd764c66089cee8c4fee68b11e6f6c69fdcf3",
+    "bench/results/blurhash-display-3.1.3/stores.json": "d72540ec818b84c339969216e768d830db12dfada33c21d2e017b27cd1e44249",
+    "bench/results/blurhash-display-3.1.3/stores-summary.json": "e9e6459a2aea7e922398fd1497ad9eabb5da5219f676adb55fe4aaef02af1b5d",
+    "bench/BLURHASH-DISPLAY-3.1.3.md": "926c2c4b6184aad3906a916c9cfb7a29e3e17cf88e225c153f88e3aa92b899fb",
     "docs/adr/0023-bounded-blurhash-display-decoding.md": "7b0aacdae532402ad34c06ffeec5a6958186ec4fd87110fc44e35811439b1556"
   },
   "note": "Hashes are reproducibility/consistency evidence, not signatures. Retain primary regression and confirmation separately; no large full-pipeline/client improvement is established."
