@@ -1,0 +1,63 @@
+{
+  "protocol": "Same Vite/Svelte compiler, complete isolated entry plus all reachable Imageway helpers, Svelte externalized, gzip level9. CSS compressed separately and summed. Baseline is SHA-pinned npm3.1.1. Filename-derived identifiers/minifier choices may differ from independently located historical builds.",
+  "baseline": {
+    "version": "3.1.1",
+    "tarSha256": "ecfff55255330f5722912f3d3c122e58b5fe4beafcaafe1cf78f0c03f92d76d7"
+  },
+  "rows": [
+    {
+      "component": "image",
+      "variant": "before",
+      "entry": "Image.svelte plus all Imageway helpers",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 7211,
+      "gzipBytes": 3122,
+      "gzipLevel": 9,
+      "cssBytes": 401,
+      "cssGzipBytes": 219,
+      "totalGzipBytes": 3341,
+      "targetBytes": 1536
+    },
+    {
+      "component": "image",
+      "variant": "after",
+      "entry": "Image.svelte plus all Imageway helpers",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 6775,
+      "gzipBytes": 3012,
+      "gzipLevel": 9,
+      "cssBytes": 408,
+      "cssGzipBytes": 220,
+      "totalGzipBytes": 3232,
+      "targetBytes": 1536
+    },
+    {
+      "component": "picture",
+      "variant": "before",
+      "entry": "Picture.svelte",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 7891,
+      "gzipBytes": 3262,
+      "gzipLevel": 9,
+      "cssBytes": 401,
+      "cssGzipBytes": 217,
+      "totalGzipBytes": 3479,
+      "targetBytes": 1536
+    },
+    {
+      "component": "picture",
+      "variant": "after",
+      "entry": "Picture.svelte",
+      "runtime": "Svelte peer externalized",
+      "rawBytes": 7507,
+      "gzipBytes": 3160,
+      "gzipLevel": 9,
+      "cssBytes": 401,
+      "cssGzipBytes": 218,
+      "totalGzipBytes": 3378,
+      "targetBytes": 1536
+    }
+  ],
+  "requestedTargetBytes": 2000,
+  "requestedTargetMet": false
+}

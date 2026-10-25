@@ -1,3 +1,19 @@
+# 3.1.2 native display previews and leaner components — 25 October 2026
+
+[Full protocol, before/after numbers and raw samples](bench/LEAN-PREVIEW-3.1.2.md), against the SHA-pinned npm 3.1.1 package. The public API and codec settings remain stable. Rust adds ThumbHash inverse DCT, RGBA reconstruction, bounded PNG assembly and checksums; the published ThumbHash JS dependency is removed. The precompiled artifact grows **4570→11111 bytes** and remains fixed at **64 KiB**, with no browser WASM or consumer compiler. [ADR 22](docs/adr/0022-native-thumbhash-display-previews.md).
+
+Seven alternating sets over 24 photos: decode **83.19 µs reference JS / 32.02 µs bounded optimized JS / 13.88 µs Rust**; decode+PNG **110.09 / 40.78 / 25.33 µs**. Native incremental initialization costs about **0.9 ms more**, excluding shared static imports. Complete ThumbHash previews improve about **2.8%** (**5.067→4.926 ms/photo**) with identical complete JSON output. LQIP **5.400→5.372 ms** overlaps; no LQIP/codec/full-build/HTTP gain is established. Complete process RSS is **133.66→131.41 MiB** for ThumbHash, while the unchanged LQIP control grows **134.98→135.14 MiB**. Initialization, first batches, ranges, all process peaks and corpus validation remain in the report.
+
+Isolated entries with Svelte externalized: **Image 3122→3012 JS gzip bytes**, **Picture 3262→3160**; CSS **219→220 / 217→218**. These paired baselines include current filename/minifier effects. JS+CSS totals **3341→3232 / 3479→3378**. Real pages including Svelte save **500 / 462 / 458 bytes** for Image/Picture/Both; Both CSS grows two bytes, included in the total. **The requested under-2000-byte complete-entry target remains unmet**, as does the older 1536-byte stretch. `bun run check:2000` fails explicitly; tightened regression gates are separate. The dated 3.1 cold/warm build and RSS gaps against imagetools/enhanced-img remain open and are not rebenchmarked here.
+
+Registered imports skip an irrelevant provider lookup/failing URL parse. A synthetic headless attribute benchmark drops **1.726→0.249 µs/call**, with canonical output equality, without claiming a whole-page CPU improvement. Its process RSS grows **127.66→128.53 MiB**. Image/Picture also remove some compiled forwarding and snippet branching while preserving callbacks, source changes, cached completion, priority preload, reduced motion, SSR and no-JS output.
+
+Packaging inspection found that npm's README still contained older documentation even after the root README rewrite. Builds now generate the package README from the root source, resolve repository links and verify its actual tar payload, preventing silent drift.
+
+Local gates pass: lint, strict TS/Svelte (zero errors/warnings), **259 tests**, native byte-identical rebuild, package/exports/types, tightened JS+CSS budgets, Chromium/WebKit **12 pass / four optional-service skips**, six strict SSR/client/no-JS benchmark fixtures and fresh packed consumers for both BlurHash and ThumbHash. Their cached local install/build/check takes **5.6/4.8 seconds**, with no cold-network claim. Final release-source CI and publication are pending at this source checkpoint; update this paragraph only after verification.
+
+---
+
 # 3.1.1 components, README and native ThumbHash — 23 October 2026
 
 [Complete paired measurements and raw samples](bench/PATCH-3.1.1.md), against the SHA-pinned npm 3.1.0 package. Image/Picture now render directly with their existing lifecycle and markup; the private wrapper component is removed. The README is rewritten around installation, normal imports, Image/Picture, configuration, uploads, APIs and current evidence; its obsolete pinned install command is removed.

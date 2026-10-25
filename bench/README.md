@@ -1,6 +1,10 @@
 # Reproducible package benchmarks
 
-## Current 3.1.1 component/native comparison — 23 October 2026
+## Current 3.1.2 display preview/component comparison — 25 October 2026
+
+[Native ThumbHash display previews and leaner components](LEAN-PREVIEW-3.1.2.md): seven alternating sets against SHA-pinned npm 3.1.1, bounded optimized JS controls, byte-identical PNG output, initialization/RSS, registered-import attribute derivation, isolated JS+CSS, complete SSR/client pages and no-JS checks. The 2000-byte complete-entry target remains unmet. No new codec/build/HTTP ranking is claimed.
+
+## Previous 3.1.1 component/native comparison — 23 October 2026
 
 [Direct Image/Picture and Rust ThumbHash](PATCH-3.1.1.md): pinned npm baseline, seven alternating kernel/full-preview sets, cosine-cached JS control, complete byte identity, JS **and CSS** budgets, real SSR/client pages and no-JS checks. Isolated entries shrink; a page with both is effectively unchanged after extra CSS. LQIP, image codecs and full-build leadership are not claimed.
 

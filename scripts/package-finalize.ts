@@ -1,3 +1,4 @@
+import { packageReadme } from './package-readme.ts';
 import { readdir, copyFile, chmod, readFile, writeFile } from 'node:fs/promises';
 import { join, relative, dirname } from 'node:path';
 const root = 'packages/svelte-imageway/dist';
@@ -31,3 +32,5 @@ await copyFile(
   join(root, 'node/blurhash.wasm'),
 );
 await copyFile('native/blurhash/NOTICE', join(root, 'node/BLURHASH-NOTICE'));
+
+await writeFile('packages/svelte-imageway/README.md', await packageReadme());

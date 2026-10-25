@@ -1,3 +1,4 @@
+import { packageReadme } from './package-readme.ts';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -23,6 +24,7 @@ const pkg = JSON.parse(await readFile(directory + '/package.json', 'utf8')) as {
 const archive = resolve(out, `svelte-imageway-${pkg.version}.tgz`);
 const tar = gunzipSync(await readFile(archive));
 const files: string[] = [];
+const expectedReadme = await packageReadme();
 for (let offset = 0; offset + 512 <= tar.length;) {
   const header = tar.subarray(offset, offset + 512);
   const name = header.subarray(0, 100).toString().replace(/\0.*$/, '');
@@ -34,6 +36,11 @@ for (let offset = 0; offset + 512 <= tar.length;) {
       throw new Error('Unexpected packed path: ' + name);
     if (name.includes('..') || /(?:\.env|\.dev.vars|node_modules|\.local)\//.test(name))
       throw new Error('Unsafe packed path: ' + name);
+    if (
+      name === 'package/README.md' &&
+      tar.subarray(offset + 512, offset + 512 + size).toString() !== expectedReadme
+    )
+      throw Error('Packed README is stale; run bun run build before packing.');
     files.push(name);
   }
   offset += 512 + Math.ceil(size / 512) * 512;

@@ -1,0 +1,33 @@
+{
+  "version": "3.1.2",
+  "measuredAt": "2026-10-25T14:21:33.635Z",
+  "previewSourceCommit": "cc3610de1ebbab0e19bd71bfdee6fadf88bd60f2",
+  "clientSourceCommit": "058130a70204aebf187827c3d69044d55da7935c",
+  "baseline": {
+    "version": "3.1.1",
+    "tarSha256": "ecfff55255330f5722912f3d3c122e58b5fe4beafcaafe1cf78f0c03f92d76d7"
+  },
+  "complete": true,
+  "requested2000ByteTargetMet": false,
+  "sources": {
+    "native/blurhash/lib.rs": "77f8da38888adee3cf3dc6ada49e3ae51eb7ad2ca3401c2550408ecb8a147bc4",
+    "native/blurhash/manifest.json": "58dbd6555170cf47b2ebb8218bf5e949cd35a50a714abee87b3f028b1bc90c79",
+    "packages/svelte-imageway/src/lib/node/blurhash.wasm": "be6080f60cdc265debf6d224f9097c1dc023ad76dff13f6bb13d2b0a0b324112",
+    "packages/svelte-imageway/src/lib/node/blurhash.ts": "d01350a3c33584b178414ff092044b8e55872b73b236b68c11fe5e31eb98d509",
+    "packages/svelte-imageway/src/lib/vite/placeholder.ts": "332ac95359570e67ef3770ea94d5506f262ccabed2683ef044fad9ea121accea",
+    "packages/svelte-imageway/src/lib/props.ts": "fcb73e82e00c921e6cf581a07c4cd64cfad11f45421f2d6930b5ec7b711c524f",
+    "packages/svelte-imageway/src/lib/components/Image.svelte": "a19e247e3e4c5bb879384332274cbd80176d98743d262d8fe06adf4ad952dcbc",
+    "packages/svelte-imageway/src/lib/components/Picture.svelte": "ad9dfa998c800b0e16f711818105e86e717e71f908173c6482d5ba3256857b4a"
+  },
+  "evidence": {
+    "bench/results/lean-preview-3.1.2/previews.json": "1872670c8fba9300a889e575b1b30309a13fa5be8f90613441e71e806452d2ba",
+    "bench/results/lean-preview-3.1.2/summary.json": "a613cff1df9b54ee79cfa680689b2bd5db69e6f3dccc8d6ffc504f99ac3e68b8",
+    "bench/results/lean-preview-3.1.2/clients.json": "2d17fc34b8259f931e6b956e828336811ff2b16d0d1b438aa0ed37c9cecd0265",
+    "bench/results/lean-preview-3.1.2/client-validation.json": "f7c8d2b650499b65c569d1b90914ec59cc9b0f9549fd5c86ddee0f6324a2b029",
+    "bench/results/lean-preview-3.1.2/component-budgets.json": "36459307d459c5ef52cb5e9d7292801199641cc6f309c1aa68385f120cfd73ff",
+    "bench/results/lean-preview-3.1.2/corpus-verification.json": "afc36dc07c30ef0cd825d41b8d096055ce6da027db7390508abde88f8f202851",
+    "bench/LEAN-PREVIEW-3.1.2.md": "899fdb84d28186e1415dbc477aa29873c6139cc3b47c7273513d9fd85df8bf23",
+    "docs/adr/0022-native-thumbhash-display-previews.md": "3ec232c4a6a5fecaa69702a9a624ba6fbb4aabb94f648f6e7a65f0903fe53d82"
+  },
+  "note": "Fingerprints are consistency evidence, not signatures. Product sources are identical across the two measured commits; client harness adds automatic corpus admission. The native-preview corpus was also revalidated for delivery. No codec/full-build/HTTP ranking was refreshed."
+}

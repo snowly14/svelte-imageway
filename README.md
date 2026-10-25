@@ -100,7 +100,7 @@ Quality 75 is the default encoder setting, not a guarantee of equal perceptual q
 
 For a WebP-only local workflow, set `formats: ['webp']` to avoid encoding other formats. By default, production builds omit AVIF only when **every matching WebP size is no larger**. Both formats must be encoded before that byte comparison. Explicit format directives stay exact; `pruneLargerFormats: false` retains all default formats.
 
-Local-import preview strategies are `lqip` (default), `color`, `thumbhash`, `blurhash` and `none`. Previews are generated on the build/server side. Rust handles colour histograms and hash projections in a precompiled, fixed-memory module; Sharp handles image codecs. The browser receives display-ready previews, not a hash decoder or Rust runtime. [Native architecture and contributor steps](CONTRIBUTING.md).
+Local-import preview strategies are `lqip` (default), `color`, `thumbhash`, `blurhash` and `none`. Previews are generated on the build/server side. Rust handles colour histograms, hash projections, and ThumbHash display decoding/PNG assembly in a precompiled, fixed-memory module; Sharp handles image codecs. The browser receives display-ready previews, not a hash decoder or Rust runtime. [Native architecture and contributor steps](CONTRIBUTING.md).
 
 Hash previews include a display-ready data URL as well as the compact hash. That data URL can be larger than LQIP; hash length alone is not the transferred preview size.
 
@@ -161,7 +161,11 @@ The CLI can also prepare deployment files and migration previews. It does not pr
 
 Measurements include the protocol, machine, medians, dispersion and raw samples. [Latest results and release verification](REPORT.md) · [Reproduction](bench/README.md).
 
-The 3.1 photographic comparison improved cached builds substantially but still trailed vite-imagetools/enhanced-img in controlled build latency and cold RSS. The full-featured Image component also remains above the original 1.5 KiB gzip stretch target. The [3.1.1 comparison](bench/PATCH-3.1.1.md) reduces isolated Image/Picture JavaScript to **3109/3247 gzip bytes**, with Svelte externalized. A page using both components is effectively unchanged after counting the extra CSS (three bytes larger in this fixture). The patch also fixes active reveal animations for reduced-motion users. Rust ThumbHash encoding takes **56.8 µs**, compared with **137.9 µs reference JS / 100.3 µs optimized JS** in the same local experiment. The report separates JavaScript, CSS, complete previews and kernel-only controls; no codec or network speedup is claimed.
+The [3.1.2 comparison](bench/LEAN-PREVIEW-3.1.2.md) measures complete Image/Picture entries at **3012/3160 JavaScript gzip bytes**, with Svelte externalized, plus **220/218 CSS bytes**. The requested **under-2000-byte goal remains unmet**. Real client fixtures including Svelte shrink by **500/462 bytes**; a page using both saves **458 bytes total**, including a two-byte CSS increase. Public APIs and lifecycle behavior are preserved.
+
+In seven alternating local sets, Rust ThumbHash display decoding takes **13.9 µs**, compared with **83.2 µs reference JS / 32.0 µs bounded optimized JS**. Decoding plus a byte-identical PNG takes **25.3 / 110.1 / 40.8 µs** respectively. Complete ThumbHash previews improve only about **2.8%** in that session; LQIP remains effectively unchanged. Already optimized imports also avoid unnecessary provider lookup. The report separates initialization, kernels, complete previews, client assets and process RSS, including small memory/CSS regressions.
+
+The dated [3.1 photographic comparison](bench/IMPROVEMENTS-3.1.md) still trails vite-imagetools/enhanced-img in controlled build latency and cold RSS. Those build/codec/HTTP paths are not rebenchmarked in 3.1.2, and no leadership is claimed.
 
 Paid cloud deployments are unverified. JPEG XL/HEIC support depends on the installed native codecs; use `codecs --json` to check. Rich SVG, video conversion and a browser WASM optimizer are not included. [Format details](docs/guides/local-images.md) · [JPEG XL](docs/guides/jpeg-xl.md).
 
