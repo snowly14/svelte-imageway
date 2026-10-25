@@ -26,46 +26,52 @@ function fixture(width: number, height: number, seed: number): Uint8Array {
   });
 }
 describe('bounded Rust BlurHash kernel', () => {
-  it('decodes generated BlurHash previews byte-for-byte and retains owned pixels', async () => {
-    const encoder = await getBlurhashEncoder();
-    const plain = createBlurhashDecodeControl(true, false);
-    const cached = createBlurhashDecodeControl(),
-      thresholds = createBlurhashDecodeControl(true);
-    for (let seed = 1; seed <= 1024; seed++) {
-      const width = (seed % 32) + 1,
-        height = ((seed * 7) % 32) + 1,
-        pixels = fixture(width, height, seed);
-      const hash = encoder.encode(pixels, width, height);
-      const expected = new Uint8Array(decode(hash, 16, 16));
-      expect(new Uint8Array(cached(hash))).toEqual(expected);
-      expect(new Uint8Array(thresholds(hash))).toEqual(expected);
-      expect(plain(hash)).toEqual(expected);
-      const actual = encoder.decodeBlurHash(hash);
-      expect(actual).toEqual(expected);
-      encoder.encode(fixture(3, 2, seed), 3, 2);
-      encoder.thumbHash(pixels, width, height);
-      encoder.thumbHashDataURL(rgbaToThumbHash(width, height, pixels));
-      expect(actual).toEqual(expected);
-      actual.fill(0);
-      expect(encoder.decodeBlurHash(hash)).toEqual(expected);
-    }
-    for (let color = 0; color < 256; color++) {
-      const pixels = new Uint8Array(4).fill(color),
-        hash = encoder.encode(pixels, 1, 1);
-      expect(encoder.decodeBlurHash(hash)).toEqual(new Uint8Array(decode(hash, 16, 16)));
-    }
-    for (const hash of [
-      '',
-      'L'.repeat(27),
-      'L'.repeat(29),
-      '!'.repeat(28),
-      'L' + 'é'.repeat(27),
-      'L' + '😀'.repeat(13) + 'x',
-      'L~' + '~~~~' + '00'.repeat(11),
-      'L0' + '0000' + '~~'.repeat(11),
-    ])
-      expect(() => encoder.decodeBlurHash(hash)).toThrow();
-  });
+  // Keep all 1024 differential inputs without tying one test's deadline to runner speed.
+  it.each(Array.from({ length: 8 }, (_, batch) => batch * 128 + 1))(
+    'decodes generated BlurHash previews with owned pixels (seeds starting %i)',
+    async (firstSeed) => {
+      const encoder = await getBlurhashEncoder();
+      const plain = createBlurhashDecodeControl(true, false);
+      const cached = createBlurhashDecodeControl(),
+        thresholds = createBlurhashDecodeControl(true);
+      for (let seed = firstSeed; seed < firstSeed + 128; seed++) {
+        const width = (seed % 32) + 1,
+          height = ((seed * 7) % 32) + 1,
+          pixels = fixture(width, height, seed);
+        const hash = encoder.encode(pixels, width, height);
+        const expected = new Uint8Array(decode(hash, 16, 16));
+        expect(new Uint8Array(cached(hash))).toEqual(expected);
+        expect(new Uint8Array(thresholds(hash))).toEqual(expected);
+        expect(plain(hash)).toEqual(expected);
+        const actual = encoder.decodeBlurHash(hash);
+        expect(actual).toEqual(expected);
+        encoder.encode(fixture(3, 2, seed), 3, 2);
+        encoder.thumbHash(pixels, width, height);
+        encoder.thumbHashDataURL(rgbaToThumbHash(width, height, pixels));
+        expect(actual).toEqual(expected);
+        actual.fill(0);
+        expect(encoder.decodeBlurHash(hash)).toEqual(expected);
+      }
+      if (firstSeed === 1) {
+        for (let color = 0; color < 256; color++) {
+          const pixels = new Uint8Array(4).fill(color),
+            hash = encoder.encode(pixels, 1, 1);
+          expect(encoder.decodeBlurHash(hash)).toEqual(new Uint8Array(decode(hash, 16, 16)));
+        }
+        for (const hash of [
+          '',
+          'L'.repeat(27),
+          'L'.repeat(29),
+          '!'.repeat(28),
+          'L' + 'é'.repeat(27),
+          'L' + '😀'.repeat(13) + 'x',
+          'L~' + '~~~~' + '00'.repeat(11),
+          'L0' + '0000' + '~~'.repeat(11),
+        ])
+          expect(() => encoder.decodeBlurHash(hash)).toThrow();
+      }
+    },
+  );
   it('matches reference decoding for arbitrary valid 4x3 coefficient extremes', async () => {
     const kernel = await getBlurhashEncoder();
     const base83 = (value: number, length: number) =>
