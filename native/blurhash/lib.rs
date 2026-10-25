@@ -126,6 +126,220 @@ pub extern "C" fn thumbhash(width: u32, height: u32) -> u32 {
         (start + (ac_index + 1) / 2) as u32
     }
 }
+// Reference-compatible uncompressed PNG; fixed storage for at most 32x32 RGBA.
+static mut PNG: [u8; 4400] = [0; 4400];
+#[no_mangle]
+pub extern "C" fn png_ptr() -> *mut u8 {
+    &raw mut PNG as *mut u8
+}
+const fn crc_table() -> [u32; 256] {
+    let mut table = [0; 256];
+    let mut index = 0;
+    while index < 256 {
+        let mut c = index as u32;
+        let mut bit = 0;
+        while bit < 8 {
+            c = if c & 1 != 0 {
+                (c >> 1) ^ 0xedb88320
+            } else {
+                c >> 1
+            };
+            bit += 1;
+        }
+        table[index] = c;
+        index += 1;
+    }
+    table
+}
+static CRC: [u32; 256] = crc_table();
+unsafe fn png_u32(offset: usize, value: u32) {
+    for i in 0..4 {
+        PNG[offset + i] = (value >> (24 - i * 8)) as u8;
+    }
+}
+#[no_mangle]
+pub extern "C" fn rgba_png(width: u32, height: u32) -> u32 {
+    if width == 0 || height == 0 || width > 32 || height > 32 {
+        return 0;
+    }
+    // SAFETY: a 32x32 image requires at most 4351 bytes, within PNG's 4400.
+    // All offsets derive from checked dimensions; each caller owns the instance.
+    unsafe {
+        let row = width as usize * 4 + 1;
+        let idat = 6 + height as usize * (5 + row);
+        let prefix = [
+            137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 0, 0, 0, 0, 0,
+            8, 6, 0, 0, 0, 0, 0, 0, 0,
+        ];
+        for i in 0..prefix.len() {
+            PNG[i] = prefix[i];
+        }
+        png_u32(16, width);
+        png_u32(20, height);
+        png_u32(33, idat as u32);
+        for (i, value) in [73, 68, 65, 84, 120, 1].iter().enumerate() {
+            PNG[37 + i] = *value;
+        }
+        let mut offset = 43;
+        let mut a = 1_u32;
+        let mut b = 0_u32;
+        for y in 0..height as usize {
+            PNG[offset] = if y + 1 < height as usize { 0 } else { 1 };
+            PNG[offset + 1] = row as u8;
+            PNG[offset + 2] = (row >> 8) as u8;
+            PNG[offset + 3] = !(row as u8);
+            PNG[offset + 4] = !((row >> 8) as u8);
+            PNG[offset + 5] = 0;
+            offset += 6;
+            b += a;
+            for x in 0..width as usize * 4 {
+                let value = PIXELS[y * width as usize * 4 + x];
+                PNG[offset] = value;
+                offset += 1;
+                a = (a + value as u32) % 65521;
+                b += a;
+            }
+            // At most 129 bytes per row: a < 98300 and b < 13 million.
+            // Reducing once per row preserves Adler-32 without per-byte division.
+            a %= 65521;
+            b %= 65521;
+        }
+        png_u32(offset, (b << 16) | a);
+        offset += 4;
+        for (i, value) in [0, 0, 0, 0, 0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]
+            .iter()
+            .enumerate()
+        {
+            PNG[offset + i] = *value;
+        }
+        let length = offset + 16;
+        for (start, end) in [(12, 29), (37, 41 + idat)] {
+            let mut c = !0_u32;
+            for i in start..end {
+                c = (c >> 8) ^ CRC[((c ^ PNG[i] as u32) & 255) as usize];
+            }
+            png_u32(end, !c);
+        }
+        length as u32
+    }
+}
+static mut DECODE_TABLES: [f64; 448] = [0.0; 448];
+#[no_mangle]
+pub extern "C" fn decode_tables_ptr() -> *mut f64 {
+    &raw mut DECODE_TABLES as *mut f64
+}
+// Decode a complete ThumbHash into the shared RGBA plane (at most 32x32).
+// The host initializes reference-order cosine tables for the encoded aspect ratio.
+#[no_mangle]
+pub extern "C" fn thumbhash_decode(width: u32, height: u32, length: u32) -> u32 {
+    if width == 0 || height == 0 || width > 32 || height > 32 || length < 5 || length > 25 {
+        return 0;
+    }
+    // SAFETY: dimensions bound output; header-derived channel sizes are <=7,
+    // coefficient count is checked against the supplied hash before any AC read.
+    unsafe {
+        let header = THUMB[0] as u32 | (THUMB[1] as u32) << 8 | (THUMB[2] as u32) << 16;
+        let second = THUMB[3] as u32 | (THUMB[4] as u32) << 8;
+        let alpha = header >> 23 != 0;
+        let landscape = second >> 15 != 0;
+        let short = (second & 7) as usize;
+        if short == 0 {
+            return 0;
+        }
+        let long = if alpha { 5 } else { 7 };
+        let (lx, ly) = if landscape {
+            (long, short)
+        } else {
+            (short, long)
+        };
+        let (lx, ly) = (lx.max(3), ly.max(3));
+        let start = if alpha { 6 } else { 5 };
+        let dc = [
+            (header & 63) as f64 / 63.0,
+            ((header >> 6) & 63) as f64 / 31.5 - 1.0,
+            ((header >> 12) & 63) as f64 / 31.5 - 1.0,
+            if alpha {
+                (THUMB[5] & 15) as f64 / 15.0
+            } else {
+                1.0
+            },
+        ];
+        let scales = [
+            ((header >> 18) & 31) as f64 / 31.0,
+            ((second >> 3) & 63) as f64 / 63.0 * 1.25,
+            ((second >> 9) & 63) as f64 / 63.0 * 1.25,
+            (THUMB[5] >> 4) as f64 / 15.0,
+        ];
+        let shapes = [(lx, ly), (3, 3), (3, 3), (5, 5)];
+        let mut coefficients = [[0.0; 28]; 4];
+        let mut index = 0;
+        for channel in 0..if alpha { 4 } else { 3 } {
+            let (nx, ny) = shapes[channel];
+            let mut used = 0;
+            for cy in 0..ny {
+                let mut cx = if cy == 0 { 1 } else { 0 };
+                while cx * ny < nx * (ny - cy) {
+                    let offset = start + (index >> 1);
+                    if offset >= length as usize {
+                        return 0;
+                    }
+                    let value = (THUMB[offset] >> ((index & 1) * 4)) & 15;
+                    coefficients[channel][used] = (value as f64 / 7.5 - 1.0) * scales[channel];
+                    used += 1;
+                    index += 1;
+                    cx += 1;
+                }
+            }
+        }
+        if start + (index + 1) / 2 != length as usize {
+            return 0;
+        }
+        for y in 0..height as usize {
+            for x in 0..width as usize {
+                let mut values = dc;
+                for channel in [0, 3] {
+                    if channel == 3 && !alpha {
+                        continue;
+                    }
+                    let (nx, ny) = shapes[channel];
+                    let mut index = 0;
+                    for cy in 0..ny {
+                        let fy = DECODE_TABLES[224 + cy * 32 + y] * 2.0;
+                        let mut cx = if cy == 0 { 1 } else { 0 };
+                        while cx * ny < nx * (ny - cy) {
+                            values[channel] +=
+                                coefficients[channel][index] * DECODE_TABLES[cx * 32 + x] * fy;
+                            index += 1;
+                            cx += 1;
+                        }
+                    }
+                }
+                // P and Q share their 3x3 triangular basis. Keep each sum's
+                // reference order while loading/multiplying that basis once.
+                let mut index = 0;
+                for cy in 0..3 {
+                    let fy = DECODE_TABLES[224 + cy * 32 + y] * 2.0;
+                    let mut cx = if cy == 0 { 1 } else { 0 };
+                    while cx < 3 - cy {
+                        let basis = DECODE_TABLES[cx * 32 + x] * fy;
+                        values[1] += coefficients[1][index] * basis;
+                        values[2] += coefficients[2][index] * basis;
+                        index += 1;
+                        cx += 1;
+                    }
+                }
+                let b = values[0] - 2.0 / 3.0 * values[1];
+                let r = (3.0 * values[0] - b + values[2]) / 2.0;
+                let g = r - values[2];
+                for (channel, value) in [r, g, b, values[3]].iter().enumerate() {
+                    PIXELS[(y * width as usize + x) * 4 + channel] =
+                        (255.0 * value.min(1.0)).max(0.0) as u8;
+                }
+            }
+        }
+    }
+    1
+}
 #[no_mangle]
 pub extern "C" fn pixels_ptr() -> *mut u8 {
     &raw mut PIXELS as *mut u8

@@ -68,6 +68,18 @@ describe('headless and type contract', () => {
     void invalid;
     void strategy;
   });
+  it('does not inspect providers for already optimized artifacts', () => {
+    const config = {
+      get providers(): never {
+        throw Error('Unnecessary provider lookup');
+      },
+    };
+    expect(getImageProps({ src: artifact, alt: '', config }).src).toBe(artifact.src);
+    registerImageArtifact('/already-built.jpg', artifact, 'provider-fast-path');
+    expect(getImageProps({ src: '/already-built.jpg', alt: '', config }).srcset).toBe(
+      artifact.srcset,
+    );
+  });
   it('keeps Image props typed for local imports, dynamic URLs and native events', () => {
     const props: ImageProps = {
       src: artifact,

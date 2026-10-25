@@ -72,7 +72,6 @@ export function getImageProps(
   );
   const {
     src,
-    alt,
     priority,
     provider: explicit,
     config = {},
@@ -83,8 +82,6 @@ export function getImageProps(
     placeholder,
     transitionName,
     contentVisibility,
-    class: className,
-    style: customStyle,
     ...native
   } = options;
   const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
@@ -92,12 +89,12 @@ export function getImageProps(
   const artifact = resolveImageArtifact(src);
   const representation = artifact && nativeOnly ? imageRepresentation(artifact) : artifact;
   const original = representation?.src ?? (src as string);
-  const provider = explicit ?? selectProvider(original, config);
+  const provider = !artifact && (explicit ?? selectProvider(original, config));
   let fallback = original;
   let srcset = representation?.srcset;
   let sources = nativeOnly ? [] : (artifact?.sources ?? []);
-  const width = options.width ?? representation?.width,
-    height = options.height ?? representation?.height;
+  const width = native.width ?? representation?.width,
+    height = native.height ?? representation?.height;
   if (provider && !artifact && !original.startsWith('data:')) {
     provider.validate();
     const widths = [
@@ -176,7 +173,7 @@ export function getImageProps(
       ? `view-transition-name:${transitionName}`
       : '',
     contentVisibility ? `content-visibility:${contentVisibility}` : '',
-    customStyle,
+    native.style,
   ]
     .filter(Boolean)
     .join(';');
@@ -185,14 +182,12 @@ export function getImageProps(
     src: fallback,
     srcset,
     sources,
-    alt,
     width,
     height,
     sizes: srcset ? imageSizes(options.sizes ?? undefined, lazy) : undefined,
     loading: priority ? 'eager' : (options.loading ?? 'lazy'),
     decoding: priority ? 'sync' : (options.decoding ?? 'async'),
     fetchpriority: priority ? 'high' : (options.fetchpriority ?? 'auto'),
-    class: className,
     style,
     placeholder: safePreview,
   };

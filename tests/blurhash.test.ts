@@ -7,7 +7,8 @@ import {
 } from '../packages/svelte-imageway/src/lib/node/blurhash.js';
 import { placeholder } from '../packages/svelte-imageway/src/lib/vite/placeholder.js';
 import sharp from 'sharp';
-import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash';
+import { rgbaToThumbHash, thumbHashToDataURL, thumbHashToRGBA, rgbaToDataURL } from 'thumbhash';
+import { createDecodeControl, createPNGControl } from '../bench/lean-preview/control.js';
 import { createThumbHashControl } from '../bench/thumbhash/control.js';
 const url = new URL('../packages/svelte-imageway/src/lib/node/blurhash.wasm', import.meta.url);
 function fixture(width: number, height: number, seed: number): Uint8Array {
@@ -53,6 +54,39 @@ describe('bounded Rust BlurHash kernel', () => {
     ])
       expect(() => encoder.thumbHash(new Uint8Array(4), width!, height!)).toThrow();
     expect(() => encoder.thumbHash(new Uint8Array(3), 1, 1)).toThrow();
+  });
+  it('decodes ThumbHash pixels byte-for-byte with bounded memory and owned output', async () => {
+    const encoder = await getBlurhashEncoder();
+    const control = createDecodeControl(),
+      png = createPNGControl();
+    for (let seed = 1; seed <= 256; seed++) {
+      const width = (seed % 32) + 1,
+        height = ((seed * 13) % 32) + 1;
+      const input = fixture(width, height, seed);
+      if (seed % 2) for (let i = 3; i < input.length; i += 4) input[i] = 255;
+      const hash = rgbaToThumbHash(width, height, input);
+      const snapshot = hash.slice();
+      const expected = thumbHashToRGBA(hash);
+      const actual = encoder.decodeThumbHash(hash);
+      expect(actual).toEqual(expected);
+      expect(control(hash)).toEqual(expected);
+      expect(png(actual.w, actual.h, actual.rgba)).toBe(thumbHashToDataURL(hash));
+      expect(rgbaToDataURL(actual.w, actual.h, actual.rgba)).toBe(thumbHashToDataURL(hash));
+      expect(encoder.thumbHashDataURL(hash)).toBe(thumbHashToDataURL(hash));
+      expect(hash).toEqual(snapshot);
+      encoder.thumbHash(input, width, height);
+      encoder.encode(input, width, height);
+      encoder.dominantColor(input, width, height);
+      expect(actual).toEqual(expected);
+      actual.rgba.fill(0);
+      expect(encoder.decodeThumbHash(hash)).toEqual(expected);
+    }
+    const valid = rgbaToThumbHash(32, 21, fixture(32, 21, 8));
+    for (let length = 0; length < valid.length; length++)
+      expect(() => encoder.decodeThumbHash(valid.slice(0, length))).toThrow(/ThumbHash/);
+    expect(() => encoder.decodeThumbHash(new Uint8Array(26))).toThrow();
+    expect(() => encoder.decodeThumbHash(new Uint8Array(5))).toThrow();
+    expect(() => encoder.decodeThumbHash(Uint8Array.from([...valid, 0]))).toThrow();
   });
   it('preserves the complete reference ThumbHash PNG preview', async () => {
     const source = await sharp(fixture(32, 21, 123), {
@@ -145,6 +179,12 @@ describe('bounded Rust BlurHash kernel', () => {
     expect(() => memory.grow(1)).toThrow();
     const run = instance.exports.coefficients as (w: number, h: number) => number;
     const thumb = instance.exports.thumbhash as (w: number, h: number) => number;
+    const png = instance.exports.rgba_png as (w: number, h: number) => number;
+    const unhash = instance.exports.thumbhash_decode as (
+      w: number,
+      h: number,
+      length: number,
+    ) => number;
     for (const [w, h] of [
       [0, 32],
       [33, 32],
@@ -153,6 +193,19 @@ describe('bounded Rust BlurHash kernel', () => {
     ]) {
       expect(run(w!, h!)).toBe(0);
       expect(thumb(w!, h!)).toBe(0);
+      expect(png(w!, h!)).toBe(0);
+      expect(unhash(w!, h!, 25)).toBe(0);
+    }
+    for (const length of [0, 4, 26, 0xffffffff]) expect(unhash(32, 32, length)).toBe(0);
+    const pointer = (instance.exports.pixels_ptr as () => number)();
+    const pngPointer = (instance.exports.png_ptr as () => number)();
+    for (const value of [0, 127, 255]) {
+      const input = new Uint8Array(4096).fill(value);
+      new Uint8Array(memory.buffer, pointer, 4096).set(input);
+      const length = png(32, 32);
+      expect(length).toBe(4351);
+      const actual = Buffer.from(memory.buffer, pngPointer, length).toString('base64');
+      expect(`data:image/png;base64,${actual}`).toBe(rgbaToDataURL(32, 32, input));
     }
     await expect(createBlurhashEncoder(new Uint8Array([0, 1, 2]))).rejects.toThrow();
   });

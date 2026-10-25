@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 3.1.2
+
+### Patch Changes
+
+- Move bounded ThumbHash display decoding and reference-compatible PNG/checksum assembly into the precompiled Rust kernel, with fixed 64 KiB memory and byte-identical output. Remove the ThumbHash runtime dependency, preserve the public API and trim component derivation and registered-image provider lookup overhead.
+
 ## 3.1.1
 
 ### Patch Changes

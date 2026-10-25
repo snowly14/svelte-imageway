@@ -2,32 +2,34 @@
   import { getImageProps } from '../props.js';
   import { getImageConfig } from '../context.js';
   import type { PictureProps as Props } from '../component-types.js';
-  let {
-    src,
-    alt,
-    priority = false,
-    sources: customSources,
-    source,
-    formatStrategy,
-    loading: loadingProp,
-    error,
-    loadingContent,
-    errorContent,
-    onload,
-    onerror,
-    ...rest
-  }: Props = $props();
+  let props: Props = $props();
   const config = getImageConfig();
   const image = $derived.by(() => {
+    const {
+      sources,
+      source,
+      formatStrategy,
+      loading,
+      error,
+      loadingContent,
+      errorContent,
+      onload,
+      onerror,
+      ...options
+    } = props;
+    void sources;
+    void source;
     void formatStrategy;
+    void error;
+    void loadingContent;
+    void errorContent;
+    void onload;
+    void onerror;
     return getImageProps({
-      ...rest,
-      src,
-      alt,
-      priority,
+      ...options,
       config,
       formatStrategy: 'picture',
-      loading: typeof loadingProp === 'string' ? loadingProp : undefined,
+      loading: typeof loading === 'string' ? loading : undefined,
     });
   });
   const attributes = $derived.by(() => {
@@ -36,7 +38,7 @@
     void placeholder;
     return native;
   });
-  const sources = $derived(customSources ?? image.sources);
+  const sources = $derived(props.sources ?? image.sources);
   const preload = $derived(sources[0]);
   let element: HTMLImageElement;
   let loaded = $state(false);
@@ -52,7 +54,7 @@
 </script>
 
 <svelte:head>
-  {#if priority && !source}
+  {#if props.priority && !props.source}
     <link
       rel="preload"
       as="image"
@@ -76,7 +78,7 @@
       height={item.height}
     />
   {/each}
-  {@render source?.()}
+  {@render props.source?.()}
   <img
     {...attributes}
     bind:this={element}
@@ -88,17 +90,19 @@
       animate = !loaded && (timing?.transferSize ?? 0) > 300;
       loaded = true;
       failed = false;
-      onload?.call(element, event);
+      props.onload?.call(element, event);
     }}
     onerror={(event) => {
       failed = true;
-      onerror?.call(element, event);
+      props.onerror?.call(element, event);
     }}
   />
 </picture>
-{#if failed}{@render (errorContent ?? error)?.()}{:else if !loaded}{@render (
-    loadingContent ?? (typeof loadingProp === 'function' ? loadingProp : undefined)
-  )?.()}{/if}
+{@render (failed
+  ? (props.errorContent ?? props.error)
+  : !loaded
+    ? (props.loadingContent ?? (typeof props.loading === 'function' ? props.loading : undefined))
+    : undefined)?.()}
 
 <style>
   img {
