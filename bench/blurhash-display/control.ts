@@ -21,7 +21,7 @@ export function gammaThresholds() {
   }
   return table;
 }
-export function createBlurhashDecodeControl(thresholdGamma = false) {
+export function createBlurhashDecodeControl(thresholdGamma = false, clamped = true) {
   const gammaLookup = thresholdGamma
     ? Uint8Array.from({ length: 2048 }, (_, i) => referenceSrgb(i / 2048))
     : new Uint8Array();
@@ -79,7 +79,7 @@ export function createBlurhashDecodeControl(thresholdGamma = false) {
         coefficients[i * 3 + c] = (v < 0 ? -1 : 1) * Math.abs(v) ** 2 * scale;
       }
     }
-    const out = new Uint8ClampedArray(1024);
+    const out = clamped ? new Uint8ClampedArray(1024) : new Uint8Array(1024);
     for (let y = 0; y < 16; y++)
       for (let x = 0; x < 16; x++) {
         let r = 0,

@@ -55,17 +55,21 @@ if (mode === 'preview') {
   const run =
     mode === 'referenceJS'
       ? (hash: string) => decode(hash, 16, 16)
-      : mode === 'cachedJS'
-        ? createBlurhashDecodeControl()
-        : mode === 'thresholdJS'
-          ? createBlurhashDecodeControl(true)
-          : (
-              await (
-                (await import(
-                  pathToFileURL(join(root, 'dist/node/blurhash.js')).href
-                )) as typeof import('../../packages/svelte-imageway/dist/node/blurhash.js')
-              ).getBlurhashEncoder()
-            ).decodeBlurHash;
+      : mode === 'cachedU8'
+        ? createBlurhashDecodeControl(false, false)
+        : mode === 'thresholdU8'
+          ? createBlurhashDecodeControl(true, false)
+          : mode === 'cachedJS'
+            ? createBlurhashDecodeControl()
+            : mode === 'thresholdJS'
+              ? createBlurhashDecodeControl(true)
+              : (
+                  await (
+                    (await import(
+                      pathToFileURL(join(root, 'dist/node/blurhash.js')).href
+                    )) as typeof import('../../packages/svelte-imageway/dist/node/blurhash.js')
+                  ).getBlurhashEncoder()
+                ).decodeBlurHash;
   const initializationMs = performance.now() - initialized;
   const batch = () => hashes.map((hash) => run(hash));
   const started = performance.now(),

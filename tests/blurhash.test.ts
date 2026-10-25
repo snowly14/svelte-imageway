@@ -28,6 +28,7 @@ function fixture(width: number, height: number, seed: number): Uint8Array {
 describe('bounded Rust BlurHash kernel', () => {
   it('decodes generated BlurHash previews byte-for-byte and retains owned pixels', async () => {
     const encoder = await getBlurhashEncoder();
+    const plain = createBlurhashDecodeControl(true, false);
     const cached = createBlurhashDecodeControl(),
       thresholds = createBlurhashDecodeControl(true);
     for (let seed = 1; seed <= 1024; seed++) {
@@ -38,6 +39,7 @@ describe('bounded Rust BlurHash kernel', () => {
       const expected = new Uint8Array(decode(hash, 16, 16));
       expect(new Uint8Array(cached(hash))).toEqual(expected);
       expect(new Uint8Array(thresholds(hash))).toEqual(expected);
+      expect(plain(hash)).toEqual(expected);
       const actual = encoder.decodeBlurHash(hash);
       expect(actual).toEqual(expected);
       encoder.encode(fixture(3, 2, seed), 3, 2);
