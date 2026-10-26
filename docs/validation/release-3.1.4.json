@@ -65,8 +65,8 @@
   "defaultColdRSSMiBAfter": 428.9375,
   "generalSpeedupEstablished": false,
   "correctedSyntheticMedianRegressionsPercent": {
-    "cold": 5.436615641382,
-    "warm": 4.838314661761
+    "cold": 5.44,
+    "warm": 4.84
   },
   "registryArchiveConsumers": [
     {
