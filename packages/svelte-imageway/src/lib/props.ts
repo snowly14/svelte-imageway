@@ -8,7 +8,7 @@ import type {
   OutputFormat,
 } from './core/types.js';
 import { invariant } from './core/errors.js';
-import { imageRepresentation, resolveImageArtifact } from './core/artifact.js';
+import { resolveImageArtifact } from './core/artifact.js';
 
 /** Public browser configuration; intentionally contains no private server fields. */
 export interface ImageContextConfig {
@@ -87,7 +87,7 @@ export function getImageProps(
   const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
   const nativeOnly = strategy === 'img';
   const artifact = resolveImageArtifact(src);
-  const representation = artifact && nativeOnly ? imageRepresentation(artifact) : artifact;
+  const representation = nativeOnly ? (artifact?.img ?? artifact) : artifact;
   const original = representation?.src ?? (src as string);
   const provider = !artifact && (explicit ?? selectProvider(original, config));
   let fallback = original;
@@ -95,7 +95,7 @@ export function getImageProps(
   let sources = nativeOnly ? [] : (artifact?.sources ?? []);
   const width = native.width ?? representation?.width,
     height = native.height ?? representation?.height;
-  if (provider && !artifact && !original.startsWith('data:')) {
+  if (provider && !original.startsWith('data:')) {
     provider.validate();
     const widths = [
       ...new Set([
@@ -193,6 +193,8 @@ export function getImageProps(
   };
 }
 function selectProvider(src: string, config: ImageContextConfig): ImageProvider | undefined {
+  const providers = config.providers;
+  if (!providers) return config.provider;
   let hostname: string | undefined;
   try {
     hostname = new URL(src).hostname;
@@ -200,10 +202,8 @@ function selectProvider(src: string, config: ImageContextConfig): ImageProvider 
     /* Local keys use the wildcard provider. */
   }
   return (
-    (hostname && config.providers && Object.hasOwn(config.providers, hostname)
-      ? config.providers[hostname]
-      : undefined) ??
-    config.providers?.['*'] ??
+    (hostname && Object.hasOwn(providers, hostname) ? providers[hostname] : undefined) ??
+    providers['*'] ??
     config.provider
   );
 }

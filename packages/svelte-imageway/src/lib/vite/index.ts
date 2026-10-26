@@ -176,7 +176,7 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
           );
           values.push(`${JSON.stringify(domain)}:p${index}(${JSON.stringify(descriptor.options)})`);
         }
-        return `${imports.join('\n')}\nexport const config={widths:${JSON.stringify(config.widths)},quality:${config.quality},formats:${JSON.stringify(options.config?.formats)},providers:{${values.join(',')}}};`;
+        return `${imports.join('\n')}\nexport const config={widths:${JSON.stringify(config.widths)},quality:${config.quality},formats:${JSON.stringify(options.config?.formats)},${values.length ? `providers:{${values.join(',')}}` : ''}};`;
       }
       const split = id.indexOf('?');
       const file = split < 0 ? id : id.slice(0, split);

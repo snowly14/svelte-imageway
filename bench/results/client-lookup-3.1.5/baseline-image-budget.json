@@ -1,0 +1,11 @@
+{
+  "entry": "Image.svelte plus all Imageway helpers",
+  "runtime": "Svelte peer externalized",
+  "rawBytes": 6807,
+  "gzipBytes": 3021,
+  "gzipLevel": 9,
+  "cssBytes": 408,
+  "cssGzipBytes": 219,
+  "totalGzipBytes": 3240,
+  "targetBytes": 1536
+}

@@ -1,3 +1,17 @@
+# 3.1.5 lazy client lookup — 26 October 2026
+
+[Protocol, all samples and regressions](bench/CLIENT-LOOKUP-3.1.5.md). Unknown URL reads no longer allocate HMR registration maps; missing provider maps bypass hostname parsing, and default generated config omits the empty map. Native artifact selection is inlined while retaining its public helper. APIs, attributes, provider contracts, component lifecycle and native encoders remain stable. [ADR 25](docs/adr/0025-lazy-client-lookups.md).
+
+Seven fresh-process Node rounds: providerless relative attributes **1.638→0.246 µs/call**, absolute **0.357→0.250**; registered **0.268→0.264**, mapped **18.308→18.368**, explicitly empty-map **1.650→1.654**. Complete attribute JSON matches; no browser-rendering, HTTP or encode speed claim. First-read registry creation disappears until a real registration; this is not a measured process-RSS saving.
+
+Paired isolated Image **3021→2963 JS gzip bytes**, Picture **3171→3117**, Svelte externalized; CSS **219→220 / 216→218**, total **3240→3183 / 3387→3335**. Extracted baseline path/compiler identifiers differ from the independent 3.1.4 gate (3012/3160); both remain explicit. **Under 2000 bytes remains unmet.** New regression limits: 3000/3150 JS and 3250/3400 total.
+
+Actual pages including Svelte show **Image 18555→18563 total bytes (+8)**, Picture **20334→20330 (-4)**, Both **20716→20715 (-1)**, with two extra CSS bytes in Both. All 42 builds and six strict SSR/hydration/no-JS fixtures pass identical image-byte gates. The isolated reduction does not establish a large full-page win. Rejected bitmask lifecycle prototypes remain documented; final component sources stay unchanged.
+
+Local lint, strict TS/Svelte, **272 tests**, native independent rebuild, package/exports/types, budgets and Chromium/WebKit **12 pass / four optional-service skips** pass. The precompiled Rust module stays byte-identical at 13978 bytes/fixed 64 KiB. No new compiler step, browser WASM, paid-cloud, codec or build/RSS leadership claim. Exact-source CI and registry/archive verification remain required before announcing publication.
+
+---
+
 # 3.1.4 private shared build inputs — 26 October 2026
 
 [Protocol, all studies and raw samples](bench/BUILD-WORKERS-3.1.4.md). Before changes, seven rounds on each corpus measure workers 1/2/4; four retains the fastest photographic cold median and the highest RSS, so defaults remain unchanged. Untimed tracing records 72 worker metadata/encode operations over 24 sources and three widths. Main-thread samples mostly wait on native work; this does not separate native decode/resize/encode CPU.

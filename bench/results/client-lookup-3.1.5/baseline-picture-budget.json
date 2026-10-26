@@ -1,0 +1,11 @@
+{
+  "entry": "Picture.svelte",
+  "runtime": "Svelte peer externalized",
+  "rawBytes": 7539,
+  "gzipBytes": 3171,
+  "gzipLevel": 9,
+  "cssBytes": 401,
+  "cssGzipBytes": 216,
+  "totalGzipBytes": 3387,
+  "targetBytes": 1536
+}

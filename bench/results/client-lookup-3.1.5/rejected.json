@@ -1,0 +1,18 @@
+{
+  "firstBitmaskDiagnostic": {
+    "baselineImage": 3012,
+    "baselinePicture": 3160,
+    "prototypeImage": 3025,
+    "prototypePicture": 3170,
+    "selected": false
+  },
+  "directTruthinessWithRegistryOnly": {
+    "registryOnlyImage": 2979,
+    "registryOnlyPicture": 3129,
+    "prototypeImage": 2973,
+    "prototypePicture": 3127,
+    "selected": false,
+    "reason": "Only6/2bytes saved, retain clearer independent states."
+  },
+  "finalLifecycleSources": "Byte-identical to3.1.4; all selected changes are in lookup helpers/virtual config."
+}

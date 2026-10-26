@@ -1,6 +1,10 @@
 # Reproducible package benchmarks
 
-## Current 3.1.4 worker/source comparison — 26 October 2026
+## Current 3.1.5 client lookup — 26 October 2026
+
+[Lazy lookup and complete client sizes](CLIENT-LOOKUP-3.1.5.md): pinned npm 3.1.4, five byte-identical Node attribute scenarios, seven alternating rounds, complete JS+CSS including actual SSR/hydrated/no-JS pages. Providerless lookup improves; isolated entries shrink modestly, while the actual Image page grows eight total bytes. Keep every regression and the unmet 2000-byte target visible. Native codecs and the precompiled Rust module are unchanged.
+
+## Previous 3.1.4 worker/source comparison — 26 October 2026
 
 [Private shared build inputs](BUILD-WORKERS-3.1.4.md): before-change worker1/2/4 measurements, untimed operation profiles, frozen npm 3.1.3 baseline, seven-round byte-identical photographic/synthetic comparisons and three ordinary-default pairs. Photographic cold RSS falls substantially; speed varies and synthetic medians regress. Retain the exploratory cache-isolation mistake and all original regressions alongside the corrected study. Component size and build/RSS leadership remain open.
 

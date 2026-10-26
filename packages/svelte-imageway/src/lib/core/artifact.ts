@@ -18,7 +18,9 @@ export function registerImageArtifact(url: string, image: ImageArtifact, id = ur
   store.images.set(url, image);
 }
 export function resolveImageArtifact(src: ImageArtifact | string): ImageArtifact | undefined {
-  return typeof src === 'string' ? registry().images.get(src) : src;
+  // Reading an unregistered URL must not allocate the HMR registration maps.
+  const host = globalThis as typeof globalThis & { [registryKey]?: Registry };
+  return typeof src === 'string' ? host[registryKey]?.images.get(src) : src;
 }
 /** Explicit build-time img representation; never infer codecs from URLs or browser globals. */
 export function imageRepresentation(artifact: ImageArtifact): ImageRepresentation {

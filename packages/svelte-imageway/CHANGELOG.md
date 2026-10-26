@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 3.1.5
+
+### Patch Changes
+
+- Avoid allocating registration maps for reads of unknown image URLs, skip hostname parsing when no provider map exists and omit empty generated provider maps. Inline the native artifact selection in the attribute helper while keeping the public helper/API unchanged. Preserve complete attributes, provider contracts and SSR/no-JS behavior; component size reductions are small and the 2000-byte target remains unmet.
+
 ## 3.1.4
 
 ### Patch Changes
