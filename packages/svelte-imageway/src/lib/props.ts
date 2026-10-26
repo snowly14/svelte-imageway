@@ -71,6 +71,11 @@ export function getImageProps(
     'Image alt is required; use alt="" for decorative images.',
   );
   const {
+    sources: componentSources,
+    source: componentSource,
+    error: componentError,
+    loadingContent,
+    errorContent,
     src,
     priority,
     provider: explicit,
@@ -83,7 +88,13 @@ export function getImageProps(
     transitionName,
     contentVisibility,
     ...native
-  } = options;
+  } = options as ImageOptions &
+    Partial<Record<'sources' | 'source' | 'error' | 'loadingContent' | 'errorContent', unknown>>;
+  void componentSources;
+  void componentSource;
+  void componentError;
+  void loadingContent;
+  void errorContent;
   const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
   const nativeOnly = strategy === 'img';
   const artifact = resolveImageArtifact(src);

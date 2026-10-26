@@ -1,3 +1,17 @@
+# 3.1.7 bounded Rust column projection — 26 October 2026
+
+[Full study, protocol, raw results and rejected alternatives](bench/COLUMN-PROJECTION-3.1.7.md). The Rust kernel converts a bounded column to linear RGB once and reuses it across twelve BlurHash coefficients, preserving every accumulation bit. Optimized JS packing avoids repeated base83 string construction and returns owned strings. [ADR 27](docs/adr/0027-bounded-column-projection.md). Public API, quality, SSR/no-JS, alt/snippets/events/preload/reduced-motion and all resource limits remain unchanged.
+
+Seven fresh-process sets: warm complete encode **39.488→23.719 µs/hash** (−39.9%), optimized-JS control **35.758 µs**. Native-only ablation **24.994 µs** demonstrates the Rust algorithm gain. Process peak RSS **127.125→122.516 MiB**, but selected **+0.141 MiB** versus optimized JS; no native-memory reduction claim. First batch **4.167→3.546 ms**, but optimized JS is faster at **3.063 ms**. Final native artifact **13978→14702 bytes**, fixed **65536-byte** memory, no new exports/imports/SIMD/browser code. Contributor rebuild steps are unchanged.
+
+**Retained regressions:** complete Sharp BlurHash preview **19.477→19.734 ms** (+1.32%), unchanged LQIP **19.187→20.661 ms** (+7.69%). Desktop/Sharp variability dominates. Rejected native quantization/base83 and SIMD trials failed against optimized JS and remain published. No faster full-preview, default build, codec, HTTP or market-leadership claim is made; prior imagetools/enhanced-img comparisons remain the latest evidence.
+
+Image/Picture isolated entries **2963→2953 / 3117→3096 JS gzip bytes**, Svelte externalized, CSS **220/218** unchanged. Real SSR/hydration Image/Picture/Both pages save only **8/8/17 total gzip bytes** over seven pairs; all JS/CSS and image bytes are counted. **Under 2000 bytes and build/RSS leadership remain unmet.**
+
+Headless attribute costs remain visible: relative **1.172→1.388 µs**, registered **0.901→1.039 µs** in the longer seven-pair warm study. Other cases and the earlier short period are retained; no universal client/runtime speedup is claimed. The small component-byte saving trades against extra shared metadata filtering.
+
+Local lint, strict TS/Svelte, **277 tests**, independent native rebuild, package/type/export checks, Image/Picture JS+CSS budgets, six real client SSR/hydration/no-JS fixtures and both packed consumers pass. Chromium/WebKit pass **12 tests / four optional-service skips**. The local all-browser attempt retains six Firefox startup failures (profile folder unavailable); Firefox remains a required CI gate. Exact-source CI and publication are pending. This is not a publication receipt.
+
 # 3.1.6 canonical query encoding — 26 October 2026
 
 [All protocols, studies and costs](bench/URL-SERIALIZATION-3.1.6.md). The profile points to repeated URI encoding. Unreserved ASCII now bypasses the native encoder; other characters retain the existing escaping and malformed-surrogate behavior. A sorted traversal avoids intermediate filter/map arrays. APIs, signatures, exact URLs, ownership and every validation/resource bound remain stable. [ADR 26](docs/adr/0026-unreserved-canonical-query.md).

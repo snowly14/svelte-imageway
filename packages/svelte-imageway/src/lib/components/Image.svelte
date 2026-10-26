@@ -6,28 +6,10 @@
   let props: Props = $props();
   const config = getImageConfig();
   const attributes = $derived.by(() => {
-    const {
-      sources,
-      source,
-      formatStrategy,
-      loading,
-      error,
-      loadingContent,
-      errorContent,
-      onload,
-      onerror,
-      ...options
-    } = props;
-    void sources;
-    void source;
-    void formatStrategy;
-    void error;
-    void loadingContent;
-    void errorContent;
-    void onload;
-    void onerror;
     invariant(
-      sources === undefined && source === undefined && formatStrategy === undefined,
+      props.sources === undefined &&
+        props.source === undefined &&
+        props.formatStrategy === undefined,
       'PICTURE_REQUIRED',
       'Use Picture for sources, source snippets or picture format strategy.',
     );
@@ -36,10 +18,10 @@
       placeholder,
       ...native
     } = getImageProps({
-      ...options,
+      ...props,
       config,
       formatStrategy: 'img',
-      loading: typeof loading === 'string' ? loading : undefined,
+      loading: typeof props.loading === 'string' ? props.loading : undefined,
     });
     void unusedSources;
     void placeholder;

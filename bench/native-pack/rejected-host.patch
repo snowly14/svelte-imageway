@@ -1,0 +1,50 @@
+--- a/dist/node/blurhash.js
++++ b/dist/node/blurhash.js
+@@ -1,6 +1,6 @@
+ import { readFile } from 'node:fs/promises';
+ import { invariant } from '../core/errors.js';
+-import { packBlurhash, linearToSrgb } from './blurhash-encoding.js';
++import { linearToSrgb } from './blurhash-encoding.js';
+ function validate(pixels, width, height) {
+     invariant(Number.isSafeInteger(width) &&
+         Number.isSafeInteger(height) &&
+@@ -32,6 +32,9 @@
+             'blurhash_fallback_ptr',
+             'blurhash_linear_ptr',
+             'blurhash_decode',
++            'blurhash_packed_ptr',
++            'blurhash_quantize',
++            'blurhash_pack',
+         ].every((key) => typeof exports[key] === 'function'), 'PREVIEW_ABI', 'Invalid bundled preview kernel. Reinstall svelte-imageway or rebuild its native artifact.');
+     const kernel = exports;
+     const pixels = new Uint8Array(kernel.memory.buffer, kernel.pixels_ptr(), 4096);
+@@ -39,6 +42,7 @@
+     const decodeTables = new Float64Array(kernel.memory.buffer, kernel.decode_tables_ptr(), 448);
+     const png = new Uint8Array(kernel.memory.buffer, kernel.png_ptr(), 4400);
+     const thumb = new Uint8Array(kernel.memory.buffer, kernel.thumbhash_ptr(), 32);
++    const packed = new Uint8Array(kernel.memory.buffer, kernel.blurhash_packed_ptr(), 36);
+     const coefficients = new Float64Array(kernel.memory.buffer, kernel.output_ptr(), 36);
+     for (let i = 0; i < 256; i++) {
+         const v = i / 255;
+@@ -159,7 +163,20 @@
+             }
+             pixels.set(input);
+             invariant(kernel.coefficients(width, height) === 1, 'PREVIEW_PIXELS', 'BlurHash kernel rejected the dimensions.');
+-            return packBlurhash(coefficients);
++            const count = kernel.blurhash_quantize();
++            invariant(count > 0 && count <= 34, 'PREVIEW_ABI', 'Invalid preview packing coefficients.');
++            const scale = (packed[0] + 1) / 166;
++            for (let i = 0; i < count - 1; i++) {
++                const channel = fallback[i];
++                invariant(channel >= 3 && channel < 36, 'PREVIEW_ABI', 'Invalid preview packing fallback.');
++                const v = coefficients[channel] / scale;
++                packed[channel] = Math.floor(Math.max(0, Math.min(18, Math.floor((v < 0 ? -1 : 1) * Math.sqrt(Math.abs(v)) * 9 + 9.5))));
++            }
++            const dc = (linearToSrgb(coefficients[0]) << 16) +
++                (linearToSrgb(coefficients[1]) << 8) +
++                linearToSrgb(coefficients[2]);
++            invariant(kernel.blurhash_pack(dc) === 1, 'PREVIEW_ABI', 'Invalid preview packing output.');
++            return Buffer.from(thumb.buffer, thumb.byteOffset, 28).toString('ascii');
+         },
+     };
+ }

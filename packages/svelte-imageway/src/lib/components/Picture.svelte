@@ -5,31 +5,11 @@
   let props: Props = $props();
   const config = getImageConfig();
   const image = $derived.by(() => {
-    const {
-      sources,
-      source,
-      formatStrategy,
-      loading,
-      error,
-      loadingContent,
-      errorContent,
-      onload,
-      onerror,
-      ...options
-    } = props;
-    void sources;
-    void source;
-    void formatStrategy;
-    void error;
-    void loadingContent;
-    void errorContent;
-    void onload;
-    void onerror;
     return getImageProps({
-      ...options,
+      ...props,
       config,
       formatStrategy: 'picture',
-      loading: typeof loading === 'string' ? loading : undefined,
+      loading: typeof props.loading === 'string' ? props.loading : undefined,
     });
   });
   const attributes = $derived.by(() => {

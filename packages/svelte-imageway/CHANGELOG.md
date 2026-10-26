@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 3.1.7
+
+### Patch Changes
+
+- Reuse bounded linear-RGB columns in the Rust BlurHash projection, preserving coefficient bits and fixed WASM memory. Cache ASCII packing scratch while returning owned strings. Remove redundant Image/Picture option cloning without changing their public API, SSR, snippets, events or preload behavior. Retain measured native alternatives and all benchmark regressions.
+
 ## 3.1.6
 
 ### Patch Changes

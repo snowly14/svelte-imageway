@@ -1,3 +1,5 @@
+3.1.7 selects bounded Rust column reuse after rejecting native packing/SIMD against optimized JS. Read the current REPORT/receipt for actual delivery status. Kernel throughput improves, complete Sharp previews do not, and component savings are modest. Prioritize the larger client/default-build/RSS gaps next; no under-2000-byte or leadership claim is justified. Preserve all raw periods and the scalar/bit-identical/fixed-memory gates.
+
 # Next performance tranche
 
 3.1.6 improves canonical query/provider/cache CPU while raising cache-benchmark process peak RSS and configured-provider page sizes slightly. Read REPORT and the latest receipt for delivery status. Native encoders, generic component size and all resource bounds stay unchanged; under 2000 bytes remains open.

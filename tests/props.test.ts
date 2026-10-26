@@ -116,6 +116,28 @@ describe('headless and type contract', () => {
     const invalid: ImageOptions = { ...options, formatStrategy: 'magic' };
     void invalid;
   });
+  it('filters component snippets while preserving native event handlers and data attributes', () => {
+    const onload = () => undefined,
+      onerror = () => undefined;
+    const options = {
+      src: artifact,
+      alt: 'Photo',
+      formatStrategy: 'img' as const,
+      sources: [{ type: 'image/webp', srcset: '/alternate.webp' }],
+      source: () => undefined,
+      error: () => undefined,
+      loadingContent: () => undefined,
+      errorContent: () => undefined,
+      onload,
+      onerror,
+      'data-photo': 'hero',
+    };
+    const attributes = getImageProps(options);
+    expect(attributes).toMatchObject({ onload, onerror, 'data-photo': 'hero' });
+    for (const key of ['source', 'error', 'loadingContent', 'errorContent'])
+      expect(attributes).not.toHaveProperty(key);
+    expect(attributes.sources).toEqual([]);
+  });
   it('requires alt including explicit decorative alt, and derives dimensions safely', () => {
     // @ts-expect-error alt is mandatory even for a raw URL.
     const invalid: ImageOptions = { src: '/photo.png' };

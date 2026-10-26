@@ -1,0 +1,22 @@
+{
+  "before": {
+    "dist/node/blurhash.js": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284",
+    "dist/node/blurhash-encoding.js": "460c6a07d6011cc2451e0ff83d4fe61bd40acd96e71a8a18ece413b714837b3d",
+    "dist/node/blurhash.wasm": "f5210d8d5c1848daac7423da051a96c98b721eb490808def178bfc5c5c97130d"
+  },
+  "optimizedJS": {
+    "dist/node/blurhash.js": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284",
+    "dist/node/blurhash-encoding.js": "73ae4d2bf092d84cf92eee07a5452bdf8f4cd898c570aa3644269522d5828f64",
+    "dist/node/blurhash.wasm": "f5210d8d5c1848daac7423da051a96c98b721eb490808def178bfc5c5c97130d"
+  },
+  "columnRust": {
+    "dist/node/blurhash.js": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284",
+    "dist/node/blurhash-encoding.js": "460c6a07d6011cc2451e0ff83d4fe61bd40acd96e71a8a18ece413b714837b3d",
+    "dist/node/blurhash.wasm": "63aaa125c5436f26bffa8b8cbf54f35673e867d793a485a3a4bad076632b794e"
+  },
+  "after": {
+    "dist/node/blurhash.js": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284",
+    "dist/node/blurhash-encoding.js": "7c27c0d8fd6708a1890841bc71c6092ce3825018f12accb7f9ae13ec92f3b0ed",
+    "dist/node/blurhash.wasm": "63aaa125c5436f26bffa8b8cbf54f35673e867d793a485a3a4bad076632b794e"
+  }
+}

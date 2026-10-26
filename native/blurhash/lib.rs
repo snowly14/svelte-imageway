@@ -396,36 +396,39 @@ pub extern "C" fn dominant_colour(width: u32, height: u32) -> u32 {
 }
 #[no_mangle]
 pub extern "C" fn coefficients(width: u32, height: u32) -> u32 {
-    if width == 0 || height == 0 || width > 32 || height > 32 {
-        return 0;
-    }
+    if width == 0 || height == 0 || width > 32 || height > 32 { return 0; }
     let w = width as usize;
     let h = height as usize;
-    // SAFETY: validated dimensions bound every access; the synchronous host
-    // serializes access and provides initialized RGBA and lookup tables.
+    // SAFETY: dimensions bound the column to 96 doubles and all shared buffers.
+    // Preserve x/y accumulation and basis multiplication order for every channel.
     unsafe {
-        for j in 0..3 {
-            for i in 0..4 {
-                let norm = if i == 0 && j == 0 { 1.0 } else { 2.0 };
-                let mut r = 0.0;
-                let mut g = 0.0;
-                let mut b = 0.0;
-                for x in 0..w {
+        for c in 0..36 { OUTPUT[c] = 0.0; }
+        let mut column = [0.0; 96];
+        for x in 0..w {
+            for y in 0..h {
+                let p = (y * w + x) * 4;
+                for c in 0..3 { column[y * 3 + c] = TABLES[PIXELS[p + c] as usize]; }
+            }
+            for j in 0..3 {
+                for i in 0..4 {
+                    let out = (j * 4 + i) * 3;
+                    let norm = if i == 0 && j == 0 { 1.0 } else { 2.0 };
+                    let fx = norm * TABLES[256 + i * 32 + x];
+                    let mut r = OUTPUT[out];
+                    let mut g = OUTPUT[out + 1];
+                    let mut b = OUTPUT[out + 2];
                     for y in 0..h {
-                        let basis = norm * TABLES[256 + i * 32 + x] * TABLES[384 + j * 32 + y];
-                        let p = (y * w + x) * 4;
-                        r += basis * TABLES[PIXELS[p] as usize];
-                        g += basis * TABLES[PIXELS[p + 1] as usize];
-                        b += basis * TABLES[PIXELS[p + 2] as usize];
+                        let basis = fx * TABLES[384 + j * 32 + y];
+                        r += basis * column[y * 3];
+                        g += basis * column[y * 3 + 1];
+                        b += basis * column[y * 3 + 2];
                     }
+                    OUTPUT[out] = r; OUTPUT[out + 1] = g; OUTPUT[out + 2] = b;
                 }
-                let scale = 1.0 / ((w * h) as f64);
-                let out = (j * 4 + i) * 3;
-                OUTPUT[out] = r * scale;
-                OUTPUT[out + 1] = g * scale;
-                OUTPUT[out + 2] = b * scale;
             }
         }
+        let scale = 1.0 / ((w * h) as f64);
+        for c in 0..36 { OUTPUT[c] *= scale; }
     }
     1
 }

@@ -1,0 +1,62 @@
+--- a/native/blurhash/lib.rs
++++ b/native/blurhash/lib.rs
+@@ -568,3 +568,59 @@
+         fallback as u32 + 1
+     }
+ }
++
++// Exact bounded 4x3 packing. AC square-root rounding boundaries are handled
++// conservatively: the host resolves only channels within the narrow guard band
++// with the reference JS expression. No imported libm or growing memory.
++static mut BLUR_PACKED: [u8; 36] = [0; 36];
++#[no_mangle]
++pub extern "C" fn blurhash_packed_ptr() -> *mut u8 {
++    &raw mut BLUR_PACKED as *mut u8
++}
++#[no_mangle]
++pub extern "C" fn blurhash_quantize() -> u32 {
++    // SAFETY: OUTPUT and packed/fallback scratch have fixed, checked capacities.
++    // Validate every coefficient before writing output, including raw ABI calls.
++    unsafe {
++        for i in 0..36 {
++            if !OUTPUT[i].is_finite() { return 0; }
++        }
++        let mut maximum = f64::NEG_INFINITY;
++        for i in 3..36 { maximum = maximum.max(OUTPUT[i]); }
++        let scaled = maximum * 166.0 - 0.5;
++        let q = if scaled <= 0.0 { 0 } else if scaled >= 82.0 { 82 } else { scaled as u32 };
++        BLUR_PACKED[0] = q as u8;
++        let scale = (q + 1) as f64 / 166.0;
++        for i in 3..36 {
++            let value = OUTPUT[i] / scale;
++            // WASM sqrt is IEEE-754, preserving the host Math.sqrt expression.
++            let root = core::arch::wasm32::f64x2_extract_lane::<0>(
++                core::arch::wasm32::f64x2_sqrt(core::arch::wasm32::f64x2_splat(value.abs()))
++            );
++            let signed = if value < 0.0 { -root } else { root };
++            BLUR_PACKED[i] = (signed * 9.0 + 9.5).max(0.0).min(18.0) as u8;
++        }
++        1
++    }
++}
++#[no_mangle]
++pub extern "C" fn blurhash_pack(dc: u32) -> u32 {
++    const ALPHABET: &[u8; 83] = b"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$%*+,-.:;=?@[]^_{|}~";
++    // SAFETY: all channels and DC are admitted before any THUMB writes. The fixed
++    // representation has 28 bytes, at most four base83 digits per bounded value.
++    unsafe {
++        if dc > 0xffffff || BLUR_PACKED[0] > 82 { return 0; }
++        for i in 3..36 { if BLUR_PACKED[i] > 18 { return 0; } }
++        THUMB[0] = b'L';
++        THUMB[1] = ALPHABET[BLUR_PACKED[0] as usize];
++        let mut value = dc;
++        for i in (2..6).rev() { THUMB[i] = ALPHABET[(value % 83) as usize]; value /= 83; }
++        for i in 0..11 {
++            let c = i * 3 + 3;
++            let value = BLUR_PACKED[c] as usize * 361 + BLUR_PACKED[c + 1] as usize * 19 + BLUR_PACKED[c + 2] as usize;
++            THUMB[6 + i * 2] = ALPHABET[value / 83];
++            THUMB[7 + i * 2] = ALPHABET[value % 83];
++        }
++    }
++    1
++}

@@ -1,0 +1,331 @@
+diff --git a/native/blurhash/lib.rs b/native/blurhash/lib.rs
+index 07da6ef..19f574b 100644
+--- a/native/blurhash/lib.rs
++++ b/native/blurhash/lib.rs
+@@ -396,36 +396,39 @@ pub extern "C" fn dominant_colour(width: u32, height: u32) -> u32 {
+ }
+ #[no_mangle]
+ pub extern "C" fn coefficients(width: u32, height: u32) -> u32 {
+-    if width == 0 || height == 0 || width > 32 || height > 32 {
+-        return 0;
+-    }
++    if width == 0 || height == 0 || width > 32 || height > 32 { return 0; }
+     let w = width as usize;
+     let h = height as usize;
+-    // SAFETY: validated dimensions bound every access; the synchronous host
+-    // serializes access and provides initialized RGBA and lookup tables.
++    // SAFETY: dimensions bound the column to 96 doubles and all shared buffers.
++    // Preserve x/y accumulation and basis multiplication order for every channel.
+     unsafe {
+-        for j in 0..3 {
+-            for i in 0..4 {
+-                let norm = if i == 0 && j == 0 { 1.0 } else { 2.0 };
+-                let mut r = 0.0;
+-                let mut g = 0.0;
+-                let mut b = 0.0;
+-                for x in 0..w {
++        for c in 0..36 { OUTPUT[c] = 0.0; }
++        let mut column = [0.0; 96];
++        for x in 0..w {
++            for y in 0..h {
++                let p = (y * w + x) * 4;
++                for c in 0..3 { column[y * 3 + c] = TABLES[PIXELS[p + c] as usize]; }
++            }
++            for j in 0..3 {
++                for i in 0..4 {
++                    let out = (j * 4 + i) * 3;
++                    let norm = if i == 0 && j == 0 { 1.0 } else { 2.0 };
++                    let fx = norm * TABLES[256 + i * 32 + x];
++                    let mut r = OUTPUT[out];
++                    let mut g = OUTPUT[out + 1];
++                    let mut b = OUTPUT[out + 2];
+                     for y in 0..h {
+-                        let basis = norm * TABLES[256 + i * 32 + x] * TABLES[384 + j * 32 + y];
+-                        let p = (y * w + x) * 4;
+-                        r += basis * TABLES[PIXELS[p] as usize];
+-                        g += basis * TABLES[PIXELS[p + 1] as usize];
+-                        b += basis * TABLES[PIXELS[p + 2] as usize];
++                        let basis = fx * TABLES[384 + j * 32 + y];
++                        r += basis * column[y * 3];
++                        g += basis * column[y * 3 + 1];
++                        b += basis * column[y * 3 + 2];
+                     }
++                    OUTPUT[out] = r; OUTPUT[out + 1] = g; OUTPUT[out + 2] = b;
+                 }
+-                let scale = 1.0 / ((w * h) as f64);
+-                let out = (j * 4 + i) * 3;
+-                OUTPUT[out] = r * scale;
+-                OUTPUT[out + 1] = g * scale;
+-                OUTPUT[out + 2] = b * scale;
+             }
+         }
++        let scale = 1.0 / ((w * h) as f64);
++        for c in 0..36 { OUTPUT[c] *= scale; }
+     }
+     1
+ }
+diff --git a/native/blurhash/manifest.json b/native/blurhash/manifest.json
+index d835216..0018336 100644
+--- a/native/blurhash/manifest.json
++++ b/native/blurhash/manifest.json
+@@ -1,8 +1,8 @@
+ {
+   "compiler": "rustc 1.99.0",
+   "target": "wasm32-unknown-unknown",
+-  "sourceSha256": "ac1711687613b8611423b07d600f3516e63a91a45a714543484957f109c1019d",
+-  "wasmSha256": "f5210d8d5c1848daac7423da051a96c98b721eb490808def178bfc5c5c97130d",
+-  "bytes": 13978,
++  "sourceSha256": "074e4a11d9311fc57b07df51e7540f8758d4041782a8ca2e603906d1cbea039c",
++  "wasmSha256": "63aaa125c5436f26bffa8b8cbf54f35673e867d793a485a3a4bad076632b794e",
++  "bytes": 14702,
+   "memoryBytes": 65536
+ }
+diff --git a/packages/svelte-imageway/src/lib/components/Image.svelte b/packages/svelte-imageway/src/lib/components/Image.svelte
+index 9caadf6..ea274e8 100644
+--- a/packages/svelte-imageway/src/lib/components/Image.svelte
++++ b/packages/svelte-imageway/src/lib/components/Image.svelte
+@@ -6,28 +6,10 @@
+   let props: Props = $props();
+   const config = getImageConfig();
+   const attributes = $derived.by(() => {
+-    const {
+-      sources,
+-      source,
+-      formatStrategy,
+-      loading,
+-      error,
+-      loadingContent,
+-      errorContent,
+-      onload,
+-      onerror,
+-      ...options
+-    } = props;
+-    void sources;
+-    void source;
+-    void formatStrategy;
+-    void error;
+-    void loadingContent;
+-    void errorContent;
+-    void onload;
+-    void onerror;
+     invariant(
+-      sources === undefined && source === undefined && formatStrategy === undefined,
++      props.sources === undefined &&
++        props.source === undefined &&
++        props.formatStrategy === undefined,
+       'PICTURE_REQUIRED',
+       'Use Picture for sources, source snippets or picture format strategy.',
+     );
+@@ -36,10 +18,10 @@
+       placeholder,
+       ...native
+     } = getImageProps({
+-      ...options,
++      ...props,
+       config,
+       formatStrategy: 'img',
+-      loading: typeof loading === 'string' ? loading : undefined,
++      loading: typeof props.loading === 'string' ? props.loading : undefined,
+     });
+     void unusedSources;
+     void placeholder;
+diff --git a/packages/svelte-imageway/src/lib/components/Picture.svelte b/packages/svelte-imageway/src/lib/components/Picture.svelte
+index bd654cd..9f4340c 100644
+--- a/packages/svelte-imageway/src/lib/components/Picture.svelte
++++ b/packages/svelte-imageway/src/lib/components/Picture.svelte
+@@ -5,31 +5,11 @@
+   let props: Props = $props();
+   const config = getImageConfig();
+   const image = $derived.by(() => {
+-    const {
+-      sources,
+-      source,
+-      formatStrategy,
+-      loading,
+-      error,
+-      loadingContent,
+-      errorContent,
+-      onload,
+-      onerror,
+-      ...options
+-    } = props;
+-    void sources;
+-    void source;
+-    void formatStrategy;
+-    void error;
+-    void loadingContent;
+-    void errorContent;
+-    void onload;
+-    void onerror;
+     return getImageProps({
+-      ...options,
++      ...props,
+       config,
+       formatStrategy: 'picture',
+-      loading: typeof loading === 'string' ? loading : undefined,
++      loading: typeof props.loading === 'string' ? props.loading : undefined,
+     });
+   });
+   const attributes = $derived.by(() => {
+diff --git a/packages/svelte-imageway/src/lib/node/blurhash-encoding.ts b/packages/svelte-imageway/src/lib/node/blurhash-encoding.ts
+index 552b716..f21c5f4 100644
+--- a/packages/svelte-imageway/src/lib/node/blurhash-encoding.ts
++++ b/packages/svelte-imageway/src/lib/node/blurhash-encoding.ts
+@@ -1,42 +1,53 @@
+ /** BlurHash base83 and quantization (Wolt BlurHash algorithm, MIT; see NOTICE). */
+-const alphabet =
+-  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$%*+,-.:;=?@[]^_{|}~';
+-function base83(value: number, length: number): string {
+-  let result = '';
+-  for (let i = length - 1; i >= 0; i--) result += alphabet[Math.floor(value / 83 ** i) % 83];
+-  return result;
+-}
+ export function linearToSrgb(value: number): number {
+   const v = Math.max(0, Math.min(1, value));
+   return v <= 0.0031308
+     ? Math.trunc(v * 12.92 * 255 + 0.5)
+     : Math.trunc((1.055 * v ** (1 / 2.4) - 0.055) * 255 + 0.5);
+ }
+-/** Preserve the reference encoder's 4x3 component order and quantization. */
+-export function packBlurhash(coefficients: Float64Array): string {
+-  let maximum = -Infinity;
+-  for (let i = 3; i < 36; i++) maximum = Math.max(maximum, coefficients[i]!);
+-  const quantized = Math.floor(Math.max(0, Math.min(82, Math.floor(maximum * 166 - 0.5))));
+-  const scale = (quantized + 1) / 166;
+-  let result =
+-    base83(21, 1) +
+-    base83(quantized, 1) +
+-    base83(
++/** Reuse bounded scratch; toString returns an owned result before the next call. */
++function createPacker() {
++  const alphabet = Buffer.from(
++    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#$%*+,-.:;=?@[]^_{|}~',
++  );
++  const out = Buffer.alloc(28);
++  function write(value: number, length: number, offset: number) {
++    for (let i = offset + length - 1; i >= offset; i--) {
++      out[i] = alphabet[value % 83]!;
++      value = Math.floor(value / 83);
++    }
++  }
++  return function packBlurhash(coefficients: Float64Array): string {
++    let maximum = -Infinity;
++    for (let i = 3; i < 36; i++) maximum = Math.max(maximum, coefficients[i]!);
++    const quantized = Math.floor(Math.max(0, Math.min(82, Math.floor(maximum * 166 - 0.5))));
++    const scale = (quantized + 1) / 166;
++    out[0] = alphabet[21]!;
++    out[1] = alphabet[quantized]!;
++    write(
+       (linearToSrgb(coefficients[0]!) << 16) +
+         (linearToSrgb(coefficients[1]!) << 8) +
+         linearToSrgb(coefficients[2]!),
+       4,
++      2,
+     );
+-  for (let i = 3; i < 36; i += 3) {
+-    let value = 0;
+-    for (let c = 0; c < 3; c++) {
+-      const v = coefficients[i + c]! / scale;
+-      const quantizedChannel = Math.floor(
+-        Math.max(0, Math.min(18, Math.floor((v < 0 ? -1 : 1) * Math.sqrt(Math.abs(v)) * 9 + 9.5))),
+-      );
+-      value = value * 19 + quantizedChannel;
++    for (let i = 3; i < 36; i += 3) {
++      let value = 0;
++      for (let c = 0; c < 3; c++) {
++        const v = coefficients[i + c]! / scale;
++        value =
++          value * 19 +
++          Math.floor(
++            Math.max(
++              0,
++              Math.min(18, Math.floor((v < 0 ? -1 : 1) * Math.sqrt(Math.abs(v)) * 9 + 9.5)),
++            ),
++          );
++      }
++      write(value, 2, 6 + ((i - 3) / 3) * 2);
+     }
+-    result += base83(value, 2);
+-  }
+-  return result;
++    return out.toString('ascii');
++  };
+ }
++
++export const packBlurhash = createPacker();
+diff --git a/packages/svelte-imageway/src/lib/node/blurhash.wasm b/packages/svelte-imageway/src/lib/node/blurhash.wasm
+index 5d084697cff85cc060154232c669b4ad1188a0cf..7968fa95ac892757a5f7fbbd313432928129be2d 100644
+GIT binary patch
+delta 2274
+zcmcJRzi$&s6vt;h_WF0?IKLAonYVFBjANipb9f|9_fK4XC#`Z6h!SZQ3Pg#NCV|E>
+z4H7~GrHP=Sq)da9GNr3iiYq8ig7?1b^@KaFIo-L*=kqqZ`)0l~V?X=t_j||tLGF)V
+zPwocqD+`aC1?}iT-USarx0&!q*(5yp)Y@oUMS1)2=n+?x9pwJ3DwAVMLZ)0l*Eg!J
+z4!*Q#{f-)csN}Jn;lbOfWtWMfy2mMx(;gchXFN7N&U&2lIPY=6<6?@A8>A&)UiP@+
+zan)nX<C@1SBi-;-<B>c@9yjmE`|+W+FK^X?s!=v~pRU=ncMlUq+q%!w8vI!2nI>%l
+z+A-VI(S4&$r>B(F_q%%ZoCDd@%4l1PO~(fDcdj(#O3q(#{-&jvpWHFmV(OS3>*8pq
+zuBs-_&yF-d{S`l*YDVxaV|3kIA5a<oX5tn2>xox+sdVk=MDE?y{cMOCT;6u3yJ~7f
+zDw(dmQ2SA@tIuU&QNb{t0YgD7H!4nszl-4)Ov!Y*S`E1!Z5y%RfbR{Bcxmh*kGUkn
+zDoQ#1pCVu95j%ZltUZf&$EG0D*t2+jY{JygL2QbtT}o?lbc3HJz1mUgH^sSOdy)Dr
+z@xOOn&AN8~uI;N`-$>iNnf7@rYw*dlZyQWfpEURx4Z7$bI;><J{%;Kqq#<5rlPNs>
+zONUQW=kUKbh2{UGL5D^D?G*OXDcrS5E~Z^xm_ZzMt^SF(L)C2Cd`#QCEx4FBN{UwT
+z@|1l<1;G!%Q1BF36g&o&1YZKnf&=V7st6yVjHf*X)};CbSQkuyQ-YsmYG_*U64($N
+z0cQj+fK9=3;H=;oa8B?eaNY@j051rh0v833flGoffy;tOjaCGa7p)2+DryO0-O-w0
+zg4@;wvD#=u5IcvA;ONN7I7k>9h9bfA1lSZzPXPYL$xeVRo}lqDa(UYXM(v-z;LTqc
+z?xh)6#d|ztLkzGY8<K#P*boNHm01x8w8A!!X@*tVkP58EhG1ZIHe>^vVnaNzX*MJT
+zYp@|C*bEzTf;Am0vVzXCAuiY)8xn)fvmrFt0vlq3EwUjw*b*DUgDtZmKiCQzB806D
+z9gk2_g0}b~l7y|XAxzjh8}fv0upv^IVMD4gV#8?&i`Wn?Y?BS?!rH^VU($r3TYM3R
+rtQf+VB)E8%C4$8<E}ma4UW|+QYXj0%{za06aT~u|j6V6f`9u3FxwGe3
+
+delta 1537
+zcmd6ny>AmS7>E6lOYbvjhYpB=*AZKV#M%X73B<sEfy8nR3{}TSKA1XIVrk2A3QHw~
+z2xN(1DO<)HGiJ<$GIr#(9p|meQU(N(a(eu;eRq%j`hFgszZws?s9#K8^Y5wonkU@w
+zp)_JBjKn`5a-*3NqOSq?0bba_p}zOLU{9F)tsVmhHkf`;QuKj6Ef{cnVOkui7EX=y
+za`LufsxABLDJ%fajqa+g5Hpp=y7~472PgX7kNl32eb|Cj%cDKH{D?OhsRFp_KwEVo
+zQ3AVTD4@G1*{HV-;sIlR?0Y-5Rx#v&u@>dco*XjQ!+-0^psV8&?=PVBvQz>(+LXOc
+z!7@m6t5gZT4=;NuuxB=l^nwj~J0Kw+?aTQYJ{W8(!&b9t#n_tJ7OBR#G>Nkfrip*|
+zPdE%^w(D!I>ECuO0oAU%rq(q@Wpqu}t~+{V9m=&Vit1$utgj6gA+XA~(f#}%>mHxq
+z(5*rcbg%wY_shS~HMiT{I@sA#wwrkxf}nd60=K)+)|Dt#TXQU($W}_EC7z00WSM3l
+zH^px7bneTAJ(ZXv&IudB8Q~@2lyFRVL0A)>5}ptq8{&%a%F6inSrIM?7ld=dhHyrB
+zNjN1Odo<Shf?~JO{>g5MJ-Ws9=nBtcMblid`P3amkM0P1bcfHQ`x1F<&UQDV?jvOP
+MD+4ikxclh-FPLgtyZ`_I
+
+diff --git a/packages/svelte-imageway/src/lib/props.ts b/packages/svelte-imageway/src/lib/props.ts
+index fa70616..6436499 100644
+--- a/packages/svelte-imageway/src/lib/props.ts
++++ b/packages/svelte-imageway/src/lib/props.ts
+@@ -71,6 +71,11 @@ export function getImageProps(
+     'Image alt is required; use alt="" for decorative images.',
+   );
+   const {
++    sources: componentSources,
++    source: componentSource,
++    error: componentError,
++    loadingContent,
++    errorContent,
+     src,
+     priority,
+     provider: explicit,
+@@ -83,7 +88,13 @@ export function getImageProps(
+     transitionName,
+     contentVisibility,
+     ...native
+-  } = options;
++  } = options as ImageOptions &
++    Partial<Record<'sources' | 'source' | 'error' | 'loadingContent' | 'errorContent', unknown>>;
++  void componentSources;
++  void componentSource;
++  void componentError;
++  void loadingContent;
++  void errorContent;
+   const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
+   const nativeOnly = strategy === 'img';
+   const artifact = resolveImageArtifact(src);
+diff --git a/packages/svelte-imageway/src/lib/version.ts b/packages/svelte-imageway/src/lib/version.ts
+index f9082a9..f970788 100644
+--- a/packages/svelte-imageway/src/lib/version.ts
++++ b/packages/svelte-imageway/src/lib/version.ts
+@@ -1,3 +1,3 @@
+ // Generated at build time from the package version and processing sources.
+ export const PACKAGE_VERSION = "3.1.6";
+-export const PIPELINE_REVISION = "e9046ab6764534db13ee841b9c1752407817ecef1c8e089c1e8e1e5e82cd325a";
++export const PIPELINE_REVISION = "86324448537c159ec3b6e0b9b74286865e7a1fe1b83f1fab55aa95bf9825f373";
