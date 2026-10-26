@@ -1,0 +1,97 @@
+{
+  "verifiedAt": "2026-10-26T19:15:19.955Z",
+  "available": true,
+  "version": "3.1.7",
+  "tag": "latest",
+  "sourceCommit": "88a8facdd91564305241a0aba2413920010387ea",
+  "integrity": "sha512-1xfrvW87UxiM6Nx08oefV65xj7CZ9/TB54P7cC58e4XjyPg9rK43R7ovw0UtAz5eSNkZo9g/ahxuPqH+Zc/3WA==",
+  "sha256": "dd67a03d7c7a27dba607a838d1460117710e8a3fecca2ff0bf16cd89e60a2535",
+  "provenanceSubjectMatches": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/40383874050",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/40384376786",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.7",
+  "unitTests": 277,
+  "allEightSourceCIJobsPassed": true,
+  "githubArchiveAndChecksumBytesMatchRegistry": true,
+  "browserCI": {
+    "startTime": "2026-10-26T19:09:02.721Z",
+    "duration": 9995.140000000001,
+    "expected": 18,
+    "skipped": 6,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "localBrowserNote": "Chromium/WebKit 12 pass,4 optional-service skips. All-browser attempt preserved six Firefox launch/profile-folder failures; Firefox passes required Linux CI.",
+  "installedNativeAndSourceChecks": {
+    "installedCanonicalURLReferenceParity": true,
+    "installedURLSourceMatchesRelease": true,
+    "installedSharedBuildSourceIsolation": true,
+    "bytes": 14702,
+    "sha256": "63aaa125c5436f26bffa8b8cbf54f35673e867d793a485a3a4bad076632b794e",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "installedThumbHashEncodeDecodePNGReferenceParity": true,
+    "seededCases": 20,
+    "ownedPixelOutput": true,
+    "runtimeThumbHashDependencyRemoved": true,
+    "runtimeBlurHashDependencyRemoved": true,
+    "installedBlurHashEncodeDecodeReferenceParity": true,
+    "installedReadmeMatchesReleaseSource": true
+  },
+  "registryArchiveConsumers": [
+    {
+      "measuredAt": "2026-10-26T19:15:42.492Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.7.tgz",
+      "packageVersion": "3.1.7",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 18847.278124999997,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "blurhash"
+    },
+    {
+      "measuredAt": "2026-10-26T19:16:02.825Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.7.tgz",
+      "packageVersion": "3.1.7",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 17026.56825,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "thumbhash"
+    }
+  ],
+  "isolatedGzipBytes": {
+    "imageJS": 2953,
+    "imageCSS": 220,
+    "pictureJS": 3096,
+    "pictureCSS": 218
+  },
+  "requested2000ByteTargetMet": false,
+  "buildAndRssLeadershipClaimed": false,
+  "completeSharpPreviewSpeedupClaimed": false,
+  "measurementStudy": "bench/COLUMN-PROJECTION-3.1.7.md"
+}

@@ -1,3 +1,5 @@
+Next component investigation: the 3.1.7 shared metadata filter costs about 0.2/0.14 µs in relative/registered headless samples while saving only 10/21 isolated JS gzip bytes. Profile clone/filter costs and compare a private component-specific path against the unchanged headless API. Require full Image/Picture/Both JS+CSS counts, headless/provider controls, SSR/no-JS/preload/snippets/events/reduced-motion gates; do not add public flags, hide chunks or remove features merely to reach 2000 bytes. Preserve the seven-pair short and longer warm periods, including mapped-provider regressions. Review this tradeoff before adding more Rust surfaces.
+
 3.1.7 selects bounded Rust column reuse after rejecting native packing/SIMD against optimized JS. Read the current REPORT/receipt for actual delivery status. Kernel throughput improves, complete Sharp previews do not, and component savings are modest. Prioritize the larger client/default-build/RSS gaps next; no under-2000-byte or leadership claim is justified. Preserve all raw periods and the scalar/bit-identical/fixed-memory gates.
 
 # Next performance tranche
