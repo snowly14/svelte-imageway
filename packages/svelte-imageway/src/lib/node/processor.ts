@@ -67,7 +67,13 @@ export class ImageProcessor {
       'Input exceeds configured byte limit.',
       413,
     );
-    const snapshot = Buffer.from(data);
+    // Build variants share one private, immutable backing store across workers.
+    // Runtime snapshots retain the original copy/admission behavior. Never expose
+    // this buffer or transfer it: prepared sources may have concurrent readers.
+    const snapshot = this.build
+      ? Buffer.from(new SharedArrayBuffer(data.byteLength))
+      : Buffer.from(data);
+    if (this.build) snapshot.set(data);
     const digest = hash(snapshot);
     return Object.freeze({
       byteLength: snapshot.byteLength,

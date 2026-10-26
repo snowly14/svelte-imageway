@@ -1,3 +1,21 @@
+# 3.1.4 private shared build inputs — 26 October 2026
+
+[Protocol, all studies and raw samples](bench/BUILD-WORKERS-3.1.4.md). Before changes, seven rounds on each corpus measure workers 1/2/4; four retains the fastest photographic cold median and the highest RSS, so defaults remain unchanged. Untimed tracing records 72 worker metadata/encode operations over 24 sources and three widths. Main-thread samples mostly wait on native work; this does not separate native decode/resize/encode CPU.
+
+Finite-build prepared inputs now copy once into a private exact-sized shared backing store across worker variants. Runtime source storage, admission, queue accounting, terminating deadlines, decoder limits, codec quality and public APIs stay stable. The pinned npm 3.1.3 baseline and candidate emit byte-identical images. [ADR 24](docs/adr/0024-private-shared-build-inputs.md). No new Rust wrapper is justified at the worker-copy boundary; Sharp/libvips remains the native codec path and the existing fixed-memory Rust preview module is unchanged.
+
+The strongest result is photographic cold process RSS: **394.23→305.42 MiB (22.5% lower)** in the corrected seven-round comparison and **394.94→307.31 MiB** in the exploratory period. Ordinary default imports over all 24 photos also reduce cold RSS: **515.55→428.94 MiB**, with all 156 original/optimized assets byte-identical. Three default pairs give limited timing evidence.
+
+**No robust general speedup is established.** Corrected photographic cold/warm medians **1501.93/298.87→1328.08/254.29 ms** improve, but exploratory **1275.54/248.52→1282.42/252.09** regresses. Corrected synthetic **459.71/178.64→484.70/187.28** is **5.4%/4.8% slower**, with overlapping quartiles; exploratory synthetic warm time regresses 36.1%. All results remain published. A foreground workload and variable load prohibit comparing absolute timings against yesterday as a controlled regression.
+
+The first new cross-tool harness omitted child cwd, leaving enhanced-img's relative cache uncleared. Its cold ranking is invalid; original rows remain. The corrected complete study sets each child's cwd to its Vite root. Prior 3.1.3 comparison already does this and is unaffected. Corrected photos: candidate **1328.08/254.29 ms**, imagetools **1062.46/203.99**, enhanced-img **1112.78/237.91**; cold RSS **305.42/236.94/237.11 MiB**. Synthetic candidate **484.70/187.28**, competitors **253.48/166.41** and **254.51/135.67**. Every cross-tool asset-byte/SHA multiset matches. **Build/RSS leadership remains unmet.**
+
+Client sources remain unchanged: Image/Picture **3012/3160 JS gzip bytes**, Svelte externalized, plus **220/218 CSS**. **Under 2000 bytes remains unmet.** No browser, HTTP, paid-cloud, perceptual-quality or new Rust-language win is claimed. Contributor native steps remain unchanged; no additional consumer compiler or browser WASM is introduced.
+
+Local lint, strict TS/Svelte (zero errors/warnings), **271 tests**, native independent rebuild, package/exports/types and JS+CSS budgets pass. Chromium/WebKit **12 pass / four optional-service skips**. Fresh packed strict SvelteKit consumers pass for BlurHash and ThumbHash, including optimized WebP, original bytes, preload and no-JS SSR. Exact release-source CI and public registry/archive verification remain required; version preparation alone is not publication.
+
+---
+
 # 3.1.3 bounded Rust BlurHash display decoder — 25 October 2026
 
 [Protocol, all studies and raw samples](bench/BLURHASH-DISPLAY-3.1.3.md). Rust now parses and decodes the generated 4x3 BlurHash into its existing 16x16 display pixels, retaining exact JS conversion near gamma boundaries. The precompiled artifact grows **11111→13978 bytes**, still with fixed **64 KiB**, no imports/growth/allocator, no browser WASM and no consumer compiler. The `blurhash` published runtime dependency is removed; independent reference packages remain in development. Public APIs, quality, complete pixels and preview bytes stay stable. [ADR 23](docs/adr/0023-bounded-blurhash-display-decoding.md).

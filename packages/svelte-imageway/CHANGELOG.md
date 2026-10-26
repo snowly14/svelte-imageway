@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 3.1.4
+
+### Patch Changes
+
+- Keep finite-build prepared sources in one private, exact-sized shared backing store across worker variants, reducing redundant input copies while preserving encoded bytes, source ownership, worker limits and runtime admission. Retain measured RSS wins and timing regressions in the benchmark report; the public API, native preview kernel and component sizes remain unchanged.
+
 ## 3.1.3
 
 ### Patch Changes

@@ -414,6 +414,111 @@ describe('built worker_threads pipeline', () => {
   });
 });
 describe('integrated persistent processor', () => {
+  it('shares one owned exact-size build snapshot across worker variants without exposing caller bytes', async () => {
+    const { ImageProcessor } = (await import(
+      new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url).href
+    )) as typeof import('../packages/svelte-imageway/src/lib/node/processor.js');
+    const { TransformPool } = (await import(
+      new URL('../packages/svelte-imageway/dist/node/pool.js', import.meta.url).href
+    )) as typeof import('../packages/svelte-imageway/src/lib/node/pool.js');
+    const config = defineConfig({ widths: [32, 48, 64] });
+    const input = await sharp({
+      create: { width: 80, height: 40, channels: 3, background: 'orange' },
+    })
+      .png()
+      .toBuffer();
+    const bounded = new ImageProcessor({
+      directory: join(directory, 'bounded-build'),
+      build: true,
+      config: defineConfig({ maxInputBytes: 1 }),
+    });
+    expect(() => bounded.prepare(input)).toThrow(/byte limit/);
+    const container = new Uint8Array(input.length + 4096);
+    container.set(input, 2048);
+    const view = container.subarray(2048, 2048 + input.length);
+    const processor = new ImageProcessor({
+      directory: join(directory, 'shared-build'),
+      config,
+      build: true,
+      concurrency: 2,
+    });
+    const prepared = processor.prepare(view);
+    container.fill(0);
+    const spy = vi.spyOn(TransformPool.prototype, 'runBuild');
+    try {
+      const outputs = await Promise.all(
+        config.widths.map((w) => prepared.process({ key: 'x', w }, 'webp', undefined, false)),
+      );
+      const submitted = spy.mock.calls.map(([task]) => task.data);
+      expect(submitted).toHaveLength(3);
+      for (const data of submitted) {
+        expect(data.buffer).toBeInstanceOf(SharedArrayBuffer);
+        expect(data.buffer).toBe(submitted[0]!.buffer);
+        expect(data.buffer.byteLength).toBe(input.length);
+        expect(Buffer.from(data)).toEqual(input);
+      }
+      for (const [i, w] of config.widths.entries()) {
+        const reference = await transform(
+          input,
+          normalizeRequest({ key: 'x', w }, config),
+          'webp',
+          config,
+          false,
+        );
+        expect(outputs[i]!.data).toEqual(reference.data);
+      }
+      outputs[0]!.data.fill(0);
+      expect((await prepared.process({ key: 'x', w: 32 }, 'webp', undefined, false)).data).toEqual(
+        (
+          await transform(
+            input,
+            normalizeRequest({ key: 'x', w: 32 }, config),
+            'webp',
+            config,
+            false,
+          )
+        ).data,
+      );
+      const invalid = processor.prepare(Buffer.from('bad'));
+      await expect(invalid.process({ key: 'x', w: 32 }, 'webp', undefined, false)).rejects.toThrow(
+        /signature/,
+      );
+      expect(
+        (await prepared.process({ key: 'x', w: 48, q: 85 }, 'webp', undefined, false)).width,
+      ).toBe(48);
+    } finally {
+      spy.mockRestore();
+    }
+  });
+  it('keeps runtime prepared inputs on private ordinary storage even when the caller uses shared memory', async () => {
+    const { ImageProcessor } = (await import(
+      new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url).href
+    )) as typeof import('../packages/svelte-imageway/src/lib/node/processor.js');
+    const { TransformPool } = (await import(
+      new URL('../packages/svelte-imageway/dist/node/pool.js', import.meta.url).href
+    )) as typeof import('../packages/svelte-imageway/src/lib/node/pool.js');
+    const input = await sharp({
+      create: { width: 32, height: 16, channels: 3, background: 'blue' },
+    })
+      .png()
+      .toBuffer();
+    const caller = new Uint8Array(new SharedArrayBuffer(input.length));
+    caller.set(input);
+    const processor = new ImageProcessor({
+      directory: join(directory, 'runtime-copy'),
+      concurrency: 1,
+    });
+    const prepared = processor.prepare(caller);
+    caller.fill(0);
+    const spy = vi.spyOn(TransformPool.prototype, 'run');
+    try {
+      expect((await prepared.process({ key: 'x' }, 'webp', undefined, false)).width).toBe(32);
+      expect(spy.mock.calls[0]![0].data.buffer).toBeInstanceOf(ArrayBuffer);
+      expect(Buffer.from(spy.mock.calls[0]![0].data)).toEqual(input);
+    } finally {
+      spy.mockRestore();
+    }
+  });
   it('owns the processing policy before memoizing its cache identity', async () => {
     const { ImageProcessor } = (await import(
       new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url).href

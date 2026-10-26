@@ -1,6 +1,10 @@
 # Reproducible package benchmarks
 
-## Current 3.1.3 BlurHash display comparison — 25 October 2026
+## Current 3.1.4 worker/source comparison — 26 October 2026
+
+[Private shared build inputs](BUILD-WORKERS-3.1.4.md): before-change worker1/2/4 measurements, untimed operation profiles, frozen npm 3.1.3 baseline, seven-round byte-identical photographic/synthetic comparisons and three ordinary-default pairs. Photographic cold RSS falls substantially; speed varies and synthetic medians regress. Retain the exploratory cache-isolation mistake and all original regressions alongside the corrected study. Component size and build/RSS leadership remain open.
+
+## Previous 3.1.3 BlurHash display comparison — 25 October 2026
 
 [Bounded Rust BlurHash decoding](BLURHASH-DISPLAY-3.1.3.md): SHA-pinned npm 3.1.2, two optimized JS controls, exact gamma-boundary fallback, independent native rebuild, byte-identical full previews, seven cold/warm build pairs and refreshed photographic/synthetic imagetools/enhanced-img comparisons. A separate 15-set confirmation investigates the initial full-preview regression without replacing it. Kernel wins do not establish a large whole-pipeline gain; cold build RSS increases and cross-tool gaps remain visible. Client sources and the unmet 2000-byte goal are unchanged.
 

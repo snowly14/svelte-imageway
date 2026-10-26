@@ -1,0 +1,67 @@
+{
+  "description": "Pinned npm3.1.3 baseline; candidate measured before3.1.4 version label. Only node/processor runtime logic changes; generated version/cache fingerprint/templates change normally at release. No new native surface. Corrected child cwd applies to the valid ranking; exploratory rows remain.",
+  "baselineArchiveSha256": "50d85026796f70e6ccab5a89be785e0059ec157da8a237019d3da867bf2ea63a",
+  "runtimeFilesUnchangedFromPublishedBaseline": [
+    "core/types.js",
+    "core/signing.js",
+    "core/index.js",
+    "core/config.js",
+    "core/artifact.js",
+    "core/raster.js",
+    "core/errors.js",
+    "core/url.js",
+    "core/accept.js",
+    "edge/budget.js",
+    "edge/types.js",
+    "edge/worker.js",
+    "edge/index.js",
+    "edge/cf-image.js",
+    "components/Picture.svelte",
+    "components/ImageMeta.svelte",
+    "components/Image.svelte",
+    "components/ImageConfigProvider.svelte",
+    "components/BackgroundImage.svelte",
+    "node/cache.js",
+    "node/blurhash.wasm",
+    "node/index.js",
+    "node/pool.js",
+    "node/source.js",
+    "node/blurhash.js",
+    "node/svg.js",
+    "node/blurhash-encoding.js",
+    "node/sharp-worker.js",
+    "node/pipeline.js"
+  ],
+  "sourceFiles": {
+    "packages/svelte-imageway/src/lib/node/processor.ts": "013c6681c6889640f960aaff1768b0c41654dbb2c77abfb6b25085f8fed38f86",
+    "native/blurhash/lib.rs": "ac1711687613b8611423b07d600f3516e63a91a45a714543484957f109c1019d",
+    "native/blurhash/manifest.json": "72245fe2a2afec28b2535587f1c58e194504d78e6257713bad42cb89508de0f8",
+    "packages/svelte-imageway/src/lib/node/blurhash.wasm": "f5210d8d5c1848daac7423da051a96c98b721eb490808def178bfc5c5c97130d"
+  },
+  "harnessFiles": {
+    "bench/build-workers/automatic.ts": "db218a5d38beeb0fe0769df1364e8eeba04dcac9a551fe06854c8a7bfb998e46",
+    "bench/build-workers/child.ts": "d6a96f2d93e1101784b66912c74dd7d0e11de75b5f5a959f5940360629119aa7",
+    "bench/build-workers/profile.ts": "bad2c2e22d8af93fe8e210adf3e6d753e7104bce535997c8cf866159afef2e86",
+    "bench/build-workers/run.ts": "7e812df5dbc580c97238e254974848c00db2fdcbf4d24a4604d359461c6000eb",
+    "bench/build-workers/trace.mjs": "93577d4b479a5fc270f27e60615fc48ae30fcd2e625a6c1e5b3f6e151cd8f9b3"
+  },
+  "evidenceFiles": {
+    "bench/results/build-workers-2026-10-26/automatic-summary.json": "6bdde22b02fc26f2a35db626b01b6d51317ee2c8a8a1f4f65cec5e3589681643",
+    "bench/results/build-workers-2026-10-26/automatic.json": "ad4fe6420cffb2f71ade5e6415b57ce2dde03b8040a2d50fd010b9d9f928ad51",
+    "bench/results/build-workers-2026-10-26/baseline-summary.json": "e6c14284878dfc2e3761c90f6d56fd98c78fc2b701dc595ac3faaf511818e179",
+    "bench/results/build-workers-2026-10-26/baseline.json": "937bc093fd5cae6a63f245f77aae8a9fb09ff26f25bdbb71f5b5a9afc694f5a3",
+    "bench/results/build-workers-2026-10-26/diagnostics.json": "0622a25d71cf4940191e5b5276edb60126ed15e3a6f952425adac7fef63dff50",
+    "bench/results/build-workers-2026-10-26/image-budget.json": "27c97998293f70a629518f20e2ae18eac1d1453b19923030d142c4a60f0b1c9e",
+    "bench/results/build-workers-2026-10-26/picture-budget.json": "b93bd5b5ec720443c536413777e5a81168d7b072270d614a3fe122f8b7081ff0",
+    "bench/results/build-workers-2026-10-26/shared-source-corrected-summary.json": "6ae8c9006ea04dd4ac07136078268080c8dd1deb0f6a0a8717b2a7557292554d",
+    "bench/results/build-workers-2026-10-26/shared-source-corrected.json": "31c88f2da3eea7c066ea48dab6c7330539faedba4176d5e097e3f7472d4d0151",
+    "bench/results/build-workers-2026-10-26/shared-source-summary.json": "ce25c77e994269333e68c0d5e91e954bf963b8c8645d5b15fafbbee4b2c60fbe",
+    "bench/results/build-workers-2026-10-26/shared-source.json": "8283bff9c1d9dbf6c19eb69c7cb125e8c2d724482f95c59a1c2fb2d12804dc96",
+    "bench/results/build-workers-2026-10-26/study-status.json": "2b9601ddad7f544d9ce2e88f6fecb97cbaa0ece87e25dc2bbd9ad05ba82c50f8"
+  },
+  "notes": [
+    "Environment diff fingerprints do not include then-untracked harness files. Final harness files are separately fingerprinted here. The exploratory run omitted only cwd:root; all results are retained and validity notes explain its cache contamination.",
+    "Public diagnostic module URLs are repository-relative; profile digests identify complete local files, no measured events/timings changed.",
+    "Source/evidence hashes check consistency, not release signatures."
+  ]
+}

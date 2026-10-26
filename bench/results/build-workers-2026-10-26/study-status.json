@@ -1,0 +1,26 @@
+{
+  "baseline": {
+    "complete": true,
+    "rows": 84,
+    "purpose": "Before-change explicit worker1/2/4 Imageway builds on both corpora.",
+    "cwd": "Repository root; Imageway caches explicitly use each Vite root. No enhanced-img used."
+  },
+  "shared-source": {
+    "complete": true,
+    "rows": 112,
+    "validForCrossToolRanking": false,
+    "reason": "The first new orchestrator omitted child cwd. enhanced-img's default imagetools cache is relative to process.cwd(), so deleting each Vite root cache did not clear its actual repository-level cache. Its enhanced-img cold rows after first run are invalid. Imageway baseline/candidate and explicit-dir imagetools use per-Vite-root caches. Retain their exploratory medians, including regressions, separately from corrected results.",
+    "correction": "Set execute options cwd: root in bench/build-workers/run.ts, keep all original data, repeat the whole cross-tool study under a new name. Prior 3.1.3 comparison already set cwd correctly and is unaffected."
+  },
+  "shared-source-corrected": {
+    "complete": true,
+    "rows": 112,
+    "validForCrossToolRanking": true,
+    "cwd": "Every child runs inside its own isolated Vite root; deleting root/node_modules/.cache now clears enhanced-img's actual relative cache too."
+  },
+  "diagnostics": {
+    "timed": false,
+    "purpose": "Operation counts, asynchronous native waits and main-thread samples; no native decode/encode CPU attribution."
+  },
+  "hostLimitations": "Single uncontrolled desktop with a concurrent foreground workload and substantially variable timing across periods. No unrelated processes were stopped. No OS cache flush, randomized host control or statistical speedup claim. Timings from 25 October are not a controlled baseline for this period."
+}
