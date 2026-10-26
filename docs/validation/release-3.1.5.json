@@ -1,0 +1,91 @@
+{
+  "verifiedAt": "2026-10-26T17:25:40.252Z",
+  "available": true,
+  "version": "3.1.5",
+  "tag": "latest",
+  "sourceCommit": "9a6aee80e0f8ca2c8afdccc992ac2c6a735504f0",
+  "integrity": "sha512-wnXsRm7rEcqXaIgL/lZILn+yyJIqSMxfg7MUP+yTmMgNfdNpd2ngyng3x65jJf2Spg/vrpMusHBLVo/AvVTQcw==",
+  "sha256": "09b1a5257093f31a32bb9ebfde22e3b61dd77cc16d6c1268c9cf68cd4a233841",
+  "provenanceSubjectMatches": true,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/40330107493",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/40330764531",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.5",
+  "archiveBytes": 92362,
+  "githubArchiveAndChecksumBytesMatchRegistry": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "allEightSourceCIJobsPassed": true,
+  "unitTests": 272,
+  "nativeAndInstalledSourceChecks": {
+    "installedSharedBuildSourceIsolation": true,
+    "bytes": 13978,
+    "sha256": "f5210d8d5c1848daac7423da051a96c98b721eb490808def178bfc5c5c97130d",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "installedThumbHashEncodeDecodePNGReferenceParity": true,
+    "seededCases": 20,
+    "ownedPixelOutput": true,
+    "runtimeThumbHashDependencyRemoved": true,
+    "runtimeBlurHashDependencyRemoved": true,
+    "installedBlurHashEncodeDecodeReferenceParity": true,
+    "installedReadmeMatchesReleaseSource": true
+  },
+  "consumerLockIntegrityMatchesRegistry": true,
+  "components": {
+    "imageJSGzipBytes": 2963,
+    "pictureJSGzipBytes": 3117,
+    "imageCSSGzipBytes": 220,
+    "pictureCSSGzipBytes": 218,
+    "under2000ByteTargetMet": false
+  },
+  "realPageTotalGzipDeltas": {
+    "Image": 8,
+    "Picture": -4,
+    "Both": -1
+  },
+  "benchmarkReport": "bench/CLIENT-LOOKUP-3.1.5.md",
+  "registryArchiveConsumers": [
+    {
+      "measuredAt": "2026-10-26T13:32:55.167Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.5.tgz",
+      "packageVersion": "3.1.5",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 5301.397958,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "blurhash"
+    },
+    {
+      "measuredAt": "2026-10-26T17:26:00.930Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.5.tgz",
+      "packageVersion": "3.1.5",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 17466.742833,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "thumbhash"
+    }
+  ]
+}
