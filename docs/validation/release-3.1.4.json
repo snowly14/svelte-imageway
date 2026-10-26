@@ -1,0 +1,119 @@
+{
+  "verifiedAt": "2026-10-26T12:46:36.520Z",
+  "available": true,
+  "version": "3.1.4",
+  "tag": "latest",
+  "sourceCommit": "9bc340e36bbca54e673969d4bb3ebc75f87ba7bd",
+  "integrity": "sha512-BXLGUgAonz76ZVIi475r5JlLh1MlM7BW4LnFCxnq6CKt1s2onLZjycNUZ0KX2qySt70kTzlrJd8lzsK5mPjbqA==",
+  "sha256": "26385d08383d55d8d147a1dbc14d69b70ac6cd35946299efeeef2c63e9431cd6",
+  "provenanceSubjectMatches": true,
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/40322093651",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/40324721187",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.4",
+  "archiveBytes": 91902,
+  "integrityMatches": true,
+  "provenanceSourceMatches": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "githubArchiveSha256Matches": true,
+  "githubChecksumFileMatches": true,
+  "ciAttempt": 2,
+  "ciAllSixOSNodeChecksAndNativeAndBrowsersPassed": true,
+  "unitTests": 271,
+  "ciBrowserTests": {
+    "passed": 18,
+    "skippedOptionalServices": 6,
+    "failed": 0
+  },
+  "initialBrowserAttempt": {
+    "cancelled": true,
+    "reason": "Long dependency installation fetched142MB in15min53s. Logs after cancellation show installation completed shortly before cancellation took effect; tests had not run. Reran only the unchanged browser job on a fresh runner, preserving all gates and the six matrix/native successes.",
+    "productTestFailure": false
+  },
+  "localBrowserTests": {
+    "passed": 12,
+    "skippedOptionalServices": 4,
+    "projects": ["chromium", "webkit"]
+  },
+  "native": {
+    "bytes": 13978,
+    "sha256": "f5210d8d5c1848daac7423da051a96c98b721eb490808def178bfc5c5c97130d",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "installedThumbHashEncodeDecodePNGReferenceParity": true,
+    "seededCases": 20,
+    "ownedPixelOutput": true,
+    "runtimeThumbHashDependencyRemoved": true,
+    "runtimeBlurHashDependencyRemoved": true,
+    "installedBlurHashEncodeDecodeReferenceParity": true,
+    "installedReadmeMatchesReleaseSource": true
+  },
+  "components": {
+    "svelteExternalized": true,
+    "imageJSGzipBytes": 3012,
+    "imageCSSGzipBytes": 220,
+    "pictureJSGzipBytes": 3160,
+    "pictureCSSGzipBytes": 218,
+    "byteIdenticalClientSourcesToPublished313": true
+  },
+  "requested2000ByteTargetMet": false,
+  "buildRSSMarketLeadershipEstablished": false,
+  "benchmarkReport": "bench/BUILD-WORKERS-3.1.4.md",
+  "photographicControlledColdRSSMiBBefore": 394.234375,
+  "photographicControlledColdRSSMiBAfter": 305.421875,
+  "defaultColdRSSMiBBefore": 515.546875,
+  "defaultColdRSSMiBAfter": 428.9375,
+  "generalSpeedupEstablished": false,
+  "correctedSyntheticMedianRegressionsPercent": {
+    "cold": 5.436615641382,
+    "warm": 4.838314661761
+  },
+  "registryArchiveConsumers": [
+    {
+      "measuredAt": "2026-10-26T12:48:02.605Z",
+      "archive": "verified npm registry archive",
+      "packageVersion": "3.1.4",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4771.286999999999,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "blurhash",
+      "archiveSha256": "26385d08383d55d8d147a1dbc14d69b70ac6cd35946299efeeef2c63e9431cd6"
+    },
+    {
+      "measuredAt": "2026-10-26T12:48:07.271Z",
+      "archive": "verified npm registry archive",
+      "packageVersion": "3.1.4",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4013.56325,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "thumbhash",
+      "archiveSha256": "26385d08383d55d8d147a1dbc14d69b70ac6cd35946299efeeef2c63e9431cd6"
+    }
+  ],
+  "installedSharedBuildSourceIsolation": true,
+  "lastFreshConsumerLockIntegrityMatchesRegistry": true
+}
