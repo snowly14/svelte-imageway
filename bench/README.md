@@ -1,6 +1,10 @@
 # Reproducible package benchmarks
 
-## Current 3.1.5 client lookup — 26 October 2026
+## Current 3.1.6 query serialization — 26 October 2026
+
+[Canonical query encoding](URL-SERIALIZATION-3.1.6.md): byte-identical normalized/escaped queries, signature and Unicode compatibility, profile-guided ASCII fast path, independent algorithm controls, initial/final/selection periods, provider+JSON and real prepared-cache work. Preserve higher cache RSS and configured-page gzip costs. Generic component size and build/RSS leadership remain open.
+
+## Previous 3.1.5 client lookup — 26 October 2026
 
 [Lazy lookup and complete client sizes](CLIENT-LOOKUP-3.1.5.md): pinned npm 3.1.4, five byte-identical Node attribute scenarios, seven alternating rounds, complete JS+CSS including actual SSR/hydrated/no-JS pages. Providerless lookup improves; isolated entries shrink modestly, while the actual Image page grows eight total bytes. Keep every regression and the unmet 2000-byte target visible. Native codecs and the precompiled Rust module are unchanged.
 

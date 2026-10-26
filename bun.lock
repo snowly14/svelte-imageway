@@ -89,7 +89,7 @@
     },
     "packages/svelte-imageway": {
       "name": "svelte-imageway",
-      "version": "3.1.5",
+      "version": "3.1.6",
       "bin": {
         "svelte-imageway": "./dist/cli/index.js",
       },

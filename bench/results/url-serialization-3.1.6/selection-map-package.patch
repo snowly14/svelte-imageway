@@ -1,0 +1,10 @@
+--- a/dist/core/url.js
++++ b/dist/core/url.js
+@@ -166,6 +166,7 @@
+         .join('&');
+ }
+ function encode(value) {
++    if (!/[^\w.~-]/.test(value)) return value;
+     return encodeURIComponent(value).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+ }
+ /** Build a portable service URL from a normalized request. */

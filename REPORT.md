@@ -1,3 +1,15 @@
+# 3.1.6 canonical query encoding — 26 October 2026
+
+[All protocols, studies and costs](bench/URL-SERIALIZATION-3.1.6.md). The profile points to repeated URI encoding. Unreserved ASCII now bypasses the native encoder; other characters retain the existing escaping and malformed-surrogate behavior. A sorted traversal avoids intermediate filter/map arrays. APIs, signatures, exact URLs, ownership and every validation/resource bound remain stable. [ADR 26](docs/adr/0026-unreserved-canonical-query.md).
+
+Final seven-round Node medians: normalized canonical queries **9.919→5.056 µs**, escaped queries **3.408→2.409**; complete provider attributes **including JSON** **67.129→50.614**; prepared memory-cache hits **50.277→44.058** with identical 155112-byte WebP. These are utility/API timings, not browser rendering, HTTP, cold encoding or build rates. A separate seven-round selection confirms the cache improvement **45.329→39.862 µs**. The normalization-table hoist was rejected after no demonstrated benefit; its original study and exact source patch remain published.
+
+**Costs remain:** cache process peak RSS rises **190.66→196.83 MiB** in the final study and **189.52→195.70 MiB** in selection. An array-only fast-encoder control uses less peak RSS but loses the sampled cache throughput gain. Configured-local Image/Picture/Both pages grow **23/25/19 total gzip bytes**. Plain-page differences are tiny fingerprint/compiler effects. All 84 client builds and twelve strict hydration/no-JS fixtures preserve image bytes. Generic Image/Picture/helper sources are unchanged: **2963/3117 JS gzip bytes**, Svelte externalized, plus **220/218 CSS**. **Under 2000 bytes and build/RSS leadership remain unmet.**
+
+Compatibility gates cover ASCII/Latin1, trailing line breaks, Unicode, malformed UTF16 errors, signature omission, unknown/Unicode keys, 1024 seeded requests and getter/coercion order. Local lint, strict TS/Svelte, **274 tests**, independent native rebuild, JS+CSS budgets and Chromium/WebKit **12 pass / four optional-service skips** pass. Rust preview code/artifact remains byte-identical; no new native build step or browser WASM. Package, exact-source CI and registry/archive verification are recorded after execution. No paid-cloud deployment or new Rust/codec speedup is claimed.
+
+---
+
 # 3.1.5 lazy client lookup — 26 October 2026
 
 [Protocol, all samples and regressions](bench/CLIENT-LOOKUP-3.1.5.md). Unknown URL reads no longer allocate HMR registration maps; missing provider maps bypass hostname parsing, and default generated config omits the empty map. Native artifact selection is inlined while retaining its public helper. APIs, attributes, provider contracts, component lifecycle and native encoders remain stable. [ADR 25](docs/adr/0025-lazy-client-lookups.md).

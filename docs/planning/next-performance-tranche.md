@@ -1,5 +1,7 @@
 # Next performance tranche
 
+3.1.6 improves canonical query/provider/cache CPU while raising cache-benchmark process peak RSS and configured-provider page sizes slightly. Read REPORT and the latest receipt for delivery status. Native encoders, generic component size and all resource bounds stay unchanged; under 2000 bytes remains open.
+
 3.1.5 adds lazy client lookup. Read its latest REPORT/receipt for delivery status. Isolated entries shrink modestly; the actual Image page grows eight total bytes. The Node providerless attribute result is not a browser rendering claim. Under 2000 bytes remains open; do not reintroduce discarded StaticImage or remove behavior to meet it.
 
 3.1.4 introduces private shared finite-build sources. Read REPORT.md and its latest release receipt for actual delivery status. See the dated worker study for before-change concurrency1/2/4, the cache-isolation correction, byte-identical default-policy outputs and retained timing regressions. Cold photographic RSS improves; under-2000-byte components and build/RSS leadership remain open.

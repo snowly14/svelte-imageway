@@ -216,13 +216,19 @@ function bucket(value: number, ladder: readonly number[]): number {
 }
 /** RFC3986 query encoding with ASCII sorting and no raw source-query mutation. */
 export function canonicalQuery(request: ImageRequest, includeSignature = true): string {
-  return Object.entries(request)
-    .filter(([key, value]) => value !== undefined && (includeSignature || key !== 'sig'))
-    .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
-    .map(([key, value]) => `${encode(key)}=${encode(String(value))}`)
-    .join('&');
+  let result = '';
+  for (const [key, value] of Object.entries(request).sort(([a], [b]) =>
+    a < b ? -1 : a > b ? 1 : 0,
+  )) {
+    if (value !== undefined && (includeSignature || key !== 'sig'))
+      result += `${result ? '&' : ''}${encode(key)}=${encode(String(value))}`;
+  }
+  return result;
 }
 function encode(value: string): string {
+  // Only ASCII RFC3986 unreserved characters bypass the native encoder. A
+  // negative character check also catches trailing newlines (unlike a $ anchor).
+  if (!/[^\w.~-]/.test(value)) return value;
   return encodeURIComponent(value).replace(
     /[!'()*]/g,
     (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`,

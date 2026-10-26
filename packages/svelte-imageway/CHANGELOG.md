@@ -1,5 +1,11 @@
 # svelte-imageway
 
+## 3.1.6
+
+### Patch Changes
+
+- Avoid repeated URI encoding for ASCII RFC3986 unreserved strings and assemble canonical queries without intermediate filter/map arrays. Preserve exact sorting, escaping, signature omission and malformed UTF16 errors. Keep all validation, cache ownership and resource bounds unchanged; document measured provider/cache gains, higher cache-benchmark peak RSS and configured-client size costs.
+
 ## 3.1.5
 
 ### Patch Changes

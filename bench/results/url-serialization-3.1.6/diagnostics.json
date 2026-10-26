@@ -1,0 +1,182 @@
+{
+  "profileSha256": "bfd1e6d4227cbcd975844deb6ec130c97cf24adf34a8f15f1afc74efe5cb7b21",
+  "profileBytes": 145243,
+  "topMainThreadSelfSamples": [
+    {
+      "function": "encode",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 878.85
+    },
+    {
+      "function": "encode",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 442.325
+    },
+    {
+      "function": "normalizeRequest",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 401.015
+    },
+    {
+      "function": "canonicalQuery",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 369.253
+    },
+    {
+      "function": "normalizeRequest",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 228.951
+    },
+    {
+      "function": "imageUrl",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 214.4
+    },
+    {
+      "function": "normalizeRequest",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 206.593
+    },
+    {
+      "function": "canonicalQuery",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 196.252
+    },
+    {
+      "function": "getImageProps",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/props.js",
+      "sampledMs": 146.349
+    },
+    {
+      "function": "normalizeRequest",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 107.935
+    },
+    {
+      "function": "imageUrl",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 104.606
+    },
+    {
+      "function": "",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/props.js",
+      "sampledMs": 103.742
+    },
+    {
+      "function": "buildUrl",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/providers/shared.js",
+      "sampledMs": 98.616
+    },
+    {
+      "function": "(program)",
+      "module": "",
+      "sampledMs": 66.269
+    },
+    {
+      "function": "(garbage collector)",
+      "module": "",
+      "sampledMs": 65.131
+    },
+    {
+      "function": "bucket",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 62.24
+    },
+    {
+      "function": "RegExp: [!'()*]",
+      "module": "",
+      "sampledMs": 52.657
+    },
+    {
+      "function": "parse",
+      "module": "",
+      "sampledMs": 48.89
+    },
+    {
+      "function": "RegExp: [!'()*]",
+      "module": "",
+      "sampledMs": 46.161
+    },
+    {
+      "function": "buildUrl",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/providers/shared.js",
+      "sampledMs": 43.761
+    },
+    {
+      "function": "",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 43.601
+    },
+    {
+      "function": "",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 40.945
+    },
+    {
+      "function": "bucket",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 37.624
+    },
+    {
+      "function": "parse",
+      "module": "",
+      "sampledMs": 37.614
+    },
+    {
+      "function": "",
+      "module": "file://<repo>/.local/url-3.1.6/baseline/package/dist/core/url.js",
+      "sampledMs": 31.155
+    }
+  ],
+  "exploratory": {
+    "profile-output": {
+      "scenario": "mapped",
+      "perOperationMs": 0.018325718920833334,
+      "initializationMs": 2.2950830000000053,
+      "firstBatchMs": 2.852749999999986,
+      "checksum": 165540000,
+      "digest": "3bef334f11d0efb9f13c5035f98ec879f6ab8247a647e8f9430f8a2acc906790",
+      "registryBefore": false,
+      "registryAfter": false,
+      "peakRssBytes": 153485312,
+      "node": "v26.11.1"
+    },
+    "quick-mapped": {
+      "scenario": "mapped",
+      "perOperationMs": 0.057834018229166666,
+      "initializationMs": 11.571249999999964,
+      "firstBatchMs": 5.306125000000009,
+      "checksum": 165540000,
+      "digest": "3bef334f11d0efb9f13c5035f98ec879f6ab8247a647e8f9430f8a2acc906790",
+      "registryBefore": false,
+      "registryAfter": false,
+      "peakRssBytes": 146096128,
+      "node": "v26.11.1"
+    },
+    "quick-before": {
+      "scenario": "mapped",
+      "perOperationMs": 0.08630964809166666,
+      "initializationMs": 11.582917000000009,
+      "firstBatchMs": 7.066499999999962,
+      "checksum": 165540000,
+      "digest": "3bef334f11d0efb9f13c5035f98ec879f6ab8247a647e8f9430f8a2acc906790",
+      "registryBefore": false,
+      "registryAfter": false,
+      "peakRssBytes": 145965056,
+      "node": "v26.11.1"
+    },
+    "quick-after-repeat": {
+      "scenario": "mapped",
+      "perOperationMs": 0.05461390277916667,
+      "initializationMs": 12.849792000000008,
+      "firstBatchMs": 9.768540999999999,
+      "checksum": 165540000,
+      "digest": "3bef334f11d0efb9f13c5035f98ec879f6ab8247a647e8f9430f8a2acc906790",
+      "registryBefore": false,
+      "registryAfter": false,
+      "peakRssBytes": 145735680,
+      "node": "v26.11.1"
+    }
+  },
+  "protocol": "One untimed baseline mapped-provider V8 profile; includes setup/imports, excludes other native threads. Do not use profile values as unprofiled throughput. Exploratory quick rows are retained separately; identical baseline code varies greatly across periods under an uncontrolled host. No profiler samples enter the formal timing tables."
+}
