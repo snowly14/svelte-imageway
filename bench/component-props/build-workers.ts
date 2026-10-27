@@ -37,10 +37,10 @@ if (
   'dd67a03d7c7a27dba607a838d1460117710e8a3fecca2ff0bf16cd89e60a2535'
 )
   throw Error('Unexpected baseline.');
-const variants =
-  study === 'baseline'
-    ? ['one', 'two', 'four']
-    : ['baseline', 'candidate', 'imagetools', 'enhanced-img'];
+const workerStudy = study === 'baseline' || process.argv.includes('--workers');
+const variants = workerStudy
+  ? ['one', 'two', 'four']
+  : ['baseline', 'candidate', 'imagetools', 'enhanced-img'];
 const counts: Record<string, number> = { one: 1, two: 2, four: 4 };
 const corpora = [
   { name: 'photographic', directory: '.local/photographic/corpus', names },
@@ -89,7 +89,13 @@ for (const corpus of corpora) {
             resolve('bench/build-workers/child.ts'),
             ['imagetools', 'enhanced-img'].includes(variant) ? variant : 'imageway',
             root,
-            variant === 'candidate' ? resolve('packages/svelte-imageway') : baseline,
+            variant === 'candidate' || (workerStudy && study !== 'baseline')
+              ? resolve(
+                  process.argv
+                    .find((v) => v.startsWith('--candidate='))
+                    ?.slice('--candidate='.length) ?? 'packages/svelte-imageway',
+                )
+              : baseline,
             String(counts[variant] ?? 0),
           ],
           { cwd: root, timeout: 300000, maxBuffer: 2000000 },
@@ -115,6 +121,15 @@ for (const corpus of corpora) {
               complete: rows.length === corpora.length * 7 * variants.length * 2,
               environment: env,
               baselineVersion: '3.1.7',
+              workerStudy,
+              topology:
+                study === 'baseline'
+                  ? 'one physical worker per active transform'
+                  : 'candidate: one physical worker, bounded logical Sharp transforms; baseline: one physical worker per active transform',
+              candidateRoot:
+                process.argv
+                  .find((v) => v.startsWith('--candidate='))
+                  ?.slice('--candidate='.length) ?? 'packages/svelte-imageway',
               inputs,
               protocol:
                 'Seven rotated/reversed fresh-Node rounds per corpus/configuration, each cold deletes tool caches and immediately repeats warm in a fresh process. OS cache unflushed, serial suites, no concurrent heavy checks. Explicit 288/384/480px WebP q75 fitinside no preview; competitors quality75. Identical sorted asset byte/SHA multisets required across all rounds/configurations/tools. buildMs includes tool import, common Vite/Svelte imports outside timer; processWallMs includes startup and verification; process peak RSS includes workers. Baseline study uses explicit workers1/2/4 in frozen3.1.7; comparisons use tool native defaults.',

@@ -1,6 +1,16 @@
 # Reproducible package benchmarks
 
-## Current 3.1.6 query serialization — 26 October 2026
+## Current 3.1.8 component, Rust and finite-build studies — 27 October 2026
+
+[Component attributes and complete pages](COMPONENT-PROPS-3.1.8.md): three-way allocation/provider controls, actual SSR, all emitted JS/CSS, headless-only CSS pruning and strict hydration/no-JS validation. The isolated JS regression and unmet 2000-byte target remain visible.
+
+[Sparse colour, PNG and worker builds](SPARSE-COLOUR-3.1.8.md): optimized JS controls with copies/FFI, independent Rust rebuild, fixed memory and exact output gates; before/after 1/2/4 concurrency, seven-round cross-tool builds, default multi-format imports and fatal-worker tests. The one-worker executor lowers WebP RSS but does not establish build leadership. Preserve the three-pair default regression and separate seven-pair confirmation.
+
+## Previous 3.1.7 native column study — 26 October 2026
+
+[Bounded column reuse](COLUMN-PROJECTION-3.1.7.md): exact coefficients, optimized JS ablation, rejected packing/SIMD, complete Sharp-preview regressions and actual client sizes.
+
+## Previous 3.1.6 query serialization — 26 October 2026
 
 [Canonical query encoding](URL-SERIALIZATION-3.1.6.md): byte-identical normalized/escaped queries, signature and Unicode compatibility, profile-guided ASCII fast path, independent algorithm controls, initial/final/selection periods, provider+JSON and real prepared-cache work. Preserve higher cache RSS and configured-page gzip costs. Generic component size and build/RSS leadership remain open.
 

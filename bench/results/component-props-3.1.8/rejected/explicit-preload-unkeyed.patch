@@ -1,0 +1,28 @@
+diff --git a/packages/svelte-imageway/src/lib/components/Image.svelte b/packages/svelte-imageway/src/lib/components/Image.svelte
+index 5dee5d4..01e698d 100644
+--- a/packages/svelte-imageway/src/lib/components/Image.svelte
++++ b/packages/svelte-imageway/src/lib/components/Image.svelte
+@@ -53,7 +53,9 @@
+     <link
+       rel="preload"
+       as="image"
+-      {...{ href: attributes.src, imagesrcset: attributes.srcset, imagesizes: attributes.sizes }}
++      href={attributes.src}
++      imagesrcset={attributes.srcset}
++      imagesizes={attributes.sizes}
+       fetchpriority="high"
+     />
+   {/if}
+diff --git a/packages/svelte-imageway/src/lib/components/Picture.svelte b/packages/svelte-imageway/src/lib/components/Picture.svelte
+index 47afd61..4b3eccb 100644
+--- a/packages/svelte-imageway/src/lib/components/Picture.svelte
++++ b/packages/svelte-imageway/src/lib/components/Picture.svelte
+@@ -57,7 +57,7 @@
+   {/if}
+ </svelte:head>
+ <picture>
+-  {#each sources as item, index (index)}
++  {#each sources as item}
+     <source
+       srcset={item.srcset}
+       type={item.type}

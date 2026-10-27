@@ -94,7 +94,7 @@ imageway({
     quality: 75,
     placeholder: 'lqip',
   },
-  concurrency: 2, // optional: bound build workers on a smaller machine
+  concurrency: 2, // optional: bound active transforms on a smaller machine
 });
 ```
 
@@ -161,21 +161,24 @@ The CLI can also prepare deployment files and migration previews. It does not pr
 
 ## Performance
 
-Measurements include the protocol, machine, medians, dispersion and raw samples. [Latest results and release verification](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md) · [Reproduction](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md).
+Measurements publish the machine, protocol, medians, dispersion and raw samples. The latest tranche compares against the verified npm 3.1.7 archive on an Apple M4, Node 26.11.1 and the pinned workspace dependencies. These are local measurements, not universal rankings. [Results and release verification](https://github.com/snowly14/svelte-imageway/blob/main/REPORT.md) · [Reproduction](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md).
 
-The [3.1.7 native study](https://github.com/snowly14/svelte-imageway/blob/main/bench/COLUMN-PROJECTION-3.1.7.md) reuses bounded linear-RGB columns in Rust: complete BlurHash encoding improves **39.49→23.72 µs/hash**, versus **35.76 µs** with optimized JS packing alone, with identical hashes. Complete Sharp previews do not improve in this desktop measurement (**19.48→19.73 ms**); unchanged LQIP also regresses. Image/Picture entries shrink to **2953/3096 JS gzip bytes**, plus **220/218 CSS**. Real pages save **8/8/17 total bytes**; some headless attribute cases regress by about **0.14–0.2 µs**. **Under 2000 bytes remains unmet.** Native memory stays fixed at 64 KiB; no browser WASM or consumer Rust compiler is needed. Rejected native packing/SIMD trials and RSS/startup costs are published with the measurements.
+| Measured path                           |     Before |      After | Scope                                                       |
+| --------------------------------------- | ---------: | ---------: | ----------------------------------------------------------- |
+| Photographic cold WebP build RSS        | 309.34 MiB | 271.34 MiB | Seven rounds; identical encoded bytes                       |
+| Photographic cold WebP build            |  370.56 ms |  363.39 ms | Timing ranges overlap                                       |
+| Default multi-format cold build RSS     | 472.55 MiB | 429.41 MiB | Separate seven-pair confirmation; 24 ordinary photo imports |
+| Rust dominant colour                    |   2.749 µs |   1.230 µs | Optimized JS control: 1.578 µs; includes FFI/copies         |
+| Native ThumbHash display, including PNG |  24.796 µs |  20.098 µs | Complete owned output; exact bytes                          |
+| Headless relative image attributes      |  0.2470 µs |  0.1596 µs | Node API timing, not browser rendering                      |
 
-The [3.1.6 query study](https://github.com/snowly14/svelte-imageway/blob/main/bench/URL-SERIALIZATION-3.1.6.md) reduces redundant URI encoding with exact URL/signature compatibility. Node query serialization improves **9.92→5.06 µs**; provider attributes including JSON **67.13→50.61 µs**, prepared memory-cache hits **50.28→44.06 µs**. Cache process peak RSS grows about **6.2 MiB**, and configured-provider pages grow **19–25 gzip bytes**. These are no browser-rendering, codec, HTTP or build-leadership claims. Generic component sizes and the unmet 2000-byte goal remain unchanged.
+Finite Vite builds share asynchronous Sharp jobs in one bounded worker, reducing duplicated worker/module overhead. Direct processors, development serving and runtime requests keep their existing worker pools. A fatal shared build-worker event fails the build and waits for termination before replacement. [Build/native study](https://github.com/snowly14/svelte-imageway/blob/main/bench/SPARSE-COLOUR-3.1.8.md) · [Executor design](https://github.com/snowly14/svelte-imageway/blob/main/docs/adr/0030-private-vite-native-executor.md).
 
-The [3.1.5 client study](https://github.com/snowly14/svelte-imageway/blob/main/bench/CLIENT-LOOKUP-3.1.5.md) avoids empty registry allocation and unnecessary hostname parsing. Providerless relative attributes improve **1.64→0.25 µs/call** in the Node benchmark, with identical output. Complete entries are **2963/3117 JS gzip bytes**, plus **220/218 CSS**; the paired baseline is **3021/3171 JS**. Real pages barely change: Image grows **8 total bytes**, Picture saves **4**, Both saves **1**. The **under-2000-byte goal remains unmet**; this is no browser-rendering or codec speed claim.
+**Remaining gaps are explicit.** The photographic WebP candidate still trails imagetools/enhanced-img at **363/333/326 ms cold**, with higher RSS. Default multi-format timing is mixed: the first three-pair period regresses **4.0%**, while the seven-pair confirmation improves **1.8%**. All periods are retained. Complete Sharp preview timings barely change and include regressions; the Rust kernel wins do not establish faster codecs or HTTP.
 
-The [3.1.4 build study](https://github.com/snowly14/svelte-imageway/blob/main/bench/BUILD-WORKERS-3.1.4.md) profiles workers 1/2/4, then shares one private owned source across finite-build worker variants. Photographic cold process RSS falls **394→305 MiB (22.5%)**, with identical encoded bytes. Default-import cold RSS also falls, but timing gains vary: corrected synthetic medians regress **5.4% cold / 4.8% warm**. All studies, including an explicitly corrected enhanced-img cache-isolation mistake, remain published. Build/RSS leadership is still unmet; APIs, quality, worker limits and runtime admission stay stable.
+Complete Image/Picture entries are **2983/3131 JavaScript gzip bytes**, with Svelte externalized, plus **206 CSS bytes each**. Isolated JS grows against the same-workspace 3.1.7 baseline; shared CSS saves bytes when both components appear together. The **under-2000-byte goal remains unmet**. The [component study](https://github.com/snowly14/svelte-imageway/blob/main/bench/COMPONENT-PROPS-3.1.8.md) counts every client JS/CSS file and preserves standalone-page regressions, SSR/hydration/no-JS checks and rejected size experiments.
 
-The [3.1.3 comparison](https://github.com/snowly14/svelte-imageway/blob/main/bench/BLURHASH-DISPLAY-3.1.3.md) expands Rust to generated BlurHash display decoding. Seven alternating sets measure **2.98 µs/hash**, versus **6.86 µs** for the original threshold JS control and **32.12 µs** for the reference. A supplementary check with identical plain Uint8Array output records **2.94 µs Rust / 6.74 µs optimized JS**, about **2.29×** native throughput. Exact rounding-boundary channels retain the reference JS conversion; complete pixel and preview bytes match. The native module stays at a fixed **64 KiB**, and both hash reference packages are development dependencies rather than published runtime requirements.
-
-That kernel result does **not** establish a large end-to-end gain: the first complete-preview study is **1.6% slower**, while a separate 15-set confirmation is **0.7% faster**. Both remain published. Cold BlurHash build RSS grows about **3.3 MiB**. The 25 October controlled photographic cold/warm builds are **363/61 ms**, versus **318/51** for imagetools and **317/53** for enhanced-img, with higher cold RSS. The report retains all initialization, memory, cache, corpus and timing details; no build/HTTP leadership is claimed.
-
-The 3.1.3/3.1.4 Image/Picture entries were **3012/3160 JavaScript gzip bytes** with Svelte externalized, plus **220/218 CSS bytes**. The requested **under-2000-byte goal remains unmet**. [Next measured tranche](https://github.com/snowly14/svelte-imageway/blob/main/docs/planning/next-performance-tranche.md).
+Rust performs bounded colour, BlurHash, ThumbHash and PNG preview work on the build/server side. The precompiled module has fixed **64 KiB** memory; no browser WASM or consumer Rust compiler is required. Sharp/libvips still decodes, resizes and encodes image formats. [Native design](https://github.com/snowly14/svelte-imageway/blob/main/docs/adr/0029-bounded-sparse-colour-and-row-checksums.md) · [Earlier studies](https://github.com/snowly14/svelte-imageway/blob/main/bench/README.md).
 
 Paid cloud deployments are unverified. JPEG XL/HEIC support depends on the installed native codecs; use `codecs --json` to check. Rich SVG, video conversion and a browser WASM optimizer are not included. [Format details](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/local-images.md) · [JPEG XL](https://github.com/snowly14/svelte-imageway/blob/main/docs/guides/jpeg-xl.md).
 

@@ -1,0 +1,14 @@
+{
+  "protocol": "Same workspace bundle-budget script and compiler, Svelte externalized, both entries with all helpers. No source/style/quality change. Rejected before client timing because Image grows and Picture does not improve.",
+  "before": {
+    "imageJS": 2983,
+    "pictureJS": 3131,
+    "cssEach": 206
+  },
+  "trial": {
+    "imageJS": 2996,
+    "pictureJS": 3131,
+    "cssEach": 206
+  },
+  "decision": "reject both syntax-only edits"
+}

@@ -27,7 +27,7 @@ export class ImageProcessor {
   private memory: ValueCache<{ value: TransformResult; bytes: number }>;
   private disk: DiskCache;
   private flight = new SingleFlight<ProcessedImage>();
-  private pool: TransformPool;
+  protected pool: Pick<TransformPool, 'run' | 'runBuild'>;
   private build: boolean;
   constructor(options: {
     directory: string;

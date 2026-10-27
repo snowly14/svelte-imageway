@@ -1,5 +1,13 @@
 # svelte-imageway
 
+## 3.1.8
+
+### Patch Changes
+
+- 34aa758: Reduce headless attribute allocation and duplicate provider URL work; preserve native props, snippets, SSR/preloads and reduced-motion behavior. Fix inherited breakpoint names, share namespaced component CSS without requiring consumer type files, and preserve strict package declarations. Improve bounded native colour/PNG work with exact outputs and fixed WASM memory. Publish paired measurements and all remaining size/build regressions.
+
+  Use a private finite-Vite executor to share asynchronous Sharp transforms in one owned worker and lower cold WebP build RSS. Keep direct/runtime worker admission unchanged; retain hard termination barriers, bounded startup, fatal-build failure scope and byte-identical output tests. Publish default multi-format timing/RSS separately from the WebP comparison.
+
 ## 3.1.7
 
 ### Patch Changes

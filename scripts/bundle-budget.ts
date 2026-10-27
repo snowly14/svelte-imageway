@@ -26,13 +26,13 @@ const result = await build({
 const chunks = (Array.isArray(result) ? result : [result]).flatMap((r) =>
   'output' in r ? r.output : [],
 );
-const js = chunks
-  .filter((v) => v.type === 'chunk')
-  .map((v) => v.code)
-  .join('\n');
+const jsChunks = chunks.filter((v) => v.type === 'chunk').map((v) => v.code);
+const js = jsChunks.join('\n');
 if (/node:|worker_threads|WebAssembly|blurhash\.wasm|require\(["']sharp/.test(js))
   throw new Error('Server code leaked into the client entry.');
-const gzip = gzipSync(js, { level: 9 }).length;
+// Count each emitted file independently; concatenating lazy chunks before gzip
+// would invent compression savings that browsers cannot receive.
+const gzip = jsChunks.reduce((n, code) => n + gzipSync(code, { level: 9 }).length, 0);
 const css = chunks
   .filter((v) => v.type === 'asset' && v.fileName.endsWith('.css'))
   .map((v) => (v.type === 'asset' ? v.source : ''))
@@ -40,7 +40,8 @@ const css = chunks
 const report = {
   entry: picture ? 'Picture.svelte' : 'Image.svelte plus all Imageway helpers',
   runtime: 'Svelte peer externalized',
-  rawBytes: Buffer.byteLength(js),
+  rawBytes: jsChunks.reduce((n, code) => n + Buffer.byteLength(code), 0),
+  jsChunks: jsChunks.length,
   gzipBytes: gzip,
   gzipLevel: 9,
   cssBytes: css.reduce((n, value) => n + value.length, 0),

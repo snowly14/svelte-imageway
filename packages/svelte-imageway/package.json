@@ -1,6 +1,6 @@
 {
   "name": "svelte-imageway",
-  "version": "3.1.7",
+  "version": "3.1.8",
   "description": "One image model for Svelte 5: builds, providers, a self-hosted service, and publication.",
   "type": "module",
   "license": "MIT",

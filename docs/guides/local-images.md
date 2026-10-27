@@ -18,12 +18,12 @@ HEIC/HEIF and JXL depend on the actual Sharp/libvips distribution and fail with 
 
 SVG accepts only a small geometric dialect and is validated before SVGO/Sharp. Scripts, references, text, styles and external resources are rejected. For rich illustrations, rasterize with a trusted design tool rather than relaxing the runtime policy.
 
-Finite builds in 1.4.0 select one to four workers from the available CPU parallelism. Development/runtime defaults remain unchanged. More workers may increase native memory use. Constrain builds explicitly on smaller machines:
+Finite builds select up to four active transforms from the available CPU parallelism. Since 3.1.8 these transforms share one owned Node worker; Sharp/libvips performs the asynchronous native work. Development serving and direct/runtime processors retain their existing isolated worker pools. More concurrent transforms can still increase native memory use. Constrain builds explicitly on smaller machines:
 
 ```ts
 imageway({ concurrency: 2 });
 ```
 
-Each imported source is prepared once for its variants. Encoder settings, pixel/byte limits and individual worker deadlines are preserved.
+Each imported source is prepared once for its variants. Encoder settings and pixel/byte limits are preserved. A hard build deadline terminates the shared executor before permitting replacement work and fails the build, including co-located variants. Runtime requests retain their existing failure isolation. [Executor design and fault tests](../adr/0030-private-vite-native-executor.md).
 
 Build previews use the bundled Rust/WebAssembly kernel for dominant-colour histograms. BlurHash projection and ThumbHash LPQA/DCT encoding also use this bounded module; display-preview decoding remains on the server/build side. The fixed 64 KiB kernel validates dimensions (1–32), has no host imports or memory growth, and requires no consumer Rust toolchain. Sharp/libvips still decodes, resizes and encodes image formats. See the current REPORT.md for measured scope and remaining limits.

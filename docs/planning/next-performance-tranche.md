@@ -1,8 +1,21 @@
+# Next performance tranche
+
+## After the 3.1.8 measurements
+
+Read REPORT.md and the latest delivery receipt before assuming publication. The component/native and private Vite executor studies are separate: the fixed-memory Rust kernels win against explicit optimized JS controls, while complete Sharp previews barely change. The Vite executor reduces cold WebP RSS but keeps the same Sharp/libvips codec work. Default multi-format timings remain mixed across periods. Under 2000 JS gzip bytes and build/RSS leadership remain open.
+
+1. Prioritize the remaining cold-build gap. Main-thread metadata/codecs and worker startup still duplicate module loading. Prototype bounded worker inspection/preview coordination against the current optimized executor before selecting it. Measure fresh-process warm builds too: spawning a worker merely to read metadata for cached outputs can regress warm latency. Any cache-presence hint may affect scheduling only, never trusted dimensions, codec identity, security policy or output bytes. Return bounded metadata, preserve validation before decoding, reuse an owned source snapshot, and retain fatal termination barriers. Do not commit a half-integrated coordinator.
+2. Revisit complete client costs. The current metadata/attribute CPU win grows isolated JS; shared CSS mainly helps combined pages. Count all Image/Picture/Both and headless JS/CSS, actual SSR hydration/no-JS, providers, native attrs, snippets, events, preload and reduced motion. Preserve standalone regressions and rejected syntax/helper studies. Do not introduce a stripped public component or hidden browser WASM to claim the 2000-byte goal.
+3. Native work must beat an optimized control including validation, FFI/copies, startup, owned output and complete previews. Content hashing already uses Node's native crypto, and tiny width/format arrays may be dominated by FFI overhead. Preserve exact outputs, fixed 64 KiB memory, dimension gates and independent Rust rebuilds. No language wrapper alone is a performance win.
+4. Keep every raw period, including the first default multi-format regression, the separate confirmation and the earlier enhanced-img cache-isolation correction. Use Bun and serialized heavy suites. Re-profile logical concurrency 1/2/4, cold/warm time and process RSS before another architecture change.
+
+Preserve extras/docs-preview and lunar-web. **Mac shutdown remains explicitly cancelled by the human.** Remove only the project's awake assertion after saved completion. Do not request or schedule shutdown without a new human instruction.
+
+## Earlier handoff notes
+
 Next component investigation: the 3.1.7 shared metadata filter costs about 0.2/0.14 µs in relative/registered headless samples while saving only 10/21 isolated JS gzip bytes. Profile clone/filter costs and compare a private component-specific path against the unchanged headless API. Require full Image/Picture/Both JS+CSS counts, headless/provider controls, SSR/no-JS/preload/snippets/events/reduced-motion gates; do not add public flags, hide chunks or remove features merely to reach 2000 bytes. Preserve the seven-pair short and longer warm periods, including mapped-provider regressions. Review this tradeoff before adding more Rust surfaces.
 
 3.1.7 selects bounded Rust column reuse after rejecting native packing/SIMD against optimized JS. Read the current REPORT/receipt for actual delivery status. Kernel throughput improves, complete Sharp previews do not, and component savings are modest. Prioritize the larger client/default-build/RSS gaps next; no under-2000-byte or leadership claim is justified. Preserve all raw periods and the scalar/bit-identical/fixed-memory gates.
-
-# Next performance tranche
 
 3.1.6 improves canonical query/provider/cache CPU while raising cache-benchmark process peak RSS and configured-provider page sizes slightly. Read REPORT and the latest receipt for delivery status. Native encoders, generic component size and all resource bounds stay unchanged; under 2000 bytes remains open.
 

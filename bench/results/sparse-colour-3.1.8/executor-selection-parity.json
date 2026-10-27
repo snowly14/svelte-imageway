@@ -1,0 +1,75 @@
+{
+  "protocol": "Byte comparison of every compiled Node JS/WASM processing file in the frozen benchmark candidate against selected 3.1.8 dist. Version metadata is outside node and intentionally bumps; plugin differences are a concurrency doc comment only. No performance code was changed after freezing the benchmark candidate.",
+  "files": [
+    {
+      "path": "node/blurhash-encoding.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "1b3f63453bf562410f0402939e4b4824c7230b22ea8ae9644c844a0293e253ee"
+    },
+    {
+      "path": "node/blurhash.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284"
+    },
+    {
+      "path": "node/blurhash.wasm",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "1d90bc558b23dac70acaba533251d5eb779e5c40e8a5cbd641cd9c39d68758de"
+    },
+    {
+      "path": "node/build-pool.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "400d8419417a9e5bddf690d42becd3c9ff43cf712e5fd2ac49d6d1f5ddb302c8"
+    },
+    {
+      "path": "node/build-processor.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "1932be63e4e3d6c05ff607db58235e77e6f158414c8d372d556beea94eeca47e"
+    },
+    {
+      "path": "node/build-worker.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "c854ce849dc4e9241d6b0141eb2ea865a555eda1439588ac26c36bb712a11eda"
+    },
+    {
+      "path": "node/cache.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "5815226968520e4cff36319422be3047f97b4c09fe65bfd82db82a2778cdd87e"
+    },
+    {
+      "path": "node/index.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "11cbc028f6130a0a81b9d5114ae350160bb04e8f4ccdbec85c648925357fdd7e"
+    },
+    {
+      "path": "node/pipeline.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "6fb9a1676f8a1becf53d45227294dc50f5581d431c4b5abf0f180cf298f90db8"
+    },
+    {
+      "path": "node/pool.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "2fce1b0a433947314148334575bccc96cf231946b3d5cf175c1128a5eaddd9f7"
+    },
+    {
+      "path": "node/processor.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "dcf904e4c4aca5b1e81a82bdce99e414057871ccdecf504e4623ba3f04175b31"
+    },
+    {
+      "path": "node/sharp-worker.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "95c62a718eb89b4b09193150752888e7f08382617312dbb4373dbf564c4bb606"
+    },
+    {
+      "path": "node/source.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "3d0f02a83c3484dfba26528c0154bab3b6677d3ad4344ed3363ac71af61457be"
+    },
+    {
+      "path": "node/svg.js",
+      "frozenAndSelectedBytesEqual": true,
+      "selectedSha256": "0919e0679fb511ee58313ece7028e788459fcad9bd379958afa0e720695fd369"
+    }
+  ]
+}

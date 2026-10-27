@@ -18,6 +18,7 @@ import { hash } from '../node/cache.js';
 import { readLocal } from '../node/source.js';
 import { loadSharp, sniff } from '../node/pipeline.js';
 import { ImageProcessor } from '../node/processor.js';
+import { createViteBuildProcessor } from '../node/build-processor.js';
 import { parseDirectives } from './directives.js';
 import { placeholder } from './placeholder.js';
 import { PreviewCache } from './preview-cache.js';
@@ -32,6 +33,7 @@ export interface ImagePluginOptions {
   /** Omit dominated default AVIF sources. Explicit format directives stay exact. Build only; default true. */
   pruneLargerFormats?: boolean;
   config?: Partial<ImageConfig>;
+  /** Bound active transforms (1–32). Finite builds share one owned native executor. */
   concurrency?: number;
   publicBase?: string;
   publish?: PublishOptions;
@@ -234,7 +236,12 @@ export function imageway(options: ImagePluginOptions = {}): Plugin {
         qualities: [directives.quality],
         quality: directives.quality,
       });
-      const exactProcessor = new ImageProcessor({
+      const createProcessor =
+        vite.command === 'build'
+          ? createViteBuildProcessor
+          : (options: ConstructorParameters<typeof ImageProcessor>[0]) =>
+              new ImageProcessor(options);
+      const exactProcessor = createProcessor({
         directory: join(vite.root, 'node_modules/.cache/svelte-imageway'),
         config: exactConfig,
         concurrency:

@@ -51,6 +51,7 @@ for (const required of [
   'package.json',
   'dist/cli/index.js',
   'dist/node/sharp-worker.js',
+  'dist/node/build-worker.js',
   'dist/node/blurhash.wasm',
   'dist/node/BLURHASH-NOTICE',
   'dist/components/Image.d.svelte.ts',
