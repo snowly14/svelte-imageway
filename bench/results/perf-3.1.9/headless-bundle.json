@@ -1,0 +1,27 @@
+{
+  "protocol": "Actual root import getImageProps only, all emitted JS/CSS, paired identical bundler; checks CSS reachability after shared stylesheet; no timing claim.",
+  "rows": [
+    {
+      "variant": "before",
+      "files": [
+        {
+          "name": "assets/entry-DNQ-klIT.js",
+          "bytes": 3117,
+          "gzip": 1764
+        }
+      ],
+      "css": 0
+    },
+    {
+      "variant": "after",
+      "files": [
+        {
+          "name": "assets/entry-CA7dCzT5.js",
+          "bytes": 3103,
+          "gzip": 1751
+        }
+      ],
+      "css": 0
+    }
+  ]
+}

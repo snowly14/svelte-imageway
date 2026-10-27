@@ -46,18 +46,19 @@ export interface ImageOptions extends Omit<
 export function imageSizes(sizes = '100vw', lazy = true): string {
   if (sizes.startsWith('auto') && !lazy) return sizes.replace(/^auto\s*,?\s*/, '') || '100vw';
   if (!/\b(?:sm|md|lg|xl):/.test(sizes)) return sizes;
-  // Ignore inherited names such as constructor when expanding mixed shorthand.
-  const breakpoints: Record<string, number | null> = {
-    __proto__: null,
-    sm: 640,
-    md: 768,
-    lg: 1024,
-    xl: 1280,
-  };
   let result = '100vw';
   for (const token of sizes.trim().split(/\s+/)) {
     const [name, value] = token.split(':');
-    const min = breakpoints[name!];
+    const min =
+      name === 'sm'
+        ? 640
+        : name === 'md'
+          ? 768
+          : name === 'lg'
+            ? 1024
+            : name === 'xl'
+              ? 1280
+              : undefined;
     result = (value && min ? `(min-width: ${min}px) ${value}` : token) + ', ' + result;
   }
   return result;
@@ -104,10 +105,9 @@ export function getImageProps(
         width ?? 1920,
       ]),
     ].sort((a, b) => a - b);
-    const source =
-      original.startsWith('/') || !/^[a-z]+:/i.test(original)
-        ? { key: original.replace(/^\//, '') }
-        : { url: original };
+    const source = !/^[a-z]+:/i.test(original)
+      ? { key: original.replace(/^\//, '') }
+      : { url: original };
     if (provider.capabilities.fixed) {
       fallback = provider.buildUrl(source);
       srcset = undefined;
@@ -153,7 +153,10 @@ export function getImageProps(
   const preview =
     disabled || placeholder === 'color'
       ? undefined
-      : placeholder && !['lqip', 'thumbhash', 'blurhash'].includes(placeholder)
+      : placeholder &&
+          placeholder !== 'lqip' &&
+          placeholder !== 'thumbhash' &&
+          placeholder !== 'blurhash'
         ? placeholder
         : artifact?.placeholder;
   const safePreview =

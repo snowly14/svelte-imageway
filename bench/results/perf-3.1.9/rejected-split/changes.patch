@@ -1,0 +1,204 @@
+diff --git a/packages/svelte-imageway/src/lib/components/Image.svelte b/packages/svelte-imageway/src/lib/components/Image.svelte
+index 5dee5d4..52a1ac7 100644
+--- a/packages/svelte-imageway/src/lib/components/Image.svelte
++++ b/packages/svelte-imageway/src/lib/components/Image.svelte
+@@ -1,6 +1,6 @@
+ <script lang="ts">
+   import '../image.css';
+-  import { getImageProps } from '../props.js';
++  import { imageComponentProps as getImageProps } from '../component-props.js';
+   import { getImageConfig } from '../context.js';
+   import type { ImageProps as Props } from '../component-types.js';
+   import { invariant } from '../core/errors.js';
+diff --git a/packages/svelte-imageway/src/lib/props.ts b/packages/svelte-imageway/src/lib/props.ts
+index 7b16c7f..bc1a029 100644
+--- a/packages/svelte-imageway/src/lib/props.ts
++++ b/packages/svelte-imageway/src/lib/props.ts
+@@ -7,8 +7,8 @@ import type {
+   Position,
+   OutputFormat,
+ } from './core/types.js';
+-import { invariant } from './core/errors.js';
+-import { resolveImageArtifact } from './core/artifact.js';
++import { computeImageProps } from './props-core.js';
++export { imageSizes } from './props-core.js';
+ 
+ /** Public browser configuration; intentionally contains no private server fields. */
+ export interface ImageContextConfig {
+@@ -42,167 +42,18 @@ export interface ImageOptions extends Omit<
+   transitionName?: string;
+   contentVisibility?: 'auto' | 'visible';
+ }
+-/** Expand shorthand such as "sm:100vw md:50vw lg:33vw" into valid HTML sizes. */
+-export function imageSizes(sizes = '100vw', lazy = true): string {
+-  if (sizes.startsWith('auto') && !lazy) return sizes.replace(/^auto\s*,?\s*/, '') || '100vw';
+-  if (!/\b(?:sm|md|lg|xl):/.test(sizes)) return sizes;
+-  // Ignore inherited names such as constructor when expanding mixed shorthand.
+-  const breakpoints: Record<string, number | null> = {
+-    __proto__: null,
+-    sm: 640,
+-    md: 768,
+-    lg: 1024,
+-    xl: 1280,
+-  };
+-  let result = '100vw';
+-  for (const token of sizes.trim().split(/\s+/)) {
+-    const [name, value] = token.split(':');
+-    const min = breakpoints[name!];
+-    result = (value && min ? `(min-width: ${min}px) ${value}` : token) + ', ' + result;
+-  }
+-  return result;
+-}
+ /** Compute native attributes without touching browser globals. */
+ export function getImageProps(
+   options: ImageOptions,
+ ): HTMLImgAttributes & { sources: ImageSource[]; placeholder?: string } {
+-  invariant(
+-    typeof options.alt === 'string',
+-    'ALT',
+-    'Image alt is required; use alt="" for decorative images.',
+-  );
+-  const {
+-    src,
+-    priority,
+-    provider: explicit,
+-    config = {},
+-    fit = 'inside',
+-    position = 'center',
+-    quality,
+-    formatStrategy,
+-    placeholder,
+-    transitionName,
+-    contentVisibility,
+-    ...native
+-  } = options;
+-  const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
+-  const nativeOnly = strategy === 'img';
+-  const artifact = resolveImageArtifact(src);
+-  const representation = nativeOnly ? (artifact?.img ?? artifact) : artifact;
+-  const original = representation?.src ?? (src as string);
+-  const provider = !artifact && (explicit ?? selectProvider(original, config));
+-  let fallback = original;
+-  let srcset = representation?.srcset;
+-  let sources = nativeOnly ? [] : (artifact?.sources ?? []);
+-  const width = native.width ?? representation?.width,
+-    height = native.height ?? representation?.height;
+-  if (provider && !original.startsWith('data:')) {
+-    provider.validate();
+-    const widths = [
+-      ...new Set([
+-        ...(config.widths ?? [320, 640, 960, 1280, 1920]).filter((v) => !width || v < width),
+-        width ?? 1920,
+-      ]),
+-    ].sort((a, b) => a - b);
+-    const source =
+-      original.startsWith('/') || !/^[a-z]+:/i.test(original)
+-        ? { key: original.replace(/^\//, '') }
+-        : { url: original };
+-    if (provider.capabilities.fixed) {
+-      fallback = provider.buildUrl(source);
+-      srcset = undefined;
+-      sources = [];
+-    } else {
+-      const request = { ...source, fit, position, q: quality ?? config.quality ?? 75 };
+-      const formats =
+-        provider.capabilities.explicitFormat === false ||
+-        (strategy !== 'picture' && provider.capabilities.autoFormat === true && !config.formats)
+-          ? []
+-          : provider.capabilities.formats.filter(
+-              (v) =>
+-                ['avif', 'webp', 'jpeg', 'png'].includes(v) &&
+-                (!config.formats || config.formats.includes(v)) &&
+-                (!provider.capabilities.maxWidthByFormat?.[v] ||
+-                  Math.max(...widths) <= provider.capabilities.maxWidthByFormat[v]!),
+-            );
+-      const fallbackWidth = width ?? 1920;
+-      const fallbackFormat =
+-        (nativeOnly && formats.includes('webp')
+-          ? 'webp'
+-          : formats.includes('jpeg')
+-            ? 'jpeg'
+-            : formats.at(-1)) ?? 'auto';
+-      const buildUrl = (w: number, format: OutputFormat | 'auto') =>
+-        provider.buildUrl({ ...request, w, format });
+-      fallback = buildUrl(fallbackWidth, fallbackFormat);
+-      const srcsetFor = (format: OutputFormat | 'auto') =>
+-        widths
+-          .map(
+-            (w) =>
+-              `${w === fallbackWidth && format === fallbackFormat ? fallback : buildUrl(w, format)} ${w}w`,
+-          )
+-          .join(', ');
+-      srcset = srcsetFor(fallbackFormat);
+-      sources = (nativeOnly ? [] : formats)
+-        .filter((v) => v !== fallbackFormat)
+-        .map((format) => ({ type: `image/${format}`, srcset: srcsetFor(format) }));
+-    }
+-  }
+-  const lazy = !priority && options.loading !== 'eager';
+-  const disabled = placeholder === false || placeholder === 'none';
+-  const preview =
+-    disabled || placeholder === 'color'
+-      ? undefined
+-      : placeholder && !['lqip', 'thumbhash', 'blurhash'].includes(placeholder)
+-        ? placeholder
+-        : artifact?.placeholder;
+-  const safePreview =
+-    preview && /^data:image\/(?:webp|png|jpeg);base64,[a-zA-Z0-9+/]+=*$/.test(preview)
+-      ? preview
+-      : undefined;
+-  const dominantColor = !disabled && artifact?.dominantColor;
+-  const color =
+-    dominantColor && /^#[a-f\d]{6,8}$/i.test(dominantColor) ? dominantColor : 'transparent';
+-  const cssFit = fit === 'inside' ? 'contain' : fit === 'outside' ? 'cover' : fit;
+-  const cssPosition =
+-    position === 'entropy' || position === 'attention' ? 'center' : position.replace('-', ' ');
+-  const style =
+-    `max-width:100%;height:auto;object-fit:${cssFit};object-position:${cssPosition}` +
+-    (width && height ? `;aspect-ratio:${width}/${height}` : '') +
+-    `;background-color:${color}` +
+-    (safePreview ? `;background-image:url("${safePreview}");background-size:cover` : '') +
+-    (transitionName && /^[a-zA-Z_][\w-]*$/.test(transitionName)
+-      ? `;view-transition-name:${transitionName}`
+-      : '') +
+-    (contentVisibility ? `;content-visibility:${contentVisibility}` : '') +
+-    (native.style ? `;${native.style}` : '');
+-  return {
+-    ...native,
+-    src: fallback,
+-    srcset,
+-    sources,
+-    width,
+-    height,
+-    sizes: srcset ? imageSizes(options.sizes ?? undefined, lazy) : undefined,
+-    loading: priority ? 'eager' : (options.loading ?? 'lazy'),
+-    decoding: priority ? 'sync' : (options.decoding ?? 'async'),
+-    fetchpriority: priority ? 'high' : (options.fetchpriority ?? 'auto'),
+-    style,
+-    placeholder: safePreview,
+-  };
++  return computeImageProps(options, makeSources);
+ }
+-function selectProvider(src: string, config: ImageContextConfig): ImageProvider | undefined {
+-  const providers = config.providers;
+-  if (!providers) return config.provider;
+-  let hostname: string | undefined;
+-  try {
+-    hostname = new URL(src).hostname;
+-  } catch {
+-    /* Local keys use the wildcard provider. */
+-  }
+-  return (
+-    (hostname && Object.hasOwn(providers, hostname) ? providers[hostname] : undefined) ??
+-    providers['*'] ??
+-    config.provider
+-  );
++function makeSources(
++  formats: OutputFormat[],
++  fallbackFormat: OutputFormat | 'auto',
++  srcsetFor: (format: OutputFormat | 'auto') => string,
++): ImageSource[] {
++  return formats
++    .filter((v) => v !== fallbackFormat)
++    .map((format) => ({ type: `image/${format}`, srcset: srcsetFor(format) }));
+ }

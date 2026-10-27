@@ -1,0 +1,81 @@
+{
+  "baselineArchiveSha256": "7d4b09a7140a79204c4b4a77bf8fabecc81c8aecc7d16c09b016ce549efd9480",
+  "candidateNote": "Build, pipeline, default and attribute timings use a frozen pre-release 3.1.8-version candidate. Its compiled Node files and props.js are byte-identical to the selected source build; the later event-handler change affects components only. Final client/SSR measurements use the later selected components. Version bumps change package metadata and CLI version, not these algorithm sources.",
+  "selectedSourceFiles": {
+    "src/lib/props.ts": {
+      "bytes": 7680,
+      "sha256": "313faa37368985baf524ad567b49436d4df01d12ba8259564491184e2caa3ed2"
+    },
+    "src/lib/node/pipeline.ts": {
+      "bytes": 7348,
+      "sha256": "d06a2487abd0f9b2b0ac1d83815cdd549896763cca05011149ed525ee7d6ad9c"
+    },
+    "src/lib/components/Image.svelte": {
+      "bytes": 2205,
+      "sha256": "ec16082db37680849d00f8afc2b1b11cfbd8840a16531357c59c8b89a6843cfc"
+    },
+    "src/lib/components/Picture.svelte": {
+      "bytes": 2512,
+      "sha256": "f7e9e98f722407b442fbc92d54a9a997edfa4ee0420a959cfa39eb115f2ad281"
+    }
+  },
+  "frozenAndSelectedNode": [
+    {
+      "path": "node/blurhash-encoding.js",
+      "sha256": "1b3f63453bf562410f0402939e4b4824c7230b22ea8ae9644c844a0293e253ee"
+    },
+    {
+      "path": "node/blurhash.js",
+      "sha256": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284"
+    },
+    {
+      "path": "node/blurhash.wasm",
+      "sha256": "1d90bc558b23dac70acaba533251d5eb779e5c40e8a5cbd641cd9c39d68758de"
+    },
+    {
+      "path": "node/build-pool.js",
+      "sha256": "400d8419417a9e5bddf690d42becd3c9ff43cf712e5fd2ac49d6d1f5ddb302c8"
+    },
+    {
+      "path": "node/build-processor.js",
+      "sha256": "1932be63e4e3d6c05ff607db58235e77e6f158414c8d372d556beea94eeca47e"
+    },
+    {
+      "path": "node/build-worker.js",
+      "sha256": "c854ce849dc4e9241d6b0141eb2ea865a555eda1439588ac26c36bb712a11eda"
+    },
+    {
+      "path": "node/cache.js",
+      "sha256": "5815226968520e4cff36319422be3047f97b4c09fe65bfd82db82a2778cdd87e"
+    },
+    {
+      "path": "node/index.js",
+      "sha256": "11cbc028f6130a0a81b9d5114ae350160bb04e8f4ccdbec85c648925357fdd7e"
+    },
+    {
+      "path": "node/pipeline.js",
+      "sha256": "85af5d627c5abb154035ab0052778e80c5733abfa1166c8bd14cbb2c397d40bd"
+    },
+    {
+      "path": "node/pool.js",
+      "sha256": "2fce1b0a433947314148334575bccc96cf231946b3d5cf175c1128a5eaddd9f7"
+    },
+    {
+      "path": "node/processor.js",
+      "sha256": "dcf904e4c4aca5b1e81a82bdce99e414057871ccdecf504e4623ba3f04175b31"
+    },
+    {
+      "path": "node/sharp-worker.js",
+      "sha256": "95c62a718eb89b4b09193150752888e7f08382617312dbb4373dbf564c4bb606"
+    },
+    {
+      "path": "node/source.js",
+      "sha256": "3d0f02a83c3484dfba26528c0154bab3b6677d3ad4344ed3363ac71af61457be"
+    },
+    {
+      "path": "node/svg.js",
+      "sha256": "0919e0679fb511ee58313ece7028e788459fcad9bd379958afa0e720695fd369"
+    }
+  ],
+  "propsJsSha256": "bac0ba87f7f5ddc070ac7006f7d0f57417d92857a42565e04f415fe5cb548fb4"
+}

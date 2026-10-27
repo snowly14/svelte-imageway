@@ -3,6 +3,8 @@ import { expect, test } from '@playwright/test';
 test('Image and Picture preserve loading/error snippets, callback context and recovery on src changes', async ({
   page,
 }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
   let release!: () => void;
   const pending = new Promise<void>((resolve) => {
     release = resolve;
@@ -33,9 +35,33 @@ test('Image and Picture preserve loading/error snippets, callback context and re
       await expect
         .poll(() => image.evaluate((img) => getComputedStyle(img).backgroundImage))
         .toBe('none');
+      await expect(image).toHaveClass(/\bready\b/);
     }
     await expect(page.getByTestId('life-loads')).toHaveText('2');
     await expect(page.getByTestId('life-context')).toHaveText('true');
+    // A repeated cached load does not need Resource Timing, but must still
+    // invoke each caller's native callback with the image as its receiver.
+    await page.evaluate(() => {
+      const previous = Object.getOwnPropertyDescriptor(performance, 'getEntriesByName');
+      Object.defineProperty(performance, 'getEntriesByName', {
+        configurable: true,
+        value: () => {
+          throw new Error('Cached images should not need Resource Timing');
+        },
+      });
+      try {
+        for (const index of [0, 1])
+          document
+            .querySelector(`[data-testid="life-image-${index}"]`)!
+            .dispatchEvent(new Event('load'));
+      } finally {
+        if (previous) Object.defineProperty(performance, 'getEntriesByName', previous);
+        else Reflect.deleteProperty(performance, 'getEntriesByName');
+      }
+    });
+    await expect(page.getByTestId('life-loads')).toHaveText('4');
+    await expect(page.getByTestId('life-context')).toHaveText('true');
+    expect(errors).toEqual([]);
   } finally {
     release();
   }

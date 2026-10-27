@@ -141,7 +141,7 @@ export async function transform(
     if (request.sharpen) image = image.sharpen({ sigma: request.sharpen });
     if (request.metadata === 'icc' || request.metadata === 'safe') image = image.keepIccProfile();
     image = image.timeout({ seconds: Math.max(1, Math.ceil(config.timeoutMs / 1000)) });
-    const preview = image.clone();
+    const preview = includePreview ? image.clone() : undefined;
     const encoded = image.toFormat(
       format,
       format === 'jpeg' ? { quality: request.q, mozjpeg: true } : { quality: request.q },
@@ -162,10 +162,10 @@ export async function transform(
         dominantColor: '',
         placeholder: '',
       };
-    const stats = await preview.clone().stats();
+    const stats = await preview!.clone().stats();
     const { r, g, b } = stats.dominant;
     const dominantColor = `#${[r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')}`;
-    const lqip = await preview
+    const lqip = await preview!
       .clone()
       .resize({ width: 12, height: 12, fit: 'inside' })
       .webp({ quality: 20 })

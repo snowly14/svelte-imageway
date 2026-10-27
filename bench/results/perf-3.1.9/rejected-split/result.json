@@ -1,0 +1,12 @@
+{
+  "protocol": "One isolated build per entry, Svelte externalized. Rejected because Image did not shrink and Picture grew, despite creating a private specialized presentation path.",
+  "smallBaseline": {
+    "imageJS": 2961,
+    "pictureJS": 3110
+  },
+  "split": {
+    "imageJS": 2961,
+    "pictureJS": 3144
+  },
+  "focusedTests": "27 passed across props and SSR"
+}

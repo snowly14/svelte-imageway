@@ -1,6 +1,10 @@
 # Reproducible package benchmarks
 
-## Current 3.1.8 component, Rust and finite-build studies — 27 October 2026
+## Current 3.1.9 component and preview-clone study — 27 October 2026
+
+[Component and transform measurements](PERF-3.1.9.md): verified npm baseline, 1/2/4 logical concurrency before changes, complete isolated and actual page JS/CSS, exact SSR/no-JS/hydration, no-preview/preview controls, cross-tool byte identity, ordinary default builds and all regressions. The 2000-byte and build/RSS leadership goals remain open.
+
+## Previous 3.1.8 component, Rust and finite-build studies — 27 October 2026
 
 [Component attributes and complete pages](COMPONENT-PROPS-3.1.8.md): three-way allocation/provider controls, actual SSR, all emitted JS/CSS, headless-only CSS pruning and strict hydration/no-JS validation. The isolated JS regression and unmet 2000-byte target remain visible.
 

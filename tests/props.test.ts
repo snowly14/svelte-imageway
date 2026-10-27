@@ -142,6 +142,97 @@ describe('headless and type contract', () => {
     );
     expect(imageSizes('auto, 50vw', false)).toBe('50vw');
   });
+  it('preserves shorthand parsing across inherited names, empty values and mixed tokens', () => {
+    const reference = (sizes: string, lazy: boolean): string => {
+      if (sizes.startsWith('auto') && !lazy) return sizes.replace(/^auto\s*,?\s*/, '') || '100vw';
+      if (!/\b(?:sm|md|lg|xl):/.test(sizes)) return sizes;
+      const breakpoints: Record<string, number> = Object.assign(Object.create(null), {
+        sm: 640,
+        md: 768,
+        lg: 1024,
+        xl: 1280,
+      });
+      let result = '100vw';
+      for (const token of sizes.trim().split(/\s+/)) {
+        const [name, value] = token.split(':');
+        const min = breakpoints[name!];
+        result = (value && min ? `(min-width: ${min}px) ${value}` : token) + ', ' + result;
+      }
+      return result;
+    };
+    const tokens = [
+      'sm:100vw',
+      'md:50vw:extra',
+      'lg:',
+      'xl:25vw',
+      'constructor:1vw',
+      '__proto__:10vw',
+      'toString:9vw',
+      'foo:5vw',
+      ':bar',
+      'plain',
+      'auto,',
+    ];
+    let state = 51;
+    for (let i = 0; i < 1024; i++) {
+      const selected = [];
+      for (let j = 0; j < 4; j++) {
+        state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+        selected.push(tokens[state % tokens.length]);
+      }
+      const sizes = selected.join(i % 2 ? ' ' : '\t');
+      expect(imageSizes(sizes, !!(i % 3))).toBe(reference(sizes, !!(i % 3)));
+    }
+  });
+  it.each([
+    [undefined, 'data:image/webp;base64,YWJj', '#ff0000'],
+    [false, undefined, 'transparent'],
+    ['none', undefined, 'transparent'],
+    ['color', undefined, '#ff0000'],
+    ['lqip', 'data:image/webp;base64,YWJj', '#ff0000'],
+    ['thumbhash', 'data:image/webp;base64,YWJj', '#ff0000'],
+    ['blurhash', 'data:image/webp;base64,YWJj', '#ff0000'],
+    ['data:image/png;base64,YQ==', 'data:image/png;base64,YQ==', '#ff0000'],
+    ['unsafe', undefined, '#ff0000'],
+  ] as const)('preserves preview selection for %s', (placeholder, expectedPreview, color) => {
+    const attrs = getImageProps({ src: artifact, alt: '', placeholder });
+    expect(attrs.placeholder).toBe(expectedPreview);
+    expect(attrs.style).toContain(`background-color:${color}`);
+    expect(attrs.style?.includes('background-image:')).toBe(expectedPreview !== undefined);
+  });
+  it('classifies provider sources consistently for slash-prefixed, relative and scheme URLs', () => {
+    const requests: Array<{ key?: string; url?: string }> = [];
+    const provider: ImageProvider = {
+      name: 'source-contract',
+      capabilities: {
+        formats: ['webp'],
+        fit: ['inside'],
+        animation: false,
+        signature: false,
+        smartCrop: false,
+        fixed: true,
+      },
+      validate() {},
+      buildUrl(request) {
+        requests.push(request);
+        return '/output.webp';
+      },
+    };
+    for (const [src, expected] of [
+      ['/photo.jpg', { key: 'photo.jpg' }],
+      ['//host/photo.jpg', { key: '/host/photo.jpg' }],
+      ['folder/photo.jpg', { key: 'folder/photo.jpg' }],
+      ['file-name:x', { key: 'file-name:x' }],
+      ['https://host/photo.jpg', { url: 'https://host/photo.jpg' }],
+      ['MAILTO:person', { url: 'MAILTO:person' }],
+    ] as const) {
+      getImageProps({ src, alt: '', provider });
+      expect(requests.at(-1)).toEqual(expected);
+    }
+    const before = requests.length;
+    getImageProps({ src: 'data:image/png;base64,YQ==', alt: '', provider });
+    expect(requests).toHaveLength(before);
+  });
   it('reuses the fallback candidate URL without rebuilding or mutating provider requests', () => {
     const calls: Array<{ w?: number; format?: string }> = [];
     const provider: ImageProvider = {

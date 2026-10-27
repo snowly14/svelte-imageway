@@ -234,6 +234,25 @@ describe('real Sharp pipeline', () => {
       expect((await sharp(r.data).metadata()).exif).toBeUndefined();
     },
   );
+  it.each(['jpeg', 'png', 'webp', 'avif'] as const)(
+    'preserves %s encoded bytes when build previews are omitted',
+    async (format) => {
+      const input = await sharp(base).png().toBuffer();
+      const request = normalizeRequest({ key: 'fixture', w: 320 });
+      const withPreview = await transform(input, request, format, undefined, true);
+      const withoutPreview = await transform(input, request, format, undefined, false);
+      expect(withoutPreview.data).toEqual(withPreview.data);
+      expect([withoutPreview.width, withoutPreview.height, withoutPreview.format]).toEqual([
+        withPreview.width,
+        withPreview.height,
+        withPreview.format,
+      ]);
+      expect(withoutPreview.placeholder).toBe('');
+      expect(withoutPreview.dominantColor).toBe('');
+      expect(withPreview.placeholder).toMatch(/^data:image\/webp;base64,/);
+      expect(withPreview.dominantColor).toMatch(/^#[a-f\d]{6}$/);
+    },
+  );
   it('orients EXIF, strips metadata and rejects bombs/corrupt containers', async () => {
     const input = await sharp(base).jpeg().withMetadata({ orientation: 6 }).toBuffer();
     const r = await transform(input, normalizeRequest({ key: 'x', w: 320 }), 'jpeg');

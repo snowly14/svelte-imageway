@@ -65,9 +65,12 @@
   class:ready={loaded}
   class:fade={animate}
   onload={(event) => {
-    const timing = performance.getEntriesByName(element.currentSrc).at(-1) as
-      PerformanceResourceTiming | undefined;
-    animate = !loaded && (timing?.transferSize ?? 0) > 300;
+    animate =
+      !loaded &&
+      ((
+        performance.getEntriesByName(element.currentSrc).at(-1) as
+          PerformanceResourceTiming | undefined
+      )?.transferSize ?? 0) > 300;
     loaded = true;
     failed = false;
     props.onload?.call(element, event);

@@ -1,0 +1,139 @@
+diff --git a/packages/svelte-imageway/src/lib/components/Image.svelte b/packages/svelte-imageway/src/lib/components/Image.svelte
+index 5dee5d4..5672151 100644
+--- a/packages/svelte-imageway/src/lib/components/Image.svelte
++++ b/packages/svelte-imageway/src/lib/components/Image.svelte
+@@ -4,20 +4,11 @@
+   import { getImageConfig } from '../context.js';
+   import type { ImageProps as Props } from '../component-types.js';
+   import { invariant } from '../core/errors.js';
+-  let {
+-    sources,
+-    source,
+-    formatStrategy,
+-    loading,
+-    error,
+-    loadingContent,
+-    errorContent,
+-    ...props
+-  }: Props = $props();
++  let props: Props = $props();
+   const config = getImageConfig();
+   const attributes = $derived.by(() => {
+     invariant(
+-      sources === undefined && source === undefined && formatStrategy === undefined,
++      props.sources === undefined && props.source === undefined && props.formatStrategy === undefined,
+       'PICTURE_REQUIRED',
+       'Use Picture for sources, source, or formatStrategy.',
+     );
+@@ -29,7 +20,7 @@
+       ...props,
+       config,
+       formatStrategy: 'img',
+-      loading: typeof loading === 'string' ? loading : undefined,
++      loading: typeof props.loading === 'string' ? props.loading : undefined,
+     });
+     void unusedSources;
+     void placeholder;
+@@ -78,7 +69,7 @@
+   }}
+ />
+ {@render (failed
+-  ? (errorContent ?? error)
++  ? (props.errorContent ?? props.error)
+   : !loaded
+-    ? (loadingContent ?? (typeof loading === 'function' ? loading : undefined))
++    ? (props.loadingContent ?? (typeof props.loading === 'function' ? props.loading : undefined))
+     : undefined)?.()}
+diff --git a/packages/svelte-imageway/src/lib/components/Picture.svelte b/packages/svelte-imageway/src/lib/components/Picture.svelte
+index 47afd61..9e8ed33 100644
+--- a/packages/svelte-imageway/src/lib/components/Picture.svelte
++++ b/packages/svelte-imageway/src/lib/components/Picture.svelte
+@@ -3,22 +3,14 @@
+   import { getImageProps } from '../props.js';
+   import { getImageConfig } from '../context.js';
+   import type { PictureProps as Props } from '../component-types.js';
+-  let {
+-    sources: explicitSources,
+-    source,
+-    loading,
+-    error,
+-    loadingContent,
+-    errorContent,
+-    ...props
+-  }: Props = $props();
++  let props: Props = $props();
+   const config = getImageConfig();
+   const image = $derived.by(() => {
+     return getImageProps({
+       ...props,
+       config,
+       formatStrategy: 'picture',
+-      loading: typeof loading === 'string' ? loading : undefined,
++      loading: typeof props.loading === 'string' ? props.loading : undefined,
+     });
+   });
+   const attributes = $derived.by(() => {
+@@ -27,7 +19,7 @@
+     void placeholder;
+     return native;
+   });
+-  const sources = $derived(explicitSources ?? image.sources);
++  const sources = $derived(props.sources ?? image.sources);
+   const preload = $derived(sources[0]);
+   let element: HTMLImageElement;
+   let loaded = $state(false);
+@@ -43,7 +35,7 @@
+ </script>
+ 
+ <svelte:head>
+-  {#if props.priority && !source}
++  {#if props.priority && !props.source}
+     <link
+       rel="preload"
+       as="image"
+@@ -67,7 +59,7 @@
+       height={item.height}
+     />
+   {/each}
+-  {@render source?.()}
++  {@render props.source?.()}
+   <img
+     {...attributes}
+     bind:this={element}
+@@ -89,7 +81,7 @@
+   />
+ </picture>
+ {@render (failed
+-  ? (errorContent ?? error)
++  ? (props.errorContent ?? props.error)
+   : !loaded
+-    ? (loadingContent ?? (typeof loading === 'function' ? loading : undefined))
++    ? (props.loadingContent ?? (typeof props.loading === 'function' ? props.loading : undefined))
+     : undefined)?.()}
+diff --git a/packages/svelte-imageway/src/lib/props.ts b/packages/svelte-imageway/src/lib/props.ts
+index 7b16c7f..a8a27b8 100644
+--- a/packages/svelte-imageway/src/lib/props.ts
++++ b/packages/svelte-imageway/src/lib/props.ts
+@@ -83,8 +83,21 @@ export function getImageProps(
+     placeholder,
+     transitionName,
+     contentVisibility,
++    $$slots,
++    $$events,
++    $$legacy,
++    sources: componentSources,
++    source: componentSource,
++    loadingContent,
++    errorContent,
++    error,
+     ...native
+-  } = options;
++  } = options as ImageOptions & {
++    $$slots?: unknown; $$events?: unknown; $$legacy?: unknown;
++    sources?: unknown; source?: unknown; loadingContent?: unknown; errorContent?: unknown; error?: unknown;
++  };
++  void $$slots; void $$events; void $$legacy; void componentSources; void componentSource;
++  void loadingContent; void errorContent; void error;
+   const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
+   const nativeOnly = strategy === 'img';
+   const artifact = resolveImageArtifact(src);

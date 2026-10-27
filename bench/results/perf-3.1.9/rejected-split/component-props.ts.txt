@@ -1,0 +1,6 @@
+import type { ImageOptions } from './props.js';
+import { computeImageProps } from './props-core.js';
+/** Private Image-only calculation; Image supplies the img strategy. */
+export function imageComponentProps(options: ImageOptions) {
+  return computeImageProps(options);
+}

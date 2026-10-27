@@ -1,0 +1,11 @@
+{
+  "note": "Prototype moves component metadata filtering into getImageProps; one isolated build per entry. Rejected without performance claim because both JS entries grow.",
+  "baseline": {
+    "imageJS": 2983,
+    "pictureJS": 3131
+  },
+  "candidate": {
+    "imageJS": 3007,
+    "pictureJS": 3163
+  }
+}
