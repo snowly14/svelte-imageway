@@ -1,6 +1,6 @@
-# Unreleased 3.1.9 component and image pipeline work — 27 October 2026
+# 3.1.9 component and image pipeline work — 27 October 2026
 
-[Protocol, all samples and rejected alternatives](bench/PERF-3.1.9.md) · [ADR 31](docs/adr/0031-preview-clone-and-component-size.md) · [ADR 32](docs/adr/0032-reviewed-cache-equivalence.md). **CI and publication are pending; this is not a release receipt.**
+[Protocol, all samples and rejected alternatives](bench/PERF-3.1.9.md) · [ADR 31](docs/adr/0031-preview-clone-and-component-size.md) · [ADR 32](docs/adr/0032-reviewed-cache-equivalence.md). **Published on npm and [GitHub](https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.9)** from `7d742ee23649e08a7be7c1bd15eda6e48937b703`. All eight [exact-source CI jobs](https://github.com/snowly14/svelte-imageway/actions/runs/40571083082) and the [release workflow](https://github.com/snowly14/svelte-imageway/actions/runs/40571571903) pass. The browser artifact records 21 passes and six optional-service skips. The registry archive and downloaded GitHub attachment match (SHA-256 `aab59f66aacc19e46dfec9476bc05228daa4a56558c7220fe6efeaf1bf094fdc`); integrity and provenance subject/source match, while Sigstore signatures were not independently verified. Both fresh registry-archive consumers and installed native checks pass. [Delivery receipt](docs/validation/release-3.1.9.json).
 
 Image/Picture isolated entries shrink **2983→2957 / 3131→3103 JS gzip bytes**, Svelte externalized, plus 206 CSS bytes each. Real Image/Picture/Both pages shrink **18546→18530 / 20322→20304 / 20651→20635 total gzip bytes**, including Svelte and every JS/CSS file. Strict hydration/no-JS fixtures pass; headless-only output emits no CSS and shrinks **1764→1751 JS gzip bytes**. The **under-2000-byte goal remains unmet**. A cached-load handler skips an unnecessary Resource Timing lookup while still invoking the user's callback; both component callbacks are checked in Chromium/WebKit.
 
@@ -12,7 +12,7 @@ The generated cache revision now reuses 3.1.8 entries **only for the exact revie
 
 Headless attribute and SSR comparisons retain small regressions alongside gains. Complete SSR HTML matches byte-for-byte; Image App **77.57→77.65 µs**, Picture **84.75→83.40**, Both **153.77→152.03**. Two component restructuring prototypes grew one or both entries and were rejected with source/results retained. The fixed-memory Rust module and consumer toolchain are unchanged; a native wrapper for the small JS control-path edits has no measured justification.
 
-Local lint, strict TS/Svelte, **318 tests**, coverage, independent native rebuild, package/ATTW declarations and exports, tightened JS+CSS budgets, both packed consumers and Chromium/WebKit **14 pass / four optional-service skips** pass. Six strict hydration/no-JS fixtures also pass after the version bump. Exact-source CI, actual registry consumers and publication verification remain pending. The Mac shutdown remains cancelled.
+Local lint, strict TS/Svelte, **318 tests**, coverage, independent native rebuild, package/ATTW declarations and exports, tightened JS+CSS budgets, both packed consumers and Chromium/WebKit **14 pass / four optional-service skips** pass. Six strict hydration/no-JS fixtures also pass after the version bump. Exact-source CI, registry consumers and publication verification pass as detailed above. The Mac shutdown remains cancelled.
 
 # 3.1.8 component, Rust and build executor work — 27 October 2026
 

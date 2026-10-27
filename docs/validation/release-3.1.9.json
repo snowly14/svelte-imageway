@@ -1,0 +1,101 @@
+{
+  "verifiedAt": "2026-10-27T19:47:06.237Z",
+  "available": true,
+  "version": "3.1.9",
+  "tag": "latest",
+  "sourceCommit": "7d742ee23649e08a7be7c1bd15eda6e48937b703",
+  "integrity": "sha512-xhLI0tgB5nvsKjN8dcMOrRRJ4TNfwpuHxpi8X6phxkQpOsNXiMZLm3owbVeCsvhRaEu5rG+pD+pPNYL2g57A/g==",
+  "sha256": "aab59f66aacc19e46dfec9476bc05228daa4a56558c7220fe6efeaf1bf094fdc",
+  "provenanceSubjectMatches": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "deliveryVerifiedAt": "2026-10-27T19:47:49.473021+00:00",
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/40571083082",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/40571571903",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.9",
+  "unitTests": 318,
+  "allEightSourceCIJobsPassed": true,
+  "githubArchiveAndChecksumBytesMatchRegistry": true,
+  "githubTagMatchesSource": true,
+  "archiveBytes": 97381,
+  "browserCI": {
+    "startTime": "2026-10-27T19:41:02.927Z",
+    "duration": 9349.051,
+    "expected": 21,
+    "skipped": 6,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "localBrowserNote": "Chromium/WebKit 14 passed, four optional service skips. Linux CI includes Firefox.",
+  "installedNativeAndSourceChecks": {
+    "installedViteExecutorSourceParity": true,
+    "installedSingleWorkerConcurrentTransforms": true,
+    "installedViteOutputIsolationAndTaskErrorRecovery": true,
+    "installedSparseColourQuantizationBoundaries": 256,
+    "installedWhitePNGCarryParity": true,
+    "installedRuntimeCSSAndCleanDeclarations": true,
+    "installedCanonicalURLReferenceParity": true,
+    "installedURLSourceMatchesRelease": true,
+    "installedSharedBuildSourceIsolation": true,
+    "bytes": 14838,
+    "sha256": "1d90bc558b23dac70acaba533251d5eb779e5c40e8a5cbd641cd9c39d68758de",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "installedThumbHashEncodeDecodePNGReferenceParity": true,
+    "seededCases": 20,
+    "ownedPixelOutput": true,
+    "runtimeThumbHashDependencyRemoved": true,
+    "runtimeBlurHashDependencyRemoved": true,
+    "installedBlurHashEncodeDecodeReferenceParity": true,
+    "installedReadmeMatchesReleaseSource": true
+  },
+  "registryArchiveConsumers": [
+    {
+      "measuredAt": "2026-10-27T19:47:18.988Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.9.tgz",
+      "packageVersion": "3.1.9",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4919.174625,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "blurhash"
+    },
+    {
+      "measuredAt": "2026-10-27T19:47:24.373Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.9.tgz",
+      "packageVersion": "3.1.9",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4723.929042000001,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "thumbhash"
+    }
+  ],
+  "consumerLockIntegrityMatchesRegistry": true,
+  "cacheCompatibility": "Exact reviewed processing fingerprint only; seven valid-cache upgrade trials preserve 198 transform and 24 preview entries and all 156 image paths/bytes. Further same-root pair verifies all 158 output files by path and digest.",
+  "priorCI": "Run 40566825182 cancelled while superseded; 40568252933 passed but was superseded by the cache-compatibility source.",
+  "under2000GzipAchieved": false,
+  "buildAndRssLeadershipEstablished": false
+}
