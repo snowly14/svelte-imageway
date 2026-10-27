@@ -1,0 +1,7 @@
+{
+  "selectedVersion": "3.1.9",
+  "sourceAndNodeFilesMatchMeasuredCandidate": true,
+  "pipelineRevision": "e3c96d43f9d137a68e28d89852216013ea7cb0f1868dc184df2a4331b380b03a",
+  "clientCountsMatchPreReleasePeriod": true,
+  "note": "The frozen candidate predates the component cached-load short circuit; the final client period measured the final component sources. Version constant is used only by the CLI."
+}

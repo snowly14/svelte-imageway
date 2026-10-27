@@ -1,0 +1,41 @@
+[
+  {
+    "scenario": "Image",
+    "before": {
+      "jsGzipBytes": 18350,
+      "cssGzipBytes": 196,
+      "totalGzipBytes": 18546
+    },
+    "after": {
+      "jsGzipBytes": 18338,
+      "cssGzipBytes": 196,
+      "totalGzipBytes": 18534
+    }
+  },
+  {
+    "scenario": "Picture",
+    "before": {
+      "jsGzipBytes": 20126,
+      "cssGzipBytes": 196,
+      "totalGzipBytes": 20322
+    },
+    "after": {
+      "jsGzipBytes": 20109,
+      "cssGzipBytes": 196,
+      "totalGzipBytes": 20305
+    }
+  },
+  {
+    "scenario": "Both",
+    "before": {
+      "jsGzipBytes": 20455,
+      "cssGzipBytes": 196,
+      "totalGzipBytes": 20651
+    },
+    "after": {
+      "jsGzipBytes": 20441,
+      "cssGzipBytes": 196,
+      "totalGzipBytes": 20637
+    }
+  }
+]

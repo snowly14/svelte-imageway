@@ -10,7 +10,7 @@ Seven paired ordinary default-import builds retain all **156 files / 19,317,212 
 
 Headless attribute and SSR comparisons retain small regressions alongside gains. Complete SSR HTML matches byte-for-byte; Image App **77.57→77.65 µs**, Picture **84.75→83.40**, Both **153.77→152.03**. Two component restructuring prototypes grew one or both entries and were rejected with source/results retained. The fixed-memory Rust module and consumer toolchain are unchanged; a native wrapper for the small JS control-path edits has no measured justification.
 
-Local lint, strict TS/Svelte, **314 tests**, coverage, independent native rebuild and Chromium/WebKit **14 pass / four optional-service skips** pass. Final release packaging, exact-source CI, registry consumers and publication verification remain pending. The Mac shutdown remains cancelled.
+Local lint, strict TS/Svelte, **314 tests**, coverage, independent native rebuild, package/ATTW declarations and exports, tightened JS+CSS budgets, both packed consumers and Chromium/WebKit **14 pass / four optional-service skips** pass. Six strict hydration/no-JS fixtures also pass after the version bump. Exact-source CI, actual registry consumers and publication verification remain pending. The Mac shutdown remains cancelled.
 
 # 3.1.8 component, Rust and build executor work — 27 October 2026
 
