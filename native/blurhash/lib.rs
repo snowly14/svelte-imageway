@@ -196,7 +196,7 @@ pub extern "C" fn rgba_png(width: u32, height: u32) -> u32 {
                 let value = PIXELS[y * width as usize * 4 + x];
                 PNG[offset] = value;
                 offset += 1;
-                a = (a + value as u32) % 65521;
+                a += value as u32;
                 b += a;
             }
             // At most 129 bytes per row: a < 98300 and b < 13 million.
@@ -362,20 +362,25 @@ pub extern "C" fn dominant_colour(width: u32, height: u32) -> u32 {
     // SAFETY: validated dimensions bound RGBA reads; quantized channels bound bins.
     // Each synchronous call owns this instance and resets its fixed histogram.
     unsafe {
-        for bin in 0..4096 {
-            HISTOGRAM[bin] = 0;
-        }
-        for pixel in 0..(width * height) as usize {
-            let offset = pixel * 4;
-            let r = PIXELS[offset] as usize * 16 / 257;
-            let g = PIXELS[offset + 1] as usize * 16 / 257;
-            let b = PIXELS[offset + 2] as usize * 16 / 257;
-            HISTOGRAM[(r << 8) | (g << 4) | b] += 1;
-        }
-        let mut maximum = 0;
+        // At most one distinct bin per pixel. All scratch fits in the existing
+        // fixed stack; reset touched bins before either unique or tied returns.
+        let mut touched = [0_u16; 1024];
+        let mut used = 0;
+        let mut maximum = 0_u16;
         let mut winner = 0;
         let mut tied = false;
-        for bin in 0..4096 {
+        for pixel in 0..(width * height) as usize {
+            let offset = pixel * 4;
+            // For each u8, floor(v*16/257) equals saturating_sub(v,1)/16.
+            let r = PIXELS[offset].saturating_sub(1) as usize >> 4;
+            let g = PIXELS[offset + 1].saturating_sub(1) as usize >> 4;
+            let b = PIXELS[offset + 2].saturating_sub(1) as usize >> 4;
+            let bin = (r << 8) | (g << 4) | b;
+            if HISTOGRAM[bin] == 0 {
+                touched[used] = bin as u16;
+                used += 1;
+            }
+            HISTOGRAM[bin] += 1;
             let count = HISTOGRAM[bin];
             if count > maximum {
                 maximum = count;
@@ -384,6 +389,9 @@ pub extern "C" fn dominant_colour(width: u32, height: u32) -> u32 {
             } else if count == maximum {
                 tied = true;
             }
+        }
+        for i in 0..used {
+            HISTOGRAM[touched[i] as usize] = 0;
         }
         if tied {
             return 0;

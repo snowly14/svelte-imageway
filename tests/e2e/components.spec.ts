@@ -176,3 +176,27 @@ test('responsive backgrounds follow media queries instead of an inline base imag
   await page.setViewportSize({ width: 400, height: 700 });
   await expect(background).toHaveCSS('background-image', /base\.png/);
 });
+
+test('shared image styles remain isolated from ordinary images', async ({ page }) => {
+  await page.goto('/');
+  const library = page.getByTestId('hero');
+  await expect(library).toHaveClass(/imageway-image/);
+  const outside = await page.evaluate(() => {
+    const image = document.createElement('img');
+    image.className = 'ready fade';
+    image.style.backgroundColor = 'rgb(255, 0, 0)';
+    image.style.backgroundImage = 'linear-gradient(red, red)';
+    document.body.append(image);
+    const style = getComputedStyle(image);
+    const result = {
+      color: style.backgroundColor,
+      background: style.backgroundImage,
+      animation: style.animationName,
+    };
+    image.remove();
+    return result;
+  });
+  expect(outside.color).toBe('rgb(255, 0, 0)');
+  expect(outside.background).toContain('gradient');
+  expect(outside.animation).toBe('none');
+});

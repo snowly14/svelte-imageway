@@ -5,11 +5,18 @@ const root = 'packages/svelte-imageway/dist';
 // NodeNext resolves arbitrary-extension declarations as *.d.svelte.ts; bundlers also
 // accept svelte-package's *.svelte.d.ts. Ship both without changing component sources.
 for (const name of await readdir(join(root, 'components'))) {
-  if (name.endsWith('.svelte.d.ts'))
+  if (name.endsWith('.svelte.d.ts')) {
+    const declaration = join(root, 'components', name);
+    // The stylesheet is a runtime side effect with no declaration symbols.
+    // Keep it in component sources, but do not make NodeNext resolve CSS in types.
+    const source = await readFile(declaration, 'utf8');
+    const cleaned = source.replace(/^import ['"]\.\.\/image\.css['"];?\r?\n/gm, '');
+    if (cleaned !== source) await writeFile(declaration, cleaned);
     await copyFile(
-      join(root, 'components', name),
+      declaration,
       join(root, 'components', name.replace('.svelte.d.ts', '.d.svelte.ts')),
     );
+  }
 }
 await chmod(join(root, 'cli/index.js'), 0o755);
 // Any public type entry activates the narrowly scoped image-query declarations.

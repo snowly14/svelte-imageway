@@ -1,15 +1,24 @@
 <script lang="ts">
+  import '../image.css';
   import { getImageProps } from '../props.js';
   import { getImageConfig } from '../context.js';
   import type { PictureProps as Props } from '../component-types.js';
-  let props: Props = $props();
+  let {
+    sources: explicitSources,
+    source,
+    loading,
+    error,
+    loadingContent,
+    errorContent,
+    ...props
+  }: Props = $props();
   const config = getImageConfig();
   const image = $derived.by(() => {
     return getImageProps({
       ...props,
       config,
       formatStrategy: 'picture',
-      loading: typeof props.loading === 'string' ? props.loading : undefined,
+      loading: typeof loading === 'string' ? loading : undefined,
     });
   });
   const attributes = $derived.by(() => {
@@ -18,7 +27,7 @@
     void placeholder;
     return native;
   });
-  const sources = $derived(props.sources ?? image.sources);
+  const sources = $derived(explicitSources ?? image.sources);
   const preload = $derived(sources[0]);
   let element: HTMLImageElement;
   let loaded = $state(false);
@@ -34,7 +43,7 @@
 </script>
 
 <svelte:head>
-  {#if props.priority && !props.source}
+  {#if props.priority && !source}
     <link
       rel="preload"
       as="image"
@@ -58,10 +67,11 @@
       height={item.height}
     />
   {/each}
-  {@render props.source?.()}
+  {@render source?.()}
   <img
     {...attributes}
     bind:this={element}
+    class:imageway-image={true}
     class:ready={loaded}
     class:fade={animate}
     onload={(event) => {
@@ -79,35 +89,7 @@
   />
 </picture>
 {@render (failed
-  ? (props.errorContent ?? props.error)
+  ? (errorContent ?? error)
   : !loaded
-    ? (props.loadingContent ?? (typeof props.loading === 'function' ? props.loading : undefined))
+    ? (loadingContent ?? (typeof loading === 'function' ? loading : undefined))
     : undefined)?.()}
-
-<style>
-  img {
-    transition: background-color 180ms ease;
-  }
-  img.ready {
-    background-image: none !important;
-    background-color: transparent !important;
-  }
-  img.fade {
-    animation: imageway-reveal 180ms ease;
-  }
-  @keyframes imageway-reveal {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    img,
-    img.fade {
-      transition: none;
-      animation: none;
-    }
-  }
-</style>

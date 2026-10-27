@@ -11,11 +11,26 @@ import type {
 } from '../packages/svelte-imageway/src/lib/component-types.js';
 let component: Component<ImageProps>;
 let picture: Component<PictureProps>;
+let metadata: Component;
 beforeAll(async () => {
   await mkdir('.local', { recursive: true });
   await writeFile(
+    '.local/metadata-ssr.svelte',
+    `<script>
+import Image from '../packages/svelte-imageway/src/lib/components/Image.svelte';
+import Picture from '../packages/svelte-imageway/src/lib/components/Picture.svelte';
+const image={src:'/metadata.jpg',width:16,height:10,sources:[],aspectRatio:1.6};
+</script>
+{#snippet waiting()}<span data-waiting>Waiting</span>{/snippet}
+{#snippet failed()}<span data-failed>Failed</span>{/snippet}
+{#snippet customSource()}<source srcset='/art.webp 320w' type='image/webp'/>{/snippet}
+<Image src={image} alt='Image metadata' loading={waiting} errorContent={failed} data-photo='image' class='native-user-class' />
+<Picture src={image} alt='Picture metadata' sources={[{type:'image/avif',srcset:'/art.avif 320w'}]} source={customSource} loadingContent={waiting} error={failed} data-photo='picture' priority/>
+`,
+  );
+  await writeFile(
     '.local/image-ssr-entry.ts',
-    'export {default as Image} from "../packages/svelte-imageway/src/lib/components/Image.svelte"; export {default as Picture} from "../packages/svelte-imageway/src/lib/components/Picture.svelte";',
+    'export {default as Metadata} from "./metadata-ssr.svelte"; export {default as Image} from "../packages/svelte-imageway/src/lib/components/Image.svelte"; export {default as Picture} from "../packages/svelte-imageway/src/lib/components/Picture.svelte";',
   );
   await build({
     configFile: false,
@@ -33,6 +48,7 @@ beforeAll(async () => {
   const bundle = await import(new URL('../.local/image-ssr-test/image.mjs', import.meta.url).href);
   component = bundle.Image;
   picture = bundle.Picture;
+  metadata = bundle.Metadata;
 });
 const image = {
   img: {
@@ -91,4 +107,19 @@ it('Picture preserves explicit sources and preloads its first format during SSR'
   expect(body).toContain('type="image/webp"');
   expect(body).toContain('src="/large.jpg"');
   expect(head).toContain('imagesrcset="/small.webp 320w, /large.webp 640w"');
+});
+
+it('SSR filters Svelte metadata while preserving native data attrs, loading snippets and custom picture sources', () => {
+  const { body, head } = render(metadata);
+  expect(body.match(/data-waiting/g)).toHaveLength(2);
+  expect(body).not.toContain('data-failed');
+  expect(body).toContain('data-photo="image"');
+  expect(body).toContain('native-user-class');
+  expect(body).toContain('data-photo="picture"');
+  expect(body).toContain('/art.webp 320w');
+  expect(body).toContain('/art.avif 320w');
+  for (const name of ['sources', 'source', 'loadingContent', 'errorContent', 'error'])
+    expect(body).not.toContain(` ${name}=`);
+  expect(body).not.toContain('loading="function');
+  expect(head).not.toContain('rel="preload"');
 });

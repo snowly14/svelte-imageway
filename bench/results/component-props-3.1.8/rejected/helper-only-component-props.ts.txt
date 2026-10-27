@@ -1,0 +1,21 @@
+import { getImageProps, type ImageContextConfig, type ImageOptions } from './props.js';
+import type { PictureProps } from './component-types.js';
+/** Filter Svelte metadata on the component path, keeping headless options lean. */
+export function componentImageProps(
+  props: PictureProps,
+  config: ImageContextConfig,
+  strategy: 'img' | 'picture',
+) {
+  const { sources, source, error, loadingContent, errorContent, loading, ...native } = props;
+  void sources;
+  void source;
+  void error;
+  void loadingContent;
+  void errorContent;
+  // The rest object is private: never mutate the caller or a Svelte props proxy.
+  const options: ImageOptions = native;
+  options.config = config;
+  options.formatStrategy = strategy;
+  options.loading = typeof loading === 'string' ? loading : undefined;
+  return getImageProps(options);
+}

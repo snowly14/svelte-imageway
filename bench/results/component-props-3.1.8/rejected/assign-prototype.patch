@@ -1,0 +1,121 @@
+diff --git a/packages/svelte-imageway/src/lib/components/Image.svelte b/packages/svelte-imageway/src/lib/components/Image.svelte
+index ea274e8..61acdc6 100644
+--- a/packages/svelte-imageway/src/lib/components/Image.svelte
++++ b/packages/svelte-imageway/src/lib/components/Image.svelte
+@@ -1,5 +1,5 @@
+ <script lang="ts">
+-  import { getImageProps } from '../props.js';
++  import { componentImageProps } from '../component-props.js';
+   import { getImageConfig } from '../context.js';
+   import type { ImageProps as Props } from '../component-types.js';
+   import { invariant } from '../core/errors.js';
+@@ -17,12 +17,7 @@
+       sources: unusedSources,
+       placeholder,
+       ...native
+-    } = getImageProps({
+-      ...props,
+-      config,
+-      formatStrategy: 'img',
+-      loading: typeof props.loading === 'string' ? props.loading : undefined,
+-    });
++    } = componentImageProps(props, config, 'img');
+     void unusedSources;
+     void placeholder;
+     return native;
+diff --git a/packages/svelte-imageway/src/lib/components/Picture.svelte b/packages/svelte-imageway/src/lib/components/Picture.svelte
+index 9f4340c..9ddbc3a 100644
+--- a/packages/svelte-imageway/src/lib/components/Picture.svelte
++++ b/packages/svelte-imageway/src/lib/components/Picture.svelte
+@@ -1,16 +1,11 @@
+ <script lang="ts">
+-  import { getImageProps } from '../props.js';
++  import { componentImageProps } from '../component-props.js';
+   import { getImageConfig } from '../context.js';
+   import type { PictureProps as Props } from '../component-types.js';
+   let props: Props = $props();
+   const config = getImageConfig();
+   const image = $derived.by(() => {
+-    return getImageProps({
+-      ...props,
+-      config,
+-      formatStrategy: 'picture',
+-      loading: typeof props.loading === 'string' ? props.loading : undefined,
+-    });
++    return componentImageProps(props, config, 'picture');
+   });
+   const attributes = $derived.by(() => {
+     const { sources, placeholder, ...native } = image;
+diff --git a/packages/svelte-imageway/src/lib/props.ts b/packages/svelte-imageway/src/lib/props.ts
+index 6436499..a4e09f8 100644
+--- a/packages/svelte-imageway/src/lib/props.ts
++++ b/packages/svelte-imageway/src/lib/props.ts
+@@ -71,11 +71,6 @@ export function getImageProps(
+     'Image alt is required; use alt="" for decorative images.',
+   );
+   const {
+-    sources: componentSources,
+-    source: componentSource,
+-    error: componentError,
+-    loadingContent,
+-    errorContent,
+     src,
+     priority,
+     provider: explicit,
+@@ -88,13 +83,7 @@ export function getImageProps(
+     transitionName,
+     contentVisibility,
+     ...native
+-  } = options as ImageOptions &
+-    Partial<Record<'sources' | 'source' | 'error' | 'loadingContent' | 'errorContent', unknown>>;
+-  void componentSources;
+-  void componentSource;
+-  void componentError;
+-  void loadingContent;
+-  void errorContent;
++  } = options;
+   const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
+   const nativeOnly = strategy === 'img';
+   const artifact = resolveImageArtifact(src);
+@@ -175,21 +164,17 @@ export function getImageProps(
+   const cssPosition = ['entropy', 'attention'].includes(position)
+     ? 'center'
+     : position.replace('-', ' ');
+-  const style = [
+-    `max-width:100%;height:auto;object-fit:${cssFit};object-position:${cssPosition}`,
+-    width && height ? `aspect-ratio:${width}/${height}` : '',
+-    `background-color:${color}`,
+-    safePreview ? `background-image:url("${safePreview}");background-size:cover` : '',
+-    transitionName && /^[a-zA-Z_][\w-]*$/.test(transitionName)
+-      ? `view-transition-name:${transitionName}`
+-      : '',
+-    contentVisibility ? `content-visibility:${contentVisibility}` : '',
+-    native.style,
+-  ]
+-    .filter(Boolean)
+-    .join(';');
+-  return {
+-    ...native,
++  const style =
++    `max-width:100%;height:auto;object-fit:${cssFit};object-position:${cssPosition}` +
++    (width && height ? `;aspect-ratio:${width}/${height}` : '') +
++    `;background-color:${color}` +
++    (safePreview ? `;background-image:url("${safePreview}");background-size:cover` : '') +
++    (transitionName && /^[a-zA-Z_][\w-]*$/.test(transitionName)
++      ? `;view-transition-name:${transitionName}`
++      : '') +
++    (contentVisibility ? `;content-visibility:${contentVisibility}` : '') +
++    (native.style ? `;${native.style}` : '');
++  return Object.assign(native, {
+     src: fallback,
+     srcset,
+     sources,
+@@ -201,7 +186,7 @@ export function getImageProps(
+     fetchpriority: priority ? 'high' : (options.fetchpriority ?? 'auto'),
+     style,
+     placeholder: safePreview,
+-  };
++  });
+ }
+ function selectProvider(src: string, config: ImageContextConfig): ImageProvider | undefined {
+   const providers = config.providers;

@@ -1,0 +1,25 @@
+img.imageway-image {
+  transition: background-color 180ms ease;
+}
+img.imageway-image.ready {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+img.imageway-image.fade {
+  animation: imageway-reveal 180ms ease;
+}
+@keyframes imageway-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  img.imageway-image,
+  img.imageway-image.fade {
+    transition: none;
+    animation: none;
+  }
+}

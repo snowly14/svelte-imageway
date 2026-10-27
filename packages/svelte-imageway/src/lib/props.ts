@@ -46,20 +46,21 @@ export interface ImageOptions extends Omit<
 export function imageSizes(sizes = '100vw', lazy = true): string {
   if (sizes.startsWith('auto') && !lazy) return sizes.replace(/^auto\s*,?\s*/, '') || '100vw';
   if (!/\b(?:sm|md|lg|xl):/.test(sizes)) return sizes;
-  const breakpoints: Record<string, number> = { sm: 640, md: 768, lg: 1024, xl: 1280 };
-  return (
-    sizes
-      .trim()
-      .split(/\s+/)
-      .reverse()
-      .map((token) => {
-        const [name, value] = token.split(':');
-        return value && breakpoints[name!]
-          ? `(min-width: ${breakpoints[name!]}px) ${value}`
-          : token;
-      })
-      .join(', ') + ', 100vw'
-  );
+  // Ignore inherited names such as constructor when expanding mixed shorthand.
+  const breakpoints: Record<string, number | null> = {
+    __proto__: null,
+    sm: 640,
+    md: 768,
+    lg: 1024,
+    xl: 1280,
+  };
+  let result = '100vw';
+  for (const token of sizes.trim().split(/\s+/)) {
+    const [name, value] = token.split(':');
+    const min = breakpoints[name!];
+    result = (value && min ? `(min-width: ${min}px) ${value}` : token) + ', ' + result;
+  }
+  return result;
 }
 /** Compute native attributes without touching browser globals. */
 export function getImageProps(
@@ -71,11 +72,6 @@ export function getImageProps(
     'Image alt is required; use alt="" for decorative images.',
   );
   const {
-    sources: componentSources,
-    source: componentSource,
-    error: componentError,
-    loadingContent,
-    errorContent,
     src,
     priority,
     provider: explicit,
@@ -88,13 +84,7 @@ export function getImageProps(
     transitionName,
     contentVisibility,
     ...native
-  } = options as ImageOptions &
-    Partial<Record<'sources' | 'source' | 'error' | 'loadingContent' | 'errorContent', unknown>>;
-  void componentSources;
-  void componentSource;
-  void componentError;
-  void loadingContent;
-  void errorContent;
+  } = options;
   const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
   const nativeOnly = strategy === 'img';
   const artifact = resolveImageArtifact(src);
@@ -135,20 +125,24 @@ export function getImageProps(
                 (!provider.capabilities.maxWidthByFormat?.[v] ||
                   Math.max(...widths) <= provider.capabilities.maxWidthByFormat[v]!),
             );
+      const fallbackWidth = width ?? 1920;
       const fallbackFormat =
-        nativeOnly && formats.includes('webp')
+        (nativeOnly && formats.includes('webp')
           ? 'webp'
           : formats.includes('jpeg')
             ? 'jpeg'
-            : formats.at(-1);
+            : formats.at(-1)) ?? 'auto';
+      const buildUrl = (w: number, format: OutputFormat | 'auto') =>
+        provider.buildUrl({ ...request, w, format });
+      fallback = buildUrl(fallbackWidth, fallbackFormat);
       const srcsetFor = (format: OutputFormat | 'auto') =>
-        widths.map((w) => `${provider.buildUrl({ ...request, w, format })} ${w}w`).join(', ');
-      fallback = provider.buildUrl({
-        ...request,
-        w: width ?? 1920,
-        format: fallbackFormat ?? 'auto',
-      });
-      srcset = srcsetFor(fallbackFormat ?? 'auto');
+        widths
+          .map(
+            (w) =>
+              `${w === fallbackWidth && format === fallbackFormat ? fallback : buildUrl(w, format)} ${w}w`,
+          )
+          .join(', ');
+      srcset = srcsetFor(fallbackFormat);
       sources = (nativeOnly ? [] : formats)
         .filter((v) => v !== fallbackFormat)
         .map((format) => ({ type: `image/${format}`, srcset: srcsetFor(format) }));
@@ -166,28 +160,22 @@ export function getImageProps(
     preview && /^data:image\/(?:webp|png|jpeg);base64,[a-zA-Z0-9+/]+=*$/.test(preview)
       ? preview
       : undefined;
-  const color = disabled
-    ? 'transparent'
-    : artifact?.dominantColor && /^#[a-f\d]{6,8}$/i.test(artifact.dominantColor)
-      ? artifact.dominantColor
-      : 'transparent';
+  const dominantColor = !disabled && artifact?.dominantColor;
+  const color =
+    dominantColor && /^#[a-f\d]{6,8}$/i.test(dominantColor) ? dominantColor : 'transparent';
   const cssFit = fit === 'inside' ? 'contain' : fit === 'outside' ? 'cover' : fit;
-  const cssPosition = ['entropy', 'attention'].includes(position)
-    ? 'center'
-    : position.replace('-', ' ');
-  const style = [
-    `max-width:100%;height:auto;object-fit:${cssFit};object-position:${cssPosition}`,
-    width && height ? `aspect-ratio:${width}/${height}` : '',
-    `background-color:${color}`,
-    safePreview ? `background-image:url("${safePreview}");background-size:cover` : '',
-    transitionName && /^[a-zA-Z_][\w-]*$/.test(transitionName)
-      ? `view-transition-name:${transitionName}`
-      : '',
-    contentVisibility ? `content-visibility:${contentVisibility}` : '',
-    native.style,
-  ]
-    .filter(Boolean)
-    .join(';');
+  const cssPosition =
+    position === 'entropy' || position === 'attention' ? 'center' : position.replace('-', ' ');
+  const style =
+    `max-width:100%;height:auto;object-fit:${cssFit};object-position:${cssPosition}` +
+    (width && height ? `;aspect-ratio:${width}/${height}` : '') +
+    `;background-color:${color}` +
+    (safePreview ? `;background-image:url("${safePreview}");background-size:cover` : '') +
+    (transitionName && /^[a-zA-Z_][\w-]*$/.test(transitionName)
+      ? `;view-transition-name:${transitionName}`
+      : '') +
+    (contentVisibility ? `;content-visibility:${contentVisibility}` : '') +
+    (native.style ? `;${native.style}` : '');
   return {
     ...native,
     src: fallback,

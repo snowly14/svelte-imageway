@@ -4,7 +4,9 @@
   "description": "One image model for Svelte 5: builds, providers, a self-hosted service, and publication.",
   "type": "module",
   "license": "MIT",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
     "README.md",

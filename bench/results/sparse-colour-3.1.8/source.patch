@@ -1,0 +1,125 @@
+diff --git a/native/blurhash/lib.rs b/native/blurhash/lib.rs
+index 19f574b..36563f7 100644
+--- a/native/blurhash/lib.rs
++++ b/native/blurhash/lib.rs
+@@ -196,7 +196,7 @@ pub extern "C" fn rgba_png(width: u32, height: u32) -> u32 {
+                 let value = PIXELS[y * width as usize * 4 + x];
+                 PNG[offset] = value;
+                 offset += 1;
+-                a = (a + value as u32) % 65521;
++                a += value as u32;
+                 b += a;
+             }
+             // At most 129 bytes per row: a < 98300 and b < 13 million.
+@@ -362,20 +362,25 @@ pub extern "C" fn dominant_colour(width: u32, height: u32) -> u32 {
+     // SAFETY: validated dimensions bound RGBA reads; quantized channels bound bins.
+     // Each synchronous call owns this instance and resets its fixed histogram.
+     unsafe {
+-        for bin in 0..4096 {
+-            HISTOGRAM[bin] = 0;
+-        }
+-        for pixel in 0..(width * height) as usize {
+-            let offset = pixel * 4;
+-            let r = PIXELS[offset] as usize * 16 / 257;
+-            let g = PIXELS[offset + 1] as usize * 16 / 257;
+-            let b = PIXELS[offset + 2] as usize * 16 / 257;
+-            HISTOGRAM[(r << 8) | (g << 4) | b] += 1;
+-        }
+-        let mut maximum = 0;
++        // At most one distinct bin per pixel. All scratch fits in the existing
++        // fixed stack; reset touched bins before either unique or tied returns.
++        let mut touched = [0_u16; 1024];
++        let mut used = 0;
++        let mut maximum = 0_u16;
+         let mut winner = 0;
+         let mut tied = false;
+-        for bin in 0..4096 {
++        for pixel in 0..(width * height) as usize {
++            let offset = pixel * 4;
++            // For each u8, floor(v*16/257) equals saturating_sub(v,1)/16.
++            let r = PIXELS[offset].saturating_sub(1) as usize >> 4;
++            let g = PIXELS[offset + 1].saturating_sub(1) as usize >> 4;
++            let b = PIXELS[offset + 2].saturating_sub(1) as usize >> 4;
++            let bin = (r << 8) | (g << 4) | b;
++            if HISTOGRAM[bin] == 0 {
++                touched[used] = bin as u16;
++                used += 1;
++            }
++            HISTOGRAM[bin] += 1;
+             let count = HISTOGRAM[bin];
+             if count > maximum {
+                 maximum = count;
+@@ -385,6 +390,9 @@ pub extern "C" fn dominant_colour(width: u32, height: u32) -> u32 {
+                 tied = true;
+             }
+         }
++        for i in 0..used {
++            HISTOGRAM[touched[i] as usize] = 0;
++        }
+         if tied {
+             return 0;
+         }
+diff --git a/native/blurhash/manifest.json b/native/blurhash/manifest.json
+index 0018336..cd86942 100644
+--- a/native/blurhash/manifest.json
++++ b/native/blurhash/manifest.json
+@@ -1,8 +1,8 @@
+ {
+   "compiler": "rustc 1.99.0",
+   "target": "wasm32-unknown-unknown",
+-  "sourceSha256": "074e4a11d9311fc57b07df51e7540f8758d4041782a8ca2e603906d1cbea039c",
+-  "wasmSha256": "63aaa125c5436f26bffa8b8cbf54f35673e867d793a485a3a4bad076632b794e",
+-  "bytes": 14702,
++  "sourceSha256": "4295a390e75443faf7c37710d4def8c64670f7b2e77ba384d3f59c7193b08461",
++  "wasmSha256": "1d90bc558b23dac70acaba533251d5eb779e5c40e8a5cbd641cd9c39d68758de",
++  "bytes": 14838,
+   "memoryBytes": 65536
+ }
+diff --git a/packages/svelte-imageway/src/lib/node/blurhash.wasm b/packages/svelte-imageway/src/lib/node/blurhash.wasm
+index 7968fa95ac892757a5f7fbbd313432928129be2d..751e027e1ba7cb10c7590b9fa1b12109a92d1d73 100644
+GIT binary patch
+delta 2239
+zcmc&$&x;&I6t3#(uI@=s#{t9YI_SJEBPgP)q8`>u>fnSh$odDk2f>5%2629{?8)xk
+zH5xVQY9r)e2)c?$Vloo&;As&(2r3>u=IB904+=ua_`R;)VP^0gcem-PufMAI-uGU;
+z+TRC%567pacjLutFUcQnZ=dsJl;2z6N7$mZVZ7sREK*e-EFH@`y+l}%`s7(A+=zvD
+zf+UI4CU_cOe*Sv902K_4N8<7Egz5xX>LDSFAS^$*Vf~RU?&*`VGMk0}ko^HbZw~Y~
+z2PU#|WW-7?fBj&$5T=m`(smN|5=|aPa+Fc@lw?q5sg7Z#B4*S8U<7{>b}~_Ycp%+C
+zK4Th$S(m~=KMi@vPp_Ry@+qQ58(}KzXQ`sV=9vi+k;e!`bEGaxsSp=*=q3UDP??EV
+zB!aXBttCDz%8`Zb$`zQE1Jd0@QiK2<Zvs6Rd9_Iil98lOCL)g69EFK|J|^Er(C)hG
+zW7Nc`IGBVG&1XqjK6`eL2C0gXp`w+!^pU!aB`K)2!<iMaEh79K&Y;?KQtmC?CqFE|
+zS~~6_<-aT)JmFiNkwk*=HhNWjavnLhEOoTGD)y(d7G@tG&dML}cp!feRdB|no|S3X
+zl<Yc`wXAT2_bbD+!P7x{#4^*>4u{(01st-6x|#ij+S-oI8Z^`dR%V(c*H%TrX7TB&
+z=_Xtb+dR*5I<hJlzJe7B@0|*^!l7S)>;v7cP--~zGPnWIR~>gE9efF74fxE=79kRz
+zvN?^CqZk>A(ggJ(P#^5+3vjiYG(f2Q%iIY#${Q*!Q+A1~l|nk2nUFl*E#XQ_kaG&{
+zpA+?R8pZ_WvXm2A0g4cGH;J043)1Do%XdAlQ7bSulTWoU_ZQ|tRzBNV&RMcv5@0Rq
+zjnu<_aIH1MiLiGfot58+2pL2f*6ua~&}xZEA)1QdIRawPj^M;b6kH{aqZ|jS)ttQ6
+zK6DIiFPl@99X@nT)bKP9oHKY?X?Cg3@@y`&{TzXCGG3d>5TmXlUY|ohtGW5v1=x|_
+zm_t9U$!{*8j{DXex?gk8IrRIw)b?vH-gfYJHT+Rt)8BFUPltF-f7ij^*6_uez31R7
+zb!lF#+3z{{o0@&0X20*?>r>eIT{0YJc87PdInMe&?QtFs?L_viH@e>|3O-YuzM;8Q
+zaQ;8ooHd!>^6+gAb)j-=YiNs``R-O9g0t#d!zaZB&JpgOl`KtA*~icy>?Zm}U~jHx
+z_OJC*e6!+O;IbcAX~tcO@zv>AEe52jeEv6_s+_p>;ohlk9oQ*QM11?X9nl-$uC7`G
+zPBi`lK;K9<jKYVp>9q~o8Xxh%J_3)MevFax3%m05z-<7xyW>1M*OCJJ<@xQq(X~OX
+iItJE0#&IjFy6^!4l(y5Bs$B0Zm(O*Y*LFI;E&mHgy8qVz
+
+delta 2170
+zcmc&#O=w(I6u$SqpP9*fF9s^4I!f-lC@3OP!3a~39HA*Cgl^q*Exe?~c{7x(d~Xt~
+zvHn$uLN}q<C`H;PBVCA!QbZR)5jWj;=}Hv**+|Flyn83i1lN@?Iq!V$d*}b2`&Z}J
+ze6S|fAFtdxD}Ovv+)=V#s72CRuHv6q&1r5W5hNanNTiB>xwKh|)U%QVmAAz|kx+|T
+zYO!YIaZrE$vImOr7PWX<2=cqsQ)j8s)q-R;h6LRlkQ#?%(anvo{drmW0sokN0@2S>
+zp(PcWk%@>n8bp-__=Rxg!O*-EMrx0RuR|IRy|$@oU)PqKrj7vX%gr=oxndeDmiXNY
+zK7m-$LEg^WFQ<W48h)Bpw7Stu6>P(|SH)_Ou|5I+$T;9+Q5UVK-lg)c*Tz$fr}B2K
+zo#Ppq|0dfxZC%uP|HSO$@`wJJ*~j{qX1{sfqcGEQ&G?WeXo-(6qh=&@K=pGiv2&o!
+zK)X89`ddezECk&ZE%CL*X!pE4CcbjY{)I2D`U~Q7tG*;&5PR-TS(fz$alO)>Ld{-G
+z!&pX04CNw;veY17>!fv7^Rz)svVELFfg_Tsf<&P)8<T$sd0<W@2wj7gnMli1Em5*7
+zyxKEMiG=L2p6NzQFuIEm6y!#Q67pg6Cb%BtrsdWxdIMY^=<AkS45h`dgB<`rKW0Pe
+zFiT^A5P_aTvukOhMH0rf2<X7fY@iZCM0gz2@JeNqx_3zTM|#1Z<AY!Xu&x#{fo$I<
+zTP2_A5VLNkIoc3~K`;Rep0DYQejj?T8l_{7H{qd9jwdR{Tvv8Raq21UW$BcTD?Us_
+zg_b;iVC|V@E&z=4$W%TRN3mx>aK7S@nXdRDLa7+Lj-e2ZW!OgWAj6a;-E<`QcciK>
+zMW)q=a>JagJmGYNvCp1dlenR%MwK%6iMu-9r+_|1@Ql7O);&fo_st3Pn&WOUT4bYf
+zx#q}kO^`ov<O_#TYxwO6bjNYuvFN^=!yRY%T?>Ej;EyVH5zu=U|LFj?w%@n#cMiVd
+zj9;|yt{dAc&iDrw{?@U#9s5HI^AYDBZael7R5(JXH)P~mO+^~^dyfo?xI;tPCe?jH
+zl_ej#7)|V$`vn*OgU@l7#eGko3RD+Wo>}iud9T=9Z=>K`_4Uqz*yjFepXM_xo`4?A
+zus6@)%=>ijbVh%kKAFZ?6>+uw234=IBtWbdHQ$6fJe&}p?~eIzI1LM2UcA0cP^|@@
+z%4(8)XAv`la05DO&owUWfzipT3GrfJa4%vt@w)Ko8AQy7*e4qotn%f<%OE6WInRzS
+uJupAJ+<TPQy1lj7%5$7|NFE;v6rjI9*X*BpIGIl1?O>?|w}x|nKlCrvTLAe0
+

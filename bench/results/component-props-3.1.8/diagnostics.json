@@ -1,0 +1,269 @@
+{
+  "protocol": "Single-build selection diagnostics only, not throughput claims; identical compiler and all reachable Imageway JS/CSS, Svelte externalized, gzip9. Keep regressions and path-identity differences visible. Final selected variant includes shared CSS and provider caching.",
+  "cases": {
+    "workspace-baseline": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6572,
+        "gzipBytes": 2953,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3173,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7254,
+        "gzipBytes": 3096,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3314,
+        "targetBytes": 1536
+      }
+    },
+    "prototype": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6698,
+        "gzipBytes": 2976,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3196,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7385,
+        "gzipBytes": 3124,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3342,
+        "targetBytes": 1536
+      }
+    },
+    "style": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6695,
+        "gzipBytes": 2971,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3191,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7382,
+        "gzipBytes": 3118,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3336,
+        "targetBytes": 1536
+      }
+    },
+    "assign": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6705,
+        "gzipBytes": 2977,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3197,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7392,
+        "gzipBytes": 3127,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3345,
+        "targetBytes": 1536
+      }
+    },
+    "tuple": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6688,
+        "gzipBytes": 2977,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3197,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7370,
+        "gzipBytes": 3118,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3336,
+        "targetBytes": 1536
+      }
+    },
+    "runes": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6600,
+        "gzipBytes": 2944,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3164,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7263,
+        "gzipBytes": 3079,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3297,
+        "targetBytes": 1536
+      }
+    },
+    "sizes": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6620,
+        "gzipBytes": 2957,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3177,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7283,
+        "gzipBytes": 3093,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3311,
+        "targetBytes": 1536
+      }
+    },
+    "sizes-index": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6632,
+        "gzipBytes": 2965,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3185,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7295,
+        "gzipBytes": 3100,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3318,
+        "targetBytes": 1536
+      }
+    },
+    "selected": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6602,
+        "gzipBytes": 2962,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3182,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7282,
+        "gzipBytes": 3104,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3322,
+        "targetBytes": 1536
+      }
+    },
+    "provider": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6573,
+        "gzipBytes": 2978,
+        "gzipLevel": 9,
+        "cssBytes": 408,
+        "cssGzipBytes": 220,
+        "totalGzipBytes": 3198,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7253,
+        "gzipBytes": 3126,
+        "gzipLevel": 9,
+        "cssBytes": 401,
+        "cssGzipBytes": 218,
+        "totalGzipBytes": 3344,
+        "targetBytes": 1536
+      }
+    },
+    "shared-css": {
+      "image": {
+        "entry": "Image.svelte plus all Imageway helpers",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 6562,
+        "gzipBytes": 2983,
+        "gzipLevel": 9,
+        "cssBytes": 378,
+        "cssGzipBytes": 206,
+        "totalGzipBytes": 3189,
+        "targetBytes": 1536
+      },
+      "picture": {
+        "entry": "Picture.svelte",
+        "runtime": "Svelte peer externalized",
+        "rawBytes": 7243,
+        "gzipBytes": 3131,
+        "gzipLevel": 9,
+        "cssBytes": 378,
+        "cssGzipBytes": 206,
+        "totalGzipBytes": 3337,
+        "targetBytes": 1536
+      }
+    }
+  }
+}

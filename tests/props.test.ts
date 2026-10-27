@@ -116,27 +116,94 @@ describe('headless and type contract', () => {
     const invalid: ImageOptions = { ...options, formatStrategy: 'magic' };
     void invalid;
   });
-  it('filters component snippets while preserving native event handlers and data attributes', () => {
+  it('preserves native callbacks and data attributes without mutating frozen options', () => {
     const onload = () => undefined,
       onerror = () => undefined;
-    const options = {
+    const options = Object.freeze({
       src: artifact,
       alt: 'Photo',
       formatStrategy: 'img' as const,
-      sources: [{ type: 'image/webp', srcset: '/alternate.webp' }],
-      source: () => undefined,
-      error: () => undefined,
-      loadingContent: () => undefined,
-      errorContent: () => undefined,
       onload,
       onerror,
       'data-photo': 'hero',
-    };
+    });
     const attributes = getImageProps(options);
     expect(attributes).toMatchObject({ onload, onerror, 'data-photo': 'hero' });
-    for (const key of ['source', 'error', 'loadingContent', 'errorContent'])
-      expect(attributes).not.toHaveProperty(key);
     expect(attributes.sources).toEqual([]);
+    attributes.alt = 'Changed';
+    expect(options.alt).toBe('Photo');
+  });
+  it('expands only supported size tokens and keeps reverse-priority media order', () => {
+    expect(imageSizes('constructor:20vw sm:100vw toString:25vw md:50vw __proto__:30vw')).toBe(
+      '__proto__:30vw, (min-width: 768px) 50vw, toString:25vw, (min-width: 640px) 100vw, constructor:20vw, 100vw',
+    );
+    expect(imageSizes('sm: md:50vw:ignored xl:25vw')).toBe(
+      '(min-width: 1280px) 25vw, (min-width: 768px) 50vw, sm:, 100vw',
+    );
+    expect(imageSizes('auto, 50vw', false)).toBe('50vw');
+  });
+  it('reuses the fallback candidate URL without rebuilding or mutating provider requests', () => {
+    const calls: Array<{ w?: number; format?: string }> = [];
+    const provider: ImageProvider = {
+      name: 'counted',
+      capabilities: {
+        formats: ['jpeg', 'webp'],
+        fit: ['inside'],
+        animation: false,
+        signature: false,
+        smartCrop: false,
+      },
+      validate() {},
+      buildUrl(request) {
+        calls.push({ ...request });
+        return `/photo?w=${request.w}&format=${request.format}&token=${calls.length}`;
+      },
+    };
+    const options = {
+      src: 'https://images.example/photo.jpg',
+      alt: '',
+      width: 640,
+      provider,
+      config: { widths: [320, 320, 960] },
+      formatStrategy: 'img' as const,
+    };
+    const image = getImageProps(options);
+    expect(calls).toHaveLength(2);
+    expect(calls.map((c) => c.w)).toEqual([640, 320]);
+    expect(image.srcset).toContain(`${image.src} 640w`);
+    expect(image.srcset).toContain('320w');
+    expect(options.config.widths).toEqual([320, 320, 960]);
+    calls.length = 0;
+    const picture = getImageProps({ ...options, formatStrategy: 'picture' });
+    expect(calls).toHaveLength(4);
+    expect(picture.srcset).toContain(`${picture.src} 640w`);
+    expect(picture.sources[0]?.type).toBe('image/webp');
+    expect(picture.sources[0]?.srcset).toContain('640w');
+    expect(calls[0]?.format).toBe('jpeg');
+    expect(calls.filter((c) => c.format === 'jpeg' && c.w === 640)).toHaveLength(1);
+  });
+  it('uses a single checked dominant-colour value and preserves exact style ordering', () => {
+    let reads = 0;
+    const src = {
+      ...artifact,
+      get dominantColor() {
+        return ++reads < 3 ? '#123456' : 'red;display:none';
+      },
+    };
+    const image = getImageProps({
+      src,
+      alt: '',
+      fit: 'outside',
+      position: 'top-left',
+      style: 'border:0',
+      transitionName: 'hero',
+      contentVisibility: 'auto',
+    });
+    expect(reads).toBe(1);
+    expect(image.style).toBe(
+      'max-width:100%;height:auto;object-fit:cover;object-position:top left;aspect-ratio:640/400;background-color:#123456;background-image:url("data:image/webp;base64,YWJj");background-size:cover;view-transition-name:hero;content-visibility:auto;border:0',
+    );
+    expect(image.style).not.toContain('display:none');
   });
   it('requires alt including explicit decorative alt, and derives dimensions safely', () => {
     // @ts-expect-error alt is mandatory even for a raw URL.

@@ -1,3 +1,13 @@
+# Unreleased 3.1.8 work — 27 October 2026
+
+Component/headless and bounded Rust preview changes are implemented and locally validated; this is not a publication receipt. [Component study](bench/COMPONENT-PROPS-3.1.8.md), [native/build study](bench/SPARSE-COLOUR-3.1.8.md), [ADR28](docs/adr/0028-component-owned-metadata-and-styles.md), [ADR29](docs/adr/0029-bounded-sparse-colour-and-row-checksums.md).
+
+Seven-round headless medians: relative0.2470->0.1596µs, registered0.2708->0.1794, mapped12.3791->8.4627. Shared CSS reduces the actual combined page41totalgzipbytes; Picture alone grows9bytes, Image saves2. Isolated JS grows to2983/3131bytes, CSS206each; the2000-byte goal is unmet. Preserve extracted-archive/path-dependent baselines and original CSS periods. SSR24-image fixtures improve modestly; no browser-rendering speed claim. Sizes no longer mistakes inherited names for breakpoints; exact custom-style order and checked dominant-colour value are preserved.
+
+Colour2.749->1.230µs, PNG11.378->6.690, completeThumbHashdisplay24.796->20.098, with exact outputs and explicit optimizedJS controls. FullSharp preview differences are tiny/mixed. Rust artifact14702->14838bytes, fixed64KiB, no new ABI or consumer compiler. Default WebP build/RSS remains behind imagetools/enhanced-img; no leadership claim. The one-worker multiplex prototype is explicitly unshippable pending deadline/fault isolation and exists only as a benchmark experiment.
+
+Local lint, strictTS/Svelte,283unit tests, independent Rust rebuild, package/ATTW, both packed consumers, JS+CSS budgets and Chromium/WebKit14pass/4optional-service skips pass. Six SSR/hydration/no-JS page fixtures pass; no stylesheet is emitted for a headless-only root import. Source CI and release are pending. Shutdown remains cancelled.
+
 # 3.1.7 bounded Rust column projection — 26 October 2026
 
 [Full study, protocol, raw results and rejected alternatives](bench/COLUMN-PROJECTION-3.1.7.md). The Rust kernel converts a bounded column to linear RGB once and reuses it across twelve BlurHash coefficients, preserving every accumulation bit. Optimized JS packing avoids repeated base83 string construction and returns owned strings. [ADR 27](docs/adr/0027-bounded-column-projection.md). Public API, quality, SSR/no-JS, alt/snippets/events/preload/reduced-motion and all resource limits remain unchanged.

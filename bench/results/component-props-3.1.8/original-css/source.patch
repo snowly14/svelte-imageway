@@ -1,0 +1,433 @@
+diff --git a/packages/svelte-imageway/src/lib/components/Image.svelte b/packages/svelte-imageway/src/lib/components/Image.svelte
+index ea274e8..763fbab 100644
+--- a/packages/svelte-imageway/src/lib/components/Image.svelte
++++ b/packages/svelte-imageway/src/lib/components/Image.svelte
+@@ -3,15 +3,22 @@
+   import { getImageConfig } from '../context.js';
+   import type { ImageProps as Props } from '../component-types.js';
+   import { invariant } from '../core/errors.js';
+-  let props: Props = $props();
++  let {
++    sources,
++    source,
++    formatStrategy,
++    loading,
++    error,
++    loadingContent,
++    errorContent,
++    ...props
++  }: Props = $props();
+   const config = getImageConfig();
+   const attributes = $derived.by(() => {
+     invariant(
+-      props.sources === undefined &&
+-        props.source === undefined &&
+-        props.formatStrategy === undefined,
++      sources === undefined && source === undefined && formatStrategy === undefined,
+       'PICTURE_REQUIRED',
+-      'Use Picture for sources, source snippets or picture format strategy.',
++      'Use Picture for sources, source, or formatStrategy.',
+     );
+     const {
+       sources: unusedSources,
+@@ -21,7 +28,7 @@
+       ...props,
+       config,
+       formatStrategy: 'img',
+-      loading: typeof props.loading === 'string' ? props.loading : undefined,
++      loading: typeof loading === 'string' ? loading : undefined,
+     });
+     void unusedSources;
+     void placeholder;
+@@ -69,9 +76,9 @@
+   }}
+ />
+ {@render (failed
+-  ? (props.errorContent ?? props.error)
++  ? (errorContent ?? error)
+   : !loaded
+-    ? (props.loadingContent ?? (typeof props.loading === 'function' ? props.loading : undefined))
++    ? (loadingContent ?? (typeof loading === 'function' ? loading : undefined))
+     : undefined)?.()}
+ 
+ <style>
+diff --git a/packages/svelte-imageway/src/lib/components/Picture.svelte b/packages/svelte-imageway/src/lib/components/Picture.svelte
+index 9f4340c..ba44828 100644
+--- a/packages/svelte-imageway/src/lib/components/Picture.svelte
++++ b/packages/svelte-imageway/src/lib/components/Picture.svelte
+@@ -2,14 +2,22 @@
+   import { getImageProps } from '../props.js';
+   import { getImageConfig } from '../context.js';
+   import type { PictureProps as Props } from '../component-types.js';
+-  let props: Props = $props();
++  let {
++    sources: explicitSources,
++    source,
++    loading,
++    error,
++    loadingContent,
++    errorContent,
++    ...props
++  }: Props = $props();
+   const config = getImageConfig();
+   const image = $derived.by(() => {
+     return getImageProps({
+       ...props,
+       config,
+       formatStrategy: 'picture',
+-      loading: typeof props.loading === 'string' ? props.loading : undefined,
++      loading: typeof loading === 'string' ? loading : undefined,
+     });
+   });
+   const attributes = $derived.by(() => {
+@@ -18,7 +26,7 @@
+     void placeholder;
+     return native;
+   });
+-  const sources = $derived(props.sources ?? image.sources);
++  const sources = $derived(explicitSources ?? image.sources);
+   const preload = $derived(sources[0]);
+   let element: HTMLImageElement;
+   let loaded = $state(false);
+@@ -34,7 +42,7 @@
+ </script>
+ 
+ <svelte:head>
+-  {#if props.priority && !props.source}
++  {#if props.priority && !source}
+     <link
+       rel="preload"
+       as="image"
+@@ -58,7 +66,7 @@
+       height={item.height}
+     />
+   {/each}
+-  {@render props.source?.()}
++  {@render source?.()}
+   <img
+     {...attributes}
+     bind:this={element}
+@@ -79,9 +87,9 @@
+   />
+ </picture>
+ {@render (failed
+-  ? (props.errorContent ?? props.error)
++  ? (errorContent ?? error)
+   : !loaded
+-    ? (props.loadingContent ?? (typeof props.loading === 'function' ? props.loading : undefined))
++    ? (loadingContent ?? (typeof loading === 'function' ? loading : undefined))
+     : undefined)?.()}
+ 
+ <style>
+diff --git a/packages/svelte-imageway/src/lib/props.ts b/packages/svelte-imageway/src/lib/props.ts
+index 6436499..7b16c7f 100644
+--- a/packages/svelte-imageway/src/lib/props.ts
++++ b/packages/svelte-imageway/src/lib/props.ts
+@@ -46,20 +46,21 @@ export interface ImageOptions extends Omit<
+ export function imageSizes(sizes = '100vw', lazy = true): string {
+   if (sizes.startsWith('auto') && !lazy) return sizes.replace(/^auto\s*,?\s*/, '') || '100vw';
+   if (!/\b(?:sm|md|lg|xl):/.test(sizes)) return sizes;
+-  const breakpoints: Record<string, number> = { sm: 640, md: 768, lg: 1024, xl: 1280 };
+-  return (
+-    sizes
+-      .trim()
+-      .split(/\s+/)
+-      .reverse()
+-      .map((token) => {
+-        const [name, value] = token.split(':');
+-        return value && breakpoints[name!]
+-          ? `(min-width: ${breakpoints[name!]}px) ${value}`
+-          : token;
+-      })
+-      .join(', ') + ', 100vw'
+-  );
++  // Ignore inherited names such as constructor when expanding mixed shorthand.
++  const breakpoints: Record<string, number | null> = {
++    __proto__: null,
++    sm: 640,
++    md: 768,
++    lg: 1024,
++    xl: 1280,
++  };
++  let result = '100vw';
++  for (const token of sizes.trim().split(/\s+/)) {
++    const [name, value] = token.split(':');
++    const min = breakpoints[name!];
++    result = (value && min ? `(min-width: ${min}px) ${value}` : token) + ', ' + result;
++  }
++  return result;
+ }
+ /** Compute native attributes without touching browser globals. */
+ export function getImageProps(
+@@ -71,11 +72,6 @@ export function getImageProps(
+     'Image alt is required; use alt="" for decorative images.',
+   );
+   const {
+-    sources: componentSources,
+-    source: componentSource,
+-    error: componentError,
+-    loadingContent,
+-    errorContent,
+     src,
+     priority,
+     provider: explicit,
+@@ -88,13 +84,7 @@ export function getImageProps(
+     transitionName,
+     contentVisibility,
+     ...native
+-  } = options as ImageOptions &
+-    Partial<Record<'sources' | 'source' | 'error' | 'loadingContent' | 'errorContent', unknown>>;
+-  void componentSources;
+-  void componentSource;
+-  void componentError;
+-  void loadingContent;
+-  void errorContent;
++  } = options;
+   const strategy = formatStrategy ?? config.formatStrategy ?? 'auto';
+   const nativeOnly = strategy === 'img';
+   const artifact = resolveImageArtifact(src);
+@@ -135,20 +125,24 @@ export function getImageProps(
+                 (!provider.capabilities.maxWidthByFormat?.[v] ||
+                   Math.max(...widths) <= provider.capabilities.maxWidthByFormat[v]!),
+             );
++      const fallbackWidth = width ?? 1920;
+       const fallbackFormat =
+-        nativeOnly && formats.includes('webp')
++        (nativeOnly && formats.includes('webp')
+           ? 'webp'
+           : formats.includes('jpeg')
+             ? 'jpeg'
+-            : formats.at(-1);
++            : formats.at(-1)) ?? 'auto';
++      const buildUrl = (w: number, format: OutputFormat | 'auto') =>
++        provider.buildUrl({ ...request, w, format });
++      fallback = buildUrl(fallbackWidth, fallbackFormat);
+       const srcsetFor = (format: OutputFormat | 'auto') =>
+-        widths.map((w) => `${provider.buildUrl({ ...request, w, format })} ${w}w`).join(', ');
+-      fallback = provider.buildUrl({
+-        ...request,
+-        w: width ?? 1920,
+-        format: fallbackFormat ?? 'auto',
+-      });
+-      srcset = srcsetFor(fallbackFormat ?? 'auto');
++        widths
++          .map(
++            (w) =>
++              `${w === fallbackWidth && format === fallbackFormat ? fallback : buildUrl(w, format)} ${w}w`,
++          )
++          .join(', ');
++      srcset = srcsetFor(fallbackFormat);
+       sources = (nativeOnly ? [] : formats)
+         .filter((v) => v !== fallbackFormat)
+         .map((format) => ({ type: `image/${format}`, srcset: srcsetFor(format) }));
+@@ -166,28 +160,22 @@ export function getImageProps(
+     preview && /^data:image\/(?:webp|png|jpeg);base64,[a-zA-Z0-9+/]+=*$/.test(preview)
+       ? preview
+       : undefined;
+-  const color = disabled
+-    ? 'transparent'
+-    : artifact?.dominantColor && /^#[a-f\d]{6,8}$/i.test(artifact.dominantColor)
+-      ? artifact.dominantColor
+-      : 'transparent';
++  const dominantColor = !disabled && artifact?.dominantColor;
++  const color =
++    dominantColor && /^#[a-f\d]{6,8}$/i.test(dominantColor) ? dominantColor : 'transparent';
+   const cssFit = fit === 'inside' ? 'contain' : fit === 'outside' ? 'cover' : fit;
+-  const cssPosition = ['entropy', 'attention'].includes(position)
+-    ? 'center'
+-    : position.replace('-', ' ');
+-  const style = [
+-    `max-width:100%;height:auto;object-fit:${cssFit};object-position:${cssPosition}`,
+-    width && height ? `aspect-ratio:${width}/${height}` : '',
+-    `background-color:${color}`,
+-    safePreview ? `background-image:url("${safePreview}");background-size:cover` : '',
+-    transitionName && /^[a-zA-Z_][\w-]*$/.test(transitionName)
+-      ? `view-transition-name:${transitionName}`
+-      : '',
+-    contentVisibility ? `content-visibility:${contentVisibility}` : '',
+-    native.style,
+-  ]
+-    .filter(Boolean)
+-    .join(';');
++  const cssPosition =
++    position === 'entropy' || position === 'attention' ? 'center' : position.replace('-', ' ');
++  const style =
++    `max-width:100%;height:auto;object-fit:${cssFit};object-position:${cssPosition}` +
++    (width && height ? `;aspect-ratio:${width}/${height}` : '') +
++    `;background-color:${color}` +
++    (safePreview ? `;background-image:url("${safePreview}");background-size:cover` : '') +
++    (transitionName && /^[a-zA-Z_][\w-]*$/.test(transitionName)
++      ? `;view-transition-name:${transitionName}`
++      : '') +
++    (contentVisibility ? `;content-visibility:${contentVisibility}` : '') +
++    (native.style ? `;${native.style}` : '');
+   return {
+     ...native,
+     src: fallback,
+diff --git a/tests/image-ssr.test.ts b/tests/image-ssr.test.ts
+index f8f57d9..08b6510 100644
+--- a/tests/image-ssr.test.ts
++++ b/tests/image-ssr.test.ts
+@@ -11,11 +11,26 @@ import type {
+ } from '../packages/svelte-imageway/src/lib/component-types.js';
+ let component: Component<ImageProps>;
+ let picture: Component<PictureProps>;
++let metadata: Component;
+ beforeAll(async () => {
+   await mkdir('.local', { recursive: true });
++  await writeFile(
++    '.local/metadata-ssr.svelte',
++    `<script>
++import Image from '../packages/svelte-imageway/src/lib/components/Image.svelte';
++import Picture from '../packages/svelte-imageway/src/lib/components/Picture.svelte';
++const image={src:'/metadata.jpg',width:16,height:10,sources:[],aspectRatio:1.6};
++</script>
++{#snippet waiting()}<span data-waiting>Waiting</span>{/snippet}
++{#snippet failed()}<span data-failed>Failed</span>{/snippet}
++{#snippet customSource()}<source srcset='/art.webp 320w' type='image/webp'/>{/snippet}
++<Image src={image} alt='Image metadata' loading={waiting} errorContent={failed} data-photo='image' />
++<Picture src={image} alt='Picture metadata' sources={[{type:'image/avif',srcset:'/art.avif 320w'}]} source={customSource} loadingContent={waiting} error={failed} data-photo='picture' priority/>
++`,
++  );
+   await writeFile(
+     '.local/image-ssr-entry.ts',
+-    'export {default as Image} from "../packages/svelte-imageway/src/lib/components/Image.svelte"; export {default as Picture} from "../packages/svelte-imageway/src/lib/components/Picture.svelte";',
++    'export {default as Metadata} from "./metadata-ssr.svelte"; export {default as Image} from "../packages/svelte-imageway/src/lib/components/Image.svelte"; export {default as Picture} from "../packages/svelte-imageway/src/lib/components/Picture.svelte";',
+   );
+   await build({
+     configFile: false,
+@@ -33,6 +48,7 @@ beforeAll(async () => {
+   const bundle = await import(new URL('../.local/image-ssr-test/image.mjs', import.meta.url).href);
+   component = bundle.Image;
+   picture = bundle.Picture;
++  metadata = bundle.Metadata;
+ });
+ const image = {
+   img: {
+@@ -92,3 +108,17 @@ it('Picture preserves explicit sources and preloads its first format during SSR'
+   expect(body).toContain('src="/large.jpg"');
+   expect(head).toContain('imagesrcset="/small.webp 320w, /large.webp 640w"');
+ });
++
++it('SSR filters Svelte metadata while preserving native data attrs, loading snippets and custom picture sources', () => {
++  const { body, head } = render(metadata);
++  expect(body.match(/data-waiting/g)).toHaveLength(2);
++  expect(body).not.toContain('data-failed');
++  expect(body).toContain('data-photo="image"');
++  expect(body).toContain('data-photo="picture"');
++  expect(body).toContain('/art.webp 320w');
++  expect(body).toContain('/art.avif 320w');
++  for (const name of ['sources', 'source', 'loadingContent', 'errorContent', 'error'])
++    expect(body).not.toContain(` ${name}=`);
++  expect(body).not.toContain('loading="function');
++  expect(head).not.toContain('rel="preload"');
++});
+diff --git a/tests/props.test.ts b/tests/props.test.ts
+index 10654cb..e856ef5 100644
+--- a/tests/props.test.ts
++++ b/tests/props.test.ts
+@@ -116,27 +116,94 @@ describe('headless and type contract', () => {
+     const invalid: ImageOptions = { ...options, formatStrategy: 'magic' };
+     void invalid;
+   });
+-  it('filters component snippets while preserving native event handlers and data attributes', () => {
++  it('preserves native callbacks and data attributes without mutating frozen options', () => {
+     const onload = () => undefined,
+       onerror = () => undefined;
+-    const options = {
++    const options = Object.freeze({
+       src: artifact,
+       alt: 'Photo',
+       formatStrategy: 'img' as const,
+-      sources: [{ type: 'image/webp', srcset: '/alternate.webp' }],
+-      source: () => undefined,
+-      error: () => undefined,
+-      loadingContent: () => undefined,
+-      errorContent: () => undefined,
+       onload,
+       onerror,
+       'data-photo': 'hero',
+-    };
++    });
+     const attributes = getImageProps(options);
+     expect(attributes).toMatchObject({ onload, onerror, 'data-photo': 'hero' });
+-    for (const key of ['source', 'error', 'loadingContent', 'errorContent'])
+-      expect(attributes).not.toHaveProperty(key);
+     expect(attributes.sources).toEqual([]);
++    attributes.alt = 'Changed';
++    expect(options.alt).toBe('Photo');
++  });
++  it('expands only supported size tokens and keeps reverse-priority media order', () => {
++    expect(imageSizes('constructor:20vw sm:100vw toString:25vw md:50vw __proto__:30vw')).toBe(
++      '__proto__:30vw, (min-width: 768px) 50vw, toString:25vw, (min-width: 640px) 100vw, constructor:20vw, 100vw',
++    );
++    expect(imageSizes('sm: md:50vw:ignored xl:25vw')).toBe(
++      '(min-width: 1280px) 25vw, (min-width: 768px) 50vw, sm:, 100vw',
++    );
++    expect(imageSizes('auto, 50vw', false)).toBe('50vw');
++  });
++  it('reuses the fallback candidate URL without rebuilding or mutating provider requests', () => {
++    const calls: Array<{ w?: number; format?: string }> = [];
++    const provider: ImageProvider = {
++      name: 'counted',
++      capabilities: {
++        formats: ['jpeg', 'webp'],
++        fit: ['inside'],
++        animation: false,
++        signature: false,
++        smartCrop: false,
++      },
++      validate() {},
++      buildUrl(request) {
++        calls.push({ ...request });
++        return `/photo?w=${request.w}&format=${request.format}&token=${calls.length}`;
++      },
++    };
++    const options = {
++      src: 'https://images.example/photo.jpg',
++      alt: '',
++      width: 640,
++      provider,
++      config: { widths: [320, 320, 960] },
++      formatStrategy: 'img' as const,
++    };
++    const image = getImageProps(options);
++    expect(calls).toHaveLength(2);
++    expect(calls.map((c) => c.w)).toEqual([640, 320]);
++    expect(image.srcset).toContain(`${image.src} 640w`);
++    expect(image.srcset).toContain('320w');
++    expect(options.config.widths).toEqual([320, 320, 960]);
++    calls.length = 0;
++    const picture = getImageProps({ ...options, formatStrategy: 'picture' });
++    expect(calls).toHaveLength(4);
++    expect(picture.srcset).toContain(`${picture.src} 640w`);
++    expect(picture.sources[0]?.type).toBe('image/webp');
++    expect(picture.sources[0]?.srcset).toContain('640w');
++    expect(calls[0]?.format).toBe('jpeg');
++    expect(calls.filter((c) => c.format === 'jpeg' && c.w === 640)).toHaveLength(1);
++  });
++  it('uses a single checked dominant-colour value and preserves exact style ordering', () => {
++    let reads = 0;
++    const src = {
++      ...artifact,
++      get dominantColor() {
++        return ++reads < 3 ? '#123456' : 'red;display:none';
++      },
++    };
++    const image = getImageProps({
++      src,
++      alt: '',
++      fit: 'outside',
++      position: 'top-left',
++      style: 'border:0',
++      transitionName: 'hero',
++      contentVisibility: 'auto',
++    });
++    expect(reads).toBe(1);
++    expect(image.style).toBe(
++      'max-width:100%;height:auto;object-fit:cover;object-position:top left;aspect-ratio:640/400;background-color:#123456;background-image:url("data:image/webp;base64,YWJj");background-size:cover;view-transition-name:hero;content-visibility:auto;border:0',
++    );
++    expect(image.style).not.toContain('display:none');
+   });
+   it('requires alt including explicit decorative alt, and derives dimensions safely', () => {
+     // @ts-expect-error alt is mandatory even for a raw URL.

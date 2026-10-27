@@ -1,0 +1,94 @@
+{
+  "baseline": {
+    "dist/props.js": {
+      "bytes": 6532,
+      "sha256": "232fa75857470383bcabd91f51252d69b0afa8929ac7a3bd7ca61b6d5ef0c0a9"
+    },
+    "dist/components/Image.svelte": {
+      "bytes": 2582,
+      "sha256": "c60f08119e3f8b9535529fb49955112da0936d6cbe6c2c54097e9f0782ea1de8"
+    },
+    "dist/components/Picture.svelte": {
+      "bytes": 2843,
+      "sha256": "b7efdb2fe27baa63850a3466f27834cb281de172a3fb82a60eaf65d32de6123f"
+    },
+    "dist/node/blurhash.js": {
+      "bytes": 8467,
+      "sha256": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284"
+    },
+    "dist/node/blurhash.wasm": {
+      "bytes": 14702,
+      "sha256": "63aaa125c5436f26bffa8b8cbf54f35673e867d793a485a3a4bad076632b794e"
+    }
+  },
+  "allocation": {
+    "dist/props.js": {
+      "bytes": 5371,
+      "sha256": "bb417c508b6921b93d224c8706eefce451d1ea6ec06f3837544b9d76df7c26e4"
+    },
+    "dist/components/Image.svelte": {
+      "bytes": 2609,
+      "sha256": "91d3a2d99da5441eb555b92914d3e0a67234741a53163b77a5e0dec0405deb24"
+    },
+    "dist/components/Picture.svelte": {
+      "bytes": 2908,
+      "sha256": "b82205d3bbe9a43dd88d2a06a80914344a2063de2599373b9d3f60b6c549422c"
+    },
+    "dist/node/blurhash.js": {
+      "bytes": 8467,
+      "sha256": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284"
+    },
+    "dist/node/blurhash.wasm": {
+      "bytes": 14702,
+      "sha256": "63aaa125c5436f26bffa8b8cbf54f35673e867d793a485a3a4bad076632b794e"
+    }
+  },
+  "jsNativeControl": {
+    "dist/props.js": {
+      "bytes": 6532,
+      "sha256": "232fa75857470383bcabd91f51252d69b0afa8929ac7a3bd7ca61b6d5ef0c0a9"
+    },
+    "dist/components/Image.svelte": {
+      "bytes": 2582,
+      "sha256": "c60f08119e3f8b9535529fb49955112da0936d6cbe6c2c54097e9f0782ea1de8"
+    },
+    "dist/components/Picture.svelte": {
+      "bytes": 2843,
+      "sha256": "b7efdb2fe27baa63850a3466f27834cb281de172a3fb82a60eaf65d32de6123f"
+    },
+    "dist/node/blurhash.js": {
+      "bytes": 11049,
+      "sha256": "39b7095058f9dc0df633a43c2cf4ad5f0deeafad2d4e013c8e5d2b48c05891ce"
+    },
+    "dist/node/blurhash.wasm": {
+      "bytes": 14702,
+      "sha256": "63aaa125c5436f26bffa8b8cbf54f35673e867d793a485a3a4bad076632b794e"
+    }
+  },
+  "candidate": {
+    "dist/props.js": {
+      "bytes": 6465,
+      "sha256": "3f240f98d88d80e456bc7ead5e787301098e9363af1489c548f249dc924232dd"
+    },
+    "dist/components/Image.svelte": {
+      "bytes": 2198,
+      "sha256": "85f05c7a8679d607954b84ba955aac750200c7e55b2bc4406ee31dab90c54f64"
+    },
+    "dist/components/Picture.svelte": {
+      "bytes": 2499,
+      "sha256": "16bfd9624bf95baf16a5b7715d70d575e5f8b14798a77badeea169d653082df5"
+    },
+    "dist/node/blurhash.js": {
+      "bytes": 8467,
+      "sha256": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284"
+    },
+    "dist/node/blurhash.wasm": {
+      "bytes": 14838,
+      "sha256": "1d90bc558b23dac70acaba533251d5eb779e5c40e8a5cbd641cd9c39d68758de"
+    },
+    "dist/image.css": {
+      "bytes": 473,
+      "sha256": "0fa8a0c038c462ea655c8d541c405ad901c6b11e128921296ec5cafa59754fcd"
+    }
+  }
+}
