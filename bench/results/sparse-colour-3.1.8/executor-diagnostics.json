@@ -1,0 +1,4246 @@
+{
+  "environment": {
+    "measuredAt": "2026-10-27T14:05:57.239Z",
+    "sourceCommit": "175d0de8000f2789e270cbd5bba772dd90b228a2",
+    "harnessDiffSha256": "40627bdf2709eedfa9c6fa5195fb2c4b746570a8231b01dd3b27d8e6dde8c0e6",
+    "platform": "darwin",
+    "arch": "arm64",
+    "osRelease": "27.0.0",
+    "cpu": "Apple M4",
+    "logicalCpus": 10,
+    "memoryBytes": 17179869184,
+    "loadAverage": [2.9111328125, 2.51123046875, 2.35693359375],
+    "node": "v26.11.1",
+    "bun": "1.4.3",
+    "versions": {
+      "svelte-imageway": "3.1.8",
+      "vite": "8.3.4",
+      "sharp": "0.35.5",
+      "vite-imagetools": "12.0.1",
+      "@sveltejs/enhanced-img": "1.0.0",
+      "svelte": "5.57.2",
+      "@playwright/test": "1.64.1",
+      "ssim.js": "3.5.0"
+    },
+    "sharp": {
+      "aom": "3.15.1",
+      "archive": "3.8.9",
+      "cairo": "1.18.6",
+      "cgif": "0.5.4",
+      "exif": "0.6.26",
+      "expat": "2.8.5",
+      "ffi": "3.8.0",
+      "fontconfig": "2.18.3",
+      "freetype": "2.14.3",
+      "fribidi": "1.0.17",
+      "glib": "2.90.0",
+      "harfbuzz": "14.5.0",
+      "heif": "1.23.5",
+      "highway": "1.4.0",
+      "imagequant": "2.4.1",
+      "lcms": "2.19.1",
+      "mozjpeg": "0826579",
+      "pango": "1.58.2",
+      "pixman": "0.46.4",
+      "png": "1.6.58",
+      "proxy-libintl": "0.5",
+      "rsvg": "2.63.2",
+      "tiff": "4.7.2",
+      "uhdr": "2.0.2",
+      "vips": "8.18.7",
+      "webp": "1.6.0",
+      "xml2": "2.15.4",
+      "zlib-ng": "2.3.3",
+      "sharp": "0.35.5"
+    },
+    "limits": "Single uncontrolled desktop host; OS filesystem cache is not flushed. Cold means empty tool disk cache, not cold OS/page cache. No simultaneous benchmark suites. No production CDN, Next.js or serverless measurement."
+  },
+  "protocol": "Untimed diagnostic only; unique default CPU filenames preserve every worker profile and explicitly select thread0. Original shared-name files remain archived; observed originals contain main Vite frames. Main-thread V8 samples exclude native libvips execution. Sharp metadata/toBuffer/stats promise durations include async overlap and preload/log overhead: do not add them to infer wall-clock CPU or attribute native time to decoding vs encoding. Worker --import runs outside timed studies. Trace records operation count and encoded input bytes submitted; copies are not inferred from elapsed time. Full local CPU profiles retained by digest. No diagnostic values enter benchmark medians.",
+  "files": ["concurrency-1", "concurrency-4"],
+  "rows": [
+    {
+      "logicalConcurrency": 1,
+      "packageRoot": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/packages/svelte-imageway",
+      "mainThreadProfile": "CPU.20261027.150554.11761.0.001.cpuprofile",
+      "profileFiles": [
+        {
+          "name": "CPU.20261027.150554.11761.0.001.cpuprofile",
+          "sha256": "ccdf5d8492d843d048671d14abc83f246ec803369984e0863ab1176597ad6980"
+        },
+        {
+          "name": "CPU.20261027.150555.11761.1.002.cpuprofile",
+          "sha256": "768f781d1ca85eeaa03eefbea545ed5bc6b949b0cc4f2fd9c93e1626a56f7fc5"
+        }
+      ],
+      "diagnosticBuild": {
+        "engine": "imageway",
+        "concurrency": 1,
+        "buildMs": 1440.8705840000002,
+        "peakRssBytes": 283525120,
+        "assets": [
+          {
+            "file": "imageway/0282cc73f00d3b26ffa3fdb4be17675fd392f62d4d1dc70bc405b8ba9ca3833c.webp",
+            "bytes": 6242,
+            "sha256": "0282cc73f00d3b26ffa3fdb4be17675fd392f62d4d1dc70bc405b8ba9ca3833c"
+          },
+          {
+            "file": "imageway/04258eb7ef1d830662039b2c070dcb02d5e5e57e3f0178cfada8f0df755c252f.webp",
+            "bytes": 8332,
+            "sha256": "04258eb7ef1d830662039b2c070dcb02d5e5e57e3f0178cfada8f0df755c252f"
+          },
+          {
+            "file": "imageway/0e3f108b5510f6b765fffceb733b5b69f28f0f9b9ed2622bd28b18267cbed010.webp",
+            "bytes": 15188,
+            "sha256": "0e3f108b5510f6b765fffceb733b5b69f28f0f9b9ed2622bd28b18267cbed010"
+          },
+          {
+            "file": "imageway/0f6b7aaf468b4accc402922d07dc716e508328a3ecafcdc71b0a75f4c2ae1434.webp",
+            "bytes": 16956,
+            "sha256": "0f6b7aaf468b4accc402922d07dc716e508328a3ecafcdc71b0a75f4c2ae1434"
+          },
+          {
+            "file": "imageway/109fc01aad82791a04c1952996947e855aaadc7a1fe6749ef9782e313086492e.webp",
+            "bytes": 59232,
+            "sha256": "109fc01aad82791a04c1952996947e855aaadc7a1fe6749ef9782e313086492e"
+          },
+          {
+            "file": "imageway/15ad991ac153d28f6dfa07bdedf092b977d329dfb787c693cfd203fcc6af73cb.webp",
+            "bytes": 14264,
+            "sha256": "15ad991ac153d28f6dfa07bdedf092b977d329dfb787c693cfd203fcc6af73cb"
+          },
+          {
+            "file": "imageway/1fad7f048feadb34d557df2fe1e8c9b3384b0153870a3e024d6fde4089c02bb6.webp",
+            "bytes": 14628,
+            "sha256": "1fad7f048feadb34d557df2fe1e8c9b3384b0153870a3e024d6fde4089c02bb6"
+          },
+          {
+            "file": "imageway/200223c8a2fdcbad4b872d7fc512fdfd9661b945d01e9fffda106a1599afdfe6.webp",
+            "bytes": 15374,
+            "sha256": "200223c8a2fdcbad4b872d7fc512fdfd9661b945d01e9fffda106a1599afdfe6"
+          },
+          {
+            "file": "imageway/20ef7ff2914757ca8f9155dca2f571b0bc80b7651caceb7ac087968b13fd0560.webp",
+            "bytes": 12568,
+            "sha256": "20ef7ff2914757ca8f9155dca2f571b0bc80b7651caceb7ac087968b13fd0560"
+          },
+          {
+            "file": "imageway/2135b53dae39d3d2707ea503b5ee7dfc07b5db71e2ee93e3c172103b2c5578c7.webp",
+            "bytes": 8476,
+            "sha256": "2135b53dae39d3d2707ea503b5ee7dfc07b5db71e2ee93e3c172103b2c5578c7"
+          },
+          {
+            "file": "imageway/223725947bcab210223780c99d82f7d5f76e8731e05b77673ae41d78056c320e.webp",
+            "bytes": 31476,
+            "sha256": "223725947bcab210223780c99d82f7d5f76e8731e05b77673ae41d78056c320e"
+          },
+          {
+            "file": "imageway/2349837a0bede1d0613216c435f533ee1c8dfad838f8c84c743ebf38656d5ede.webp",
+            "bytes": 13074,
+            "sha256": "2349837a0bede1d0613216c435f533ee1c8dfad838f8c84c743ebf38656d5ede"
+          },
+          {
+            "file": "imageway/34c3c846078536c8f7970e44bad9d0d2cce192a05522375d38ab11d92aa267f2.webp",
+            "bytes": 5464,
+            "sha256": "34c3c846078536c8f7970e44bad9d0d2cce192a05522375d38ab11d92aa267f2"
+          },
+          {
+            "file": "imageway/3783f6b6a28fde08d4e2216d208b018c66ecc8934fd26c3b4c837b751f938cc1.webp",
+            "bytes": 4998,
+            "sha256": "3783f6b6a28fde08d4e2216d208b018c66ecc8934fd26c3b4c837b751f938cc1"
+          },
+          {
+            "file": "imageway/378ff583f553bb90189f91c755a0fc6f8ebc9217e5b984ee2a92b3ceeca5eabc.webp",
+            "bytes": 14806,
+            "sha256": "378ff583f553bb90189f91c755a0fc6f8ebc9217e5b984ee2a92b3ceeca5eabc"
+          },
+          {
+            "file": "imageway/3b525621abdfc8c968c7ace501961175c231c348bd123880cdcf0956622b99ee.webp",
+            "bytes": 28002,
+            "sha256": "3b525621abdfc8c968c7ace501961175c231c348bd123880cdcf0956622b99ee"
+          },
+          {
+            "file": "imageway/3b9cc53b46f873357d3917c7b108f47da82969731b8f8f5db3027faed95c53a8.webp",
+            "bytes": 12208,
+            "sha256": "3b9cc53b46f873357d3917c7b108f47da82969731b8f8f5db3027faed95c53a8"
+          },
+          {
+            "file": "imageway/3e67826a4716ba18a5ebf7a70ec1882a1e8ea6c8e3048d372461981be75bc566.webp",
+            "bytes": 8834,
+            "sha256": "3e67826a4716ba18a5ebf7a70ec1882a1e8ea6c8e3048d372461981be75bc566"
+          },
+          {
+            "file": "imageway/46b144bc3c6d3665cf07e63618c6946d4b4ccf92694c250eaffb751d752643ed.webp",
+            "bytes": 11028,
+            "sha256": "46b144bc3c6d3665cf07e63618c6946d4b4ccf92694c250eaffb751d752643ed"
+          },
+          {
+            "file": "imageway/4e56022072708b0197edac9b120a8b8b0fc6aa4f321b939252b988afba17a3dd.webp",
+            "bytes": 28084,
+            "sha256": "4e56022072708b0197edac9b120a8b8b0fc6aa4f321b939252b988afba17a3dd"
+          },
+          {
+            "file": "imageway/549bde024ef27c1a71a7820a5e85c64a02ddedb51caf9a0391677041ecc99921.webp",
+            "bytes": 43614,
+            "sha256": "549bde024ef27c1a71a7820a5e85c64a02ddedb51caf9a0391677041ecc99921"
+          },
+          {
+            "file": "imageway/54c161f606426f1149806e5ee06a490054bacd8cb014dc99001e54f419ce1996.webp",
+            "bytes": 39462,
+            "sha256": "54c161f606426f1149806e5ee06a490054bacd8cb014dc99001e54f419ce1996"
+          },
+          {
+            "file": "imageway/56440c3deebfed4b633a7d479a3251b54f192730865d6217c7c6ce4aba49410f.webp",
+            "bytes": 8754,
+            "sha256": "56440c3deebfed4b633a7d479a3251b54f192730865d6217c7c6ce4aba49410f"
+          },
+          {
+            "file": "imageway/5fc46aa740050f30b216b608e1d20e7452adf1b101c4391fdb12f9c82dd5fc2e.webp",
+            "bytes": 8710,
+            "sha256": "5fc46aa740050f30b216b608e1d20e7452adf1b101c4391fdb12f9c82dd5fc2e"
+          },
+          {
+            "file": "imageway/6301cc7c9dc66774cba7acc3760dc3d3f7f4b6f7fc9ec522ccd8ebe2dd562f60.webp",
+            "bytes": 6382,
+            "sha256": "6301cc7c9dc66774cba7acc3760dc3d3f7f4b6f7fc9ec522ccd8ebe2dd562f60"
+          },
+          {
+            "file": "imageway/64d0249189658eaaa36aa685839fd3b29e817f5df1b383bfff41f6a7c9218868.webp",
+            "bytes": 24280,
+            "sha256": "64d0249189658eaaa36aa685839fd3b29e817f5df1b383bfff41f6a7c9218868"
+          },
+          {
+            "file": "imageway/64dd9bddb55b560cfccca1e26945fb58260356e17431f4e38ed2504f7b4193f8.webp",
+            "bytes": 28804,
+            "sha256": "64dd9bddb55b560cfccca1e26945fb58260356e17431f4e38ed2504f7b4193f8"
+          },
+          {
+            "file": "imageway/66ea2c4859b3ad7620d793f876738f2d88c50d2fc00bd9b5ab28caae9c52708f.webp",
+            "bytes": 11400,
+            "sha256": "66ea2c4859b3ad7620d793f876738f2d88c50d2fc00bd9b5ab28caae9c52708f"
+          },
+          {
+            "file": "imageway/6ba183bec0660ea8cf783370abce3ade3c540c49d439e488aadec151794a583d.webp",
+            "bytes": 21212,
+            "sha256": "6ba183bec0660ea8cf783370abce3ade3c540c49d439e488aadec151794a583d"
+          },
+          {
+            "file": "imageway/701ecba0724b5569aa5a5a90fa3a4c7f97739f110349cdbc80f34445b2063817.webp",
+            "bytes": 22158,
+            "sha256": "701ecba0724b5569aa5a5a90fa3a4c7f97739f110349cdbc80f34445b2063817"
+          },
+          {
+            "file": "imageway/7404195882a7dbcb2be975e9b6e0a88800c12de559250ae659a8e742e1fdcaff.webp",
+            "bytes": 8950,
+            "sha256": "7404195882a7dbcb2be975e9b6e0a88800c12de559250ae659a8e742e1fdcaff"
+          },
+          {
+            "file": "imageway/741f2c376acb8b83a9db9b6cdcc74270596c7c2292a0e09be44f845c095f1b6f.webp",
+            "bytes": 18030,
+            "sha256": "741f2c376acb8b83a9db9b6cdcc74270596c7c2292a0e09be44f845c095f1b6f"
+          },
+          {
+            "file": "imageway/7518462502a4c4294c404c11a540c2eda9ae785d1920e2bb725df65aea156f78.webp",
+            "bytes": 24626,
+            "sha256": "7518462502a4c4294c404c11a540c2eda9ae785d1920e2bb725df65aea156f78"
+          },
+          {
+            "file": "imageway/778a5c2ebcc6757ffce40f7e468a3b535eaeabe0b0dd5544012b05786db14cea.webp",
+            "bytes": 20338,
+            "sha256": "778a5c2ebcc6757ffce40f7e468a3b535eaeabe0b0dd5544012b05786db14cea"
+          },
+          {
+            "file": "imageway/8080f2c93a8423cc6b78201ff27759715e9f51acf3ba80f84ca5c62c6c34536d.webp",
+            "bytes": 8876,
+            "sha256": "8080f2c93a8423cc6b78201ff27759715e9f51acf3ba80f84ca5c62c6c34536d"
+          },
+          {
+            "file": "imageway/87380810b4f2df2a1b43a279ea18c935de60d3ec24dac87bf4cb71be3d95b9f6.webp",
+            "bytes": 11746,
+            "sha256": "87380810b4f2df2a1b43a279ea18c935de60d3ec24dac87bf4cb71be3d95b9f6"
+          },
+          {
+            "file": "imageway/8ac9f9a72a94cf20b271c61bd87eae4ff422764fd0b978a43ae74f4097ed097d.webp",
+            "bytes": 14374,
+            "sha256": "8ac9f9a72a94cf20b271c61bd87eae4ff422764fd0b978a43ae74f4097ed097d"
+          },
+          {
+            "file": "imageway/8aea70fb6e537dbbc38f2966ef45222e2eee7e39d4a2961d0d19afd293582b61.webp",
+            "bytes": 12656,
+            "sha256": "8aea70fb6e537dbbc38f2966ef45222e2eee7e39d4a2961d0d19afd293582b61"
+          },
+          {
+            "file": "imageway/95b27f7f7023ee2d8c060efb4fdbbdca90f7ba24c5ec10d75d732ef6eb5da318.webp",
+            "bytes": 16572,
+            "sha256": "95b27f7f7023ee2d8c060efb4fdbbdca90f7ba24c5ec10d75d732ef6eb5da318"
+          },
+          {
+            "file": "imageway/96a288dc042ff8a909976a65770a2fb998ac0a1f6bba8225c2648c55cdcf2a3d.webp",
+            "bytes": 5100,
+            "sha256": "96a288dc042ff8a909976a65770a2fb998ac0a1f6bba8225c2648c55cdcf2a3d"
+          },
+          {
+            "file": "imageway/97b1a15f32d3e5d352beea929024737ab32e45078e1db933808b65cb6b436ad1.webp",
+            "bytes": 13416,
+            "sha256": "97b1a15f32d3e5d352beea929024737ab32e45078e1db933808b65cb6b436ad1"
+          },
+          {
+            "file": "imageway/9efcbb4c93a1d230da0186cf2196c30d91a2151cde62fe9d7287a74eead58653.webp",
+            "bytes": 25006,
+            "sha256": "9efcbb4c93a1d230da0186cf2196c30d91a2151cde62fe9d7287a74eead58653"
+          },
+          {
+            "file": "imageway/a0de78e15d4db579f4531a6344714c4a7221e2198bceb73309d53b414277164e.webp",
+            "bytes": 15676,
+            "sha256": "a0de78e15d4db579f4531a6344714c4a7221e2198bceb73309d53b414277164e"
+          },
+          {
+            "file": "imageway/a10e547d86fb21c20142b44d4e035da79782a3607f21b7c4e14bf85d8c5fcc77.webp",
+            "bytes": 27014,
+            "sha256": "a10e547d86fb21c20142b44d4e035da79782a3607f21b7c4e14bf85d8c5fcc77"
+          },
+          {
+            "file": "imageway/a4f964e00aa846f75e52de3d52e9765528ecced5014bf946e75dedc4fe0ac9d2.webp",
+            "bytes": 14700,
+            "sha256": "a4f964e00aa846f75e52de3d52e9765528ecced5014bf946e75dedc4fe0ac9d2"
+          },
+          {
+            "file": "imageway/a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994.webp",
+            "bytes": 32836,
+            "sha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994"
+          },
+          {
+            "file": "imageway/b55daceef4324a9e5396e9869e9794a4d127eced1469436bbabae6818c8b69f9.webp",
+            "bytes": 23294,
+            "sha256": "b55daceef4324a9e5396e9869e9794a4d127eced1469436bbabae6818c8b69f9"
+          },
+          {
+            "file": "imageway/b584266060ee5b64e4be7c9dd5d6fde3b66048d0d0deb2290bf5b05d1cd22945.webp",
+            "bytes": 5856,
+            "sha256": "b584266060ee5b64e4be7c9dd5d6fde3b66048d0d0deb2290bf5b05d1cd22945"
+          },
+          {
+            "file": "imageway/b93c0bdde1363d2d87d0f956fcb734d6213114625af80890580eda606abda8e1.webp",
+            "bytes": 19406,
+            "sha256": "b93c0bdde1363d2d87d0f956fcb734d6213114625af80890580eda606abda8e1"
+          },
+          {
+            "file": "imageway/b9a108fb29a64afb79b5f7a6a1893a1d1f0631f23b3c840429a28adc975fad6e.webp",
+            "bytes": 32450,
+            "sha256": "b9a108fb29a64afb79b5f7a6a1893a1d1f0631f23b3c840429a28adc975fad6e"
+          },
+          {
+            "file": "imageway/c1a77c6ab34a12bff636998d4dcae7d49608980d63f0508d533669fdc529c888.webp",
+            "bytes": 23352,
+            "sha256": "c1a77c6ab34a12bff636998d4dcae7d49608980d63f0508d533669fdc529c888"
+          },
+          {
+            "file": "imageway/c1fe5ad766d816637398f7586a0bae71f7a432d4fa4061325da3343c24c56494.webp",
+            "bytes": 36482,
+            "sha256": "c1fe5ad766d816637398f7586a0bae71f7a432d4fa4061325da3343c24c56494"
+          },
+          {
+            "file": "imageway/c4131fb9010c573e3a643851021c3cd0f146f935266d9af0f3a46a2dfd75fe16.webp",
+            "bytes": 12542,
+            "sha256": "c4131fb9010c573e3a643851021c3cd0f146f935266d9af0f3a46a2dfd75fe16"
+          },
+          {
+            "file": "imageway/c5b410f48850776c29edff59b530765036cdcf111a917fc7d97f5b78674490ed.webp",
+            "bytes": 40876,
+            "sha256": "c5b410f48850776c29edff59b530765036cdcf111a917fc7d97f5b78674490ed"
+          },
+          {
+            "file": "imageway/c86d7c39da736ed6e630ea32130254567cd435e4533f9ae3839ee7a856b67d5c.webp",
+            "bytes": 21308,
+            "sha256": "c86d7c39da736ed6e630ea32130254567cd435e4533f9ae3839ee7a856b67d5c"
+          },
+          {
+            "file": "imageway/cc0f1aba2c826479d823cad58c87df6aa8037b621b6e3c024b04dc85cce7057f.webp",
+            "bytes": 8568,
+            "sha256": "cc0f1aba2c826479d823cad58c87df6aa8037b621b6e3c024b04dc85cce7057f"
+          },
+          {
+            "file": "imageway/ccf5b5f7dc86b42fa34b218132345b4888a06cc2eb480b8131f5aadfebe010cd.webp",
+            "bytes": 31248,
+            "sha256": "ccf5b5f7dc86b42fa34b218132345b4888a06cc2eb480b8131f5aadfebe010cd"
+          },
+          {
+            "file": "imageway/cd36422409f416470fc8044ea69cff0ea6726ff67a4dcf8821d77505d61cd336.webp",
+            "bytes": 10108,
+            "sha256": "cd36422409f416470fc8044ea69cff0ea6726ff67a4dcf8821d77505d61cd336"
+          },
+          {
+            "file": "imageway/d3e5a09e8628aeaee87406db1dfc547cf58eccb53bd8be36a7e663c798541ede.webp",
+            "bytes": 17168,
+            "sha256": "d3e5a09e8628aeaee87406db1dfc547cf58eccb53bd8be36a7e663c798541ede"
+          },
+          {
+            "file": "imageway/dae5cb460addc71f7bbb2a1f8bc1d8a7d1b6b7dd9062e829f1bbf6f502b506f0.webp",
+            "bytes": 13334,
+            "sha256": "dae5cb460addc71f7bbb2a1f8bc1d8a7d1b6b7dd9062e829f1bbf6f502b506f0"
+          },
+          {
+            "file": "imageway/df0fde908346029602357a3ef3df7c4074f5f8e36ffa4837ed4c28623c8d32f6.webp",
+            "bytes": 27586,
+            "sha256": "df0fde908346029602357a3ef3df7c4074f5f8e36ffa4837ed4c28623c8d32f6"
+          },
+          {
+            "file": "imageway/e238bc14975b8e18c64f6ac6a86fab07fbe9cd0bdb01487c07c4bd8c9c0b9db8.webp",
+            "bytes": 14558,
+            "sha256": "e238bc14975b8e18c64f6ac6a86fab07fbe9cd0bdb01487c07c4bd8c9c0b9db8"
+          },
+          {
+            "file": "imageway/e28a9d2248e134421b7d82612a1913230a15689fb5ef99c2f78646d52ff3bf65.webp",
+            "bytes": 8972,
+            "sha256": "e28a9d2248e134421b7d82612a1913230a15689fb5ef99c2f78646d52ff3bf65"
+          },
+          {
+            "file": "imageway/e6c734344584ecd1f6f003fb90f372b1d4bda2952062e36320ea26f5c8688432.webp",
+            "bytes": 40506,
+            "sha256": "e6c734344584ecd1f6f003fb90f372b1d4bda2952062e36320ea26f5c8688432"
+          },
+          {
+            "file": "imageway/e8820fe2dd9171fa53d494012e629e86e0d93e4f0802154a4abe111936ea930b.webp",
+            "bytes": 8938,
+            "sha256": "e8820fe2dd9171fa53d494012e629e86e0d93e4f0802154a4abe111936ea930b"
+          },
+          {
+            "file": "imageway/e88ac343b1a52e004661f231ffd6c5d983878b66feae26e90d22d0a9a62cf524.webp",
+            "bytes": 13684,
+            "sha256": "e88ac343b1a52e004661f231ffd6c5d983878b66feae26e90d22d0a9a62cf524"
+          },
+          {
+            "file": "imageway/e97ff3a02e588ce8a4daacf982fe076a09f0d1399b22f29c3ed9bb4d490c5128.webp",
+            "bytes": 21094,
+            "sha256": "e97ff3a02e588ce8a4daacf982fe076a09f0d1399b22f29c3ed9bb4d490c5128"
+          },
+          {
+            "file": "imageway/ec3b597911e956326c6d8b23babb5a06b2799c2fd4fea475beed89cb834501a1.webp",
+            "bytes": 22774,
+            "sha256": "ec3b597911e956326c6d8b23babb5a06b2799c2fd4fea475beed89cb834501a1"
+          },
+          {
+            "file": "imageway/f72e7dd7d78717fef64c9b6494e71c93884ba381ef3dc0ffd7477aec6e8e89e6.webp",
+            "bytes": 16876,
+            "sha256": "f72e7dd7d78717fef64c9b6494e71c93884ba381ef3dc0ffd7477aec6e8e89e6"
+          },
+          {
+            "file": "imageway/f839b719b047a1402ce9dba7ae21dd53e2129ae6e61fb55ee96cdf9c7d372398.webp",
+            "bytes": 5546,
+            "sha256": "f839b719b047a1402ce9dba7ae21dd53e2129ae6e61fb55ee96cdf9c7d372398"
+          },
+          {
+            "file": "imageway/fd27310adaf52bc647487cd0e3dd256f4b356a487b25bd12b0360e6f649c4547.webp",
+            "bytes": 11330,
+            "sha256": "fd27310adaf52bc647487cd0e3dd256f4b356a487b25bd12b0360e6f649c4547"
+          },
+          {
+            "file": "imageway/fe86f098bcc7ff80dd22ac942c9f45a34d8c9b5e0937a0bee18faff2a5e2c2b7.webp",
+            "bytes": 22342,
+            "sha256": "fe86f098bcc7ff80dd22ac942c9f45a34d8c9b5e0937a0bee18faff2a5e2c2b7"
+          }
+        ],
+        "node": "v26.11.1"
+      },
+      "events": [
+        {
+          "threadId": 0,
+          "method": "preload",
+          "started": 83.263125
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 571.506459,
+          "elapsedMs": 1.5195830000000115,
+          "inputBytes": 617995,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 571.839709,
+          "elapsedMs": 3.7883749999999736,
+          "inputBytes": 502888,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 571.773292,
+          "elapsedMs": 4.6062500000000455,
+          "inputBytes": 618959,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 571.8815,
+          "elapsedMs": 5.235167000000047,
+          "inputBytes": 566322,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.019917,
+          "elapsedMs": 5.678750000000036,
+          "inputBytes": 582899,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 571.958834,
+          "elapsedMs": 6.280540999999971,
+          "inputBytes": 785610,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.08,
+          "elapsedMs": 6.7391249999999445,
+          "inputBytes": 788470,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.1035,
+          "elapsedMs": 7.196333999999979,
+          "inputBytes": 736501,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.174292,
+          "elapsedMs": 7.6965000000000146,
+          "inputBytes": 531024,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.151292,
+          "elapsedMs": 8.296333000000004,
+          "inputBytes": 593463,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.127334,
+          "elapsedMs": 8.797290999999973,
+          "inputBytes": 621023,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.192167,
+          "elapsedMs": 9.224874999999997,
+          "inputBytes": 706397,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.229042,
+          "elapsedMs": 10.112916999999925,
+          "inputBytes": 822712,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.285542,
+          "elapsedMs": 10.667167000000063,
+          "inputBytes": 492462,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.20575,
+          "elapsedMs": 11.182250000000067,
+          "inputBytes": 780947,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.310625,
+          "elapsedMs": 11.702209000000039,
+          "inputBytes": 701970,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.339667,
+          "elapsedMs": 12.241958000000068,
+          "inputBytes": 637051,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.352709,
+          "elapsedMs": 12.62824999999998,
+          "inputBytes": 612582,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.327625,
+          "elapsedMs": 13.358124999999973,
+          "inputBytes": 557596,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.376542,
+          "elapsedMs": 14.201708000000053,
+          "inputBytes": 637432,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 572.3645,
+          "elapsedMs": 14.698792000000026,
+          "inputBytes": 671476,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 585.414167,
+          "elapsedMs": 4.55641700000001,
+          "inputBytes": 534247,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 585.643459,
+          "elapsedMs": 5.430458000000044,
+          "inputBytes": 602078,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 585.552834,
+          "elapsedMs": 6.241040999999996,
+          "inputBytes": 692201,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "preload",
+          "started": 634.0135
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 639.064417,
+          "elapsedMs": 0.2245829999999387,
+          "inputBytes": 617995,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 640.4685,
+          "elapsedMs": 11.358459000000039,
+          "inputBytes": 617995,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 652.791625,
+          "elapsedMs": 0.2785840000000235,
+          "inputBytes": 617995,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 653.336875,
+          "elapsedMs": 12.431584000000043,
+          "inputBytes": 617995,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 666.209125,
+          "elapsedMs": 0.1762499999999818,
+          "inputBytes": 617995,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 666.589375,
+          "elapsedMs": 15.76558399999999,
+          "inputBytes": 617995,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 682.841875,
+          "elapsedMs": 0.15525000000002365,
+          "inputBytes": 502888,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 683.189542,
+          "elapsedMs": 8.313083000000006,
+          "inputBytes": 502888,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 692.039959,
+          "elapsedMs": 0.18037500000002638,
+          "inputBytes": 502888,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 692.465584,
+          "elapsedMs": 10.727666,
+          "inputBytes": 502888,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 703.6845,
+          "elapsedMs": 0.15791699999999764,
+          "inputBytes": 502888,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 704.020667,
+          "elapsedMs": 14.425707999999986,
+          "inputBytes": 502888,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 719.096042,
+          "elapsedMs": 0.2413329999999405,
+          "inputBytes": 618959,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 719.754542,
+          "elapsedMs": 9.35329200000001,
+          "inputBytes": 618959,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 729.654584,
+          "elapsedMs": 0.23062500000003183,
+          "inputBytes": 618959,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 730.220875,
+          "elapsedMs": 12.193917000000056,
+          "inputBytes": 618959,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 742.938959,
+          "elapsedMs": 0.13704100000006747,
+          "inputBytes": 618959,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 743.243875,
+          "elapsedMs": 16.56499999999994,
+          "inputBytes": 618959,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 760.34875,
+          "elapsedMs": 0.1505419999999731,
+          "inputBytes": 566322,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 760.693584,
+          "elapsedMs": 10.340708000000063,
+          "inputBytes": 566322,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 772.161209,
+          "elapsedMs": 0.308791000000042,
+          "inputBytes": 566322,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 772.701084,
+          "elapsedMs": 12.737374999999929,
+          "inputBytes": 566322,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 785.833167,
+          "elapsedMs": 0.13941699999998036,
+          "inputBytes": 566322,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 786.153292,
+          "elapsedMs": 16.415208000000007,
+          "inputBytes": 566322,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 802.987375,
+          "elapsedMs": 0.14637499999992087,
+          "inputBytes": 582899,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 803.29475,
+          "elapsedMs": 13.858791999999994,
+          "inputBytes": 582899,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 817.991667,
+          "elapsedMs": 0.4473329999999578,
+          "inputBytes": 582899,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 818.671709,
+          "elapsedMs": 18.218875000000025,
+          "inputBytes": 582899,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 837.301209,
+          "elapsedMs": 0.15129100000001472,
+          "inputBytes": 582899,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 837.603125,
+          "elapsedMs": 24.83720900000003,
+          "inputBytes": 582899,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 862.995875,
+          "elapsedMs": 0.4085420000000113,
+          "inputBytes": 785610,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 863.80525,
+          "elapsedMs": 11.060749999999985,
+          "inputBytes": 785610,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 875.252375,
+          "elapsedMs": 0.15383399999996072,
+          "inputBytes": 785610,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 875.636334,
+          "elapsedMs": 15.179708000000005,
+          "inputBytes": 785610,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 891.247334,
+          "elapsedMs": 0.14220799999998235,
+          "inputBytes": 785610,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 891.555042,
+          "elapsedMs": 21.30345800000009,
+          "inputBytes": 785610,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 913.425542,
+          "elapsedMs": 0.3557500000000573,
+          "inputBytes": 788470,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 914.488084,
+          "elapsedMs": 14.306541000000038,
+          "inputBytes": 788470,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 929.444167,
+          "elapsedMs": 0.19299999999998363,
+          "inputBytes": 788470,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 929.920917,
+          "elapsedMs": 17.81412499999999,
+          "inputBytes": 788470,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 948.275667,
+          "elapsedMs": 0.16837499999996908,
+          "inputBytes": 788470,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 948.619792,
+          "elapsedMs": 22.539041999999995,
+          "inputBytes": 788470,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 971.680792,
+          "elapsedMs": 0.4080420000000231,
+          "inputBytes": 736501,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 972.850917,
+          "elapsedMs": 12.453917000000047,
+          "inputBytes": 736501,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 985.83225,
+          "elapsedMs": 0.17408399999999347,
+          "inputBytes": 736501,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 986.174334,
+          "elapsedMs": 15.433832999999936,
+          "inputBytes": 736501,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1002.064584,
+          "elapsedMs": 0.1495830000000069,
+          "inputBytes": 736501,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1002.370584,
+          "elapsedMs": 18.15466600000002,
+          "inputBytes": 736501,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1020.97175,
+          "elapsedMs": 0.1340419999999085,
+          "inputBytes": 531024,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1021.258042,
+          "elapsedMs": 10.812041999999906,
+          "inputBytes": 531024,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1032.514334,
+          "elapsedMs": 0.14325000000008004,
+          "inputBytes": 531024,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1032.822459,
+          "elapsedMs": 11.49091599999997,
+          "inputBytes": 531024,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1044.661334,
+          "elapsedMs": 0.1355829999999969,
+          "inputBytes": 531024,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1044.96875,
+          "elapsedMs": 13.964416999999912,
+          "inputBytes": 531024,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1059.572792,
+          "elapsedMs": 0.4573330000000624,
+          "inputBytes": 593463,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1060.4635,
+          "elapsedMs": 15.993334000000004,
+          "inputBytes": 593463,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1077.289625,
+          "elapsedMs": 0.1620420000001559,
+          "inputBytes": 593463,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1077.712042,
+          "elapsedMs": 21.313041999999996,
+          "inputBytes": 593463,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1099.680625,
+          "elapsedMs": 0.22383400000012443,
+          "inputBytes": 593463,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1100.180459,
+          "elapsedMs": 32.47883300000012,
+          "inputBytes": 593463,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1133.358917,
+          "elapsedMs": 0.18279200000006313,
+          "inputBytes": 621023,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1133.832625,
+          "elapsedMs": 11.769375000000082,
+          "inputBytes": 621023,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1146.177209,
+          "elapsedMs": 0.17916600000012295,
+          "inputBytes": 621023,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1146.589792,
+          "elapsedMs": 14.586917000000085,
+          "inputBytes": 621023,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1161.746917,
+          "elapsedMs": 0.21000000000003638,
+          "inputBytes": 621023,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1162.356625,
+          "elapsedMs": 20.590792000000192,
+          "inputBytes": 621023,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1183.427959,
+          "elapsedMs": 0.203125,
+          "inputBytes": 706397,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1183.831959,
+          "elapsedMs": 12.54208299999982,
+          "inputBytes": 706397,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1197.156959,
+          "elapsedMs": 0.2144580000001497,
+          "inputBytes": 706397,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1197.606542,
+          "elapsedMs": 16.54141699999991,
+          "inputBytes": 706397,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1214.881792,
+          "elapsedMs": 0.16887500000007094,
+          "inputBytes": 706397,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1215.265834,
+          "elapsedMs": 19.570416000000023,
+          "inputBytes": 706397,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1235.482125,
+          "elapsedMs": 0.26195899999993344,
+          "inputBytes": 822712,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1236.071709,
+          "elapsedMs": 12.885790999999926,
+          "inputBytes": 822712,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1249.384709,
+          "elapsedMs": 0.2168330000001788,
+          "inputBytes": 822712,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1249.86775,
+          "elapsedMs": 15.90150000000017,
+          "inputBytes": 822712,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1266.236,
+          "elapsedMs": 0.16820899999993344,
+          "inputBytes": 822712,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1266.574375,
+          "elapsedMs": 19.74354200000016,
+          "inputBytes": 822712,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1287.139959,
+          "elapsedMs": 0.14954099999999926,
+          "inputBytes": 492462,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1287.467709,
+          "elapsedMs": 7.953874999999925,
+          "inputBytes": 492462,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1295.792334,
+          "elapsedMs": 0.12945800000011332,
+          "inputBytes": 492462,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1296.078792,
+          "elapsedMs": 10.46270800000002,
+          "inputBytes": 492462,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1306.893584,
+          "elapsedMs": 0.12962500000003274,
+          "inputBytes": 492462,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1307.177542,
+          "elapsedMs": 13.069292000000132,
+          "inputBytes": 492462,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1320.659542,
+          "elapsedMs": 0.15095799999994597,
+          "inputBytes": 780947,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1320.972709,
+          "elapsedMs": 16.275291000000152,
+          "inputBytes": 780947,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1337.689292,
+          "elapsedMs": 0.14016700000001947,
+          "inputBytes": 780947,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1337.995959,
+          "elapsedMs": 23.47241599999984,
+          "inputBytes": 780947,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1361.987417,
+          "elapsedMs": 0.14858299999991686,
+          "inputBytes": 780947,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1362.335125,
+          "elapsedMs": 32.007249999999885,
+          "inputBytes": 780947,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1394.913792,
+          "elapsedMs": 0.18975000000000364,
+          "inputBytes": 701970,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1395.402792,
+          "elapsedMs": 11.042207999999846,
+          "inputBytes": 701970,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1406.924375,
+          "elapsedMs": 0.15249999999991815,
+          "inputBytes": 701970,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1407.250459,
+          "elapsedMs": 18.143707999999833,
+          "inputBytes": 701970,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1425.762625,
+          "elapsedMs": 0.2894589999998516,
+          "inputBytes": 701970,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1426.556875,
+          "elapsedMs": 14.741209000000026,
+          "inputBytes": 701970,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1441.703875,
+          "elapsedMs": 0.14395899999999529,
+          "inputBytes": 637051,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1442.002709,
+          "elapsedMs": 10.261582999999973,
+          "inputBytes": 637051,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1452.779625,
+          "elapsedMs": 0.12725000000000364,
+          "inputBytes": 637051,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1453.06825,
+          "elapsedMs": 13.088500000000067,
+          "inputBytes": 637051,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1466.524542,
+          "elapsedMs": 0.2428749999999127,
+          "inputBytes": 637051,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1466.937042,
+          "elapsedMs": 18.303957999999966,
+          "inputBytes": 637051,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1485.734292,
+          "elapsedMs": 0.14741699999990487,
+          "inputBytes": 612582,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1486.046042,
+          "elapsedMs": 11.942000000000007,
+          "inputBytes": 612582,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1498.451292,
+          "elapsedMs": 0.1384170000001177,
+          "inputBytes": 612582,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1498.769667,
+          "elapsedMs": 15.52299999999991,
+          "inputBytes": 612582,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1515.182334,
+          "elapsedMs": 0.23008299999992232,
+          "inputBytes": 612582,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1515.694542,
+          "elapsedMs": 17.33070799999996,
+          "inputBytes": 612582,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1533.603459,
+          "elapsedMs": 0.15579100000013568,
+          "inputBytes": 557596,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1533.9295,
+          "elapsedMs": 10.799874999999929,
+          "inputBytes": 557596,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1545.425709,
+          "elapsedMs": 0.32591600000000653,
+          "inputBytes": 557596,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1546.067459,
+          "elapsedMs": 13.994499999999789,
+          "inputBytes": 557596,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1560.595375,
+          "elapsedMs": 0.3131669999997939,
+          "inputBytes": 557596,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1561.133084,
+          "elapsedMs": 16.7154579999999,
+          "inputBytes": 557596,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1578.42325,
+          "elapsedMs": 0.3657499999999345,
+          "inputBytes": 637432,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1579.148042,
+          "elapsedMs": 17.44945800000005,
+          "inputBytes": 637432,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1597.065584,
+          "elapsedMs": 0.1778750000000855,
+          "inputBytes": 637432,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1597.479542,
+          "elapsedMs": 22.353875000000016,
+          "inputBytes": 637432,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1620.360792,
+          "elapsedMs": 0.27899999999999636,
+          "inputBytes": 637432,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1621.095542,
+          "elapsedMs": 28.46091699999988,
+          "inputBytes": 637432,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1649.991084,
+          "elapsedMs": 0.26083300000004783,
+          "inputBytes": 671476,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1650.443,
+          "elapsedMs": 15.551625000000058,
+          "inputBytes": 671476,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1666.36975,
+          "elapsedMs": 0.15124999999989086,
+          "inputBytes": 671476,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1666.684167,
+          "elapsedMs": 21.216292000000067,
+          "inputBytes": 671476,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1688.277167,
+          "elapsedMs": 0.1446250000001328,
+          "inputBytes": 671476,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1688.652042,
+          "elapsedMs": 28.08658300000002,
+          "inputBytes": 671476,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1717.137125,
+          "elapsedMs": 0.19829200000003766,
+          "inputBytes": 534247,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1717.50375,
+          "elapsedMs": 8.76016699999991,
+          "inputBytes": 534247,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1726.870959,
+          "elapsedMs": 0.17354099999988648,
+          "inputBytes": 534247,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1727.306042,
+          "elapsedMs": 10.550792000000001,
+          "inputBytes": 534247,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1738.189,
+          "elapsedMs": 0.15049999999996544,
+          "inputBytes": 534247,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1738.525375,
+          "elapsedMs": 14.281167000000096,
+          "inputBytes": 534247,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1753.14825,
+          "elapsedMs": 0.18616700000006858,
+          "inputBytes": 602078,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1753.561084,
+          "elapsedMs": 14.13758299999995,
+          "inputBytes": 602078,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1768.119042,
+          "elapsedMs": 0.19399999999995998,
+          "inputBytes": 602078,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1768.5385,
+          "elapsedMs": 19.910208999999895,
+          "inputBytes": 602078,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1789.158792,
+          "elapsedMs": 0.3579170000000431,
+          "inputBytes": 602078,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1789.691375,
+          "elapsedMs": 27.09375,
+          "inputBytes": 602078,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1817.185292,
+          "elapsedMs": 0.14304200000015044,
+          "inputBytes": 692201,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1817.470292,
+          "elapsedMs": 9.939125000000104,
+          "inputBytes": 692201,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1827.753875,
+          "elapsedMs": 0.13537499999983993,
+          "inputBytes": 692201,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1828.039542,
+          "elapsedMs": 13.831083000000035,
+          "inputBytes": 692201,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 1842.319209,
+          "elapsedMs": 0.13937499999997272,
+          "inputBytes": 692201,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 1842.604,
+          "elapsedMs": 17.815249999999878,
+          "inputBytes": 692201,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        }
+      ],
+      "traceSha256": "506e6cf80a30185665322ec6efa34a0125afa8f129fc47c2f7c85867314aae03",
+      "profileSha256": "ccdf5d8492d843d048671d14abc83f246ec803369984e0863ab1176597ad6980",
+      "methods": [
+        {
+          "method": "preload",
+          "calls": 2,
+          "inputBytes": 0,
+          "summedAsyncMs": 0
+        },
+        {
+          "method": "metadata",
+          "calls": 96,
+          "inputBytes": 61577220,
+          "summedAsyncMs": 216.78350000000057
+        },
+        {
+          "method": "toBuffer",
+          "calls": 72,
+          "inputBytes": 46182915,
+          "summedAsyncMs": 1150.5383319999996
+        }
+      ],
+      "topMainThreadSamples": [
+        {
+          "functionName": "(idle)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 1303.427
+        },
+        {
+          "functionName": "compileSourceTextModule",
+          "scriptId": "65",
+          "url": "node:internal/modules/esm/utils",
+          "lineNumber": 337,
+          "columnNumber": 32,
+          "sampledMs": 17.907
+        },
+        {
+          "functionName": "read",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 17.061
+        },
+        {
+          "functionName": "__require",
+          "scriptId": "239",
+          "url": "node:internal/deps/amaro/dist/index",
+          "lineNumber": 7,
+          "columnNumber": 48,
+          "sampledMs": 16.411
+        },
+        {
+          "functionName": "(garbage collector)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 16.201
+        },
+        {
+          "functionName": "(program)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 15.434
+        },
+        {
+          "functionName": "#build",
+          "scriptId": "268",
+          "url": "file:///Users/gastonhardy/Developer/projects/open-source/svelte-imageway/node_modules/.bun/rolldown@1.2.14/node_modules/rolldown/dist/shared/rolldown-BYX6bV3R.mjs",
+          "lineNumber": 136,
+          "columnNumber": 13,
+          "sampledMs": 14.976
+        },
+        {
+          "functionName": "readFileUtf8",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 11.158
+        },
+        {
+          "functionName": "dlopen",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 9.939
+        },
+        {
+          "functionName": "internalModuleStat",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 9.659
+        },
+        {
+          "functionName": "dlopen",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 8.853
+        },
+        {
+          "functionName": "readFileUtf8",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 8.841
+        },
+        {
+          "functionName": "",
+          "scriptId": "262",
+          "url": "file:///Users/gastonhardy/Developer/projects/open-source/svelte-imageway/node_modules/.bun/rolldown@1.2.14/node_modules/rolldown/dist/shared/create-bundler-option-DH74Qvg7.mjs",
+          "lineNumber": 0,
+          "columnNumber": 0,
+          "sampledMs": 7.543
+        },
+        {
+          "functionName": "compileSourceTextModule",
+          "scriptId": "65",
+          "url": "node:internal/modules/esm/utils",
+          "lineNumber": 337,
+          "columnNumber": 32,
+          "sampledMs": 7.062
+        },
+        {
+          "functionName": "read",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 6.596
+        },
+        {
+          "functionName": "open",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 6.247
+        },
+        {
+          "functionName": "read",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 5.864
+        },
+        {
+          "functionName": "makeBuiltinPluginCallable",
+          "scriptId": "249",
+          "url": "file:///Users/gastonhardy/Developer/projects/open-source/svelte-imageway/node_modules/.bun/rolldown@1.2.14/node_modules/rolldown/dist/shared/normalize-string-or-regex-COVDiCTB.mjs",
+          "lineNumber": 14,
+          "columnNumber": 34,
+          "sampledMs": 5.56
+        },
+        {
+          "functionName": "open",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 5.109
+        },
+        {
+          "functionName": "read",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 5.097
+        }
+      ]
+    },
+    {
+      "logicalConcurrency": 4,
+      "packageRoot": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/packages/svelte-imageway",
+      "mainThreadProfile": "CPU.20261027.150556.11762.0.001.cpuprofile",
+      "profileFiles": [
+        {
+          "name": "CPU.20261027.150556.11762.1.002.cpuprofile",
+          "sha256": "030e556646bad147b2a777c65a70f1ecfdb2612f3579a3d5239f56c1385ecab9"
+        },
+        {
+          "name": "CPU.20261027.150556.11762.0.001.cpuprofile",
+          "sha256": "7aeb3cbe3bb628a9927ba40508a57c204faeea8428e11cf6e5685f5b4dc0537e"
+        }
+      ],
+      "diagnosticBuild": {
+        "engine": "imageway",
+        "concurrency": 4,
+        "buildMs": 541.977625,
+        "peakRssBytes": 297582592,
+        "assets": [
+          {
+            "file": "imageway/0282cc73f00d3b26ffa3fdb4be17675fd392f62d4d1dc70bc405b8ba9ca3833c.webp",
+            "bytes": 6242,
+            "sha256": "0282cc73f00d3b26ffa3fdb4be17675fd392f62d4d1dc70bc405b8ba9ca3833c"
+          },
+          {
+            "file": "imageway/04258eb7ef1d830662039b2c070dcb02d5e5e57e3f0178cfada8f0df755c252f.webp",
+            "bytes": 8332,
+            "sha256": "04258eb7ef1d830662039b2c070dcb02d5e5e57e3f0178cfada8f0df755c252f"
+          },
+          {
+            "file": "imageway/0e3f108b5510f6b765fffceb733b5b69f28f0f9b9ed2622bd28b18267cbed010.webp",
+            "bytes": 15188,
+            "sha256": "0e3f108b5510f6b765fffceb733b5b69f28f0f9b9ed2622bd28b18267cbed010"
+          },
+          {
+            "file": "imageway/0f6b7aaf468b4accc402922d07dc716e508328a3ecafcdc71b0a75f4c2ae1434.webp",
+            "bytes": 16956,
+            "sha256": "0f6b7aaf468b4accc402922d07dc716e508328a3ecafcdc71b0a75f4c2ae1434"
+          },
+          {
+            "file": "imageway/109fc01aad82791a04c1952996947e855aaadc7a1fe6749ef9782e313086492e.webp",
+            "bytes": 59232,
+            "sha256": "109fc01aad82791a04c1952996947e855aaadc7a1fe6749ef9782e313086492e"
+          },
+          {
+            "file": "imageway/15ad991ac153d28f6dfa07bdedf092b977d329dfb787c693cfd203fcc6af73cb.webp",
+            "bytes": 14264,
+            "sha256": "15ad991ac153d28f6dfa07bdedf092b977d329dfb787c693cfd203fcc6af73cb"
+          },
+          {
+            "file": "imageway/1fad7f048feadb34d557df2fe1e8c9b3384b0153870a3e024d6fde4089c02bb6.webp",
+            "bytes": 14628,
+            "sha256": "1fad7f048feadb34d557df2fe1e8c9b3384b0153870a3e024d6fde4089c02bb6"
+          },
+          {
+            "file": "imageway/200223c8a2fdcbad4b872d7fc512fdfd9661b945d01e9fffda106a1599afdfe6.webp",
+            "bytes": 15374,
+            "sha256": "200223c8a2fdcbad4b872d7fc512fdfd9661b945d01e9fffda106a1599afdfe6"
+          },
+          {
+            "file": "imageway/20ef7ff2914757ca8f9155dca2f571b0bc80b7651caceb7ac087968b13fd0560.webp",
+            "bytes": 12568,
+            "sha256": "20ef7ff2914757ca8f9155dca2f571b0bc80b7651caceb7ac087968b13fd0560"
+          },
+          {
+            "file": "imageway/2135b53dae39d3d2707ea503b5ee7dfc07b5db71e2ee93e3c172103b2c5578c7.webp",
+            "bytes": 8476,
+            "sha256": "2135b53dae39d3d2707ea503b5ee7dfc07b5db71e2ee93e3c172103b2c5578c7"
+          },
+          {
+            "file": "imageway/223725947bcab210223780c99d82f7d5f76e8731e05b77673ae41d78056c320e.webp",
+            "bytes": 31476,
+            "sha256": "223725947bcab210223780c99d82f7d5f76e8731e05b77673ae41d78056c320e"
+          },
+          {
+            "file": "imageway/2349837a0bede1d0613216c435f533ee1c8dfad838f8c84c743ebf38656d5ede.webp",
+            "bytes": 13074,
+            "sha256": "2349837a0bede1d0613216c435f533ee1c8dfad838f8c84c743ebf38656d5ede"
+          },
+          {
+            "file": "imageway/34c3c846078536c8f7970e44bad9d0d2cce192a05522375d38ab11d92aa267f2.webp",
+            "bytes": 5464,
+            "sha256": "34c3c846078536c8f7970e44bad9d0d2cce192a05522375d38ab11d92aa267f2"
+          },
+          {
+            "file": "imageway/3783f6b6a28fde08d4e2216d208b018c66ecc8934fd26c3b4c837b751f938cc1.webp",
+            "bytes": 4998,
+            "sha256": "3783f6b6a28fde08d4e2216d208b018c66ecc8934fd26c3b4c837b751f938cc1"
+          },
+          {
+            "file": "imageway/378ff583f553bb90189f91c755a0fc6f8ebc9217e5b984ee2a92b3ceeca5eabc.webp",
+            "bytes": 14806,
+            "sha256": "378ff583f553bb90189f91c755a0fc6f8ebc9217e5b984ee2a92b3ceeca5eabc"
+          },
+          {
+            "file": "imageway/3b525621abdfc8c968c7ace501961175c231c348bd123880cdcf0956622b99ee.webp",
+            "bytes": 28002,
+            "sha256": "3b525621abdfc8c968c7ace501961175c231c348bd123880cdcf0956622b99ee"
+          },
+          {
+            "file": "imageway/3b9cc53b46f873357d3917c7b108f47da82969731b8f8f5db3027faed95c53a8.webp",
+            "bytes": 12208,
+            "sha256": "3b9cc53b46f873357d3917c7b108f47da82969731b8f8f5db3027faed95c53a8"
+          },
+          {
+            "file": "imageway/3e67826a4716ba18a5ebf7a70ec1882a1e8ea6c8e3048d372461981be75bc566.webp",
+            "bytes": 8834,
+            "sha256": "3e67826a4716ba18a5ebf7a70ec1882a1e8ea6c8e3048d372461981be75bc566"
+          },
+          {
+            "file": "imageway/46b144bc3c6d3665cf07e63618c6946d4b4ccf92694c250eaffb751d752643ed.webp",
+            "bytes": 11028,
+            "sha256": "46b144bc3c6d3665cf07e63618c6946d4b4ccf92694c250eaffb751d752643ed"
+          },
+          {
+            "file": "imageway/4e56022072708b0197edac9b120a8b8b0fc6aa4f321b939252b988afba17a3dd.webp",
+            "bytes": 28084,
+            "sha256": "4e56022072708b0197edac9b120a8b8b0fc6aa4f321b939252b988afba17a3dd"
+          },
+          {
+            "file": "imageway/549bde024ef27c1a71a7820a5e85c64a02ddedb51caf9a0391677041ecc99921.webp",
+            "bytes": 43614,
+            "sha256": "549bde024ef27c1a71a7820a5e85c64a02ddedb51caf9a0391677041ecc99921"
+          },
+          {
+            "file": "imageway/54c161f606426f1149806e5ee06a490054bacd8cb014dc99001e54f419ce1996.webp",
+            "bytes": 39462,
+            "sha256": "54c161f606426f1149806e5ee06a490054bacd8cb014dc99001e54f419ce1996"
+          },
+          {
+            "file": "imageway/56440c3deebfed4b633a7d479a3251b54f192730865d6217c7c6ce4aba49410f.webp",
+            "bytes": 8754,
+            "sha256": "56440c3deebfed4b633a7d479a3251b54f192730865d6217c7c6ce4aba49410f"
+          },
+          {
+            "file": "imageway/5fc46aa740050f30b216b608e1d20e7452adf1b101c4391fdb12f9c82dd5fc2e.webp",
+            "bytes": 8710,
+            "sha256": "5fc46aa740050f30b216b608e1d20e7452adf1b101c4391fdb12f9c82dd5fc2e"
+          },
+          {
+            "file": "imageway/6301cc7c9dc66774cba7acc3760dc3d3f7f4b6f7fc9ec522ccd8ebe2dd562f60.webp",
+            "bytes": 6382,
+            "sha256": "6301cc7c9dc66774cba7acc3760dc3d3f7f4b6f7fc9ec522ccd8ebe2dd562f60"
+          },
+          {
+            "file": "imageway/64d0249189658eaaa36aa685839fd3b29e817f5df1b383bfff41f6a7c9218868.webp",
+            "bytes": 24280,
+            "sha256": "64d0249189658eaaa36aa685839fd3b29e817f5df1b383bfff41f6a7c9218868"
+          },
+          {
+            "file": "imageway/64dd9bddb55b560cfccca1e26945fb58260356e17431f4e38ed2504f7b4193f8.webp",
+            "bytes": 28804,
+            "sha256": "64dd9bddb55b560cfccca1e26945fb58260356e17431f4e38ed2504f7b4193f8"
+          },
+          {
+            "file": "imageway/66ea2c4859b3ad7620d793f876738f2d88c50d2fc00bd9b5ab28caae9c52708f.webp",
+            "bytes": 11400,
+            "sha256": "66ea2c4859b3ad7620d793f876738f2d88c50d2fc00bd9b5ab28caae9c52708f"
+          },
+          {
+            "file": "imageway/6ba183bec0660ea8cf783370abce3ade3c540c49d439e488aadec151794a583d.webp",
+            "bytes": 21212,
+            "sha256": "6ba183bec0660ea8cf783370abce3ade3c540c49d439e488aadec151794a583d"
+          },
+          {
+            "file": "imageway/701ecba0724b5569aa5a5a90fa3a4c7f97739f110349cdbc80f34445b2063817.webp",
+            "bytes": 22158,
+            "sha256": "701ecba0724b5569aa5a5a90fa3a4c7f97739f110349cdbc80f34445b2063817"
+          },
+          {
+            "file": "imageway/7404195882a7dbcb2be975e9b6e0a88800c12de559250ae659a8e742e1fdcaff.webp",
+            "bytes": 8950,
+            "sha256": "7404195882a7dbcb2be975e9b6e0a88800c12de559250ae659a8e742e1fdcaff"
+          },
+          {
+            "file": "imageway/741f2c376acb8b83a9db9b6cdcc74270596c7c2292a0e09be44f845c095f1b6f.webp",
+            "bytes": 18030,
+            "sha256": "741f2c376acb8b83a9db9b6cdcc74270596c7c2292a0e09be44f845c095f1b6f"
+          },
+          {
+            "file": "imageway/7518462502a4c4294c404c11a540c2eda9ae785d1920e2bb725df65aea156f78.webp",
+            "bytes": 24626,
+            "sha256": "7518462502a4c4294c404c11a540c2eda9ae785d1920e2bb725df65aea156f78"
+          },
+          {
+            "file": "imageway/778a5c2ebcc6757ffce40f7e468a3b535eaeabe0b0dd5544012b05786db14cea.webp",
+            "bytes": 20338,
+            "sha256": "778a5c2ebcc6757ffce40f7e468a3b535eaeabe0b0dd5544012b05786db14cea"
+          },
+          {
+            "file": "imageway/8080f2c93a8423cc6b78201ff27759715e9f51acf3ba80f84ca5c62c6c34536d.webp",
+            "bytes": 8876,
+            "sha256": "8080f2c93a8423cc6b78201ff27759715e9f51acf3ba80f84ca5c62c6c34536d"
+          },
+          {
+            "file": "imageway/87380810b4f2df2a1b43a279ea18c935de60d3ec24dac87bf4cb71be3d95b9f6.webp",
+            "bytes": 11746,
+            "sha256": "87380810b4f2df2a1b43a279ea18c935de60d3ec24dac87bf4cb71be3d95b9f6"
+          },
+          {
+            "file": "imageway/8ac9f9a72a94cf20b271c61bd87eae4ff422764fd0b978a43ae74f4097ed097d.webp",
+            "bytes": 14374,
+            "sha256": "8ac9f9a72a94cf20b271c61bd87eae4ff422764fd0b978a43ae74f4097ed097d"
+          },
+          {
+            "file": "imageway/8aea70fb6e537dbbc38f2966ef45222e2eee7e39d4a2961d0d19afd293582b61.webp",
+            "bytes": 12656,
+            "sha256": "8aea70fb6e537dbbc38f2966ef45222e2eee7e39d4a2961d0d19afd293582b61"
+          },
+          {
+            "file": "imageway/95b27f7f7023ee2d8c060efb4fdbbdca90f7ba24c5ec10d75d732ef6eb5da318.webp",
+            "bytes": 16572,
+            "sha256": "95b27f7f7023ee2d8c060efb4fdbbdca90f7ba24c5ec10d75d732ef6eb5da318"
+          },
+          {
+            "file": "imageway/96a288dc042ff8a909976a65770a2fb998ac0a1f6bba8225c2648c55cdcf2a3d.webp",
+            "bytes": 5100,
+            "sha256": "96a288dc042ff8a909976a65770a2fb998ac0a1f6bba8225c2648c55cdcf2a3d"
+          },
+          {
+            "file": "imageway/97b1a15f32d3e5d352beea929024737ab32e45078e1db933808b65cb6b436ad1.webp",
+            "bytes": 13416,
+            "sha256": "97b1a15f32d3e5d352beea929024737ab32e45078e1db933808b65cb6b436ad1"
+          },
+          {
+            "file": "imageway/9efcbb4c93a1d230da0186cf2196c30d91a2151cde62fe9d7287a74eead58653.webp",
+            "bytes": 25006,
+            "sha256": "9efcbb4c93a1d230da0186cf2196c30d91a2151cde62fe9d7287a74eead58653"
+          },
+          {
+            "file": "imageway/a0de78e15d4db579f4531a6344714c4a7221e2198bceb73309d53b414277164e.webp",
+            "bytes": 15676,
+            "sha256": "a0de78e15d4db579f4531a6344714c4a7221e2198bceb73309d53b414277164e"
+          },
+          {
+            "file": "imageway/a10e547d86fb21c20142b44d4e035da79782a3607f21b7c4e14bf85d8c5fcc77.webp",
+            "bytes": 27014,
+            "sha256": "a10e547d86fb21c20142b44d4e035da79782a3607f21b7c4e14bf85d8c5fcc77"
+          },
+          {
+            "file": "imageway/a4f964e00aa846f75e52de3d52e9765528ecced5014bf946e75dedc4fe0ac9d2.webp",
+            "bytes": 14700,
+            "sha256": "a4f964e00aa846f75e52de3d52e9765528ecced5014bf946e75dedc4fe0ac9d2"
+          },
+          {
+            "file": "imageway/a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994.webp",
+            "bytes": 32836,
+            "sha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994"
+          },
+          {
+            "file": "imageway/b55daceef4324a9e5396e9869e9794a4d127eced1469436bbabae6818c8b69f9.webp",
+            "bytes": 23294,
+            "sha256": "b55daceef4324a9e5396e9869e9794a4d127eced1469436bbabae6818c8b69f9"
+          },
+          {
+            "file": "imageway/b584266060ee5b64e4be7c9dd5d6fde3b66048d0d0deb2290bf5b05d1cd22945.webp",
+            "bytes": 5856,
+            "sha256": "b584266060ee5b64e4be7c9dd5d6fde3b66048d0d0deb2290bf5b05d1cd22945"
+          },
+          {
+            "file": "imageway/b93c0bdde1363d2d87d0f956fcb734d6213114625af80890580eda606abda8e1.webp",
+            "bytes": 19406,
+            "sha256": "b93c0bdde1363d2d87d0f956fcb734d6213114625af80890580eda606abda8e1"
+          },
+          {
+            "file": "imageway/b9a108fb29a64afb79b5f7a6a1893a1d1f0631f23b3c840429a28adc975fad6e.webp",
+            "bytes": 32450,
+            "sha256": "b9a108fb29a64afb79b5f7a6a1893a1d1f0631f23b3c840429a28adc975fad6e"
+          },
+          {
+            "file": "imageway/c1a77c6ab34a12bff636998d4dcae7d49608980d63f0508d533669fdc529c888.webp",
+            "bytes": 23352,
+            "sha256": "c1a77c6ab34a12bff636998d4dcae7d49608980d63f0508d533669fdc529c888"
+          },
+          {
+            "file": "imageway/c1fe5ad766d816637398f7586a0bae71f7a432d4fa4061325da3343c24c56494.webp",
+            "bytes": 36482,
+            "sha256": "c1fe5ad766d816637398f7586a0bae71f7a432d4fa4061325da3343c24c56494"
+          },
+          {
+            "file": "imageway/c4131fb9010c573e3a643851021c3cd0f146f935266d9af0f3a46a2dfd75fe16.webp",
+            "bytes": 12542,
+            "sha256": "c4131fb9010c573e3a643851021c3cd0f146f935266d9af0f3a46a2dfd75fe16"
+          },
+          {
+            "file": "imageway/c5b410f48850776c29edff59b530765036cdcf111a917fc7d97f5b78674490ed.webp",
+            "bytes": 40876,
+            "sha256": "c5b410f48850776c29edff59b530765036cdcf111a917fc7d97f5b78674490ed"
+          },
+          {
+            "file": "imageway/c86d7c39da736ed6e630ea32130254567cd435e4533f9ae3839ee7a856b67d5c.webp",
+            "bytes": 21308,
+            "sha256": "c86d7c39da736ed6e630ea32130254567cd435e4533f9ae3839ee7a856b67d5c"
+          },
+          {
+            "file": "imageway/cc0f1aba2c826479d823cad58c87df6aa8037b621b6e3c024b04dc85cce7057f.webp",
+            "bytes": 8568,
+            "sha256": "cc0f1aba2c826479d823cad58c87df6aa8037b621b6e3c024b04dc85cce7057f"
+          },
+          {
+            "file": "imageway/ccf5b5f7dc86b42fa34b218132345b4888a06cc2eb480b8131f5aadfebe010cd.webp",
+            "bytes": 31248,
+            "sha256": "ccf5b5f7dc86b42fa34b218132345b4888a06cc2eb480b8131f5aadfebe010cd"
+          },
+          {
+            "file": "imageway/cd36422409f416470fc8044ea69cff0ea6726ff67a4dcf8821d77505d61cd336.webp",
+            "bytes": 10108,
+            "sha256": "cd36422409f416470fc8044ea69cff0ea6726ff67a4dcf8821d77505d61cd336"
+          },
+          {
+            "file": "imageway/d3e5a09e8628aeaee87406db1dfc547cf58eccb53bd8be36a7e663c798541ede.webp",
+            "bytes": 17168,
+            "sha256": "d3e5a09e8628aeaee87406db1dfc547cf58eccb53bd8be36a7e663c798541ede"
+          },
+          {
+            "file": "imageway/dae5cb460addc71f7bbb2a1f8bc1d8a7d1b6b7dd9062e829f1bbf6f502b506f0.webp",
+            "bytes": 13334,
+            "sha256": "dae5cb460addc71f7bbb2a1f8bc1d8a7d1b6b7dd9062e829f1bbf6f502b506f0"
+          },
+          {
+            "file": "imageway/df0fde908346029602357a3ef3df7c4074f5f8e36ffa4837ed4c28623c8d32f6.webp",
+            "bytes": 27586,
+            "sha256": "df0fde908346029602357a3ef3df7c4074f5f8e36ffa4837ed4c28623c8d32f6"
+          },
+          {
+            "file": "imageway/e238bc14975b8e18c64f6ac6a86fab07fbe9cd0bdb01487c07c4bd8c9c0b9db8.webp",
+            "bytes": 14558,
+            "sha256": "e238bc14975b8e18c64f6ac6a86fab07fbe9cd0bdb01487c07c4bd8c9c0b9db8"
+          },
+          {
+            "file": "imageway/e28a9d2248e134421b7d82612a1913230a15689fb5ef99c2f78646d52ff3bf65.webp",
+            "bytes": 8972,
+            "sha256": "e28a9d2248e134421b7d82612a1913230a15689fb5ef99c2f78646d52ff3bf65"
+          },
+          {
+            "file": "imageway/e6c734344584ecd1f6f003fb90f372b1d4bda2952062e36320ea26f5c8688432.webp",
+            "bytes": 40506,
+            "sha256": "e6c734344584ecd1f6f003fb90f372b1d4bda2952062e36320ea26f5c8688432"
+          },
+          {
+            "file": "imageway/e8820fe2dd9171fa53d494012e629e86e0d93e4f0802154a4abe111936ea930b.webp",
+            "bytes": 8938,
+            "sha256": "e8820fe2dd9171fa53d494012e629e86e0d93e4f0802154a4abe111936ea930b"
+          },
+          {
+            "file": "imageway/e88ac343b1a52e004661f231ffd6c5d983878b66feae26e90d22d0a9a62cf524.webp",
+            "bytes": 13684,
+            "sha256": "e88ac343b1a52e004661f231ffd6c5d983878b66feae26e90d22d0a9a62cf524"
+          },
+          {
+            "file": "imageway/e97ff3a02e588ce8a4daacf982fe076a09f0d1399b22f29c3ed9bb4d490c5128.webp",
+            "bytes": 21094,
+            "sha256": "e97ff3a02e588ce8a4daacf982fe076a09f0d1399b22f29c3ed9bb4d490c5128"
+          },
+          {
+            "file": "imageway/ec3b597911e956326c6d8b23babb5a06b2799c2fd4fea475beed89cb834501a1.webp",
+            "bytes": 22774,
+            "sha256": "ec3b597911e956326c6d8b23babb5a06b2799c2fd4fea475beed89cb834501a1"
+          },
+          {
+            "file": "imageway/f72e7dd7d78717fef64c9b6494e71c93884ba381ef3dc0ffd7477aec6e8e89e6.webp",
+            "bytes": 16876,
+            "sha256": "f72e7dd7d78717fef64c9b6494e71c93884ba381ef3dc0ffd7477aec6e8e89e6"
+          },
+          {
+            "file": "imageway/f839b719b047a1402ce9dba7ae21dd53e2129ae6e61fb55ee96cdf9c7d372398.webp",
+            "bytes": 5546,
+            "sha256": "f839b719b047a1402ce9dba7ae21dd53e2129ae6e61fb55ee96cdf9c7d372398"
+          },
+          {
+            "file": "imageway/fd27310adaf52bc647487cd0e3dd256f4b356a487b25bd12b0360e6f649c4547.webp",
+            "bytes": 11330,
+            "sha256": "fd27310adaf52bc647487cd0e3dd256f4b356a487b25bd12b0360e6f649c4547"
+          },
+          {
+            "file": "imageway/fe86f098bcc7ff80dd22ac942c9f45a34d8c9b5e0937a0bee18faff2a5e2c2b7.webp",
+            "bytes": 22342,
+            "sha256": "fe86f098bcc7ff80dd22ac942c9f45a34d8c9b5e0937a0bee18faff2a5e2c2b7"
+          }
+        ],
+        "node": "v26.11.1"
+      },
+      "events": [
+        {
+          "threadId": 0,
+          "method": "preload",
+          "started": 58.025958
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 322.27825,
+          "elapsedMs": 1.7794999999999845,
+          "inputBytes": 617995,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 322.511041,
+          "elapsedMs": 3.1009590000000458,
+          "inputBytes": 736501,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 322.603666,
+          "elapsedMs": 3.6311249999999973,
+          "inputBytes": 502888,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 322.563666,
+          "elapsedMs": 4.164375000000007,
+          "inputBytes": 788470,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 322.726625,
+          "elapsedMs": 4.959583000000009,
+          "inputBytes": 566322,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 322.90025,
+          "elapsedMs": 5.25449999999995,
+          "inputBytes": 618959,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.044208,
+          "elapsedMs": 5.579999999999984,
+          "inputBytes": 785610,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.230541,
+          "elapsedMs": 5.867916999999977,
+          "inputBytes": 593463,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.279416,
+          "elapsedMs": 6.190791999999988,
+          "inputBytes": 531024,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.313416,
+          "elapsedMs": 6.555874999999958,
+          "inputBytes": 612582,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.385208,
+          "elapsedMs": 6.8945830000000115,
+          "inputBytes": 582899,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.357958,
+          "elapsedMs": 7.401416999999981,
+          "inputBytes": 534247,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.484916,
+          "elapsedMs": 7.9232920000000036,
+          "inputBytes": 621023,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.410541,
+          "elapsedMs": 8.960083999999995,
+          "inputBytes": 692201,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.531833,
+          "elapsedMs": 9.285832999999968,
+          "inputBytes": 671476,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.5845,
+          "elapsedMs": 9.645624999999995,
+          "inputBytes": 602078,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.605791,
+          "elapsedMs": 10.013041999999984,
+          "inputBytes": 780947,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.858041,
+          "elapsedMs": 10.196041999999977,
+          "inputBytes": 637051,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.623583,
+          "elapsedMs": 10.847958000000006,
+          "inputBytes": 701970,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 323.712083,
+          "elapsedMs": 11.175833000000011,
+          "inputBytes": 706397,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 330.720958,
+          "elapsedMs": 10.591707999999983,
+          "inputBytes": 637432,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 342.106541,
+          "elapsedMs": 0.49912499999999227,
+          "inputBytes": 492462,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 342.166291,
+          "elapsedMs": 0.9678749999999923,
+          "inputBytes": 822712,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 0,
+          "method": "metadata",
+          "started": 342.149041,
+          "elapsedMs": 9.242416999999989,
+          "inputBytes": 557596,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "preload",
+          "started": 425.888666
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 429.913958,
+          "elapsedMs": 0.24600000000003774,
+          "inputBytes": 617995,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 430.02,
+          "elapsedMs": 1.1805410000000052,
+          "inputBytes": 617995,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 430.0795,
+          "elapsedMs": 1.688874999999996,
+          "inputBytes": 617995,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 430.115,
+          "elapsedMs": 1.8794579999999996,
+          "inputBytes": 736501,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 431.004791,
+          "elapsedMs": 12.359125000000006,
+          "inputBytes": 617995,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 444.839291,
+          "elapsedMs": 0.326958999999988,
+          "inputBytes": 736501,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 432.131958,
+          "elapsedMs": 13.384875000000022,
+          "inputBytes": 736501,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 445.709125,
+          "elapsedMs": 0.29262500000004366,
+          "inputBytes": 736501,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 431.701333,
+          "elapsedMs": 15.577832999999998,
+          "inputBytes": 617995,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 447.647041,
+          "elapsedMs": 0.25108399999999165,
+          "inputBytes": 502888,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 431.955083,
+          "elapsedMs": 19.186792000000025,
+          "inputBytes": 617995,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 452.033458,
+          "elapsedMs": 0.3890830000000278,
+          "inputBytes": 502888,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 448.300333,
+          "elapsedMs": 10.103707999999983,
+          "inputBytes": 502888,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 459.377791,
+          "elapsedMs": 0.20829199999997172,
+          "inputBytes": 502888,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 445.4305,
+          "elapsedMs": 16.34620799999999,
+          "inputBytes": 736501,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 462.190208,
+          "elapsedMs": 0.12312500000001592,
+          "inputBytes": 788470,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 452.912583,
+          "elapsedMs": 12.44941700000004,
+          "inputBytes": 502888,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 465.73075,
+          "elapsedMs": 0.2174580000000219,
+          "inputBytes": 788470,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 446.213916,
+          "elapsedMs": 20.386250000000018,
+          "inputBytes": 736501,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 466.815375,
+          "elapsedMs": 0.2875829999999837,
+          "inputBytes": 788470,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 462.594875,
+          "elapsedMs": 13.64633299999997,
+          "inputBytes": 788470,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 459.96375,
+          "elapsedMs": 16.570790999999986,
+          "inputBytes": 502888,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 476.949541,
+          "elapsedMs": 0.389458999999988,
+          "inputBytes": 566322,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 477.084125,
+          "elapsedMs": 0.8893750000000296,
+          "inputBytes": 566322,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 466.160833,
+          "elapsedMs": 17.562749999999994,
+          "inputBytes": 788470,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 484.469,
+          "elapsedMs": 0.36099999999999,
+          "inputBytes": 566322,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 467.457416,
+          "elapsedMs": 21.083916999999985,
+          "inputBytes": 788470,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 489.09,
+          "elapsedMs": 0.49179100000003473,
+          "inputBytes": 618959,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 477.89575,
+          "elapsedMs": 12.363665999999967,
+          "inputBytes": 566322,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 490.644666,
+          "elapsedMs": 0.254209000000003,
+          "inputBytes": 618959,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 478.2515,
+          "elapsedMs": 14.948540999999977,
+          "inputBytes": 566322,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 493.793125,
+          "elapsedMs": 0.30729100000002063,
+          "inputBytes": 618959,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 490.107458,
+          "elapsedMs": 11.574124999999981,
+          "inputBytes": 618959,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 502.267416,
+          "elapsedMs": 0.32933399999996027,
+          "inputBytes": 785610,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 485.157208,
+          "elapsedMs": 18.322000000000003,
+          "inputBytes": 566322,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 503.77725,
+          "elapsedMs": 0.17237500000004502,
+          "inputBytes": 785610,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 491.058958,
+          "elapsedMs": 13.844666999999959,
+          "inputBytes": 618959,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 505.283958,
+          "elapsedMs": 0.15975000000003092,
+          "inputBytes": 785610,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 494.559125,
+          "elapsedMs": 19.86916599999995,
+          "inputBytes": 618959,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 515.180583,
+          "elapsedMs": 0.5874170000000731,
+          "inputBytes": 593463,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 502.950416,
+          "elapsedMs": 13.371291999999926,
+          "inputBytes": 785610,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 516.712916,
+          "elapsedMs": 0.6002500000000737,
+          "inputBytes": 593463,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 504.316958,
+          "elapsedMs": 19.890667000000008,
+          "inputBytes": 785610,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 524.63525,
+          "elapsedMs": 0.17837499999995998,
+          "inputBytes": 593463,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 505.733875,
+          "elapsedMs": 22.82745799999998,
+          "inputBytes": 785610,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 528.881375,
+          "elapsedMs": 0.15487499999994725,
+          "inputBytes": 531024,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 516.172041,
+          "elapsedMs": 18.228334000000018,
+          "inputBytes": 593463,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 534.997708,
+          "elapsedMs": 0.5684170000000677,
+          "inputBytes": 531024,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 529.302166,
+          "elapsedMs": 10.177416999999991,
+          "inputBytes": 531024,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 540.129166,
+          "elapsedMs": 0.20804199999997763,
+          "inputBytes": 531024,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 517.740041,
+          "elapsedMs": 23.374000000000024,
+          "inputBytes": 593463,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 541.378541,
+          "elapsedMs": 0.12216699999999037,
+          "inputBytes": 612582,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 536.023416,
+          "elapsedMs": 12.745458999999983,
+          "inputBytes": 531024,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 549.109416,
+          "elapsedMs": 0.27062499999999545,
+          "inputBytes": 612582,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 541.74225,
+          "elapsedMs": 10.981540999999993,
+          "inputBytes": 612582,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 553.117541,
+          "elapsedMs": 0.14254200000004857,
+          "inputBytes": 612582,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 540.6255,
+          "elapsedMs": 15.446332999999981,
+          "inputBytes": 531024,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 525.047625,
+          "elapsedMs": 31.475624999999923,
+          "inputBytes": 593463,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 556.908375,
+          "elapsedMs": 0.19299999999998363,
+          "inputBytes": 582899,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 557.07725,
+          "elapsedMs": 0.35674999999991996,
+          "inputBytes": 582899,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 549.537625,
+          "elapsedMs": 13.651874999999905,
+          "inputBytes": 612582,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 563.688,
+          "elapsedMs": 0.20020799999997507,
+          "inputBytes": 582899,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 553.505166,
+          "elapsedMs": 17.818416999999954,
+          "inputBytes": 612582,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 571.7415,
+          "elapsedMs": 0.2242909999999938,
+          "inputBytes": 534247,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 557.319666,
+          "elapsedMs": 16.739874999999984,
+          "inputBytes": 582899,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 574.45075,
+          "elapsedMs": 0.25900000000001455,
+          "inputBytes": 534247,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 557.578958,
+          "elapsedMs": 22.486208000000033,
+          "inputBytes": 582899,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 580.383416,
+          "elapsedMs": 0.18483400000002348,
+          "inputBytes": 534247,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 572.265375,
+          "elapsedMs": 13.229291000000103,
+          "inputBytes": 534247,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 586.220833,
+          "elapsedMs": 0.17687499999999545,
+          "inputBytes": 621023,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 580.87175,
+          "elapsedMs": 10.191915999999992,
+          "inputBytes": 534247,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 591.399375,
+          "elapsedMs": 0.14449999999999363,
+          "inputBytes": 621023,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 574.924583,
+          "elapsedMs": 16.929458000000068,
+          "inputBytes": 534247,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 564.223833,
+          "elapsedMs": 27.772624999999948,
+          "inputBytes": 582899,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 592.103291,
+          "elapsedMs": 0.24937499999998636,
+          "inputBytes": 621023,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 592.171583,
+          "elapsedMs": 0.39199999999993906,
+          "inputBytes": 692201,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 586.595791,
+          "elapsedMs": 10.666709000000083,
+          "inputBytes": 621023,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 597.766125,
+          "elapsedMs": 0.33258299999999963,
+          "inputBytes": 692201,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 592.668541,
+          "elapsedMs": 14.978875000000016,
+          "inputBytes": 692201,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 608.166541,
+          "elapsedMs": 0.1903749999999036,
+          "inputBytes": 692201,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 591.779666,
+          "elapsedMs": 17.49974999999995,
+          "inputBytes": 621023,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 609.647083,
+          "elapsedMs": 0.2976250000000391,
+          "inputBytes": 671476,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 592.509833,
+          "elapsedMs": 21.675707999999986,
+          "inputBytes": 621023,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 614.83625,
+          "elapsedMs": 0.7655000000000882,
+          "inputBytes": 671476,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 598.645625,
+          "elapsedMs": 17.690291000000002,
+          "inputBytes": 692201,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 616.516583,
+          "elapsedMs": 0.36808300000006966,
+          "inputBytes": 671476,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 610.247833,
+          "elapsedMs": 17.589458000000036,
+          "inputBytes": 671476,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 628.235958,
+          "elapsedMs": 0.14629200000001674,
+          "inputBytes": 602078,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 608.709375,
+          "elapsedMs": 22.79133300000001,
+          "inputBytes": 692201,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 632.041583,
+          "elapsedMs": 0.14854200000002038,
+          "inputBytes": 602078,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 615.875458,
+          "elapsedMs": 25.599166999999966,
+          "inputBytes": 671476,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 642.666583,
+          "elapsedMs": 0.22825000000000273,
+          "inputBytes": 602078,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 628.668958,
+          "elapsedMs": 14.774000000000001,
+          "inputBytes": 602078,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 643.715,
+          "elapsedMs": 0.33587499999998727,
+          "inputBytes": 780947,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 632.504791,
+          "elapsedMs": 23.58279200000004,
+          "inputBytes": 602078,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 617.206791,
+          "elapsedMs": 39.7934590000001,
+          "inputBytes": 671476,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 656.911958,
+          "elapsedMs": 0.2474169999999276,
+          "inputBytes": 780947,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 657.417666,
+          "elapsedMs": 0.3478749999999309,
+          "inputBytes": 780947,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 644.444,
+          "elapsedMs": 17.543416000000093,
+          "inputBytes": 780947,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 662.400375,
+          "elapsedMs": 0.21004099999993286,
+          "inputBytes": 637051,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 662.922583,
+          "elapsedMs": 11.888249999999971,
+          "inputBytes": 637051,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 643.071458,
+          "elapsedMs": 32.124000000000024,
+          "inputBytes": 602078,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 675.156291,
+          "elapsedMs": 0.6914590000000089,
+          "inputBytes": 637051,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 675.812333,
+          "elapsedMs": 0.26375000000007276,
+          "inputBytes": 637051,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 657.329916,
+          "elapsedMs": 28.969875000000002,
+          "inputBytes": 780947,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 686.758291,
+          "elapsedMs": 0.2147499999999809,
+          "inputBytes": 701970,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 676.004708,
+          "elapsedMs": 15.500791999999933,
+          "inputBytes": 637051,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 691.925833,
+          "elapsedMs": 0.17108299999995324,
+          "inputBytes": 701970,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 658.014,
+          "elapsedMs": 35.525750000000016,
+          "inputBytes": 780947,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 694.255416,
+          "elapsedMs": 0.25129200000003493,
+          "inputBytes": 701970,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 676.1715,
+          "elapsedMs": 19.37895800000001,
+          "inputBytes": 637051,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 696.038916,
+          "elapsedMs": 0.35287500000004,
+          "inputBytes": 706397,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 687.255375,
+          "elapsedMs": 12.486916000000065,
+          "inputBytes": 701970,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 700.103333,
+          "elapsedMs": 0.25950000000000273,
+          "inputBytes": 706397,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 692.325791,
+          "elapsedMs": 16.93187499999999,
+          "inputBytes": 701970,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 709.763416,
+          "elapsedMs": 0.5738340000000335,
+          "inputBytes": 706397,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 696.615333,
+          "elapsedMs": 15.95195799999999,
+          "inputBytes": 706397,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 713.006583,
+          "elapsedMs": 0.12741700000003675,
+          "inputBytes": 637432,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 694.800041,
+          "elapsedMs": 22.629542000000015,
+          "inputBytes": 701970,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 700.709333,
+          "elapsedMs": 16.993291999999997,
+          "inputBytes": 706397,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 717.932041,
+          "elapsedMs": 0.19887499999992997,
+          "inputBytes": 637432,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 718.082,
+          "elapsedMs": 0.45241599999997106,
+          "inputBytes": 637432,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 710.846083,
+          "elapsedMs": 22.853166999999985,
+          "inputBytes": 706397,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 733.98875,
+          "elapsedMs": 0.2789579999999887,
+          "inputBytes": 492462,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 713.374833,
+          "elapsedMs": 26.600250000000074,
+          "inputBytes": 637432,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 718.79375,
+          "elapsedMs": 21.536790999999994,
+          "inputBytes": 637432,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 740.58475,
+          "elapsedMs": 0.21687499999995907,
+          "inputBytes": 492462,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 740.538083,
+          "elapsedMs": 0.5392499999999245,
+          "inputBytes": 492462,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 734.566208,
+          "elapsedMs": 9.211999999999989,
+          "inputBytes": 492462,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 744.52875,
+          "elapsedMs": 0.3027080000000524,
+          "inputBytes": 822712,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 718.418791,
+          "elapsedMs": 34.91899999999998,
+          "inputBytes": 637432,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 753.691291,
+          "elapsedMs": 0.18250000000000455,
+          "inputBytes": 822712,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 741.003083,
+          "elapsedMs": 13.143083000000047,
+          "inputBytes": 492462,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 754.474291,
+          "elapsedMs": 0.47287500000004457,
+          "inputBytes": 822712,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 741.199541,
+          "elapsedMs": 15.040125000000103,
+          "inputBytes": 492462,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 757.176666,
+          "elapsedMs": 0.4027920000000904,
+          "inputBytes": 557596,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 745.017708,
+          "elapsedMs": 12.814833000000021,
+          "inputBytes": 822712,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 757.996375,
+          "elapsedMs": 0.5318750000000136,
+          "inputBytes": 557596,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 757.761458,
+          "elapsedMs": 10.823458000000073,
+          "inputBytes": 557596,
+          "resizeWidth": 288,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "metadata",
+          "started": 769.258916,
+          "elapsedMs": 0.29683399999998983,
+          "inputBytes": 557596,
+          "resizeWidth": -1,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 754.059416,
+          "elapsedMs": 17.243916999999897,
+          "inputBytes": 822712,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 758.663583,
+          "elapsedMs": 13.841625000000022,
+          "inputBytes": 557596,
+          "resizeWidth": 384,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 755.2195,
+          "elapsedMs": 22.03054099999997,
+          "inputBytes": 822712,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        },
+        {
+          "threadId": 1,
+          "method": "toBuffer",
+          "started": 769.878291,
+          "elapsedMs": 14.945749999999975,
+          "inputBytes": 557596,
+          "resizeWidth": 480,
+          "resizeHeight": -1
+        }
+      ],
+      "traceSha256": "0a6b499a18feed73cfb3682f7e603ef8f86257be59d5428cde6c24bdf1e62989",
+      "profileSha256": "7aeb3cbe3bb628a9927ba40508a57c204faeea8428e11cf6e5685f5b4dc0537e",
+      "methods": [
+        {
+          "method": "preload",
+          "calls": 2,
+          "inputBytes": 0,
+          "summedAsyncMs": 0
+        },
+        {
+          "method": "metadata",
+          "calls": 96,
+          "inputBytes": 61577220,
+          "summedAsyncMs": 186.78904599999998
+        },
+        {
+          "method": "toBuffer",
+          "calls": 72,
+          "inputBytes": 46182915,
+          "summedAsyncMs": 1304.4886609999999
+        }
+      ],
+      "topMainThreadSamples": [
+        {
+          "functionName": "(idle)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 420.326
+        },
+        {
+          "functionName": "(program)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 22.096
+        },
+        {
+          "functionName": "__require",
+          "scriptId": "239",
+          "url": "node:internal/deps/amaro/dist/index",
+          "lineNumber": 7,
+          "columnNumber": 48,
+          "sampledMs": 18.874
+        },
+        {
+          "functionName": "compileSourceTextModule",
+          "scriptId": "65",
+          "url": "node:internal/modules/esm/utils",
+          "lineNumber": 337,
+          "columnNumber": 32,
+          "sampledMs": 16.158
+        },
+        {
+          "functionName": "(garbage collector)",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 11.699
+        },
+        {
+          "functionName": "writeFileUtf8",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 10.185
+        },
+        {
+          "functionName": "compileSourceTextModule",
+          "scriptId": "65",
+          "url": "node:internal/modules/esm/utils",
+          "lineNumber": 337,
+          "columnNumber": 32,
+          "sampledMs": 8.565
+        },
+        {
+          "functionName": "update",
+          "scriptId": "152",
+          "url": "node:internal/crypto/hash",
+          "lineNumber": 178,
+          "columnNumber": 39,
+          "sampledMs": 8.251
+        },
+        {
+          "functionName": "",
+          "scriptId": "262",
+          "url": "file:///Users/gastonhardy/Developer/projects/open-source/svelte-imageway/node_modules/.bun/rolldown@1.2.14/node_modules/rolldown/dist/shared/create-bundler-option-DH74Qvg7.mjs",
+          "lineNumber": 0,
+          "columnNumber": 0,
+          "sampledMs": 7.532
+        },
+        {
+          "functionName": "dlopen",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 6.048
+        },
+        {
+          "functionName": "wrapSafe",
+          "scriptId": "61",
+          "url": "node:internal/modules/cjs/loader",
+          "lineNumber": 1857,
+          "columnNumber": 17,
+          "sampledMs": 4.997
+        },
+        {
+          "functionName": "rmSync",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 4.958
+        },
+        {
+          "functionName": "rename",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 3.82
+        },
+        {
+          "functionName": "open",
+          "scriptId": "0",
+          "url": "",
+          "lineNumber": -1,
+          "columnNumber": -1,
+          "sampledMs": 3.797
+        },
+        {
+          "functionName": "compileSourceTextModule",
+          "scriptId": "65",
+          "url": "node:internal/modules/esm/utils",
+          "lineNumber": 337,
+          "columnNumber": 32,
+          "sampledMs": 3.796
+        },
+        {
+          "functionName": "load",
+          "scriptId": "908",
+          "url": "file:///Users/gastonhardy/Developer/projects/open-source/svelte-imageway/packages/svelte-imageway/dist/vite/index.js",
+          "lineNumber": 111,
+          "columnNumber": 18,
+          "sampledMs": 3.757
+        },
+        {
+          "functionName": "get",
+          "scriptId": "63",
+          "url": "node:internal/modules/package_json_reader",
+          "lineNumber": 82,
+          "columnNumber": 9,
+          "sampledMs": 3.755
+        },
+        {
+          "functionName": "compileSourceTextModule",
+          "scriptId": "65",
+          "url": "node:internal/modules/esm/utils",
+          "lineNumber": 337,
+          "columnNumber": 32,
+          "sampledMs": 3.74
+        },
+        {
+          "functionName": "normalizeString",
+          "scriptId": "39",
+          "url": "node:path",
+          "lineNumber": 91,
+          "columnNumber": 24,
+          "sampledMs": 3.592
+        },
+        {
+          "functionName": "",
+          "scriptId": "920",
+          "url": "file:///Users/gastonhardy/Developer/projects/open-source/svelte-imageway/packages/svelte-imageway/dist/node/processor.js",
+          "lineNumber": 66,
+          "columnNumber": 36,
+          "sampledMs": 2.704
+        }
+      ]
+    }
+  ]
+}
