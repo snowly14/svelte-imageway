@@ -1,0 +1,131 @@
+{
+  "note": "Actual 3.1.8 cached project upgraded to selected 3.1.9 or the unaliased candidate. Each row independently checks 156 output image names; all image-byte digests match. Selected rows also verify every cache name, size and mtime stays unchanged.",
+  "rows": [
+    {
+      "variant": "without-alias",
+      "round": 0,
+      "oldOnlyNames": 24,
+      "newOnlyNames": 24,
+      "matchingNames": 132,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [396, 48]
+    },
+    {
+      "variant": "without-alias",
+      "round": 1,
+      "oldOnlyNames": 24,
+      "newOnlyNames": 24,
+      "matchingNames": 132,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [396, 48]
+    },
+    {
+      "variant": "without-alias",
+      "round": 2,
+      "oldOnlyNames": 24,
+      "newOnlyNames": 24,
+      "matchingNames": 132,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [396, 48]
+    },
+    {
+      "variant": "without-alias",
+      "round": 3,
+      "oldOnlyNames": 24,
+      "newOnlyNames": 24,
+      "matchingNames": 132,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [396, 48]
+    },
+    {
+      "variant": "without-alias",
+      "round": 4,
+      "oldOnlyNames": 24,
+      "newOnlyNames": 24,
+      "matchingNames": 132,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [396, 48]
+    },
+    {
+      "variant": "without-alias",
+      "round": 5,
+      "oldOnlyNames": 24,
+      "newOnlyNames": 24,
+      "matchingNames": 132,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [396, 48]
+    },
+    {
+      "variant": "without-alias",
+      "round": 6,
+      "oldOnlyNames": 24,
+      "newOnlyNames": 24,
+      "matchingNames": 132,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [396, 48]
+    },
+    {
+      "variant": "selected",
+      "round": 0,
+      "oldOnlyNames": 0,
+      "newOnlyNames": 0,
+      "matchingNames": 156,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [198, 24]
+    },
+    {
+      "variant": "selected",
+      "round": 1,
+      "oldOnlyNames": 0,
+      "newOnlyNames": 0,
+      "matchingNames": 156,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [198, 24]
+    },
+    {
+      "variant": "selected",
+      "round": 2,
+      "oldOnlyNames": 0,
+      "newOnlyNames": 0,
+      "matchingNames": 156,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [198, 24]
+    },
+    {
+      "variant": "selected",
+      "round": 3,
+      "oldOnlyNames": 0,
+      "newOnlyNames": 0,
+      "matchingNames": 156,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [198, 24]
+    },
+    {
+      "variant": "selected",
+      "round": 4,
+      "oldOnlyNames": 0,
+      "newOnlyNames": 0,
+      "matchingNames": 156,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [198, 24]
+    },
+    {
+      "variant": "selected",
+      "round": 5,
+      "oldOnlyNames": 0,
+      "newOnlyNames": 0,
+      "matchingNames": 156,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [198, 24]
+    },
+    {
+      "variant": "selected",
+      "round": 6,
+      "oldOnlyNames": 0,
+      "newOnlyNames": 0,
+      "matchingNames": 156,
+      "baselineCacheEntries": [198, 24],
+      "upgradeCacheEntries": [198, 24]
+    }
+  ]
+}

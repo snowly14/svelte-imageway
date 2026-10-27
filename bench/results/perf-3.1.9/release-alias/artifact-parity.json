@@ -1,0 +1,315 @@
+{
+  "selectedVersion": "3.1.9",
+  "pipelineRevision": "b20ae906366d6af637b09e1d0f745f64638c030dfb49e3f5efab67454b7ad77f",
+  "description": "Every compiled JS, Svelte, CSS and WASM file in the frozen approved package matches the selected build. The package README may be updated for release reporting.",
+  "files": [
+    {
+      "path": "background.js",
+      "sha256": "79b7c4313757078a5713dcdaf2106db402775425d8dcee95c791414722010ffe"
+    },
+    {
+      "path": "cli/audit.js",
+      "sha256": "5c58292e991e74faddc49b4c44181a530f77800e2d6be78d446c82211b2f1fde"
+    },
+    {
+      "path": "cli/files.js",
+      "sha256": "5fc8c2be43f3416a677ad8518f789e6dd7f7865b6e0c470d8c14173efd1eb0e0"
+    },
+    {
+      "path": "cli/index.js",
+      "sha256": "3fda0d7d139b4663240961b707b5924536b5a2483ab5764cdd7272d90bfd235c"
+    },
+    {
+      "path": "cli/init.js",
+      "sha256": "42dfb64811b19bf28933e8ba7c278bfffe2b05898a0c8d5da4d1b26bc4f840d3"
+    },
+    {
+      "path": "cli/migrate.js",
+      "sha256": "1c4a6a37dc4600208ddd28a517c11ca652d8994270047cee4b0a48fbcfba0ec2"
+    },
+    {
+      "path": "cli/optimize.js",
+      "sha256": "88f12591c6b6a504cdfa20ef06bc834983b10bec7c5eabffc11e5dcf394e8f06"
+    },
+    {
+      "path": "cli/templates.js",
+      "sha256": "e784ae7a04ac9884bd0790686ec5ab4045ce7f82f59ec34dd20a9b72803ff9cf"
+    },
+    {
+      "path": "cms/index.js",
+      "sha256": "752026d8443eaf1714774987e7e0c71b20b30f839014149f908a9893da15b9f5"
+    },
+    {
+      "path": "component-types.js",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+    },
+    {
+      "path": "components/BackgroundImage.svelte",
+      "sha256": "0dfbd4d73529cfe5b90d6a5f4c38ff30b65de9a8ee7767fe4a9b3ccec3d6f4cb"
+    },
+    {
+      "path": "components/Image.svelte",
+      "sha256": "ec16082db37680849d00f8afc2b1b11cfbd8840a16531357c59c8b89a6843cfc"
+    },
+    {
+      "path": "components/ImageConfigProvider.svelte",
+      "sha256": "4ec7833c98fa01b1b7ee6dafe83a7015e2ae47ed03c4489f592da0dc0c3f4176"
+    },
+    {
+      "path": "components/ImageMeta.svelte",
+      "sha256": "240bc5852e7f3db25d07e808ea722c75c01843c1c933f95f20fdcc73ade9cf74"
+    },
+    {
+      "path": "components/Picture.svelte",
+      "sha256": "f7e9e98f722407b442fbc92d54a9a997edfa4ee0420a959cfa39eb115f2ad281"
+    },
+    {
+      "path": "context.js",
+      "sha256": "74b280788ac3f1515ac5f75aa0edc6709b28ae8fe8160be5629314b79c3f8c3e"
+    },
+    {
+      "path": "core/accept.js",
+      "sha256": "8cf15b8e862182b8a0eaf912c3100d6c54ece6e7d773fd522c8537637fd574cf"
+    },
+    {
+      "path": "core/artifact.js",
+      "sha256": "fedffd2f2fa351efd6ef3829132a5ec00be58493945480f377dacad1a12c6a41"
+    },
+    {
+      "path": "core/config.js",
+      "sha256": "763be1a24f96cc3979ad42e445ac56c450ca1d88ba120ffb4affdb8a1bbafb3b"
+    },
+    {
+      "path": "core/errors.js",
+      "sha256": "0de710951210aa448639cedf670c0a515e957b7f7445f50941bca1f17692cdec"
+    },
+    {
+      "path": "core/index.js",
+      "sha256": "7670514e63ebd7e4e8bf01171a3024e6f995ca4577f1f50de10402c97ae0b4d9"
+    },
+    {
+      "path": "core/raster.js",
+      "sha256": "4f124b032a4a53c682bd964ec3ff7d0ead22569c9a316d8f91aa45bfba20db89"
+    },
+    {
+      "path": "core/signing.js",
+      "sha256": "7ce70706d6eede23d57efbf290cbb58678c291e8f45507ceb6f867a2d51968b4"
+    },
+    {
+      "path": "core/types.js",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+    },
+    {
+      "path": "core/url.js",
+      "sha256": "966812b6b8d8b9297f0845b736eac5f2a341403c39402df0bd3d88d7ffe94f2c"
+    },
+    {
+      "path": "edge/budget.js",
+      "sha256": "1dd9c477743af648ac86cc37a3c489cc91a2f0b3ec7e99e48a80f02b0fac9228"
+    },
+    {
+      "path": "edge/cf-image.js",
+      "sha256": "bc4385fe4c19c169bb8c47a868bc601e1e75e713410a3caaf65ff44e39d815cf"
+    },
+    {
+      "path": "edge/index.js",
+      "sha256": "e6e65cec4b5fa50d7f4fcf33ff1b46640512de17d4a1fe53d5b95bf8cf5bad45"
+    },
+    {
+      "path": "edge/types.js",
+      "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+    },
+    {
+      "path": "edge/worker.js",
+      "sha256": "c061ac54938305040ab9e005da3a0fc564c3c60bb8a5dcaae48e5f731084c3cf"
+    },
+    {
+      "path": "image.css",
+      "sha256": "0fa8a0c038c462ea655c8d541c405ad901c6b11e128921296ec5cafa59754fcd"
+    },
+    {
+      "path": "index.js",
+      "sha256": "b9dc295f753a22bdf38d758d2f9158d22fafd1d520f0b6194e67c42029163cfa"
+    },
+    {
+      "path": "kit/adapter.js",
+      "sha256": "3deda3d5f651ad3b467461a6709a0a7a3f2fe9fcbf60340ea455c56e273df112"
+    },
+    {
+      "path": "kit/handler.js",
+      "sha256": "eb9b303c54b28df996e78c7ad672d49f3adb72fd58c0b9ca516f3f37119be39c"
+    },
+    {
+      "path": "kit/index.js",
+      "sha256": "f75eb18f49b340e0255dcd284bab6ec50e0a7a6e776e673deb69398760ce48e0"
+    },
+    {
+      "path": "node/blurhash-encoding.js",
+      "sha256": "1b3f63453bf562410f0402939e4b4824c7230b22ea8ae9644c844a0293e253ee"
+    },
+    {
+      "path": "node/blurhash.js",
+      "sha256": "7432dfc4abf57bf7c28ed2bcae01e64eb5180e59e8718ea170a3ccae65eef284"
+    },
+    {
+      "path": "node/blurhash.wasm",
+      "sha256": "1d90bc558b23dac70acaba533251d5eb779e5c40e8a5cbd641cd9c39d68758de"
+    },
+    {
+      "path": "node/build-pool.js",
+      "sha256": "400d8419417a9e5bddf690d42becd3c9ff43cf712e5fd2ac49d6d1f5ddb302c8"
+    },
+    {
+      "path": "node/build-processor.js",
+      "sha256": "1932be63e4e3d6c05ff607db58235e77e6f158414c8d372d556beea94eeca47e"
+    },
+    {
+      "path": "node/build-worker.js",
+      "sha256": "c854ce849dc4e9241d6b0141eb2ea865a555eda1439588ac26c36bb712a11eda"
+    },
+    {
+      "path": "node/cache.js",
+      "sha256": "5815226968520e4cff36319422be3047f97b4c09fe65bfd82db82a2778cdd87e"
+    },
+    {
+      "path": "node/index.js",
+      "sha256": "11cbc028f6130a0a81b9d5114ae350160bb04e8f4ccdbec85c648925357fdd7e"
+    },
+    {
+      "path": "node/pipeline.js",
+      "sha256": "85af5d627c5abb154035ab0052778e80c5733abfa1166c8bd14cbb2c397d40bd"
+    },
+    {
+      "path": "node/pool.js",
+      "sha256": "2fce1b0a433947314148334575bccc96cf231946b3d5cf175c1128a5eaddd9f7"
+    },
+    {
+      "path": "node/processor.js",
+      "sha256": "dcf904e4c4aca5b1e81a82bdce99e414057871ccdecf504e4623ba3f04175b31"
+    },
+    {
+      "path": "node/sharp-worker.js",
+      "sha256": "95c62a718eb89b4b09193150752888e7f08382617312dbb4373dbf564c4bb606"
+    },
+    {
+      "path": "node/source.js",
+      "sha256": "3d0f02a83c3484dfba26528c0154bab3b6677d3ad4344ed3363ac71af61457be"
+    },
+    {
+      "path": "node/svg.js",
+      "sha256": "0919e0679fb511ee58313ece7028e788459fcad9bd379958afa0e720695fd369"
+    },
+    {
+      "path": "props.js",
+      "sha256": "bac0ba87f7f5ddc070ac7006f7d0f57417d92857a42565e04f415fe5cb548fb4"
+    },
+    {
+      "path": "providers/bunny.js",
+      "sha256": "ded6174925dd677aee616f8f07c971d848cf73bc2f3224f03584cc4cf8f8c11b"
+    },
+    {
+      "path": "providers/cloudflare.js",
+      "sha256": "faae09337d9c384768676fe97f898ffdd09846ffabc6662fe7287476a16e26e0"
+    },
+    {
+      "path": "providers/cloudfront.js",
+      "sha256": "6d2a1961c38fb07140af8452a27b58df28664189bc27c68aa8a72bf13fcd9d44"
+    },
+    {
+      "path": "providers/cloudinary.js",
+      "sha256": "e10ac59edc589b77c9016e00d621575600353c779b62d86ca46c670f170389fd"
+    },
+    {
+      "path": "providers/cms.js",
+      "sha256": "f5db04b878ebb4fcd7f440c76ba7d506e30eaad6c70ecdb8bf684e76646cbc73"
+    },
+    {
+      "path": "providers/edge.js",
+      "sha256": "fd30df7a01fd1863b14ffdb4165e05b3bc83b7dd70ed67dc9abb4c61dd9126d2"
+    },
+    {
+      "path": "providers/fallback.js",
+      "sha256": "d87bebc8792d781cba46d83215903c8fe4e434e7168876c11b8b757108e717b0"
+    },
+    {
+      "path": "providers/fastly.js",
+      "sha256": "9583cdf120200983239f422309d8f993a101201d7e424ba26fa99358ec0073b0"
+    },
+    {
+      "path": "providers/generic.js",
+      "sha256": "5119e21638ed088d3e997315572561096d852f4664d2cfd4c255e0489f50c0ce"
+    },
+    {
+      "path": "providers/imagekit.js",
+      "sha256": "bf31f702d797a3b62e371388e2b56f39716465a3a13715de0df943a3a4ca12b1"
+    },
+    {
+      "path": "providers/imgix.js",
+      "sha256": "99b401218cacbe14c5b17983d1f53bf9d577e1bb7502a14f82b4857ec45187ea"
+    },
+    {
+      "path": "providers/imgproxy.js",
+      "sha256": "32be1cf52cea6cacaed54968e7b6f0d22ef2b37a5d71220d370553f1d5176d23"
+    },
+    {
+      "path": "providers/ipx.js",
+      "sha256": "3bf620618406934602dbd0200db11f46cedd6bce9f0bad13acfc030b5d734f55"
+    },
+    {
+      "path": "providers/local.js",
+      "sha256": "1b0d7ee4483c05f631d7d1165d07c655d53151617ed9f13ca448552090952ce4"
+    },
+    {
+      "path": "providers/netlify.js",
+      "sha256": "3b7470d2e926c4bb55e90689622ba31ee182da180ac0e9197618bd0ca24012ef"
+    },
+    {
+      "path": "providers/shared.js",
+      "sha256": "62db71b7bfa1852be9e54e06dbae883435ddda1a2b2a358ed5de10475007e5d3"
+    },
+    {
+      "path": "providers/supabase.js",
+      "sha256": "01c99d3528ee74109c9e91de70b073d916740a1c1d1a35126ea3ac26cf3e341c"
+    },
+    {
+      "path": "providers/uploadcare.js",
+      "sha256": "8ceb206471da8082ae9d7d20b5da34980eeecb2d9064ac1a144dec45b1cd321e"
+    },
+    {
+      "path": "providers/url-tools.js",
+      "sha256": "e42d7ec03e96239eafa903114884d441c87bd1aba0bac865f2167122d863b226"
+    },
+    {
+      "path": "providers/vercel.js",
+      "sha256": "2f485c11dc36a906e437ede4106dc0c81074a04f0d8aa148b9d9c3262c51e3a5"
+    },
+    {
+      "path": "publish/index.js",
+      "sha256": "bbfa374bc70916a7880cfd7df1ab7348ec09367127bf3f49168e9b45d2e6c516"
+    },
+    {
+      "path": "publish/targets.js",
+      "sha256": "c660a085a73e5f5d84cd9c8d3d5e2a76e0d52d68f0a6c2ccd652f5fba9942238"
+    },
+    {
+      "path": "version.js",
+      "sha256": "c0a4537521ca38fa26579be64b21d751e2415f85009a6cc4576825c10ad9ee17"
+    },
+    {
+      "path": "vite/directives.js",
+      "sha256": "4dd9c2fb2c9fa31ca81a8b0b9ef9a8bd251b971464ae10a2a777981f665e645e"
+    },
+    {
+      "path": "vite/index.js",
+      "sha256": "bb698d573cfc96f679503b844b22155aacdfbbf5f94fbc6168c5bd915b1d0a19"
+    },
+    {
+      "path": "vite/placeholder.js",
+      "sha256": "13bf7778291e3a3709acc7a361f696740a9364139067c7dbe0036a6c66afa6e5"
+    },
+    {
+      "path": "vite/preview-cache.js",
+      "sha256": "838c0c1a069c9aac27383c22ada1b7f271eb58ee4b2967937a1babfe2e2edfc9"
+    }
+  ]
+}

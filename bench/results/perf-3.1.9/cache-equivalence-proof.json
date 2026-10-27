@@ -1,0 +1,12 @@
+{
+  "baselineSourceCommit": "175d0de8000f2789e270cbd5bba772dd90b228a2",
+  "baselineCacheRevision": "b20ae906366d6af637b09e1d0f745f64638c030dfb49e3f5efab67454b7ad77f",
+  "reviewedImplementationSha256": "e3c96d43f9d137a68e28d89852216013ea7cb0f1868dc184df2a4331b380b03a",
+  "processingFilesChanged": ["packages/svelte-imageway/src/lib/node/pipeline.ts"],
+  "baselinePipelineSourceSha256": "8ca77044a507bc04d87aa94e7a388a3f00de99da16343a82a50d1af3970fe156",
+  "selectedPipelineSourceSha256": "d06a2487abd0f9b2b0ac1d83815cdd549896763cca05011149ed525ee7d6ad9c",
+  "selectedNormalizedToBaselineExactly": true,
+  "sharpVersion": "0.35.5",
+  "sharpCloneConstructorSha256": "8be8da679d2a028d0f53b02ce52f07f295134a297caf3068944cd8d0b57ab3d1",
+  "analysis": "The only processing-source difference is conditional creation of an unused preview clone and two type-only non-null assertions. Pipeline inputs are bounded byte arrays; the observed Sharp clone copies options and takes its extra input handler only for streams. Existing source/codec/security policy checks and all preview-enabled paths are unchanged. Only this complete exact source fingerprint is aliased; every other fingerprint invalidates."
+}

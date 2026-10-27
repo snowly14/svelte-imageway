@@ -1,0 +1,8 @@
+{
+  "note": "Experimental candidate compiled from selected processing code with only its pipeline revision set to the previously published 3.1.8 revision. No consumer artifact is patched. Only this exact source change is being evaluated; other changes must invalidate the cache.",
+  "implementationSha256": "e3c96d43f9d137a68e28d89852216013ea7cb0f1868dc184df2a4331b380b03a",
+  "aliasedRevision": "b20ae906366d6af637b09e1d0f745f64638c030dfb49e3f5efab67454b7ad77f",
+  "changedFile": "dist/version.js",
+  "compiledVersionSha256": "2510da812f04e53c4b6db57aaec75ebe443e320e66fe3b80b4b586b77facf042",
+  "allOtherFrozenPackageFilesMatch": true
+}

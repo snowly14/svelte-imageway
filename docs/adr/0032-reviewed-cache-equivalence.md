@@ -1,0 +1,21 @@
+# Retain a reviewed cache revision for equivalent processing
+
+## Problem
+
+The 3.1.9 preview-clone change alters a processing-source fingerprint even though it preserves the encoded bytes, preview output and validation. With the original all-source-hash policy, existing 3.1.8 variant and preview entries miss once, and ordinary imports receive new original-file URLs. A seven-trial upgrade experiment with 24 photos measured **85.79 ms warm before upgrade and 5643.30 ms for the first 3.1.9 build** before the compatibility change. A following warm build was **86.41 ms**. This is one local fixture and is not a network-cold or production deployment claim.
+
+## Decision and scope
+
+`cacheRevision()` maps exactly one reviewed complete processing-source SHA-256, `e3c96d43f9d137a68e28d89852216013ea7cb0f1868dc184df2a4331b380b03a`, to the 3.1.8 revision `b20ae906366d6af637b09e1d0f745f64638c030dfb49e3f5efab67454b7ad77f`. Every other fingerprint is returned unchanged. The generator still hashes every TypeScript and WASM file in `core`, `node` and `edge`, with their paths and sorted names. A later change to any of these bytes therefore invalidates the cache automatically unless its complete new fingerprint is separately reviewed. No runtime or consumer compiler is added.
+
+The published 3.1.8 processing tree and selected tree differ in exactly one file: `node/pipeline.ts`. Reversing the conditional creation of the unused clone and two type-only non-null assertions restores the old source byte-for-byte. [Machine-readable source and dependency proof](../../bench/results/perf-3.1.9/cache-equivalence-proof.json). Pipeline input is a bounded byte array; in the measured Sharp 0.35.5 implementation, `clone()` clones options and its extra input handler is for streams. Skipping this unused clone has no effect on the original pipeline's options. Preview-enabled work is unchanged. Differential tests cover JPEG, PNG, WebP, AVIF, approved SVG, alpha, ICC, rotation/flip/blur/sharpen and animated WebP/GIF/first-frame AVIF; limits are also checked with previews disabled. This is an explicitly audited compatibility exception, not automatic semantic equivalence inference.
+
+## Security and invalidation
+
+All source admission, signature, SVG, frame, pixel, output-size and worker deadline checks are unchanged. Source bytes, normalized request, format, Sharp/codec versions and the owned configuration—including security limits—remain part of their existing cache identities. Preview cache identity also retains strategy, codec versions and resource policies. Edge code is unchanged; the same prior revision avoids unnecessary invalidation without changing its admission rules. An existing cache entry can only be reused under the same prior key and validation policy, and malformed/expired cache entries continue to be handled by existing readers. Tests verify that stricter pixel/output limits do not return an entry created under a looser policy.
+
+This mapping does **not** authorize reusing caches after arbitrary performance changes. Review the full tree difference, codec semantics, inputs, metadata, output bytes and security checks before adding any further mapping. If equivalence is uncertain, use the new implementation hash. A test mutates the processing fingerprint and verifies that the new value is not aliased.
+
+## Evidence and tradeoffs
+
+The prototype changed only the compiled revision in an isolated candidate; all other files matched the selected code. Seven subsequent trials of the actual generated 3.1.9 package measure a first upgrade build of **81.87 ms** after a 3.1.8 warm build of **82.31 ms**. Across every trial all 156 image paths and bytes match, and the 198 transform plus 24 preview cache files retain their names, sizes and modification times. A separate same-root hot pair verifies **all 158 output files**, including generated JS and HTML, by path, size and SHA-256; all 222 cache files remain unchanged. Complete raw data and the pre-alias regression remain in [the study](../../bench/PERF-3.1.9.md). The cold baseline, first build after a cleared cache, expired entries and policy/codec changes still require processing. No universal build, HTTP, CDN or cloud performance claim follows from this local cache transition.

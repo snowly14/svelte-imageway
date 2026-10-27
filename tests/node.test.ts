@@ -261,7 +261,7 @@ describe('real Sharp pipeline', () => {
     ).rejects.toMatchObject({ code: 'INPUT_SIZE', status: 413 });
     await expect(
       transform(input, request, 'webp', defineConfig({ maxPixels: 100 }), false),
-    ).rejects.toThrow(/decode|pixels/);
+    ).rejects.toThrow(/decode|pixels|dimensions/);
     await expect(
       transform(input, request, 'webp', defineConfig({ maxOutputBytes: 1 }), false),
     ).rejects.toMatchObject({ code: 'OUTPUT_SIZE', status: 413 });
@@ -273,7 +273,7 @@ describe('real Sharp pipeline', () => {
     expect((await sharp(r.data).metadata()).orientation).toBeUndefined();
     await expect(
       transform(input, normalizeRequest({ key: 'x' }), 'webp', defineConfig({ maxPixels: 100 })),
-    ).rejects.toThrow(/decode|pixels/);
+    ).rejects.toThrow(/decode|pixels|dimensions/);
     await expect(
       transform(Buffer.from([255, 216, 255, 0]), normalizeRequest({ key: 'x' }), 'webp'),
     ).rejects.toThrow(/decode/);
@@ -290,6 +290,14 @@ describe('real Sharp pipeline', () => {
     );
     const r = await transform(svg, normalizeRequest({ key: 'x' }), 'png');
     expect(sniff(r.data)).toBe('png');
+    const withoutPreview = await transform(
+      svg,
+      normalizeRequest({ key: 'x' }),
+      'png',
+      undefined,
+      false,
+    );
+    expect(withoutPreview.data).toEqual(r.data);
     for (const payload of [
       '<script>alert(1)</script>',
       '<image href="http://169.254.169.254/"/>',
@@ -341,6 +349,16 @@ describe('multi-frame and color fidelity', () => {
     expect(meta.pages).toBe(2);
     expect(meta.loop).toBe(3);
     expect(meta.delay).toEqual([100, 200]);
+    const gif = await transform(input, normalizeRequest({ key: 'x', w: 320 }), 'gif');
+    const gifWithoutPreview = await transform(
+      input,
+      normalizeRequest({ key: 'x', w: 320 }),
+      'gif',
+      undefined,
+      false,
+    );
+    expect(gifWithoutPreview.data).toEqual(gif.data);
+    expect((await sharp(gifWithoutPreview.data, { animated: true }).metadata()).pages).toBe(2);
     await expect(transform(input, normalizeRequest({ key: 'x' }), 'avif')).rejects.toThrow(
       /does not preserve/,
     );
@@ -380,6 +398,21 @@ describe('multi-frame and color fidelity', () => {
       }),
       'png',
     );
+    const noPreview = await transform(
+      input,
+      normalizeRequest({
+        key: 'x',
+        metadata: 'icc',
+        rotate: 90,
+        flip: 'both',
+        blur: 1,
+        sharpen: 1,
+      }),
+      'png',
+      undefined,
+      false,
+    );
+    expect(noPreview.data).toEqual(result.data);
     expect((await sharp(result.data).metadata()).space).toBe('srgb');
     expect((await sharp(result.data).metadata()).exif).toBeUndefined();
     const alpha = await sharp({
@@ -392,6 +425,14 @@ describe('multi-frame and color fidelity', () => {
       normalizeRequest({ key: 'x', fit: 'contain', w: 320, h: 320, bg: '00000000' }),
       'webp',
     );
+    const alphaWithoutPreview = await transform(
+      alpha,
+      normalizeRequest({ key: 'x', fit: 'contain', w: 320, h: 320, bg: '00000000' }),
+      'webp',
+      undefined,
+      false,
+    );
+    expect(alphaWithoutPreview.data).toEqual(encoded.data);
     expect((await sharp(encoded.data).metadata()).hasAlpha).toBe(true);
   });
 });
@@ -673,6 +714,37 @@ describe('integrated persistent processor', () => {
     const changed = await sharp(input).negate().png().toBuffer();
     await processor.process(changed, { key: 'x', w: 320 }, 'webp');
     expect(processor.metrics.transforms).toBe(3);
+  });
+  it('does not reuse an existing cache entry under stricter pixel or output limits', async () => {
+    const { ImageProcessor } = (await import(
+      new URL('../packages/svelte-imageway/dist/node/processor.js', import.meta.url).href
+    )) as typeof import('../packages/svelte-imageway/src/lib/node/processor.js');
+    const path = join(directory, 'security-policy-cache');
+    const input = await sharp({
+      create: { width: 64, height: 64, channels: 3, background: 'blue' },
+    })
+      .png()
+      .toBuffer();
+    const request = { key: 'security-policy', w: 320 };
+    const original = new ImageProcessor({ directory: path });
+    expect((await original.process(input, request, 'webp', undefined, false)).cacheHit).toBe(false);
+    const pixels = new ImageProcessor({
+      directory: path,
+      config: defineConfig({ maxPixels: 100 }),
+    });
+    await expect(pixels.process(input, request, 'webp', undefined, false)).rejects.toThrow(
+      /decode|pixels|dimensions/,
+    );
+    expect(pixels.metrics.hit).toBe(0);
+    const output = new ImageProcessor({
+      directory: path,
+      config: defineConfig({ maxOutputBytes: 1 }),
+    });
+    await expect(output.process(input, request, 'webp', undefined, false)).rejects.toMatchObject({
+      code: 'OUTPUT_SIZE',
+      status: 413,
+    });
+    expect(output.metrics.hit).toBe(0);
   });
 });
 
