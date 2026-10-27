@@ -253,6 +253,19 @@ describe('real Sharp pipeline', () => {
       expect(withPreview.dominantColor).toMatch(/^#[a-f\d]{6}$/);
     },
   );
+  it('enforces input, pixel and output limits when previews are omitted', async () => {
+    const input = await sharp(base).png().toBuffer();
+    const request = normalizeRequest({ key: 'fixture', w: 320 });
+    await expect(
+      transform(input, request, 'webp', defineConfig({ maxInputBytes: 1 }), false),
+    ).rejects.toMatchObject({ code: 'INPUT_SIZE', status: 413 });
+    await expect(
+      transform(input, request, 'webp', defineConfig({ maxPixels: 100 }), false),
+    ).rejects.toThrow(/decode|pixels/);
+    await expect(
+      transform(input, request, 'webp', defineConfig({ maxOutputBytes: 1 }), false),
+    ).rejects.toMatchObject({ code: 'OUTPUT_SIZE', status: 413 });
+  });
   it('orients EXIF, strips metadata and rejects bombs/corrupt containers', async () => {
     const input = await sharp(base).jpeg().withMetadata({ orientation: 6 }).toBuffer();
     const r = await transform(input, normalizeRequest({ key: 'x', w: 320 }), 'jpeg');
@@ -316,6 +329,14 @@ describe('multi-frame and color fidelity', () => {
       .toBuffer();
     expect((await sharp(input, { animated: true }).metadata()).pages).toBe(2);
     const result = await transform(input, normalizeRequest({ key: 'x', w: 320 }), 'webp');
+    const withoutPreview = await transform(
+      input,
+      normalizeRequest({ key: 'x', w: 320 }),
+      'webp',
+      undefined,
+      false,
+    );
+    expect(withoutPreview.data).toEqual(result.data);
     const meta = await sharp(result.data, { animated: true }).metadata();
     expect(meta.pages).toBe(2);
     expect(meta.loop).toBe(3);
@@ -329,6 +350,14 @@ describe('multi-frame and color fidelity', () => {
       'avif',
     );
     expect((await sharp(first.data).metadata()).pages ?? 1).toBe(1);
+    const firstWithoutPreview = await transform(
+      input,
+      normalizeRequest({ key: 'x', animation: 'first' }),
+      'avif',
+      undefined,
+      false,
+    );
+    expect(firstWithoutPreview.data).toEqual(first.data);
   });
   it('converts CMYK, preserves alpha and can keep ICC without EXIF', async () => {
     const input = await sharp({

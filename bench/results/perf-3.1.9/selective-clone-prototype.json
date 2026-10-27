@@ -1,0 +1,11 @@
+{
+  "note": "Experiment only: skip the unused preview clone for WebP, retain it for other formats. This dist-only prototype is not shipped. All encoded output bytes must match baseline.",
+  "baselineArchiveSha256": "7d4b09a7140a79204c4b4a77bf8fabecc81c8aecc7d16c09b016ce549efd9480",
+  "originalLine": "const preview = includePreview ? image.clone() : undefined;",
+  "experimentalLine": "const preview = includePreview || format !== 'webp' ? image.clone() : undefined;",
+  "compiledPipelineSha256": "1f8f72aa5da2c59ffb522ab766da28a06807c5ca0a74af1f4a1d9761943cfc5c",
+  "cacheNote": "Experimental dist-only patch retains the candidate pipeline revision; fresh separate fixture caches avoid reuse across variants. Never ship this patched dist.",
+  "allOtherFrozenPackageFilesMatch": true,
+  "differingFile": "dist/node/pipeline.js",
+  "selectedPipelineSha256": "85af5d627c5abb154035ab0052778e80c5733abfa1166c8bd14cbb2c397d40bd"
+}

@@ -5,6 +5,9 @@ import { verifyCorpus } from '../lean-preview/corpus.ts';
 const directory = resolve('bench/results/perf-3.1.9');
 const study = process.argv.find((v) => v.startsWith('--study='))?.slice(8) ?? 'coalesced-automatic';
 if (!/^[a-z-]+$/.test(study)) throw Error('Invalid study label.');
+const candidate =
+  process.argv.find((v) => v.startsWith('--candidate='))?.slice(12) ??
+  '.local/component-3.1.9/candidate/package';
 const pairs = Number(process.argv.find((v) => v.startsWith('--pairs='))?.slice(8) ?? 3);
 if (!Number.isSafeInteger(pairs) || pairs < 3 || pairs > 21) throw Error('Invalid pair count.');
 const output = join(directory, study + '.json');
@@ -52,11 +55,7 @@ for (let pair = 0; pair < pairs; pair++)
         [
           resolve('bench/improvements/child.ts'),
           'build',
-          resolve(
-            variant === 'baseline'
-              ? '.local/component-3.1.9/baseline/package'
-              : '.local/component-3.1.9/candidate/package',
-          ),
+          resolve(variant === 'baseline' ? '.local/component-3.1.9/baseline/package' : candidate),
           root,
           'automatic',
         ],
@@ -75,6 +74,7 @@ for (let pair = 0; pair < pairs; pair++)
             environment: env,
             inputs,
             baselineVersion: '3.1.8',
+            candidateRoot: resolve(candidate),
             protocol: `${pairs} alternating fresh-Node cold/warm pairs, all24 pinned Kodak photos, ordinary imports with unchanged default widths/AVIF/WebP/JPEG quality/pruning/LQIP and four logical transforms. Both versions use one physical build worker. Retain original raster assets. Tool caches cleared for cold; immediate fresh-process warm. buildMs includes plugin loading and build, excludes common harness imports and output verification. Every encoded/original asset byte/SHA multiset must match all variants, repeats and cache states. Single busy desktop, no OS cache flush, serial suites. No cross-tool/default-quality comparison.`,
             rows,
           },
