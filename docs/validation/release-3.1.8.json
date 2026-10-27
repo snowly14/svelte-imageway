@@ -1,0 +1,149 @@
+{
+  "verifiedAt": "2026-10-27T14:02:45.099Z",
+  "available": true,
+  "version": "3.1.8",
+  "tag": "latest",
+  "sourceCommit": "175d0de8000f2789e270cbd5bba772dd90b228a2",
+  "integrity": "sha512-kqqODM3LQTfPpcyzJtRHegGez6szIyikGp6xEjibp2A4n37Uw9P5Y9nE+h4IhUUJ4ZQ9e+nu6W5JKE8RiDDzSA==",
+  "sha256": "7d4b09a7140a79204c4b4a77bf8fabecc81c8aecc7d16c09b016ce549efd9480",
+  "provenanceSubjectMatches": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "deliveryVerifiedAt": "2026-10-27T14:11:33.888216+00:00",
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/40515857648",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/40516773401",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.8",
+  "unitTests": 299,
+  "allEightSourceCIJobsPassed": true,
+  "githubArchiveAndChecksumBytesMatchRegistry": true,
+  "githubTagMatchesSource": true,
+  "archiveBytes": 96718,
+  "browserCI": {
+    "startTime": "2026-10-27T13:54:47.360Z",
+    "duration": 14739.333,
+    "expected": 21,
+    "skipped": 6,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "localBrowserNote": "Chromium/WebKit 14 pass, four optional-service skips. Existing local Firefox profile-folder launch issue; required Linux CI passes all three browsers.",
+  "installedNativeAndSourceChecks": {
+    "installedViteExecutorSourceParity": true,
+    "installedSingleWorkerConcurrentTransforms": true,
+    "installedViteOutputIsolationAndTaskErrorRecovery": true,
+    "installedSparseColourQuantizationBoundaries": 256,
+    "installedWhitePNGCarryParity": true,
+    "installedRuntimeCSSAndCleanDeclarations": true,
+    "installedCanonicalURLReferenceParity": true,
+    "installedURLSourceMatchesRelease": true,
+    "installedSharedBuildSourceIsolation": true,
+    "bytes": 14838,
+    "sha256": "1d90bc558b23dac70acaba533251d5eb779e5c40e8a5cbd641cd9c39d68758de",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "installedThumbHashEncodeDecodePNGReferenceParity": true,
+    "seededCases": 20,
+    "ownedPixelOutput": true,
+    "runtimeThumbHashDependencyRemoved": true,
+    "runtimeBlurHashDependencyRemoved": true,
+    "installedBlurHashEncodeDecodeReferenceParity": true,
+    "installedReadmeMatchesReleaseSource": true
+  },
+  "registryArchiveConsumers": [
+    {
+      "measuredAt": "2026-10-27T14:03:20.131Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.8.tgz",
+      "packageVersion": "3.1.8",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 5585.542875,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "blurhash"
+    },
+    {
+      "measuredAt": "2026-10-27T14:03:25.724Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.8.tgz",
+      "packageVersion": "3.1.8",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4797.330875,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "thumbhash"
+    }
+  ],
+  "actualRegistryArchiveAndFreshConsumerLockIntegrityMatch": true,
+  "isolatedGzipBytes": {
+    "imageJS": 2983,
+    "imageCSS": 206,
+    "pictureJS": 3131,
+    "pictureCSS": 206
+  },
+  "completeClientPages": [
+    {
+      "scenario": "Image",
+      "before": {
+        "jsGzipBytes": 18343,
+        "cssGzipBytes": 208,
+        "totalGzipBytes": 18551
+      },
+      "after": {
+        "jsGzipBytes": 18352,
+        "cssGzipBytes": 196,
+        "totalGzipBytes": 18548
+      }
+    },
+    {
+      "scenario": "Picture",
+      "before": {
+        "jsGzipBytes": 20108,
+        "cssGzipBytes": 206,
+        "totalGzipBytes": 20314
+      },
+      "after": {
+        "jsGzipBytes": 20123,
+        "cssGzipBytes": 196,
+        "totalGzipBytes": 20319
+      }
+    },
+    {
+      "scenario": "Both",
+      "before": {
+        "jsGzipBytes": 20446,
+        "cssGzipBytes": 245,
+        "totalGzipBytes": 20691
+      },
+      "after": {
+        "jsGzipBytes": 20457,
+        "cssGzipBytes": 196,
+        "totalGzipBytes": 20653
+      }
+    }
+  ],
+  "requested2000ByteTargetMet": false,
+  "buildAndRssLeadershipClaimed": false,
+  "completeSharpPreviewSpeedupClaimed": false,
+  "measurementStudies": ["bench/COMPONENT-PROPS-3.1.8.md", "bench/SPARSE-COLOUR-3.1.8.md"],
+  "postReleaseBenchmarkCorrection": "Retain unique per-thread CPU profiles and reject overwriting existing diagnostics; production package bytes unchanged. Supplemental profiler run verifies both logical concurrency settings against timed image output bytes."
+}
