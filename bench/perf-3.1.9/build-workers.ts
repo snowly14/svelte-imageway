@@ -31,10 +31,19 @@ const rows: Array<{
   processWallMs: number;
   assets: Array<{ bytes: number; sha256: string }>;
 }> = [];
-const baseline = resolve('.local/component-3.1.9/baseline/package');
+const customBaseline = process.argv
+  .find((v) => v.startsWith('--baseline='))
+  ?.slice('--baseline='.length);
+const baseline = resolve(customBaseline ?? '.local/component-3.1.9/baseline/package');
+const baselinePackage = JSON.parse(await readFile(join(baseline, 'package.json'), 'utf8')) as {
+  name: string;
+  version: string;
+};
+if (baselinePackage.name !== 'svelte-imageway') throw Error('Invalid baseline package.');
 if (
+  !customBaseline &&
   digest(await readFile('.local/release-3.1.8/svelte-imageway-3.1.8.tgz')) !==
-  '7d4b09a7140a79204c4b4a77bf8fabecc81c8aecc7d16c09b016ce549efd9480'
+    '7d4b09a7140a79204c4b4a77bf8fabecc81c8aecc7d16c09b016ce549efd9480'
 )
   throw Error('Unexpected baseline.');
 const workerStudy = study === 'baseline' || process.argv.includes('--workers');
@@ -120,7 +129,11 @@ for (const corpus of corpora) {
             {
               complete: rows.length === corpora.length * 7 * variants.length * 2,
               environment: env,
-              baselineVersion: '3.1.8',
+              baselineVersion: baselinePackage.version,
+              baselineRoot: baseline,
+              baselinePipelineSha256: digest(
+                await readFile(join(baseline, 'dist/node/pipeline.js')),
+              ),
               workerStudy,
               topology:
                 study === 'baseline'
@@ -132,7 +145,7 @@ for (const corpus of corpora) {
                   ?.slice('--candidate='.length) ?? 'packages/svelte-imageway',
               inputs,
               protocol:
-                'Seven rotated/reversed fresh-Node rounds per corpus/configuration, each cold deletes tool caches and immediately repeats warm in a fresh process. OS cache unflushed, serial suites, no concurrent heavy checks. Explicit 288/384/480px WebP q75 fitinside no preview; competitors quality75. Identical sorted asset byte/SHA multisets required across all rounds/configurations/tools. buildMs includes tool import, common Vite/Svelte imports outside timer; processWallMs includes startup and verification; process peak RSS includes workers. Baseline study uses explicit logical concurrency 1/2/4 in frozen3.1.8; comparisons use tool native defaults.',
+                'Seven rotated/reversed fresh-Node rounds per corpus/configuration, each cold deletes tool caches and immediately repeats warm in a fresh process. OS cache unflushed, serial suites, no concurrent heavy checks. Explicit 288/384/480px WebP q75 fitinside no preview; competitors quality75. Identical sorted asset byte/SHA multisets required across all rounds/configurations/tools. buildMs includes tool import, common Vite/Svelte imports outside timer; processWallMs includes startup and verification; process peak RSS includes workers. Baseline study uses explicit logical concurrency 1/2/4 in the recorded baseline package; comparisons use tool native defaults.',
               rows,
             },
             null,
