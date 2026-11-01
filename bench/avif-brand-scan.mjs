@@ -27,7 +27,8 @@ for (const size of [32, 4096, 65536]) {
   for (const fn of [control, candidate]) assert.throws(() => fn(bytes), /sequences/);
 }
 await writeFile(
-  'bench/results/avif-brand-scan-2026-11-01.json',
+  process.argv.find((arg) => arg.startsWith('--output='))?.slice('--output='.length) ??
+    'bench/results/avif-brand-scan-2026-11-01.json',
   JSON.stringify(
     {
       node: process.version,

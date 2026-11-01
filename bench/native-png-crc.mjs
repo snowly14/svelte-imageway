@@ -79,7 +79,8 @@ const summary = [8, 16, 32].map((size) => ({
   ),
 }));
 await writeFile(
-  'bench/results/native-png-crc-2026-11-01.json',
+  process.argv.find((arg) => arg.startsWith('--output='))?.slice('--output='.length) ??
+    'bench/results/native-png-crc-2026-11-01.json',
   JSON.stringify(
     {
       node: process.version,

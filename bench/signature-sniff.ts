@@ -74,7 +74,10 @@ const summary = Object.keys(inputs).map((kind) => ({
     ]),
   ),
 }));
-const output = resolve('bench/results/signature-sniff-2026-11-01.json');
+const output = resolve(
+  process.argv.find((arg) => arg.startsWith('--output='))?.slice('--output='.length) ??
+    'bench/results/signature-sniff-2026-11-01.json',
+);
 await mkdir(resolve('bench/results'), { recursive: true });
 try {
   await readFile(output);
