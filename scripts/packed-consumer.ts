@@ -4,6 +4,7 @@ import { promisify } from 'node:util';
 import { resolve, join } from 'node:path';
 import { chromium } from '@playwright/test';
 import sharp from 'sharp';
+import { createHash } from 'node:crypto';
 const exec = promisify(execFile);
 const previewStrategy = process.env.IMAGEWAY_CONSUMER_PLACEHOLDER ?? 'blurhash';
 if (!['blurhash', 'thumbhash'].includes(previewStrategy))
@@ -88,6 +89,23 @@ for (const name of ['src/imageway-env.d.ts', 'src/imageway.d.ts', 'imageway-env.
   )
     throw new Error('Consumer unexpectedly relies on a generated type file: ' + name);
 }
+await run('node', [
+  '--input-type=module',
+  '-e',
+  `
+  import assert from 'node:assert/strict';
+  import { transform, sniff } from 'svelte-imageway/node';
+  import { normalizeRequest } from 'svelte-imageway/core';
+  const request = normalizeRequest({ key: 'shape', w: 16 });
+  const svg = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="8"><rect width="16" height="8" fill="red"/></svg>');
+  assert.equal(sniff(svg), 'svg');
+  const encoded = await transform(svg, request, 'png', undefined, false);
+  assert.equal(encoded.width, 16);
+  assert.equal(encoded.height, 8);
+  assert.equal(sniff(encoded.data), 'png');
+  await assert.rejects(transform(Buffer.from('<svg><script/></svg>'), request, 'png'), error => error.code === 'SVG');
+`,
+]);
 const readyMs = performance.now() - started;
 const server = spawn(
   'node',
@@ -163,6 +181,12 @@ try {
     const report = {
       measuredAt: new Date().toISOString(),
       archive,
+      archiveSha256: createHash('sha256')
+        .update(await readFile(archive))
+        .digest('hex'),
+      installedSvgValidation: true,
+      readinessNote:
+        'Readiness includes the installed-package SVG conversion/rejection smoke check.',
       packageVersion: JSON.parse(await readFile(installed, 'utf8')).version,
       node: (await exec('node', ['--version'])).stdout.trim(),
       installAndBuildAndTypesMs: readyMs,
