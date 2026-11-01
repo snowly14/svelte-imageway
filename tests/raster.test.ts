@@ -107,3 +107,17 @@ it('checks every AVIF compatible brand and rejects truncated file-type boxes', (
   box.writeUInt32BE(box.length + 4);
   expect(() => rasterFrames(box)).toThrow(/Truncated/);
 });
+
+it('treats only aligned file-type brands as AVIF brands', () => {
+  const box = Buffer.alloc(88);
+  box.writeUInt32BE(box.length);
+  box.write('ftypmif1', 4);
+  box.write('avis', 12); // Minor version, not a brand.
+  box.write('avif', 80);
+  expect(rasterFrames(box)).toBe(1);
+  box.write('mif1', 80);
+  box.write('avif', 17); // Unaligned data is not a compatible brand.
+  expect(() => rasterFrames(box)).toThrow(/still AVIF/);
+  box.writeUInt32BE(17);
+  expect(() => rasterFrames(box)).toThrow(/file-type/);
+});
