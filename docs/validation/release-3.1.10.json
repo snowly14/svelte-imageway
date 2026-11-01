@@ -1,0 +1,120 @@
+{
+  "verifiedAt": "2026-11-01T22:24:25.556Z",
+  "available": true,
+  "version": "3.1.10",
+  "tag": "latest",
+  "sourceCommit": "04b4ec42708517249264f8f1f86c2987419c5c22",
+  "integrity": "sha512-3LzEn7nqjQ+bp4H77RB83AIZRnGwgQmQJu0rUwHI+4iBPG9BtuQgXHrRADM7aZ7iJTc4lWJBdMw1AhAo6xILuw==",
+  "sha256": "20f882132f84ce0a9ffd3b4fa242eb87255e4912237d4b027b54fd1ecb720142",
+  "provenanceSubjectMatches": true,
+  "sigstoreSignatureIndependentlyVerified": false,
+  "deliveryVerifiedAt": "2026-11-01T22:27:11.642376+00:00",
+  "ci": "https://github.com/snowly14/svelte-imageway/actions/runs/41356482936",
+  "prCI": "https://github.com/snowly14/svelte-imageway/actions/runs/41356005129",
+  "releaseWorkflow": "https://github.com/snowly14/svelte-imageway/actions/runs/41356670877",
+  "githubRelease": "https://github.com/snowly14/svelte-imageway/releases/tag/v3.1.10",
+  "unitTests": 343,
+  "allEightSourceCIJobsPassed": true,
+  "archiveBytes": 100955,
+  "githubArchiveAndChecksumBytesMatchRegistry": true,
+  "githubTagMatchesSource": true,
+  "browserCI": {
+    "startTime": "2026-11-01T22:20:29.956Z",
+    "duration": 16516.264,
+    "expected": 21,
+    "skipped": 6,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "registryArchiveConsumers": [
+    {
+      "measuredAt": "2026-11-01T22:25:44.287Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.10.tgz",
+      "archiveSha256": "20f882132f84ce0a9ffd3b4fa242eb87255e4912237d4b027b54fd1ecb720142",
+      "installedSvgValidation": true,
+      "readinessNote": "Readiness includes the installed-package SVG conversion/rejection smoke check.",
+      "packageVersion": "3.1.10",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4919.0375,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "blurhash"
+    },
+    {
+      "measuredAt": "2026-11-01T22:25:49.734Z",
+      "archive": "/Users/gastonhardy/Developer/projects/open-source/svelte-imageway/.local/pack/svelte-imageway-3.1.10.tgz",
+      "archiveSha256": "20f882132f84ce0a9ffd3b4fa242eb87255e4912237d4b027b54fd1ecb720142",
+      "installedSvgValidation": true,
+      "readinessNote": "Readiness includes the installed-package SVG conversion/rejection smoke check.",
+      "packageVersion": "3.1.10",
+      "node": "v26.11.1",
+      "installAndBuildAndTypesMs": 4780.315083,
+      "underTwoMinutes": true,
+      "cacheNote": "Local Bun registry/cache already warm; no network-cold timing claim.",
+      "dimensions": {
+        "width": 640,
+        "height": 427
+      },
+      "dimensionNote": "Browser naturalWidth is density-corrected by srcset/sizes; encoded dimensions are verified separately.",
+      "encoded": {
+        "width": 640,
+        "height": 427,
+        "format": "webp"
+      },
+      "preload": true,
+      "nativePreviewStrategy": "thumbhash"
+    }
+  ],
+  "installedNativeAndSourceChecks": {
+    "installedViteExecutorSourceParity": true,
+    "installedSingleWorkerConcurrentTransforms": true,
+    "installedViteOutputIsolationAndTaskErrorRecovery": true,
+    "installedSparseColourQuantizationBoundaries": 256,
+    "installedWhitePNGCarryParity": true,
+    "installedRuntimeCSSAndCleanDeclarations": true,
+    "installedCanonicalURLReferenceParity": true,
+    "installedURLSourceMatchesRelease": true,
+    "installedSharedBuildSourceIsolation": true,
+    "bytes": 17983,
+    "sha256": "43c6d765406f03968a8f57ce91cbfe5e74179cf7f3abb36398483868ed1c3093",
+    "memoryBytes": 65536,
+    "memoryGrowthRejected": true,
+    "imports": 0,
+    "installedThumbHashEncodeDecodePNGReferenceParity": true,
+    "seededCases": 20,
+    "ownedPixelOutput": true,
+    "runtimeThumbHashDependencyRemoved": true,
+    "runtimeBlurHashDependencyRemoved": true,
+    "installedBlurHashEncodeDecodeReferenceParity": true,
+    "installedReadmeMatchesReleaseSource": true
+  },
+  "installedCompleteDistMatchesFrozenSource": {
+    "fileCount": 159,
+    "manifestSha256": "620f9fa46b9353aaf4b4e03e39238d272cc41da3f6c2b6546cd323542c894ddb"
+  },
+  "installedLegacyEdgeTransition": {
+    "protocol": "Actual verified 3.1.9 Worker module and selected Worker share cache, budget and synthetic source/transform bindings. Both Node revisions equal, but legacy cache misses and new unchanged-policy cache hits. Not a codec, live-cloud or HTTP benchmark.",
+    "oldSourceHash": "c061ac54938305040ab9e005da3a0fc564c3c60bb8a5dcaae48e5f731084c3cf",
+    "oldRevision": "b20ae906366d6af637b09e1d0f745f64638c030dfb49e3f5efab67454b7ad77f",
+    "newRevision": "b20ae906366d6af637b09e1d0f745f64638c030dfb49e3f5efab67454b7ad77f",
+    "legacyKey": "https://worker.example/__imageway_cache/302a62186935f68c4f1023886ae90efb350325f9b49ab3c654f807a1c7f860cb",
+    "currentKey": "https://worker.example/__imageway_cache/a089ac2c3603d8241000abada90eaccc77648a5284222fffa676a70250da4ebf",
+    "oldTransforms": 1,
+    "newTransforms": 1,
+    "entryCount": 2
+  },
+  "consumerLockIntegrityMatchesRegistry": true,
+  "under2000GzipAchieved": false,
+  "buildAndRssLeadershipEstablished": false
+}

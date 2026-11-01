@@ -1,6 +1,6 @@
 # ADR 36: Preserve reviewed Node outputs while invalidating Edge cache policy
 
-Status: selected locally, unpublished. Date: 1 November 2026.
+Status: accepted in 3.1.10. Date: 1 November 2026.
 
 The November changes preserve valid encoded Node outputs: signature checks avoid allocations; SVG uses the same pinned parser lazily; cache lifetimes reject NaN; PNG CRC is mathematically equivalent with exhaustive dimension/reference gates. The changed raster container inspector is called by Edge. No Node codec, quality, geometry, input bound, cache-policy identity, source-content key, worker admission or deadline changed. A complete compiled processing diff against the actual npm 3.1.9 archive is recorded in `bench/results/cache-split-2026-11-01/source-proof.json`. The selected Node/core code is byte-identical to the fresh-encoding control whose 156-image output multiset matches the baseline.
 

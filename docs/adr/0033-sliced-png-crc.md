@@ -1,6 +1,6 @@
 # ADR 33: Slicing-by-four CRC inside the bounded Rust PNG kernel
 
-Status: selected locally, unpublished. Date: 1 November 2026.
+Status: accepted in 3.1.10. Date: 1 November 2026.
 
 The existing server/build Rust kernel creates small uncompressed PNG previews. Its scalar CRC recurrence processes one byte at a time. Four precomputed tables allow four bytes per iteration with the same CRC polynomial and final bytes. This changes no export or public API. The extra three tables consume 3072 fixed data bytes; the module grows from 14838 to 17983 bytes. Initial and maximum memory remain 65536 bytes, with no imports and no consumer Rust toolchain. Browser code still does not load WASM.
 

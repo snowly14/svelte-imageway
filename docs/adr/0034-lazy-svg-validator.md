@@ -1,6 +1,6 @@
 # ADR 34: Load the XML parser on the first SVG
 
-Status: selected locally, unpublished. Date: 1 November 2026.
+Status: accepted in 3.1.10. Date: 1 November 2026.
 
 The synchronous signature/validation API previously imported the Saxes XML parser eagerly, including in photographic build workers. Saxes 6.0.0 exposes a CommonJS main entry. A module-local Node createRequire loads its constructor only when SVG validation reaches the parser, preserving the existing synchronous API and all geometry-only validation. Each validation creates a fresh parser. Missing or broken parser dependencies still fail; no unvalidated SVG is accepted. This Node-only path remains outside browser entry points and does not change Rust build steps.
 

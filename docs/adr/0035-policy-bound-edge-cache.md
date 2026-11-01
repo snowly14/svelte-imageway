@@ -1,6 +1,6 @@
 # ADR 35: Bind Edge cached outputs to their owned security policy
 
-Status: selected locally, unpublished. Date: 1 November 2026.
+Status: accepted in 3.1.10. Date: 1 November 2026.
 
 The portable Worker previously keyed outputs by processing revision and normalized request. A deployment reducing its source-byte, pixel or output-byte limits could still hit an output created under its preceding looser configuration. A regression with a shared cache reproduces a 200 response where the new one-byte output limit should return 413.
 
