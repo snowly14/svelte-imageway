@@ -1,5 +1,13 @@
 # svelte-imageway
 
+## 3.1.10
+
+### Patch Changes
+
+- Reduce bounded Rust PNG CRC CPU with slicing-by-four tables and preserve exact PNG preview bytes. Defer XML parser loading until SVG validation, avoid signature allocations, and slightly trim Image/Picture provider code.
+
+  Bind Edge cached outputs to their complete owned security policy, reject late AVIF sequence brands and invalid NaN cache lifetimes. Preserve only the exactly reviewed Node cache compatibility; legacy Edge entries are invalidated. Cold builds and complete-preview latency still have documented gaps and regressions.
+
 ## 3.1.9
 
 ### Patch Changes

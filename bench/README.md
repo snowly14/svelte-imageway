@@ -1,3 +1,5 @@
+Current November study: [3.1.10](PERF-3.1.10.md) includes Rust PNG controls, exact cache compatibility with policy-bound Edge invalidation, lazy SVG startup, final client sizes, concurrency 1/2/4 and all retained regressions. Raw samples and protocols are linked there. Publication status is tracked in REPORT.md.
+
 # Reproducible package benchmarks
 
 ## Current 3.1.9 component and preview-clone study — 27 October 2026

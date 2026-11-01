@@ -37,5 +37,7 @@
     }
   ],
   "selectedCoreAndNodeCodeMatchesFreshEncodingControl": true,
-  "compiledVersionMatchesRegistryBaseline": true
+  "compiledVersionMatchesRegistryBaseline": true,
+  "candidatePackageVersionAtMeasurement": "3.1.9 (unpublished source snapshot before patch version bump)",
+  "versionBumpProof": "version-bumped-output-parity.json verifies selected 3.1.10 separately with the same compatible Node revision"
 }
