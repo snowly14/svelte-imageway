@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { cpus, totalmem } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { createPNGBytesControl } from './controls/png-crc-js.ts';
+import { createPNGBytesControl as createManualPNGBytesControl } from './controls/png-crc-js-manual.ts';
 import { readFile, writeFile } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { performance } from 'node:perf_hooks';
@@ -36,7 +37,9 @@ const load = async (name) => {
 const control = await load('control'),
   candidate = await load('candidate');
 const jsStarted = performance.now();
-const js = createPNGBytesControl();
+const js = (
+  process.argv.includes('--manual-js') ? createManualPNGBytesControl : createPNGBytesControl
+)();
 setupIncludingArtifactLoadingMs.optimizedJS = performance.now() - jsStarted;
 const optimizedJS = (pixels, w, h) => js(w, h, pixels);
 let state = 1;
@@ -83,6 +86,9 @@ await writeFile(
     'bench/results/native-png-crc-2026-11-01.json',
   JSON.stringify(
     {
+      optimizedJSVariant: process.argv.includes('--manual-js')
+        ? 'manual-byte-words'
+        : 'Buffer.readUInt32LE',
       node: process.version,
       cpu: cpus()[0]?.model,
       memoryBytes: totalmem(),

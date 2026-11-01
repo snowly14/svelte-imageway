@@ -1,0 +1,411 @@
+{
+  "node": "v26.11.1",
+  "cpu": "Apple M4",
+  "memoryBytes": 17179869184,
+  "setupIncludingArtifactLoadingMs": {
+    "control": 8.840167000000001,
+    "candidate": 0.4577499999999972,
+    "optimizedJS": 0.15033400000000086
+  },
+  "wasmSha256": "43c6d765406f03968a8f57ce91cbfe5e74179cf7f3abb36398483868ed1c3093",
+  "parityCases": 2048,
+  "protocol": "All dimensions 1..32 each white/random byte parity. Seven alternating within-process pairs, 15000 calls after 3000 warmups, including input copy and owned output copy. Fixed 64KiB WASM.",
+  "rows": [
+    {
+      "size": 8,
+      "round": 0,
+      "variant": "control",
+      "ns": 888.2416666666662
+    },
+    {
+      "size": 8,
+      "round": 0,
+      "variant": "optimizedJS",
+      "ns": 929.661066666667
+    },
+    {
+      "size": 8,
+      "round": 0,
+      "variant": "candidate",
+      "ns": 469.77773333333255
+    },
+    {
+      "size": 8,
+      "round": 1,
+      "variant": "candidate",
+      "ns": 476.1527999999998
+    },
+    {
+      "size": 8,
+      "round": 1,
+      "variant": "optimizedJS",
+      "ns": 914.0083333333317
+    },
+    {
+      "size": 8,
+      "round": 1,
+      "variant": "control",
+      "ns": 867.1333333333337
+    },
+    {
+      "size": 8,
+      "round": 2,
+      "variant": "control",
+      "ns": 892.9610666666651
+    },
+    {
+      "size": 8,
+      "round": 2,
+      "variant": "optimizedJS",
+      "ns": 923.8721999999997
+    },
+    {
+      "size": 8,
+      "round": 2,
+      "variant": "candidate",
+      "ns": 468.3083333333324
+    },
+    {
+      "size": 8,
+      "round": 3,
+      "variant": "candidate",
+      "ns": 481.4999999999998
+    },
+    {
+      "size": 8,
+      "round": 3,
+      "variant": "optimizedJS",
+      "ns": 913.769400000001
+    },
+    {
+      "size": 8,
+      "round": 3,
+      "variant": "control",
+      "ns": 870.6944666666648
+    },
+    {
+      "size": 8,
+      "round": 4,
+      "variant": "control",
+      "ns": 855.4694666666668
+    },
+    {
+      "size": 8,
+      "round": 4,
+      "variant": "optimizedJS",
+      "ns": 919.1777999999998
+    },
+    {
+      "size": 8,
+      "round": 4,
+      "variant": "candidate",
+      "ns": 480.28613333333396
+    },
+    {
+      "size": 8,
+      "round": 5,
+      "variant": "candidate",
+      "ns": 479.51666666666597
+    },
+    {
+      "size": 8,
+      "round": 5,
+      "variant": "optimizedJS",
+      "ns": 919.5277333333327
+    },
+    {
+      "size": 8,
+      "round": 5,
+      "variant": "control",
+      "ns": 881.2750000000012
+    },
+    {
+      "size": 8,
+      "round": 6,
+      "variant": "control",
+      "ns": 890.1944666666699
+    },
+    {
+      "size": 8,
+      "round": 6,
+      "variant": "optimizedJS",
+      "ns": 910.0749999999987
+    },
+    {
+      "size": 8,
+      "round": 6,
+      "variant": "candidate",
+      "ns": 494.03886666666494
+    },
+    {
+      "size": 16,
+      "round": 0,
+      "variant": "control",
+      "ns": 2796.750000000001
+    },
+    {
+      "size": 16,
+      "round": 0,
+      "variant": "optimizedJS",
+      "ns": 2496.177799999998
+    },
+    {
+      "size": 16,
+      "round": 0,
+      "variant": "candidate",
+      "ns": 1395.5166666666667
+    },
+    {
+      "size": 16,
+      "round": 1,
+      "variant": "candidate",
+      "ns": 1298.2777999999978
+    },
+    {
+      "size": 16,
+      "round": 1,
+      "variant": "optimizedJS",
+      "ns": 2447.8500000000013
+    },
+    {
+      "size": 16,
+      "round": 1,
+      "variant": "control",
+      "ns": 2724.3027333333353
+    },
+    {
+      "size": 16,
+      "round": 2,
+      "variant": "control",
+      "ns": 2723.2416666666645
+    },
+    {
+      "size": 16,
+      "round": 2,
+      "variant": "optimizedJS",
+      "ns": 2450.5972000000006
+    },
+    {
+      "size": 16,
+      "round": 2,
+      "variant": "candidate",
+      "ns": 1293.6666666666724
+    },
+    {
+      "size": 16,
+      "round": 3,
+      "variant": "candidate",
+      "ns": 1302.3222666666622
+    },
+    {
+      "size": 16,
+      "round": 3,
+      "variant": "optimizedJS",
+      "ns": 2447.2638666666626
+    },
+    {
+      "size": 16,
+      "round": 3,
+      "variant": "control",
+      "ns": 2714.172266666666
+    },
+    {
+      "size": 16,
+      "round": 4,
+      "variant": "control",
+      "ns": 2698.5528000000004
+    },
+    {
+      "size": 16,
+      "round": 4,
+      "variant": "optimizedJS",
+      "ns": 2431.0028000000025
+    },
+    {
+      "size": 16,
+      "round": 4,
+      "variant": "candidate",
+      "ns": 1281.299999999995
+    },
+    {
+      "size": 16,
+      "round": 5,
+      "variant": "candidate",
+      "ns": 1284.2666666666673
+    },
+    {
+      "size": 16,
+      "round": 5,
+      "variant": "optimizedJS",
+      "ns": 2415.3028000000027
+    },
+    {
+      "size": 16,
+      "round": 5,
+      "variant": "control",
+      "ns": 2692.547200000005
+    },
+    {
+      "size": 16,
+      "round": 6,
+      "variant": "control",
+      "ns": 2692.144399999999
+    },
+    {
+      "size": 16,
+      "round": 6,
+      "variant": "optimizedJS",
+      "ns": 2398.702800000001
+    },
+    {
+      "size": 16,
+      "round": 6,
+      "variant": "candidate",
+      "ns": 1282.088866666663
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "control",
+      "ns": 9924.863933333336
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "optimizedJS",
+      "ns": 8447.29166666666
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "candidate",
+      "ns": 4486.083333333332
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "candidate",
+      "ns": 4485.455533333334
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "optimizedJS",
+      "ns": 8414.075000000003
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "control",
+      "ns": 9922.547200000008
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "control",
+      "ns": 9970.747200000005
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "optimizedJS",
+      "ns": 8406.280533333333
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "candidate",
+      "ns": 4506.552799999979
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "candidate",
+      "ns": 4491.4860666666755
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "optimizedJS",
+      "ns": 8536.572266666644
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "control",
+      "ns": 9918.31393333332
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "control",
+      "ns": 9963.88606666666
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "optimizedJS",
+      "ns": 8481.652800000029
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "candidate",
+      "ns": 4495.7639333333345
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "candidate",
+      "ns": 4470.37220000002
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "optimizedJS",
+      "ns": 8394.541666666677
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "control",
+      "ns": 9913.283333333311
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "control",
+      "ns": 9957.222200000007
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "optimizedJS",
+      "ns": 8435.866666666667
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "candidate",
+      "ns": 4467.577733333322
+    }
+  ],
+  "summary": [
+    {
+      "size": 8,
+      "control": 881.2750000000012,
+      "candidate": 479.51666666666597
+    },
+    {
+      "size": 16,
+      "control": 2714.172266666666,
+      "candidate": 1293.6666666666724
+    },
+    {
+      "size": 32,
+      "control": 9924.863933333336,
+      "candidate": 4486.083333333332
+    }
+  ],
+  "optimizedJSVariant": "manual-byte-words"
+}
