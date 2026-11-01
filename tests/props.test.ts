@@ -370,3 +370,40 @@ describe('headless and type contract', () => {
     expect(css).toContain('type("image/avif")');
   });
 });
+
+it.each([1, 320, 640, 641, 1920])(
+  'prunes provider formats by the highest selected width (%i)',
+  (width) => {
+    const calls: Array<{ w?: number; format?: string }> = [];
+    const provider: ImageProvider = {
+      name: 'bounded-format',
+      capabilities: {
+        formats: ['avif', 'webp', 'jpeg'],
+        fit: ['inside'],
+        animation: false,
+        signature: false,
+        smartCrop: false,
+        maxWidthByFormat: { avif: 640 },
+      },
+      validate() {},
+      buildUrl(request) {
+        calls.push(request);
+        return `/image?w=${request.w}&format=${request.format}`;
+      },
+    };
+    const widths = [960, 320, 320, 640, 1];
+    const image = getImageProps({
+      src: '/photo.jpg',
+      alt: '',
+      width,
+      provider,
+      formatStrategy: 'picture',
+      config: { widths },
+    });
+    expect(image.sources.some((source) => source.type === 'image/avif')).toBe(width <= 640);
+    expect(calls.filter((call) => call.format === 'avif').every((call) => call.w! <= 640)).toBe(
+      true,
+    );
+    expect(widths).toEqual([960, 320, 320, 640, 1]);
+  },
+);

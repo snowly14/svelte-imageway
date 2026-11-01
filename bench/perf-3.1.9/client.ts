@@ -2,10 +2,14 @@ import { verifyCorpus } from '../lean-preview/corpus.ts';
 import { cp, mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { environment, execute, digest } from '../photographic/common.ts';
-const baseline = resolve('.local/component-3.1.9/baseline/package');
+const customBaseline = process.argv
+  .find((arg) => arg.startsWith('--baseline='))
+  ?.slice('--baseline='.length);
+const baseline = resolve(customBaseline ?? '.local/component-3.1.9/baseline/package');
 if (
+  !customBaseline &&
   digest(await readFile('.local/release-3.1.8/svelte-imageway-3.1.8.tgz')) !==
-  '7d4b09a7140a79204c4b4a77bf8fabecc81c8aecc7d16c09b016ce549efd9480'
+    '7d4b09a7140a79204c4b4a77bf8fabecc81c8aecc7d16c09b016ce549efd9480'
 )
   throw Error('Unexpected baseline archive.');
 const resultDir = resolve(
@@ -76,9 +80,12 @@ for (const scenario of ['Image', 'Picture', 'Both']) {
           {
             complete: rows.length === 42,
             environment: env,
+            baselineRoot: baseline,
+            baselinePropsSha256: digest(await readFile(join(baseline, 'dist/props.js'))),
+            candidatePropsSha256: digest(await readFile('packages/svelte-imageway/dist/props.js')),
             corpus,
             protocol:
-              'Seven alternating fresh-process builds per Image/Picture/Both fixture, actual ordinary import and SSR/hydration entry. Same compiler, published 3.1.8 baseline vs candidate, empty tool cache each time. No timing claim; gzip9 JS and CSS counted separately and summed per emitted file, including Svelte. Image byte/SHA multisets must match; no server WASM in browser. Both fixture detects duplicated CSS/runtime overhead.',
+              'Seven alternating fresh-process builds per Image/Picture/Both fixture, actual ordinary import and SSR/hydration entry. Same compiler, recorded baseline package vs candidate, empty tool cache each time. No timing claim; gzip9 JS and CSS counted separately and summed per emitted file, including Svelte. Image byte/SHA multisets must match; no server WASM in browser. Both fixture detects duplicated CSS/runtime overhead.',
             rows,
           },
           null,

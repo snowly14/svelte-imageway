@@ -123,7 +123,7 @@ export function getImageProps(
                 ['avif', 'webp', 'jpeg', 'png'].includes(v) &&
                 (!config.formats || config.formats.includes(v)) &&
                 (!provider.capabilities.maxWidthByFormat?.[v] ||
-                  Math.max(...widths) <= provider.capabilities.maxWidthByFormat[v]!),
+                  widths.at(-1)! <= provider.capabilities.maxWidthByFormat[v]!),
             );
       const fallbackWidth = width ?? 1920;
       const fallbackFormat =

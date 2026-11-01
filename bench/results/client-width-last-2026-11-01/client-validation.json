@@ -1,0 +1,72 @@
+{
+  "browser": "156.0.8078.4",
+  "protocol": "Six final SSR/client fixtures, strict hydration without recovery, one selected optimized image request, matching image bytes, no JS/console/HTTP errors, useful image loading with JavaScript disabled.",
+  "rows": [
+    {
+      "scenario": "Image",
+      "variant": "before",
+      "images": 1,
+      "pictures": 0,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "withoutJavaScript": true,
+      "errors": []
+    },
+    {
+      "scenario": "Image",
+      "variant": "after",
+      "images": 1,
+      "pictures": 0,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "withoutJavaScript": true,
+      "errors": []
+    },
+    {
+      "scenario": "Picture",
+      "variant": "before",
+      "images": 1,
+      "pictures": 1,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "withoutJavaScript": true,
+      "errors": []
+    },
+    {
+      "scenario": "Picture",
+      "variant": "after",
+      "images": 1,
+      "pictures": 1,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "withoutJavaScript": true,
+      "errors": []
+    },
+    {
+      "scenario": "Both",
+      "variant": "before",
+      "images": 2,
+      "pictures": 1,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "withoutJavaScript": true,
+      "errors": []
+    },
+    {
+      "scenario": "Both",
+      "variant": "after",
+      "images": 2,
+      "pictures": 1,
+      "imageRequests": 1,
+      "imageSha256": "a72260fc4fe8b96082d3608188509d74e58229e11cbe977a4944d6808e1c5994",
+      "hydrated": true,
+      "withoutJavaScript": true,
+      "errors": []
+    }
+  ]
+}
