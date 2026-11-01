@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import sharp from 'sharp';
+import { createHash } from 'node:crypto';
 import { createImageWorker } from '../packages/svelte-imageway/src/lib/edge/worker.js';
 import { ImageBudget } from '../packages/svelte-imageway/src/lib/edge/budget.js';
 import type {
@@ -8,7 +9,11 @@ import type {
   ObjectBody,
   WorkerOptions,
 } from '../packages/svelte-imageway/src/lib/edge/types.js';
-import { signRequest, canonicalQuery } from '../packages/svelte-imageway/src/lib/core/index.js';
+import {
+  signRequest,
+  canonicalQuery,
+  normalizeRequest,
+} from '../packages/svelte-imageway/src/lib/core/index.js';
 
 function storage() {
   const values = new Map<string, unknown>();
@@ -387,4 +392,103 @@ it('rejects a late AVIF sequence brand before invoking the image binding', async
   const response = await f.fetch();
   expect(response.status).toBe(415);
   expect(inspected).toBe(false);
+});
+
+it('does not reuse an output cached under a looser output-byte policy', async () => {
+  const entries = new Map<string, Response>();
+  const cache: CacheLike = {
+    async match(request) {
+      return entries.get(request.url)?.clone();
+    },
+    async put(request, response) {
+      entries.set(request.url, response.clone());
+    },
+  };
+  const loose = await fixture({ cache });
+  expect((await loose.fetch()).status).toBe(200);
+  const strict = await fixture({ cache, config: { maxOutputBytes: 1 } });
+  expect((await strict.fetch()).status).toBe(413);
+  expect(strict.transforms()).toBe(1);
+});
+
+it.each([{ maxInputBytes: 1 }, { maxPixels: 1000 }])(
+  'scopes cached outputs to decoder policy %j',
+  async (config) => {
+    const entries = new Map<string, Response>();
+    const cache: CacheLike = {
+      async match(request) {
+        return entries.get(request.url)?.clone();
+      },
+      async put(request, response) {
+        entries.set(request.url, response.clone());
+      },
+    };
+    const images: NonNullable<EdgeEnv['IMAGES']> = {
+      async info() {
+        return { format: 'image/png', width: 640, height: 400 };
+      },
+      input() {
+        return {
+          transform() {
+            return {
+              async output() {
+                return {
+                  response: () =>
+                    new Response(new Uint8Array([1]), {
+                      headers: { 'Content-Type': 'image/webp' },
+                    }),
+                };
+              },
+            };
+          },
+        };
+      },
+    };
+    const loose = await fixture({ cache, transform: undefined });
+    loose.env.IMAGES = images;
+    expect((await loose.fetch()).status).toBe(200);
+    const strict = await fixture({ cache, config, transform: undefined });
+    strict.env.IMAGES = images;
+    expect((await strict.fetch()).status).toBe(413);
+  },
+);
+
+it('reuses a cached output across worker instances with identical owned policy', async () => {
+  const entries = new Map<string, Response>();
+  const cache: CacheLike = {
+    async match(request) {
+      return entries.get(request.url)?.clone();
+    },
+    async put(request, response) {
+      entries.set(request.url, response.clone());
+    },
+  };
+  const first = await fixture({ cache });
+  expect((await first.fetch()).status).toBe(200);
+  const second = await fixture({ cache });
+  second.env.BUDGET = first.env.BUDGET;
+  const response = await second.fetch();
+  expect(response.status).toBe(200);
+  expect(response.headers.get('x-imageway-cache')).toBe('HIT');
+  expect(second.transforms()).toBe(0);
+});
+
+it('does not reuse legacy Edge cache entries even when a Node revision remains compatible', async () => {
+  const f = await fixture();
+  expect((await f.fetch()).status).toBe(200);
+  const currentKey = [...f.entries.keys()][0]!;
+  const cached = f.entries.get(currentKey)!.clone();
+  const legacyRevision = 'b20ae906366d6af637b09e1d0f745f64638c030dfb49e3f5efab67454b7ad77f';
+  const request = normalizeRequest({ key: 'images/a.png', preset: 'card', format: 'webp' });
+  const identity = createHash('sha256')
+    .update(`${legacyRevision}:${canonicalQuery(request)}`)
+    .digest('hex');
+  const oldKey = `https://worker.example/__imageway_cache/${identity}`;
+  expect(currentKey).not.toBe(oldKey);
+  f.entries.delete(currentKey);
+  f.entries.set(oldKey, cached);
+  const response = await f.fetch();
+  expect(response.status).toBe(200);
+  expect(response.headers.get('x-imageway-cache')).toBe('MISS');
+  expect(f.transforms()).toBe(2);
 });

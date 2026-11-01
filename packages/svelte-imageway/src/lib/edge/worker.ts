@@ -80,6 +80,7 @@ export function createImageWorker(options: WorkerOptions = {}) {
   );
   const metrics = { requests: 0, hits: 0, transforms: 0, bytes: 0, errors: 0 };
   const pending = new Map<string, Promise<Response>>();
+  let cachePolicyFingerprint: Promise<string> | undefined;
   let pipeline: Promise<unknown> = Promise.resolve();
   let queued = 0;
   return {
@@ -182,8 +183,9 @@ export function createImageWorker(options: WorkerOptions = {}) {
         void _sig;
         void _exp;
         void _kid;
+        const policy = await (cachePolicyFingerprint ??= digest(JSON.stringify(config)));
         const identity = await digest(
-          `${PIPELINE_REVISION}:${canonicalQuery({ ...output, format })}`,
+          `${PIPELINE_REVISION}:edge-v2:${policy}:${canonicalQuery({ ...output, format })}`,
         );
         const cacheKey = new Request(`${url.origin}/__imageway_cache/${identity}`);
         const state = async (tags: string[], consume?: 'request' | 'transform') => {
