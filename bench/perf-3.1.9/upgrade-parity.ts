@@ -1,8 +1,12 @@
 import { readFile, readdir, stat, writeFile } from 'node:fs/promises';
 import { join, resolve, relative } from 'node:path';
 import { digest, execute } from '../photographic/common.ts';
-const root = resolve('.local/component-3.1.9/upgrade-selected/round-6');
-const output = resolve('bench/results/perf-3.1.9/upgrade-parity.json');
+const option = (name: string, fallback: string) =>
+  process.argv.find((v) => v.startsWith(`--${name}=`))?.slice(name.length + 3) ?? fallback;
+const root = resolve(option('root', '.local/component-3.1.9/upgrade-selected/round-6'));
+const baseline = option('baseline', '.local/component-3.1.9/baseline/package');
+const candidate = option('candidate', '.local/component-3.1.9/approved/package');
+const output = resolve(option('output', 'bench/results/perf-3.1.9/upgrade-parity.json'));
 try {
   await readFile(output);
   throw Error('Preserve existing parity output.');
@@ -34,8 +38,8 @@ const cacheRoot = join(root, 'node_modules/.cache');
 const beforeCache = await tree(cacheRoot, true);
 const rows = [];
 for (const [variant, pkg] of [
-  ['baseline', '.local/component-3.1.9/baseline/package'],
-  ['selected', '.local/component-3.1.9/approved/package'],
+  ['baseline', baseline],
+  ['selected', candidate],
 ] as const) {
   await execute(
     'node',
@@ -65,6 +69,4 @@ await writeFile(
     2,
   ) + '\n',
 );
-console.log(
-  'All output files and cache entries match across the actual 3.1.8-to-3.1.9 transition.',
-);
+console.log('All output files and cache entries match across the selected package transition.');

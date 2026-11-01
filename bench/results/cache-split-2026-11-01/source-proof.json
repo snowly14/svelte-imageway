@@ -1,0 +1,41 @@
+{
+  "baselineVersion": "3.1.9",
+  "baselineRegistryArchiveSha256": "aab59f66aacc19e46dfec9476bc05228daa4a56558c7220fe6efeaf1bf094fdc",
+  "reviewedImplementation": "12aa23a1e998811a0e5e7d70960fa6375af644312e826115ab19b54970cbcc94",
+  "nodeCacheRevision": "b20ae906366d6af637b09e1d0f745f64638c030dfb49e3f5efab67454b7ad77f",
+  "edgeCacheNamespace": "edge-v2 with owned-policy fingerprint",
+  "compiledProcessingDifferences": [
+    {
+      "path": "core/raster.js",
+      "beforeSha256": "4f124b032a4a53c682bd964ec3ff7d0ead22569c9a316d8f91aa45bfba20db89",
+      "afterSha256": "010182369a084e6d7640bbd180762ee6457b3cc8b744337a9a5079879a38e854"
+    },
+    {
+      "path": "node/blurhash.wasm",
+      "beforeSha256": "1d90bc558b23dac70acaba533251d5eb779e5c40e8a5cbd641cd9c39d68758de",
+      "afterSha256": "43c6d765406f03968a8f57ce91cbfe5e74179cf7f3abb36398483868ed1c3093"
+    },
+    {
+      "path": "node/cache.js",
+      "beforeSha256": "5815226968520e4cff36319422be3047f97b4c09fe65bfd82db82a2778cdd87e",
+      "afterSha256": "a86072d7f0d893b4f3e543e839575543bd3226db4241f61d70af53517fc2a0de"
+    },
+    {
+      "path": "node/pipeline.js",
+      "beforeSha256": "85af5d627c5abb154035ab0052778e80c5733abfa1166c8bd14cbb2c397d40bd",
+      "afterSha256": "91bac10c77df61b00f1c8fec72617b0f65f068b9770d699bad49fec2e7384eaa"
+    },
+    {
+      "path": "node/svg.js",
+      "beforeSha256": "0919e0679fb511ee58313ece7028e788459fcad9bd379958afa0e720695fd369",
+      "afterSha256": "ca563530453a49a0b5fa13921d223cb68bcc22ba128e63f7040aeefb03f66895"
+    },
+    {
+      "path": "edge/worker.js",
+      "beforeSha256": "c061ac54938305040ab9e005da3a0fc564c3c60bb8a5dcaae48e5f731084c3cf",
+      "afterSha256": "8192fc0df9fe2c2dc50433afd4b14f0bf96e2368e6fbdf64aabe281105810290"
+    }
+  ],
+  "selectedCoreAndNodeCodeMatchesFreshEncodingControl": true,
+  "compiledVersionMatchesRegistryBaseline": true
+}

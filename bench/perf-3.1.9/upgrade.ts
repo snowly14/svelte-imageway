@@ -3,7 +3,15 @@ import { join, resolve } from 'node:path';
 import { digest, environment, execute, names, summary } from '../photographic/common.ts';
 import { verifyCorpus } from '../lean-preview/corpus.ts';
 
-const directory = resolve('bench/results/perf-3.1.9');
+const directory = resolve(
+  process.argv.find((v) => v.startsWith('--output-dir='))?.slice('--output-dir='.length) ??
+    'bench/results/perf-3.1.9',
+);
+await mkdir(directory, { recursive: true });
+const customBaseline = process.argv
+  .find((v) => v.startsWith('--baseline='))
+  ?.slice('--baseline='.length);
+const baseline = resolve(customBaseline ?? '.local/component-3.1.9/baseline/package');
 const study = process.argv.find((v) => v.startsWith('--study='))?.slice(8) ?? 'upgrade';
 if (!/^[a-z-]+$/.test(study)) throw Error('Invalid study label.');
 const candidate = resolve(
@@ -19,8 +27,9 @@ try {
   if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
 }
 if (
+  !customBaseline &&
   digest(await readFile('.local/release-3.1.8/svelte-imageway-3.1.8.tgz')) !==
-  '7d4b09a7140a79204c4b4a77bf8fabecc81c8aecc7d16c09b016ce549efd9480'
+    '7d4b09a7140a79204c4b4a77bf8fabecc81c8aecc7d16c09b016ce549efd9480'
 )
   throw Error('Unexpected baseline.');
 const inputs = await verifyCorpus();
@@ -74,17 +83,18 @@ async function snapshot(directory: string): Promise<{ count: number; fingerprint
   return { count: files.length, fingerprint: digest(JSON.stringify(files)) };
 }
 if (expectReuse) {
-  const previous = await readFile(
-    '.local/component-3.1.9/baseline/package/dist/version.js',
-    'utf8',
-  );
+  const previous = await readFile(join(baseline, 'dist/version.js'), 'utf8');
   const actual = await readFile(join(candidate, 'dist/version.js'), 'utf8');
   const revision = /PIPELINE_REVISION\s*=\s*["']([a-f0-9]+)/;
   if (!revision.exec(previous) || revision.exec(previous)?.[1] !== revision.exec(actual)?.[1])
     throw Error('Candidate does not use baseline revision.');
-  const selected = await readFile('.local/component-3.1.9/candidate/package/dist/node/pipeline.js');
-  if (digest(selected) !== digest(await readFile(join(candidate, 'dist/node/pipeline.js'))))
-    throw Error('Candidate processing bytes differ from selected.');
+  if (!customBaseline) {
+    const selected = await readFile(
+      '.local/component-3.1.9/candidate/package/dist/node/pipeline.js',
+    );
+    if (digest(selected) !== digest(await readFile(join(candidate, 'dist/node/pipeline.js'))))
+      throw Error('Candidate processing bytes differ from selected.');
+  }
 }
 
 for (let round = 0; round < 7; round++) {
@@ -99,9 +109,7 @@ for (let round = 0; round < 7; round++) {
   await rm(join(root, 'node_modules/.cache'), { recursive: true, force: true });
   let expected: string | undefined;
   for (const stage of stages) {
-    const pkg = resolve(
-      stage.startsWith('baseline') ? '.local/component-3.1.9/baseline/package' : candidate,
-    );
+    const pkg = resolve(stage.startsWith('baseline') ? baseline : candidate);
     const started = performance.now();
     const { stdout } = await execute(
       'node',
@@ -149,10 +157,11 @@ for (let round = 0; round < 7; round++) {
           complete: rows.length === 28,
           environment: env,
           candidateRoot: candidate,
+          baselineRoot: baseline,
           expectReuse,
           inputs,
           protocol:
-            'Seven sequential upgrade trials, each uses a fresh isolated Vite root and shared on-disk caches within its four fresh Node processes: 3.1.8 cold, 3.1.8 warm, selected 3.1.9 pipeline first build without clearing caches, then selected pipeline warm. All 24 Kodak photos use ordinary imports with default multi-format settings. Image-byte/SHA multisets must match. Collect actual output filenames and cache entry counts after each build. OS caches unflushed, serial suites; this measures a version transition, not normal warm performance or cloud deployment.',
+            'Seven sequential upgrade trials, each uses a fresh isolated Vite root and shared on-disk caches within its four fresh Node processes: recorded baseline cold, recorded baseline warm, selected candidate pipeline first build without clearing caches, then selected pipeline warm. All 24 Kodak photos use ordinary imports with default multi-format settings. Image-byte/SHA multisets must match. Collect actual output filenames and cache entry counts after each build. OS caches unflushed, serial suites; this measures a version transition, not normal warm performance or cloud deployment.',
           rows,
         },
         null,
