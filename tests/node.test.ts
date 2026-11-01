@@ -815,3 +815,16 @@ it('does not reuse representations under a stricter output policy', async () => 
     /byte limit/,
   );
 });
+
+it.each([
+  ['tiff', [73, 73, 42, 0]],
+  ['tiff', [77, 77, 0, 42]],
+  ['png', [137, 80, 78, 71, 13, 10, 26, 10]],
+  ['jxl', [255, 10]],
+] as const)('recognizes complete %s magic without reading outside a view', (format, magic) => {
+  const padded = Uint8Array.from([0, ...magic, 0]);
+  expect(sniff(padded.subarray(1, 1 + magic.length))).toBe(format);
+  for (let length = 0; length < magic.length; length++) {
+    expect(() => sniff(padded.subarray(1, 1 + length))).toThrow(/signature/);
+  }
+});

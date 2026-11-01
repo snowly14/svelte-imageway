@@ -1,0 +1,909 @@
+{
+  "node": "v26.11.1",
+  "arch": "arm64",
+  "platform": "darwin",
+  "protocol": "Seven alternating within-process pairs per signature, 30000 calls after 5000-call warmup per implementation. Synthetic signatures only; not encode/build or real-file throughput. Current compiled implementation versus frozen shipped 3.1.9.",
+  "checked": 4218,
+  "rows": [
+    {
+      "kind": "jpeg",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 52.27223333333342
+    },
+    {
+      "kind": "jpeg",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 51.97916666666676
+    },
+    {
+      "kind": "jpeg",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 49.96526666666673
+    },
+    {
+      "kind": "jpeg",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 49.26666666666696
+    },
+    {
+      "kind": "jpeg",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 49.7305666666667
+    },
+    {
+      "kind": "jpeg",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 46.33333333333335
+    },
+    {
+      "kind": "jpeg",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 50.49583333333345
+    },
+    {
+      "kind": "jpeg",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 46.815266666666375
+    },
+    {
+      "kind": "jpeg",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 52.14583333333328
+    },
+    {
+      "kind": "jpeg",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 39.375000000000185
+    },
+    {
+      "kind": "jpeg",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 37.82363333333336
+    },
+    {
+      "kind": "jpeg",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 35.96666666666645
+    },
+    {
+      "kind": "jpeg",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 36.52776666666663
+    },
+    {
+      "kind": "jpeg",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 37.86526666666674
+    },
+    {
+      "kind": "png",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 135.32636666666633
+    },
+    {
+      "kind": "png",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 83.27083333333385
+    },
+    {
+      "kind": "png",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 82.81109999999975
+    },
+    {
+      "kind": "png",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 127.35000000000032
+    },
+    {
+      "kind": "png",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 126.33750000000059
+    },
+    {
+      "kind": "png",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 85.43333333333294
+    },
+    {
+      "kind": "png",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 78.75416666666695
+    },
+    {
+      "kind": "png",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 126.70136666666659
+    },
+    {
+      "kind": "png",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 125.51390000000045
+    },
+    {
+      "kind": "png",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 79.83056666666737
+    },
+    {
+      "kind": "png",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 78.36109999999981
+    },
+    {
+      "kind": "png",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 127.77636666666676
+    },
+    {
+      "kind": "png",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 125.61806666666654
+    },
+    {
+      "kind": "png",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 78.03473333333291
+    },
+    {
+      "kind": "gif",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 172.77499999999958
+    },
+    {
+      "kind": "gif",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 127.29166666666649
+    },
+    {
+      "kind": "gif",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 121.09026666666693
+    },
+    {
+      "kind": "gif",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 164.35136666666685
+    },
+    {
+      "kind": "gif",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 166.6527666666667
+    },
+    {
+      "kind": "gif",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 118.23333333333323
+    },
+    {
+      "kind": "gif",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 120.88749999999968
+    },
+    {
+      "kind": "gif",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 170.69306666666648
+    },
+    {
+      "kind": "gif",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 178.04859999999962
+    },
+    {
+      "kind": "gif",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 127.7486000000001
+    },
+    {
+      "kind": "gif",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 127.6708333333327
+    },
+    {
+      "kind": "gif",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 165.3013666666671
+    },
+    {
+      "kind": "gif",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 166.2527666666667
+    },
+    {
+      "kind": "gif",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 122.47780000000053
+    },
+    {
+      "kind": "webp",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 296.1375000000004
+    },
+    {
+      "kind": "webp",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 251.44030000000063
+    },
+    {
+      "kind": "webp",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 244.58053333333396
+    },
+    {
+      "kind": "webp",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 277.46386666666655
+    },
+    {
+      "kind": "webp",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 273.3014000000006
+    },
+    {
+      "kind": "webp",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 230.0611333333336
+    },
+    {
+      "kind": "webp",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 227.63613333333222
+    },
+    {
+      "kind": "webp",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 273.8486333333337
+    },
+    {
+      "kind": "webp",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 285.7625000000004
+    },
+    {
+      "kind": "webp",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 224.64443333333293
+    },
+    {
+      "kind": "webp",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 223.5610999999987
+    },
+    {
+      "kind": "webp",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 270.88056666666677
+    },
+    {
+      "kind": "webp",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 272.8805333333317
+    },
+    {
+      "kind": "webp",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 221.58889999999855
+    },
+    {
+      "kind": "heif",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 361.80140000000165
+    },
+    {
+      "kind": "heif",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 313.75416666666825
+    },
+    {
+      "kind": "heif",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 290.33053333333214
+    },
+    {
+      "kind": "heif",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 336.3208333333338
+    },
+    {
+      "kind": "heif",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 337.43750000000057
+    },
+    {
+      "kind": "heif",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 288.04306666666736
+    },
+    {
+      "kind": "heif",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 291.1611000000012
+    },
+    {
+      "kind": "heif",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 336.65833333333427
+    },
+    {
+      "kind": "heif",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 343.11943333333375
+    },
+    {
+      "kind": "heif",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 289.20140000000174
+    },
+    {
+      "kind": "heif",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 292.430566666665
+    },
+    {
+      "kind": "heif",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 335.32083333333463
+    },
+    {
+      "kind": "heif",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 331.22640000000087
+    },
+    {
+      "kind": "heif",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 296.14719999999954
+    },
+    {
+      "kind": "tiffLE",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 287.9861333333338
+    },
+    {
+      "kind": "tiffLE",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 199.695833333332
+    },
+    {
+      "kind": "tiffLE",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 167.6430666666685
+    },
+    {
+      "kind": "tiffLE",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 281.05969999999917
+    },
+    {
+      "kind": "tiffLE",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 281.95276666666587
+    },
+    {
+      "kind": "tiffLE",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 162.73609999999886
+    },
+    {
+      "kind": "tiffLE",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 163.90136666666422
+    },
+    {
+      "kind": "tiffLE",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 275.6486333333328
+    },
+    {
+      "kind": "tiffLE",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 277.961099999997
+    },
+    {
+      "kind": "tiffLE",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 158.6708333333339
+    },
+    {
+      "kind": "tiffLE",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 155.11666666666696
+    },
+    {
+      "kind": "tiffLE",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 274.45000000000164
+    },
+    {
+      "kind": "tiffLE",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 268.01250000000135
+    },
+    {
+      "kind": "tiffLE",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 159.94719999999916
+    },
+    {
+      "kind": "tiffBE",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 273.5889000000005
+    },
+    {
+      "kind": "tiffBE",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 195.37083333333385
+    },
+    {
+      "kind": "tiffBE",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 160.6611333333338
+    },
+    {
+      "kind": "tiffBE",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 276.50000000000244
+    },
+    {
+      "kind": "tiffBE",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 279.8889000000031
+    },
+    {
+      "kind": "tiffBE",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 154.95833333333545
+    },
+    {
+      "kind": "tiffBE",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 158.89583333333044
+    },
+    {
+      "kind": "tiffBE",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 277.59306666666816
+    },
+    {
+      "kind": "tiffBE",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 271.2819333333338
+    },
+    {
+      "kind": "tiffBE",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 160.64446666666754
+    },
+    {
+      "kind": "tiffBE",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 164.74026666666833
+    },
+    {
+      "kind": "tiffBE",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 280.3389000000001
+    },
+    {
+      "kind": "tiffBE",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 279.9041666666654
+    },
+    {
+      "kind": "tiffBE",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 164.65973333333372
+    },
+    {
+      "kind": "jxl",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 354.34999999999945
+    },
+    {
+      "kind": "jxl",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 171.64306666666488
+    },
+    {
+      "kind": "jxl",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 169.70556666666803
+    },
+    {
+      "kind": "jxl",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 359.4347000000009
+    },
+    {
+      "kind": "jxl",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 352.4499999999989
+    },
+    {
+      "kind": "jxl",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 160.39860000000013
+    },
+    {
+      "kind": "jxl",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 155.01113333333478
+    },
+    {
+      "kind": "jxl",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 347.5152666666645
+    },
+    {
+      "kind": "jxl",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 346.9471999999996
+    },
+    {
+      "kind": "jxl",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 162.66389999999924
+    },
+    {
+      "kind": "jxl",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 165.35279999999756
+    },
+    {
+      "kind": "jxl",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 346.48750000000064
+    },
+    {
+      "kind": "jxl",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 360.327799999997
+    },
+    {
+      "kind": "jxl",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 161.9874999999979
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 514.9680333333322
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 299.1125000000011
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 300.60140000000126
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 501.70000000000147
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 506.85136666666796
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 296.7833333333298
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 298.9986000000007
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 497.6069333333309
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 489.32083333333287
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 293.5333333333346
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 296.9221999999983
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 492.0638666666681
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 502.55696666666836
+    },
+    {
+      "kind": "jxlContainer",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 298.12500000000074
+    },
+    {
+      "kind": "svg",
+      "round": 0,
+      "variant": "control",
+      "nsPerCall": 1621.4569333333354
+    },
+    {
+      "kind": "svg",
+      "round": 0,
+      "variant": "candidate",
+      "nsPerCall": 1321.0208333333335
+    },
+    {
+      "kind": "svg",
+      "round": 1,
+      "variant": "candidate",
+      "nsPerCall": 1305.9222000000016
+    },
+    {
+      "kind": "svg",
+      "round": 1,
+      "variant": "control",
+      "nsPerCall": 1499.6944333333279
+    },
+    {
+      "kind": "svg",
+      "round": 2,
+      "variant": "control",
+      "nsPerCall": 1505.9805666666687
+    },
+    {
+      "kind": "svg",
+      "round": 2,
+      "variant": "candidate",
+      "nsPerCall": 1293.6013999999964
+    },
+    {
+      "kind": "svg",
+      "round": 3,
+      "variant": "candidate",
+      "nsPerCall": 1258.6514000000002
+    },
+    {
+      "kind": "svg",
+      "round": 3,
+      "variant": "control",
+      "nsPerCall": 1488.6805333333314
+    },
+    {
+      "kind": "svg",
+      "round": 4,
+      "variant": "control",
+      "nsPerCall": 1531.6985999999968
+    },
+    {
+      "kind": "svg",
+      "round": 4,
+      "variant": "candidate",
+      "nsPerCall": 1263.062500000001
+    },
+    {
+      "kind": "svg",
+      "round": 5,
+      "variant": "candidate",
+      "nsPerCall": 1269.618033333336
+    },
+    {
+      "kind": "svg",
+      "round": 5,
+      "variant": "control",
+      "nsPerCall": 1457.1444333333297
+    },
+    {
+      "kind": "svg",
+      "round": 6,
+      "variant": "control",
+      "nsPerCall": 1456.812500000001
+    },
+    {
+      "kind": "svg",
+      "round": 6,
+      "variant": "candidate",
+      "nsPerCall": 1293.8444333333337
+    }
+  ],
+  "summary": [
+    {
+      "kind": "jpeg",
+      "control": 49.26666666666696,
+      "candidate": 46.33333333333335
+    },
+    {
+      "kind": "png",
+      "control": 126.70136666666659,
+      "candidate": 79.83056666666737
+    },
+    {
+      "kind": "gif",
+      "control": 166.6527666666667,
+      "candidate": 122.47780000000053
+    },
+    {
+      "kind": "webp",
+      "control": 273.8486333333337,
+      "candidate": 227.63613333333222
+    },
+    {
+      "kind": "heif",
+      "control": 336.65833333333427,
+      "candidate": 291.1611000000012
+    },
+    {
+      "kind": "tiffLE",
+      "control": 277.961099999997,
+      "candidate": 162.73609999999886
+    },
+    {
+      "kind": "tiffBE",
+      "control": 277.59306666666816,
+      "candidate": 160.6611333333338
+    },
+    {
+      "kind": "jxl",
+      "control": 352.4499999999989,
+      "candidate": 162.66389999999924
+    },
+    {
+      "kind": "jxlContainer",
+      "control": 501.70000000000147,
+      "candidate": 298.12500000000074
+    },
+    {
+      "kind": "svg",
+      "control": 1499.6944333333279,
+      "candidate": 1293.6013999999964
+    }
+  ],
+  "cpu": "Apple M4",
+  "logicalCpus": 10,
+  "memoryBytes": 17179869184,
+  "osRelease": "27.0.0",
+  "sourceSha256": {
+    "control": "85af5d627c5abb154035ab0052778e80c5733abfa1166c8bd14cbb2c397d40bd",
+    "candidate": "91bac10c77df61b00f1c8fec72617b0f65f068b9770d699bad49fec2e7384eaa"
+  }
+}

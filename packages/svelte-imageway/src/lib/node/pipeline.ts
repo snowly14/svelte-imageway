@@ -5,6 +5,7 @@ import { ImagewayError, invariant } from '../core/errors.js';
 import type { ImageConfig, NormalizedRequest, OutputFormat } from '../core/types.js';
 
 let factory: typeof Sharp | undefined;
+const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 export type InputFormat = 'jpeg' | 'png' | 'gif' | 'webp' | 'heif' | 'tiff' | 'jxl' | 'svg';
 /** Load Sharp only on a Node/build transformation path. */
 export async function loadSharp(input?: InputFormat): Promise<typeof Sharp> {
@@ -31,7 +32,7 @@ export async function loadSharp(input?: InputFormat): Promise<typeof Sharp> {
 export function sniff(data: Uint8Array): InputFormat {
   const b = Buffer.from(data.buffer, data.byteOffset, data.byteLength);
   if (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return 'jpeg';
-  if (b.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return 'png';
+  if (b.subarray(0, 8).equals(pngSignature)) return 'png';
   if (/^GIF8[79]a$/.test(b.toString('ascii', 0, 6))) return 'gif';
   if (b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP') return 'webp';
   if (
@@ -39,9 +40,13 @@ export function sniff(data: Uint8Array): InputFormat {
     /(avif|avis|heic|heix|mif1)/.test(b.toString('ascii', 8, 32))
   )
     return 'heif';
-  if (['49492a00', '4d4d002a'].includes(b.subarray(0, 4).toString('hex'))) return 'tiff';
   if (
-    b.subarray(0, 2).toString('hex') === 'ff0a' ||
+    (b[0] === 73 && b[1] === 73 && b[2] === 42 && b[3] === 0) ||
+    (b[0] === 77 && b[1] === 77 && b[2] === 0 && b[3] === 42)
+  )
+    return 'tiff';
+  if (
+    (b[0] === 255 && b[1] === 10) ||
     b.subarray(0, 12).toString('hex') === '0000000c4a584c200d0a870a'
   )
     return 'jxl';
