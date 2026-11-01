@@ -1,0 +1,9 @@
+{
+  "initializationMs": 2.1983749999999986,
+  "firstBatchMs": 123.61979099999999,
+  "perOperationMs": 4.97678298611111,
+  "checksum": 311763,
+  "digest": "e2ba658c516bb5932c9066d9fdfbd6855b82d977b647353ff98edecf32a2c847",
+  "peakRssBytes": 137166848,
+  "node": "v26.11.1"
+}

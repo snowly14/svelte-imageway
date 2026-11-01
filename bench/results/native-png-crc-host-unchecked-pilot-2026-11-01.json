@@ -1,0 +1,401 @@
+{
+  "parityCases": 2048,
+  "protocol": "All dimensions 1..32 each white/random byte parity. Seven alternating within-process pairs, 15000 calls after 3000 warmups, including input copy and owned output copy. Fixed 64KiB WASM.",
+  "rows": [
+    {
+      "size": 8,
+      "round": 0,
+      "variant": "control",
+      "ns": 856.3055999999999
+    },
+    {
+      "size": 8,
+      "round": 0,
+      "variant": "optimizedJS",
+      "ns": 900.5416666666672
+    },
+    {
+      "size": 8,
+      "round": 0,
+      "variant": "candidate",
+      "ns": 479.9389333333333
+    },
+    {
+      "size": 8,
+      "round": 1,
+      "variant": "candidate",
+      "ns": 490.161066666667
+    },
+    {
+      "size": 8,
+      "round": 1,
+      "variant": "optimizedJS",
+      "ns": 935.4194000000006
+    },
+    {
+      "size": 8,
+      "round": 1,
+      "variant": "control",
+      "ns": 854.8194666666669
+    },
+    {
+      "size": 8,
+      "round": 2,
+      "variant": "control",
+      "ns": 849.4278000000008
+    },
+    {
+      "size": 8,
+      "round": 2,
+      "variant": "optimizedJS",
+      "ns": 901.3694666666652
+    },
+    {
+      "size": 8,
+      "round": 2,
+      "variant": "candidate",
+      "ns": 477.322266666666
+    },
+    {
+      "size": 8,
+      "round": 3,
+      "variant": "candidate",
+      "ns": 470.8971999999998
+    },
+    {
+      "size": 8,
+      "round": 3,
+      "variant": "optimizedJS",
+      "ns": 899.2444666666662
+    },
+    {
+      "size": 8,
+      "round": 3,
+      "variant": "control",
+      "ns": 865.2833333333319
+    },
+    {
+      "size": 8,
+      "round": 4,
+      "variant": "control",
+      "ns": 845.9694666666678
+    },
+    {
+      "size": 8,
+      "round": 4,
+      "variant": "optimizedJS",
+      "ns": 901.0110666666682
+    },
+    {
+      "size": 8,
+      "round": 4,
+      "variant": "candidate",
+      "ns": 473.8528000000012
+    },
+    {
+      "size": 8,
+      "round": 5,
+      "variant": "candidate",
+      "ns": 466.24166666666724
+    },
+    {
+      "size": 8,
+      "round": 5,
+      "variant": "optimizedJS",
+      "ns": 896.5194666666662
+    },
+    {
+      "size": 8,
+      "round": 5,
+      "variant": "control",
+      "ns": 849.5305333333324
+    },
+    {
+      "size": 8,
+      "round": 6,
+      "variant": "control",
+      "ns": 850.5222666666668
+    },
+    {
+      "size": 8,
+      "round": 6,
+      "variant": "optimizedJS",
+      "ns": 889.8138666666681
+    },
+    {
+      "size": 8,
+      "round": 6,
+      "variant": "candidate",
+      "ns": 474.32220000000217
+    },
+    {
+      "size": 16,
+      "round": 0,
+      "variant": "control",
+      "ns": 2750.991666666664
+    },
+    {
+      "size": 16,
+      "round": 0,
+      "variant": "optimizedJS",
+      "ns": 2419.5777333333353
+    },
+    {
+      "size": 16,
+      "round": 0,
+      "variant": "candidate",
+      "ns": 1289.6500000000021
+    },
+    {
+      "size": 16,
+      "round": 1,
+      "variant": "candidate",
+      "ns": 1323.5694666666707
+    },
+    {
+      "size": 16,
+      "round": 1,
+      "variant": "optimizedJS",
+      "ns": 2429.9888666666598
+    },
+    {
+      "size": 16,
+      "round": 1,
+      "variant": "control",
+      "ns": 2708.936066666668
+    },
+    {
+      "size": 16,
+      "round": 2,
+      "variant": "control",
+      "ns": 2723.7666666666732
+    },
+    {
+      "size": 16,
+      "round": 2,
+      "variant": "optimizedJS",
+      "ns": 2420.3805333333326
+    },
+    {
+      "size": 16,
+      "round": 2,
+      "variant": "candidate",
+      "ns": 1296.208333333334
+    },
+    {
+      "size": 16,
+      "round": 3,
+      "variant": "candidate",
+      "ns": 1311.1805333333298
+    },
+    {
+      "size": 16,
+      "round": 3,
+      "variant": "optimizedJS",
+      "ns": 2430.894466666662
+    },
+    {
+      "size": 16,
+      "round": 3,
+      "variant": "control",
+      "ns": 2702.730533333336
+    },
+    {
+      "size": 16,
+      "round": 4,
+      "variant": "control",
+      "ns": 2689.8611333333292
+    },
+    {
+      "size": 16,
+      "round": 4,
+      "variant": "optimizedJS",
+      "ns": 2452.7416666666722
+    },
+    {
+      "size": 16,
+      "round": 4,
+      "variant": "candidate",
+      "ns": 1323.8333333333305
+    },
+    {
+      "size": 16,
+      "round": 5,
+      "variant": "candidate",
+      "ns": 1334.4805999999987
+    },
+    {
+      "size": 16,
+      "round": 5,
+      "variant": "optimizedJS",
+      "ns": 2415.5444666666654
+    },
+    {
+      "size": 16,
+      "round": 5,
+      "variant": "control",
+      "ns": 2687.2166666666694
+    },
+    {
+      "size": 16,
+      "round": 6,
+      "variant": "control",
+      "ns": 2764.949999999999
+    },
+    {
+      "size": 16,
+      "round": 6,
+      "variant": "optimizedJS",
+      "ns": 2427.077799999991
+    },
+    {
+      "size": 16,
+      "round": 6,
+      "variant": "candidate",
+      "ns": 1314.45553333333
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "control",
+      "ns": 9944.055533333343
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "optimizedJS",
+      "ns": 8473.79446666667
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "candidate",
+      "ns": 4502.741666666665
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "candidate",
+      "ns": 4516.277733333331
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "optimizedJS",
+      "ns": 8443.561133333333
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "control",
+      "ns": 9925.219466666673
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "control",
+      "ns": 10018.433333333329
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "optimizedJS",
+      "ns": 8478.841666666676
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "candidate",
+      "ns": 4538.355600000007
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "candidate",
+      "ns": 4540.00833333333
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "optimizedJS",
+      "ns": 8492.511066666642
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "control",
+      "ns": 9956.027800000023
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "control",
+      "ns": 9967.863933333349
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "optimizedJS",
+      "ns": 8480.91666666666
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "candidate",
+      "ns": 4529.51386666667
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "candidate",
+      "ns": 4563.744399999996
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "optimizedJS",
+      "ns": 8451.1528
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "control",
+      "ns": 9910.461133333349
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "control",
+      "ns": 9953.102799999971
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "optimizedJS",
+      "ns": 8479.469466666646
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "candidate",
+      "ns": 4503.847266666678
+    }
+  ],
+  "summary": [
+    {
+      "size": 8,
+      "control": 850.5222666666668,
+      "candidate": 474.32220000000217
+    },
+    {
+      "size": 16,
+      "control": 2708.936066666668,
+      "candidate": 1314.45553333333
+    },
+    {
+      "size": 32,
+      "control": 9953.102799999971,
+      "candidate": 4529.51386666667
+    }
+  ]
+}

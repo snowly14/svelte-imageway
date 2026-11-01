@@ -1,0 +1,411 @@
+{
+  "node": "v26.11.1",
+  "cpu": "Apple M4",
+  "memoryBytes": 17179869184,
+  "wasmSha256": "43c6d765406f03968a8f57ce91cbfe5e74179cf7f3abb36398483868ed1c3093",
+  "parityCases": 2048,
+  "protocol": "All dimensions 1..32 each white/random byte parity. Seven alternating within-process pairs, 15000 calls after 3000 warmups, including input copy and owned output copy. Fixed 64KiB WASM.",
+  "rows": [
+    {
+      "size": 8,
+      "round": 0,
+      "variant": "control",
+      "ns": 883.3333333333334
+    },
+    {
+      "size": 8,
+      "round": 0,
+      "variant": "optimizedJS",
+      "ns": 959.1499999999996
+    },
+    {
+      "size": 8,
+      "round": 0,
+      "variant": "candidate",
+      "ns": 488.8139333333337
+    },
+    {
+      "size": 8,
+      "round": 1,
+      "variant": "candidate",
+      "ns": 476.43333333333163
+    },
+    {
+      "size": 8,
+      "round": 1,
+      "variant": "optimizedJS",
+      "ns": 924.4000000000009
+    },
+    {
+      "size": 8,
+      "round": 1,
+      "variant": "control",
+      "ns": 851.8555333333325
+    },
+    {
+      "size": 8,
+      "round": 2,
+      "variant": "control",
+      "ns": 872.6972666666672
+    },
+    {
+      "size": 8,
+      "round": 2,
+      "variant": "optimizedJS",
+      "ns": 915.3111333333337
+    },
+    {
+      "size": 8,
+      "round": 2,
+      "variant": "candidate",
+      "ns": 476.5805333333333
+    },
+    {
+      "size": 8,
+      "round": 3,
+      "variant": "candidate",
+      "ns": 481.1527333333326
+    },
+    {
+      "size": 8,
+      "round": 3,
+      "variant": "optimizedJS",
+      "ns": 924.105533333333
+    },
+    {
+      "size": 8,
+      "round": 3,
+      "variant": "control",
+      "ns": 849.7972000000003
+    },
+    {
+      "size": 8,
+      "round": 4,
+      "variant": "control",
+      "ns": 861.0888666666673
+    },
+    {
+      "size": 8,
+      "round": 4,
+      "variant": "optimizedJS",
+      "ns": 944.202733333331
+    },
+    {
+      "size": 8,
+      "round": 4,
+      "variant": "candidate",
+      "ns": 485.4805333333312
+    },
+    {
+      "size": 8,
+      "round": 5,
+      "variant": "candidate",
+      "ns": 502.48613333333196
+    },
+    {
+      "size": 8,
+      "round": 5,
+      "variant": "optimizedJS",
+      "ns": 904.1138666666673
+    },
+    {
+      "size": 8,
+      "round": 5,
+      "variant": "control",
+      "ns": 849.6250000000032
+    },
+    {
+      "size": 8,
+      "round": 6,
+      "variant": "control",
+      "ns": 864.0305999999971
+    },
+    {
+      "size": 8,
+      "round": 6,
+      "variant": "optimizedJS",
+      "ns": 917.755600000002
+    },
+    {
+      "size": 8,
+      "round": 6,
+      "variant": "candidate",
+      "ns": 485.76666666666597
+    },
+    {
+      "size": 16,
+      "round": 0,
+      "variant": "control",
+      "ns": 2749.897200000002
+    },
+    {
+      "size": 16,
+      "round": 0,
+      "variant": "optimizedJS",
+      "ns": 2445.8833333333323
+    },
+    {
+      "size": 16,
+      "round": 0,
+      "variant": "candidate",
+      "ns": 1312.7860666666645
+    },
+    {
+      "size": 16,
+      "round": 1,
+      "variant": "candidate",
+      "ns": 1306.9138666666695
+    },
+    {
+      "size": 16,
+      "round": 1,
+      "variant": "optimizedJS",
+      "ns": 2489.1444000000015
+    },
+    {
+      "size": 16,
+      "round": 1,
+      "variant": "control",
+      "ns": 2725.611133333329
+    },
+    {
+      "size": 16,
+      "round": 2,
+      "variant": "control",
+      "ns": 2725.4249999999956
+    },
+    {
+      "size": 16,
+      "round": 2,
+      "variant": "optimizedJS",
+      "ns": 2513.180533333336
+    },
+    {
+      "size": 16,
+      "round": 2,
+      "variant": "candidate",
+      "ns": 1344.9972666666706
+    },
+    {
+      "size": 16,
+      "round": 3,
+      "variant": "candidate",
+      "ns": 1318.0333333333388
+    },
+    {
+      "size": 16,
+      "round": 3,
+      "variant": "optimizedJS",
+      "ns": 2521.6444666666725
+    },
+    {
+      "size": 16,
+      "round": 3,
+      "variant": "control",
+      "ns": 2787.952800000001
+    },
+    {
+      "size": 16,
+      "round": 4,
+      "variant": "control",
+      "ns": 2753.833333333334
+    },
+    {
+      "size": 16,
+      "round": 4,
+      "variant": "optimizedJS",
+      "ns": 2525.9056000000023
+    },
+    {
+      "size": 16,
+      "round": 4,
+      "variant": "candidate",
+      "ns": 1337.5805333333346
+    },
+    {
+      "size": 16,
+      "round": 5,
+      "variant": "candidate",
+      "ns": 1302.2138666666706
+    },
+    {
+      "size": 16,
+      "round": 5,
+      "variant": "optimizedJS",
+      "ns": 2436.00553333334
+    },
+    {
+      "size": 16,
+      "round": 5,
+      "variant": "control",
+      "ns": 2740.4194666666626
+    },
+    {
+      "size": 16,
+      "round": 6,
+      "variant": "control",
+      "ns": 2785.719466666668
+    },
+    {
+      "size": 16,
+      "round": 6,
+      "variant": "optimizedJS",
+      "ns": 2453.736133333329
+    },
+    {
+      "size": 16,
+      "round": 6,
+      "variant": "candidate",
+      "ns": 1300.724999999996
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "control",
+      "ns": 9969.500000000002
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "optimizedJS",
+      "ns": 8425.60280000001
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "candidate",
+      "ns": 4535.869466666661
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "candidate",
+      "ns": 4550.986133333345
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "optimizedJS",
+      "ns": 8577.552733333338
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "control",
+      "ns": 9943.019466666663
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "control",
+      "ns": 9982.41386666667
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "optimizedJS",
+      "ns": 8436.538866666644
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "candidate",
+      "ns": 4589.055599999998
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "candidate",
+      "ns": 4586.233333333348
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "optimizedJS",
+      "ns": 8461.3472
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "control",
+      "ns": 9966.738933333334
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "control",
+      "ns": 10044.63613333331
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "optimizedJS",
+      "ns": 8568.158333333335
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "candidate",
+      "ns": 4519.01940000001
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "candidate",
+      "ns": 4549.077800000002
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "optimizedJS",
+      "ns": 8442.758333333344
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "control",
+      "ns": 9998.088933333323
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "control",
+      "ns": 9986.016666666666
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "optimizedJS",
+      "ns": 8486.22780000002
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "candidate",
+      "ns": 4564.527733333337
+    }
+  ],
+  "summary": [
+    {
+      "size": 8,
+      "control": 861.0888666666673,
+      "candidate": 485.4805333333312
+    },
+    {
+      "size": 16,
+      "control": 2749.897200000002,
+      "candidate": 1312.7860666666645
+    },
+    {
+      "size": 32,
+      "control": 9982.41386666667,
+      "candidate": 4550.986133333345
+    }
+  ],
+  "setupIncludingArtifactLoadingMs": {
+    "control": 10.363999999999997,
+    "candidate": 0.2999579999999966,
+    "optimizedJS": 0.16175000000000495
+  },
+  "setupNote": "Control setup includes git-show artifact retrieval; candidate setup includes filesystem retrieval. Not a compiler/startup comparison."
+}

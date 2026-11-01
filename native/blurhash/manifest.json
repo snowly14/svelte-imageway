@@ -1,8 +1,8 @@
 {
   "compiler": "rustc 1.99.0",
   "target": "wasm32-unknown-unknown",
-  "sourceSha256": "4295a390e75443faf7c37710d4def8c64670f7b2e77ba384d3f59c7193b08461",
-  "wasmSha256": "1d90bc558b23dac70acaba533251d5eb779e5c40e8a5cbd641cd9c39d68758de",
-  "bytes": 14838,
+  "sourceSha256": "693618a1ec60196006e1c8e14cb9b46121a9aaa69650965073c99fc650fa80b2",
+  "wasmSha256": "43c6d765406f03968a8f57ce91cbfe5e74179cf7f3abb36398483868ed1c3093",
+  "bytes": 17983,
   "memoryBytes": 65536
 }

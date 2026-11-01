@@ -61,14 +61,10 @@ it('keeps row-deferred Adler-32/CRC PNG bytes exact at dimension and carry extre
   const pixels = new Uint8Array(k.memory.buffer, k.pixels_ptr(), 4096),
     png = new Uint8Array(k.memory.buffer, k.png_ptr(), 4400);
   let state = 1;
-  for (const [w, h] of [
-    [1, 1],
-    [1, 32],
-    [32, 1],
-    [32, 32],
-    [7, 13],
-    [16, 16],
-  ])
+  for (const [w, h] of Array.from({ length: 1024 }, (_, index) => [
+    (index % 32) + 1,
+    Math.floor(index / 32) + 1,
+  ]))
     for (const mode of ['zero', 'white', 'random']) {
       const input = Uint8Array.from({ length: w! * h! * 4 }, () => {
         state = (Math.imul(state, 1664525) + 1013904223) >>> 0;

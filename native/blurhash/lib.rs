@@ -152,6 +152,20 @@ const fn crc_table() -> [u32; 256] {
     table
 }
 static CRC: [u32; 256] = crc_table();
+const fn next_crc(previous: [u32; 256]) -> [u32; 256] {
+    let base = crc_table();
+    let mut table = [0; 256];
+    let mut i = 0;
+    while i < 256 {
+        table[i] = (previous[i] >> 8) ^ base[(previous[i] & 255) as usize];
+        i += 1;
+    }
+    table
+}
+// Slicing-by-four CRC tables remain inside the fixed 64 KiB module memory.
+static CRC2: [u32; 256] = next_crc(crc_table());
+static CRC3: [u32; 256] = next_crc(next_crc(crc_table()));
+static CRC4: [u32; 256] = next_crc(next_crc(next_crc(crc_table())));
 unsafe fn png_u32(offset: usize, value: u32) {
     for i in 0..4 {
         PNG[offset + i] = (value >> (24 - i * 8)) as u8;
@@ -215,8 +229,20 @@ pub extern "C" fn rgba_png(width: u32, height: u32) -> u32 {
         let length = offset + 16;
         for (start, end) in [(12, 29), (37, 41 + idat)] {
             let mut c = !0_u32;
-            for i in start..end {
+            // Four reads fit inside the already bounded PNG chunk; tail bytes
+            // retain the scalar recurrence. No unaligned pointer access is used.
+            let mut i = start;
+            while i + 4 <= end {
+                let word = u32::from_le_bytes([PNG[i], PNG[i+1], PNG[i+2], PNG[i+3]]) ^ c;
+                c = CRC4[(word & 255) as usize]
+                  ^ CRC3[((word >> 8) & 255) as usize]
+                  ^ CRC2[((word >> 16) & 255) as usize]
+                  ^ CRC[(word >> 24) as usize];
+                i += 4;
+            }
+            while i < end {
                 c = (c >> 8) ^ CRC[((c ^ PNG[i] as u32) & 255) as usize];
+                i += 1;
             }
             png_u32(end, !c);
         }
