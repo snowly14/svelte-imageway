@@ -356,3 +356,35 @@ it('passes transparent backgrounds to the native binding as a valid CSS color', 
   expect(response.status).toBe(200);
   expect(background).toBe('transparent');
 });
+
+it('rejects a late AVIF sequence brand before invoking the image binding', async () => {
+  const f = await fixture({ transform: undefined });
+  const bytes = Buffer.alloc(84);
+  bytes.writeUInt32BE(bytes.length);
+  bytes.write('ftypavif', 4);
+  bytes.write('avis', 80);
+  f.env.ORIGINALS = {
+    async get() {
+      return {
+        size: bytes.length,
+        body: new Response(bytes).body!,
+        arrayBuffer: async () =>
+          bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer,
+      };
+    },
+    async put() {},
+  };
+  let inspected = false;
+  f.env.IMAGES = {
+    async info() {
+      inspected = true;
+      return { format: 'image/avif', width: 640, height: 400 };
+    },
+    input() {
+      throw new Error('Sequence must not reach the encoder.');
+    },
+  };
+  const response = await f.fetch();
+  expect(response.status).toBe(415);
+  expect(inspected).toBe(false);
+});
