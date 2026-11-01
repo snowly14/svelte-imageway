@@ -1,0 +1,12 @@
+diff --git a/packages/svelte-imageway/src/lib/node/pipeline.ts b/packages/svelte-imageway/src/lib/node/pipeline.ts
+index 63b6351..97e07cb 100644
+--- a/packages/svelte-imageway/src/lib/node/pipeline.ts
++++ b/packages/svelte-imageway/src/lib/node/pipeline.ts
+@@ -166,7 +166,6 @@ export async function transform(
+     const { r, g, b } = stats.dominant;
+     const dominantColor = `#${[r, g, b].map((v) => v.toString(16).padStart(2, '0')).join('')}`;
+     const lqip = await preview!
+-      .clone()
+       .resize({ width: 12, height: 12, fit: 'inside' })
+       .webp({ quality: 20 })
+       .toBuffer();
