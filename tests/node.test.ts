@@ -828,3 +828,22 @@ it.each([
     expect(() => sniff(padded.subarray(1, 1 + length))).toThrow(/signature/);
   }
 });
+
+it.each([NaN, 0, -1])('does not retain invalid cache lifetimes (%s)', async (ttl) => {
+  const memory = new MemoryCache(4);
+  const values = new ValueCache<string>(4);
+  memory.set('same', Buffer.from('ok'), Infinity);
+  values.set('same', 'ok', 2, Infinity);
+  expect(memory.get('same')).toEqual(Buffer.from('ok'));
+  expect(values.get('same')).toBe('ok');
+  memory.set('same', Buffer.from('no'), ttl);
+  values.set('same', 'no', 2, ttl);
+  expect(memory.get('same')).toBeUndefined();
+  expect(values.get('same')).toBeUndefined();
+  expect(memory.bytes).toBe(0);
+  expect(values.bytes).toBe(0);
+  const disk = new DiskCache(join(directory, `invalid-ttl-${String(ttl)}`), 4);
+  await disk.set('same', Buffer.from('ok'));
+  expect(await disk.get('same', Infinity)).toEqual(Buffer.from('ok'));
+  expect(await disk.get('same', ttl)).toBeUndefined();
+});

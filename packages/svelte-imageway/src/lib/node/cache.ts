@@ -28,7 +28,7 @@ export class ValueCache<T> {
   }
   set(key: string, value: T, bytes: number, ttlMs: number): void {
     this.delete(key);
-    if (!Number.isSafeInteger(bytes) || bytes <= 0 || bytes > this.maxBytes || ttlMs <= 0) return;
+    if (!Number.isSafeInteger(bytes) || bytes <= 0 || bytes > this.maxBytes || !(ttlMs > 0)) return;
     while (this.values.size >= 4096 || this.size + bytes > this.maxBytes)
       this.delete(this.values.keys().next().value!);
     this.values.set(key, { value, bytes, expires: this.now() + ttlMs });
@@ -65,7 +65,7 @@ export class MemoryCache {
   }
   set(key: string, bytes: Buffer, ttlMs: number): void {
     this.delete(key);
-    if (bytes.length === 0 || bytes.length > this.maxBytes || ttlMs <= 0) return;
+    if (bytes.length === 0 || bytes.length > this.maxBytes || !(ttlMs > 0)) return;
     while (this.values.size >= 4096 || this.size + bytes.length > this.maxBytes)
       this.delete(this.values.keys().next().value!);
     this.values.set(key, { bytes: Buffer.from(bytes), expires: this.now() + ttlMs });
@@ -146,7 +146,7 @@ export class DiskCache {
     try {
       const path = this.path(key);
       const info = await stat(path);
-      if (info.size > this.maxBytes || ttlMs <= 0 || Date.now() - info.mtimeMs >= ttlMs) {
+      if (info.size > this.maxBytes || !(ttlMs > 0) || Date.now() - info.mtimeMs >= ttlMs) {
         await this.delete(key);
         return;
       }
