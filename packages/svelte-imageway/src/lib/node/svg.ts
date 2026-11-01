@@ -1,4 +1,6 @@
-import { SaxesParser } from 'saxes';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+let Parser: typeof import('saxes').SaxesParser | undefined;
 import { ImagewayError, invariant } from '../core/errors.js';
 const tags = new Set([
   'svg',
@@ -70,7 +72,8 @@ export function validateSvg(text: string): void {
   );
   let nodes = 0,
     depth = 0;
-  const parser = new SaxesParser({ xmlns: false });
+  Parser ??= (require('saxes') as typeof import('saxes')).SaxesParser;
+  const parser = new Parser({ xmlns: false });
   const reject = () => {
     throw new ImagewayError('SVG', 'Only well-formed geometry-only SVG is accepted.', 415);
   };

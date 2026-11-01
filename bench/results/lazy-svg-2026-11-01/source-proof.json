@@ -1,0 +1,14 @@
+{
+  "before": {
+    "dist/node/svg.js": "0919e0679fb511ee58313ece7028e788459fcad9bd379958afa0e720695fd369",
+    "dist/node/pipeline.js": "91bac10c77df61b00f1c8fec72617b0f65f068b9770d699bad49fec2e7384eaa",
+    "dist/node/blurhash.wasm": "43c6d765406f03968a8f57ce91cbfe5e74179cf7f3abb36398483868ed1c3093",
+    "dist/version.js": "fa4765f020aa21d135d777fcb066752b5398c1ede1fbb8ebfccf56fbaf947188"
+  },
+  "after": {
+    "dist/node/svg.js": "ca563530453a49a0b5fa13921d223cb68bcc22ba128e63f7040aeefb03f66895",
+    "dist/node/pipeline.js": "91bac10c77df61b00f1c8fec72617b0f65f068b9770d699bad49fec2e7384eaa",
+    "dist/node/blurhash.wasm": "43c6d765406f03968a8f57ce91cbfe5e74179cf7f3abb36398483868ed1c3093",
+    "dist/version.js": "35dbfabbc3de2d04081f42ac4fc196d3e8e57ae6b9e1341c41c4575100b137c2"
+  }
+}

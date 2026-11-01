@@ -1,0 +1,7 @@
+{
+  "importMs": 1.2116249999999997,
+  "firstSVGMs": 1.7562080000000009,
+  "importAndFirstSVGMs": 2.9678330000000006,
+  "warmValidationUs": 6.280625000000001,
+  "node": "v26.11.1"
+}
