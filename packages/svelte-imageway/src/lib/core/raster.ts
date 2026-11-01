@@ -90,13 +90,23 @@ export function rasterFrames(bytes: Uint8Array): number {
     invariant(p === length, 'RASTER', 'Truncated WebP chunk.', 415);
     return Math.max(1, frames);
   }
-  if (length >= 16 && ascii(4, 8) === 'ftyp' && ascii(8, 64).includes('avif')) {
-    invariant(
-      !ascii(8, 64).includes('avis'),
-      'FRAMES',
-      'AVIF sequences need an explicit platform frame limit; unsupported in this Worker.',
-      415,
-    );
+  if (length >= 8 && ascii(4, 8) === 'ftyp') {
+    const size = view.getUint32(0);
+    invariant(size >= 16 && size % 4 === 0, 'RASTER', 'Invalid AVIF file-type box.', 415);
+    range(0, size);
+    let still = false;
+    for (let offset = 8; offset < size; offset += 4) {
+      if (offset === 12) continue; // Minor version is not a compatible brand.
+      const brand = ascii(offset, offset + 4);
+      invariant(
+        brand !== 'avis',
+        'FRAMES',
+        'AVIF sequences need an explicit platform frame limit; unsupported in this Worker.',
+        415,
+      );
+      if (brand === 'avif') still = true;
+    }
+    invariant(still, 'RASTER', 'Worker accepts still AVIF only.', 415);
     return 1;
   }
   invariant(

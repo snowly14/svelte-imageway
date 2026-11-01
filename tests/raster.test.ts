@@ -66,8 +66,9 @@ it('bounds declared and actual APNG frames before a native decoder', () => {
 });
 it('rejects AVIF sequences and WebP/GIF structural bombs', () => {
   const avif = Buffer.alloc(32);
-  avif.write('ftyp', 4);
-  avif.write('avifavis', 8);
+  avif.writeUInt32BE(avif.length);
+  avif.write('ftypavif', 4);
+  avif.write('avis', 16);
   expect(() => rasterFrames(avif)).toThrow(/sequences/);
   const gif = Buffer.from([
     71,
@@ -93,4 +94,16 @@ it('rejects AVIF sequences and WebP/GIF structural bombs', () => {
   expect(() => rasterFrames(webp)).toThrow(/frames/);
   webp.writeUInt32LE(1, 4);
   expect(() => rasterFrames(webp)).toThrow(/size/);
+});
+
+it('checks every AVIF compatible brand and rejects truncated file-type boxes', () => {
+  const box = Buffer.alloc(84);
+  box.writeUInt32BE(box.length);
+  box.write('ftypavif', 4);
+  box.write('avis', 80);
+  expect(() => rasterFrames(box)).toThrow(/sequences/);
+  box.write('mif1', 80);
+  expect(rasterFrames(box)).toBe(1);
+  box.writeUInt32BE(box.length + 4);
+  expect(() => rasterFrames(box)).toThrow(/Truncated/);
 });
