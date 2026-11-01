@@ -97,14 +97,14 @@ export function rasterFrames(bytes: Uint8Array): number {
     let still = false;
     for (let offset = 8; offset < size; offset += 4) {
       if (offset === 12) continue; // Minor version is not a compatible brand.
-      const brand = ascii(offset, offset + 4);
+      const brand = view.getUint32(offset);
       invariant(
-        brand !== 'avis',
+        brand !== 0x61766973,
         'FRAMES',
         'AVIF sequences need an explicit platform frame limit; unsupported in this Worker.',
         415,
       );
-      if (brand === 'avif') still = true;
+      if (brand === 0x61766966) still = true;
     }
     invariant(still, 'RASTER', 'Worker accepts still AVIF only.', 415);
     return 1;

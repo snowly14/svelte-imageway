@@ -96,13 +96,13 @@ it('rejects AVIF sequences and WebP/GIF structural bombs', () => {
   expect(() => rasterFrames(webp)).toThrow(/size/);
 });
 
-it('checks every AVIF compatible brand and rejects truncated file-type boxes', () => {
-  const box = Buffer.alloc(84);
+it.each([84, 4096, 65536])('checks every AVIF brand in a %i-byte file-type box', (size) => {
+  const box = Buffer.alloc(size);
   box.writeUInt32BE(box.length);
   box.write('ftypavif', 4);
-  box.write('avis', 80);
+  box.write('avis', size - 4);
   expect(() => rasterFrames(box)).toThrow(/sequences/);
-  box.write('mif1', 80);
+  box.write('mif1', size - 4);
   expect(rasterFrames(box)).toBe(1);
   box.writeUInt32BE(box.length + 4);
   expect(() => rasterFrames(box)).toThrow(/Truncated/);

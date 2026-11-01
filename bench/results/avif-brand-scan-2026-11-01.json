@@ -1,0 +1,300 @@
+{
+  "node": "v26.11.1",
+  "protocol": "Seven alternating in-process pairs, synthetic declared file-type boxes. Both functions include boundary checks. No decode or overall build claim. Control from acb9370, assert cost included.",
+  "rows": [
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "control",
+      "iterations": 62500,
+      "nsPerCall": 1463.5320000000002
+    },
+    {
+      "size": 32,
+      "round": 0,
+      "variant": "candidate",
+      "iterations": 62500,
+      "nsPerCall": 791.576
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "candidate",
+      "iterations": 62500,
+      "nsPerCall": 774.8299999999999
+    },
+    {
+      "size": 32,
+      "round": 1,
+      "variant": "control",
+      "iterations": 62500,
+      "nsPerCall": 1414.4426720000006
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "control",
+      "iterations": 62500,
+      "nsPerCall": 1405.2886720000006
+    },
+    {
+      "size": 32,
+      "round": 2,
+      "variant": "candidate",
+      "iterations": 62500,
+      "nsPerCall": 755.7666719999997
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "candidate",
+      "iterations": 62500,
+      "nsPerCall": 788.2200000000003
+    },
+    {
+      "size": 32,
+      "round": 3,
+      "variant": "control",
+      "iterations": 62500,
+      "nsPerCall": 1436.4180000000006
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "control",
+      "iterations": 62500,
+      "nsPerCall": 1443.7106719999992
+    },
+    {
+      "size": 32,
+      "round": 4,
+      "variant": "candidate",
+      "iterations": 62500,
+      "nsPerCall": 778.6466559999989
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "candidate",
+      "iterations": 62500,
+      "nsPerCall": 768.0186720000002
+    },
+    {
+      "size": 32,
+      "round": 5,
+      "variant": "control",
+      "iterations": 62500,
+      "nsPerCall": 1415.629327999999
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "control",
+      "iterations": 62500,
+      "nsPerCall": 1422.7933279999997
+    },
+    {
+      "size": 32,
+      "round": 6,
+      "variant": "candidate",
+      "iterations": 62500,
+      "nsPerCall": 761.735999999999
+    },
+    {
+      "size": 4096,
+      "round": 0,
+      "variant": "control",
+      "iterations": 488,
+      "nsPerCall": 133524.84631147562
+    },
+    {
+      "size": 4096,
+      "round": 0,
+      "variant": "candidate",
+      "iterations": 488,
+      "nsPerCall": 5559.17008196709
+    },
+    {
+      "size": 4096,
+      "round": 1,
+      "variant": "candidate",
+      "iterations": 488,
+      "nsPerCall": 3779.7131147544114
+    },
+    {
+      "size": 4096,
+      "round": 1,
+      "variant": "control",
+      "iterations": 488,
+      "nsPerCall": 128406.42213114728
+    },
+    {
+      "size": 4096,
+      "round": 2,
+      "variant": "control",
+      "iterations": 488,
+      "nsPerCall": 128647.45491803295
+    },
+    {
+      "size": 4096,
+      "round": 2,
+      "variant": "candidate",
+      "iterations": 488,
+      "nsPerCall": 1636.5266393440609
+    },
+    {
+      "size": 4096,
+      "round": 3,
+      "variant": "candidate",
+      "iterations": 488,
+      "nsPerCall": 1570.0143442622864
+    },
+    {
+      "size": 4096,
+      "round": 3,
+      "variant": "control",
+      "iterations": 488,
+      "nsPerCall": 125070.78278688547
+    },
+    {
+      "size": 4096,
+      "round": 4,
+      "variant": "control",
+      "iterations": 488,
+      "nsPerCall": 125093.57991803251
+    },
+    {
+      "size": 4096,
+      "round": 4,
+      "variant": "candidate",
+      "iterations": 488,
+      "nsPerCall": 1556.4364754100955
+    },
+    {
+      "size": 4096,
+      "round": 5,
+      "variant": "candidate",
+      "iterations": 488,
+      "nsPerCall": 1554.6454918034005
+    },
+    {
+      "size": 4096,
+      "round": 5,
+      "variant": "control",
+      "iterations": 488,
+      "nsPerCall": 124066.59836065568
+    },
+    {
+      "size": 4096,
+      "round": 6,
+      "variant": "control",
+      "iterations": 488,
+      "nsPerCall": 125201.50204918014
+    },
+    {
+      "size": 4096,
+      "round": 6,
+      "variant": "candidate",
+      "iterations": 488,
+      "nsPerCall": 1577.1844262298011
+    },
+    {
+      "size": 65536,
+      "round": 0,
+      "variant": "control",
+      "iterations": 100,
+      "nsPerCall": 2012454.1700000009
+    },
+    {
+      "size": 65536,
+      "round": 0,
+      "variant": "candidate",
+      "iterations": 100,
+      "nsPerCall": 13831.249999998363
+    },
+    {
+      "size": 65536,
+      "round": 1,
+      "variant": "candidate",
+      "iterations": 100,
+      "nsPerCall": 14028.330000001006
+    },
+    {
+      "size": 65536,
+      "round": 1,
+      "variant": "control",
+      "iterations": 100,
+      "nsPerCall": 2011185.4199999995
+    },
+    {
+      "size": 65536,
+      "round": 2,
+      "variant": "control",
+      "iterations": 100,
+      "nsPerCall": 2006647.499999999
+    },
+    {
+      "size": 65536,
+      "round": 2,
+      "variant": "candidate",
+      "iterations": 100,
+      "nsPerCall": 13575.419999997392
+    },
+    {
+      "size": 65536,
+      "round": 3,
+      "variant": "candidate",
+      "iterations": 100,
+      "nsPerCall": 13784.58000000137
+    },
+    {
+      "size": 65536,
+      "round": 3,
+      "variant": "control",
+      "iterations": 100,
+      "nsPerCall": 2025442.499999999
+    },
+    {
+      "size": 65536,
+      "round": 4,
+      "variant": "control",
+      "iterations": 100,
+      "nsPerCall": 2019246.6700000025
+    },
+    {
+      "size": 65536,
+      "round": 4,
+      "variant": "candidate",
+      "iterations": 100,
+      "nsPerCall": 13693.750000002185
+    },
+    {
+      "size": 65536,
+      "round": 5,
+      "variant": "candidate",
+      "iterations": 100,
+      "nsPerCall": 13594.590000002427
+    },
+    {
+      "size": 65536,
+      "round": 5,
+      "variant": "control",
+      "iterations": 100,
+      "nsPerCall": 2048376.6700000025
+    },
+    {
+      "size": 65536,
+      "round": 6,
+      "variant": "control",
+      "iterations": 100,
+      "nsPerCall": 2048884.1699999967
+    },
+    {
+      "size": 65536,
+      "round": 6,
+      "variant": "candidate",
+      "iterations": 100,
+      "nsPerCall": 14055.83000000206
+    }
+  ]
+}
